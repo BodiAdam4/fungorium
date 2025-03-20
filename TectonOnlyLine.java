@@ -5,10 +5,12 @@ import javax.sound.sampled.Line;
  */
 public class TectonOnlyLine extends Tecton{
     /**
-     * Gombafonál csatlakoztatása a tektonhoz, viszont ellenőrzi, hogy már létezik kapcsolata bármilyen gombafonallal. Ha igen akkor ellenőrzi, hogy az új kapcsolódó fonal megegyező azonosítóval rendelkezik, és csak akkor engedélyezi.
-
-     * @param line
-     * @return
+     * Gombafonál csatlakoztatása a tektonhoz, viszont ellenőrzi, 
+     * hogy már létezik kapcsolata bármilyen gombafonallal.
+     * Ha igen akkor ellenőrzi, hogy az új kapcsolódó fonal 
+     * megegyező azonosítóval rendelkezik, és csak akkor engedélyezi.
+     * @param line A hozzáadandó gombafonal
+     * @return Visszatér egy boolean-el, hogy sikerült-e hozzáadni a fonalat.
      */
     boolean addLine(Line line){
         Logger.FunctionStart(this, "addLine", new Object[]{line});

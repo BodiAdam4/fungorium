@@ -6,6 +6,8 @@ import javax.sound.sampled.Line;
 public class TectonTime extends Tecton{
     /**
      * Gombafonál csatlakoztatása a tektonhoz.
+     * @param line A hozzáadandó gombafonal
+     * @return Visszatér egy boolean-el annak függvényében, hogy sikerült-e a fonalat hozzáadni.
      */
     boolean addLine(Line line){
         Logger.FunctionStart(this, "addLine", new Object[]{line});

@@ -55,9 +55,9 @@ public class Tecton {
     }
 
     /**
-     * Gombafonál csatlakoztatása a tektonhoz. A visszatérési érték a csatlakoztatás sikerességéről küld visszajelzést.
-     * @param line
-     * @return
+     * Gombafonál csatlakoztatása a tektonhoz. 
+     * @param line A hozzáadandó fonal.
+     * @return A visszatérési érték a csatlakoztatás sikerességéről küld visszajelzést.
      */
     boolean addLine(Line line){
         Logger.FunctionStart(this, "addLine", new Object[]{line});
@@ -67,7 +67,7 @@ public class Tecton {
     }
     /**
      * Gombafonal leválasztása a tektonról.
-     * @param toRemove
+     * @param toRemove A leválasztandó fonal.
      */
     void removeLine(Line toRemove){
         Logger.FunctionStart(this, "removeLine");
@@ -76,9 +76,9 @@ public class Tecton {
         return;
     }
     /**
-     * Gombatest növesztése a tektonon. Ha effekt vagy egyéb indok miatt nem tud ott gomba létesülni, akkor false értéket ad vissza.
-     * @param id
-     * @return
+     * Gombatest növesztése a tektonon. 
+     * @param id A hozzá adandó gombatest id - je.
+     * @return Ha effekt vagy egyéb indok miatt nem tud ott gomba létesülni, akkor false értéket ad vissza.
      */
     boolean addMushroom(int id){
         Logger.FunctionStart(this, "addMushroom", new Object[]{id});
@@ -99,7 +99,7 @@ public class Tecton {
     }
     /**
       * A függvény segítségével lekérdezhető, hogy a tektonon van-e gombatest 
-      * @return
+      * @return Visszaadja, hogy van-e a tektonon gombatest.
       */
     boolean hasBody(){
         Logger.FunctionStart(this, "hasBody");

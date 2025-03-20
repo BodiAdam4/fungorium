@@ -4,23 +4,21 @@
 public class TectonInfertile {
     /**
      * Mivel ezen a típusú tektonon nem tud gombatest nőni, ezért mindig false értékkel tér vissza, ezzel meggátolva a növesztést.
-     * @param id
-     * @return
+     * @param id A hozzáadandó gombatest id-je.
+     * @return Mindig false
      */
     boolean addMushroom(int id){
         Logger.FunctionStart(this, "addMushroom", new Object[]{id});
-        //TODO
         Logger.FunctionEnd();
-        return true;
+        return false;
     }
     /**
      * Mivel a tektonon nem képes gombatest nőni, ezért számolás nélkül false értékkel tér vissza.
-     * @return
+     * @return Mindig false
      */
     boolean hasBody(){
         Logger.FunctionStart(this, "hasBody");
-        //TODO
         Logger.FunctionEnd();
-        return true;
+        return false;
     }
 }
