@@ -4,7 +4,7 @@ public class Mushroom{
     private  int sporeCount;        //A gomba spórarekeszében lévő spórák száma
     private int id;                 //A gomba egyedi azonosítója
     private int level;              //A gomba szintje
-    //private Tecton myTecton;
+    //private Tecton myTecton;      //A tekton, ahol a gombatest áll éppen
 
 
     //Public fields

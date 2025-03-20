@@ -8,7 +8,8 @@ public class Skeleton {
 
 
     /**
-     * Prompts the user with a question and reads their input from the console.
+     * Kérdést tesz fel a felhasználónak, és visszaadja a választ.
+     * Konzolról olvas be egy sort, és visszaadja a választ.
      *
      * @param question The question to display to the user.
      * @return The user's input as a string.
@@ -20,6 +21,7 @@ public class Skeleton {
 
     }
 
+    //Entry point of the program
     public static void main(String[] args) {
 
         //The given test cases
