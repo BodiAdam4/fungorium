@@ -49,7 +49,9 @@ public class Tecton {
     private int y;
 
     public Tecton(){
-        spores = new SporaContainer();
+        Logger.Constructor(this, "Tecton");
+        spores = new SporeContainer();
+        Logger.FunctionEnd();
     }
 
     /**
@@ -58,14 +60,20 @@ public class Tecton {
      * @return
      */
     boolean addLine(Line line){
-
+        Logger.FunctionStart(this, "addLine", new Object[]{line});
+        connections.add(line);
+        Logger.FunctionEnd();
+        return true;
     }
     /**
      * Gombafonal leválasztása a tektonról.
      * @param toRemove
      */
     void removeLine(Line toRemove){
-
+        Logger.FunctionStart(this, "removeLine");
+        //TODO
+        Logger.FunctionEnd();
+        return;
     }
     /**
      * Gombatest növesztése a tektonon. Ha effekt vagy egyéb indok miatt nem tud ott gomba létesülni, akkor false értéket ad vissza.
@@ -73,8 +81,10 @@ public class Tecton {
      * @return
      */
     boolean addMushroom(int id){
-
-
+        Logger.FunctionStart(this, "addMushroom", new Object[]{id});
+        //TODO
+        Logger.FunctionEnd();
+        return true;
     }
 
     
@@ -82,20 +92,28 @@ public class Tecton {
      * A tektonon lévő gombatest eltávolítása
     */ 
     void destroyMushroom(){
-
+        Logger.FunctionStart(this, "destroyMushroom");
+        //TODO
+        Logger.FunctionEnd();
+        return;
     }
     /**
       * A függvény segítségével lekérdezhető, hogy a tektonon van-e gombatest 
       * @return
       */
     boolean hasBody(){
-
+        Logger.FunctionStart(this, "hasBody");
+        //TODO
+        Logger.FunctionEnd();
+        return true;
     }
     /**
      * A tekton két tektonra törése
      */
     void breakTecton(){
-
-
+        Logger.FunctionStart(this, "breakTecton");
+        //TODO
+        Logger.FunctionEnd();
+        return;
     }
 }
