@@ -84,10 +84,10 @@ public class Skeleton {
     /** - Here you can place the test methods */
 
     /**
-     * We create two tectons and the line connecting them.
-     * We place as many spores on the tecton as the tester specified.
-     * If this amount is 3 or more, we grow a mushroom body on the tecton.
-     * If less, we indicate that there are not enough spores.
+     * Létrehozunk két tektont, és az őket összekötő fonalat. 
+     * A tektonra annyi spórát helyezünk el, amennyit a tesztelő megadott. 
+     * Ha ez a mennyiség 3, vagy annál több, akkor gombatestet növesztünk a tektonra. 
+     * Ha kevesebb, akkor jelezzük, hogy nincs elég spóra.
      */
     public static void test_BuildBody(){
         System.out.println("Test BuildBody");
@@ -96,8 +96,8 @@ public class Skeleton {
 
 
     /**
-     * We create an infertile tecton with as many spores as the tester specifies.
-     * The tecton then indicates that it cannot be used to grow a mushroom body.
+     * Létrehozunk egy terméketlen tektont annyi spórával, amennyit a tesztelő megad. 
+     * Ezután tekton jelzi, hogy nem lehet rá gombatestet növeszteni.
      */
     public static void test_BuildBodyInfertileTecton(){
         System.out.println("Test BuildBodyInfertileTecton");
@@ -106,8 +106,8 @@ public class Skeleton {
 
 
     /**
-     * We create a connection between the two tectons 
-     * and then check whether the mushroom line has been created.
+     * A két tekton között hozunk létre összeköttetést, 
+     * majd leellenőrizzük, hogy létrejött-e a gombafonal.
      */
     public static void test_BuildLine(){
         System.out.println("Test BuildLine");
@@ -116,9 +116,9 @@ public class Skeleton {
 
 
     /**
-     * A mycelium already exists between two tectons.
-     * We then want to grow a mycelium with a different mycelium ID between them.
-     * This fails because only one type of mycelium can grow on tectons.
+     * Két tekton között létezik már gombafonal. Ezután egy másik 
+     * gombaazonosítóval rendelkező gombafonalat akarunk közéjük növeszteni. 
+     * Ez meghíusúl, mivel a tektononokon csak egyfajta gombafonal nőhet.
      */
     public static void test_BuildLineInOnlyLineTectons(){
         System.out.println("Test BuildLineInOnlyLineTectons");
@@ -127,8 +127,8 @@ public class Skeleton {
 
 
     /**
-     * The given insect, standing on the tecton, 
-     * tries to cut a fungal line that connects two tectons.
+     * Az adott rovar a tektonon állva megpróbál elvágni 
+     * egy gombafonalat, mely két tektont köt össze.
      */
     public static void test_CutLine(){
         System.out.println("Test CutLine");
@@ -137,7 +137,7 @@ public class Skeleton {
 
 
     /**
-     * The insect consumes a spore on the tecton where it is currently located.
+     * A rovar elfogyaszt egy spórát azon a tektonon, ahol éppen tartózkodik.
      */
     public static void test_EatSpore(){
         System.out.println("Test EatSpore");
@@ -146,7 +146,7 @@ public class Skeleton {
 
 
     /**
-     * The insect consumes a spore, causing it to lose its cutting ability.
+     * A rovar elfogyaszt egy spórát, aminek következtében elveszti a vágóképességét. 
      */
     public static void test_EatExhaustingSpore(){
         System.out.println("Test EatExhaustingSpore");
@@ -155,8 +155,7 @@ public class Skeleton {
 
 
     /**
-     * The insect will consume a spore, which will cause 
-     * the insect to be unable to move.
+     * A rovar elfogyaszt egy spórát, aminek következtében a rovar nem fog tudni mozogni.
      */
     public static void test_EatFreezingSpore(){
         System.out.println("Test EatFreezingSpore");
@@ -165,7 +164,7 @@ public class Skeleton {
 
 
     /**
-     * The insect consumes a spore, which causes the insect to move more slowly.
+     * A rovar elfogyaszt egy spórát, aminek következtében a rovar lassabban tud mozogni.
      */
     public static void test_EatSlowingSpore(){
         System.out.println("Test EatSlowingSpore");
@@ -174,7 +173,7 @@ public class Skeleton {
 
 
     /**
-     * The insect will consume a spore, which will allow the insect to move faster.
+     * A rovar elfogyaszt egy spórát, aminek következtében a rovar gyorsabban fog tudni mozogni.
      */
     public static void test_EatFastSpore(){
         System.out.println("Test EatFastSpore");
@@ -183,7 +182,7 @@ public class Skeleton {
 
 
     /**
-     * The insect moves from one tecton to another through the line.
+     * A rovar átmegy az egyik tektonról a másikra a fonalon keresztül.
      */
     public static void test_MoveInsect(){
         System.out.println("Test MoveInsect");
@@ -192,10 +191,10 @@ public class Skeleton {
 
 
     /**
-     * The mushroom body throws spores from the tecton it is standing 
-     * on to the other tecton that is adjacent to it. At this point, 
-     * the number of spores the mushroom body can throw will decrease, 
-     * while the number of spores found on the adjacent tecton will increase.
+     * A gombatest spórát dob arról a tektonról, ahol ő áll, 
+     * a másik tektonra, amely szomszédos vele. 
+     * Ekkor a gombatestnek az eldobható spóráinak száma csökkenni fog, 
+     * a szomszédos tektonon megtalálható spórák száma növekszik.
      */
     public static void test_ThrowSpores(){
         System.out.println("Test ThrowSpores");
@@ -204,9 +203,9 @@ public class Skeleton {
 
 
     /**
-     * The tecton is broken in two. This creates two different, 
-     * adjacent tectons. The mushroom body on the tecton then 
-     * remains on one tecton, but the lines that touched the broken tecton are lost.
+     * A tektont kettétörjük. Ezáltal létrejön két különböző szomszédos tekton. 
+     * A tektonon lévő gombatest ekkor fennmarad az egyik tektonon, a fonalak, 
+     * melyek a kettétört tektont érintették, azonban elvesznek.
      */
     public static void test_TectonBreak(){
         System.out.println("Test TectonBreak");
@@ -215,10 +214,10 @@ public class Skeleton {
 
 
     /**
-     * First, we check the first tecton of the starting mushroom line. 
-     * If there is no mushroom body on this, we check whether this 
-     * line is the last in the row. If so, we check the tecton of the other one. 
-     * If not, we move on and repeat this process until we reach the last line.
+     * Először a kiinduló gombafonal első tektonját ellenőrizzük. 
+     * Ha ezen nincs gombatest, akkor megnézzük, hogy ez a fonal-e az utolsó a sorban. 
+     * Ha igen, akkor megnézzük a másik tektonját is. Ha nem, akkor továbbmegyünk és 
+     * megismételjük ezt a folyamatot, amíg az utolsó fonálig nem érünk.
      */
     public static void test_ChackBody(){
         System.out.println("Test ChackBody");
@@ -227,8 +226,7 @@ public class Skeleton {
 
 
     /**
-     * The mushroom throws spores five times onto the neighboring tecton, 
-     * thereby running out of spores and dying.
+     * A gomba spórát dob ötször a szomszédos tektonra, ezáltal kifogy a gombaspórákból és meghal.
      */
     public static void test_MushroomDieThrowingSpores(){
         System.out.println("Test MushroomDieThrowingSpores");

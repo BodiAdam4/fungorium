@@ -1,9 +1,9 @@
 public class Mushroom{
 
     //Private fields
-    private  int sporeCount;        //Number of spores in the mushroom
-    private int id;                 //Unique identifier for the mushroom
-    private int level;              //Level of the mushroom
+    private  int sporeCount;        //A gomba spórarekeszében lévő spórák száma
+    private int id;                 //A gomba egyedi azonosítója
+    private int level;              //A gomba szintje
     //private Tecton myTecton;
 
 
@@ -51,14 +51,11 @@ public class Mushroom{
 
     
     /**
-     * Allows the growth of a mushroom thread on the tecton given as a parameter.
-     * It checks whether the given tecton is adjacent to its tecton or adjacent to 
-     * tectons connected by mushroom threads.
-     * 
-     * It also takes into account if the parameter tecton has an effect that 
-     * adversely affects the growth of a mushroom thread.
-     * 
-     * If the growth of a mushroom thread is not possible, it returns false, otherwise true.
+     * Gombafonál növesztését teszi lehetővé a paraméterként kapott tektonon. 
+     * Ellenőrzi, hogy a kapott tekton szomszédos-e a tektonjával, 
+     * vagy gombafonalakkal összekapcsolt tektonokkal szomszédos-e. Emellett figyelembe veszi, 
+     * ha a paraméter tekton rendelkezik gombafonál növesztését hátrányosan érintő effekttel. 
+     * Ha a gombafonál növesztése nem lehetséges, akkor false értékkel tér vissza, másképp true-val.
      * @param to
      * @return
      */
@@ -69,14 +66,11 @@ public class Mushroom{
     */
 
     /**
-     * In the case of a neighboring or more advanced mushroom body, 
-     * it is used to throw spores onto the neighbors of the neighbors.
-     * 
-     * It expects the target tecton to which we want to throw the spores 
-     * and the number of spores as parameters.
-     * 
-     * If the tecton is not neighboring, it returns false. 
-     * If the spore throw is successful, it returns true.
+     * Egy szomszédos, vagy fejlettebb gombatest esetén a szomszédok 
+     * szomszédjaira történő spóra dobására szolgál. Paraméterként elvárja a 
+     * céltektont, amelyre a spórát dobni szeretnénk és a spórák számát. 
+     * Ha a tekton nem szomszédos, akkor false értékkel tér vissza. Abban az esetben, 
+     * ha sikeres a spóra dobás, true értékkel.
      * @param to
      * @param count
      * @return
@@ -88,12 +82,9 @@ public class Mushroom{
     */
 
     /**
-     * Termination of the mushroom body.
-     * The function is for the tecton of the mushroom body and the 
-     * fungal hyphae connected to it.
-     * 
-     * The fungal hyphae then check whether they are connected to another 
-     * mushroom body, and if not, they begin to die.
+     * A gombatest megszüntetése. A függvény szól a gombatest tektonjának, 
+     * valamint a hozzá kapcsolódó gombafonalaknak. A gombafonalak ekkor ellenőrzik, 
+     * hogy más gombatesttel kapcsolatban vannak-e, és ha nem akkor elindul bennük az elhalás.
      */
     /*
     public void destroy(){
