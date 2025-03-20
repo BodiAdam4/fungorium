@@ -8,6 +8,9 @@ public class TectonTime extends Tecton{
      * Gombafonál csatlakoztatása a tektonhoz.
      */
     boolean addLine(Line line){
-
+        Logger.FunctionStart(this, "addLine", new Object[]{line});
+        connections.add(line);
+        Logger.FunctionEnd();
+        return true;
     }
 }

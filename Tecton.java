@@ -28,7 +28,7 @@ public class Tecton {
      * kezdő- és végpontjukként szolgáló tektonokat.
      * Fontos a fonalak bejárásához.
      */
-    private List<Line> connections;
+    protected List<Line> connections;
     /**
      * A SporeContainerben tárolja a rá dobott Spore példányokat.
      * Ha egy rovar a tektonra jut, akkor képes ezáltal megnézni
