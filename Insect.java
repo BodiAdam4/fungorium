@@ -102,7 +102,8 @@ public class Insect {
      */
     public boolean move(Tecton to) {
         Logger.FunctionStart(this, "move", new Object[]{to});
-        Logger.FuctionEnd();
+        Logger.FunctionEnd();
+        return true;
     }
 
     /**
@@ -124,6 +125,7 @@ public class Insect {
     public boolean cutLine(Line line) {
         Logger.FunctionStart(this, "cutLine", new Object[]{line});
         Logger.FunctionEnd();
+        return true;
     }
 
     /**
