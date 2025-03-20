@@ -14,13 +14,27 @@ class Logger {
 
     /**
      * Konstruktorok elején meghívandó függvény. Ezzel lehet az objektumot regisztrálni a konstruktorból.
-     * FONTOS: Minden olyan objektum konstruktora elején jelenjen meg, amiket szertnénk később látni a konzolon.
+     * FONTOS: Minden olyan objektum konstruktora elején jelenjen meg, amiket szertnénk később látni a konzolon és 
+     * nincs a konstruktorának paramétere.
      * @param classObject Az objektum aminek a konstruktorában vagyunk. (Általában a {@code this} kulcsszóval érhető el)
      * @param className Az objektum neve, ahogyan az változóban el van mentve.
      */
     public static void Constructor(Object classObject, String objectName) {
         objectList.put(classObject, objectName);
         FunctionStart(classObject, objectName);
+    }
+
+    
+    /**
+     * Paraméteres konstruktorok elején meghívandó függvény. Ezzel lehet az objektumot regisztrálni a konstruktorból.
+     * Ha a konstruktor paramétere csak az objektumnév akkor nem kell megadni azt paraméterként.
+     * FONTOS: Minden olyan objektum paraméteres konstruktora elején jelenjen meg, amiket szertnénk később látni a konzolon.
+     * @param classObject Az objektum aminek a konstruktorában vagyunk. (Általában a {@code this} kulcsszóval érhető el)
+     * @param className Az objektum neve, ahogyan az változóban el van mentve.
+     */
+    public static void Constructor(Object classObject, String objectName, Object[] parameters) {
+        objectList.put(classObject, objectName);
+        FunctionStart(classObject, objectName, parameters);
     }
 
     /**

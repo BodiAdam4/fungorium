@@ -27,6 +27,8 @@ public class Skeleton {
         //A Logger működését bemutató osztály
         Example example = new Example("example");
         example.Outside();
+        
+        Example exampleParam = new Example("example",2);
 
         //The given test cases
         System.out.println("Welcome to the Fungorium Test Program");

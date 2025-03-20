@@ -11,6 +11,17 @@ public class Example {
         Logger.FunctionEnd();
     }
 
+    
+    public Example(String objectName, int num) {
+        Logger.Constructor(this, objectName, new Object[]{num});
+        Logger.Log("Szia ez itt a paraméteres konstruktor törzse");
+
+        Hello();
+        Foo(12,24.2);
+
+        Logger.FunctionEnd();
+    }
+
     public void Hello() {
         Logger.FunctionStart(this, "Hello");
 
