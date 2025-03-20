@@ -1,3 +1,5 @@
+import javax.sound.sampled.Line;
+
 /**
  * Represents an insect with various attributes such as speed, spore count,
  * and abilities to cut and move.
@@ -83,8 +85,12 @@ public class Insect {
      * @param canCut whether the insect can cut
      * @param canMove whether the insect can move
      */
-    public Insect(int speed = 1, int sporeCount = 0, boolean canCut = true, boolean canMove = true) {
-        Logger.Constuctor(this, "Insect");
+    public Insect(int speed, int sporeCount, boolean canCut, boolean canMove) {
+        Logger.Constructor(this, "Insect");
+        speed = 1;
+        sporeCount = 0;
+        canCut = true;
+        canMove = true;
         Logger.FunctionEnd();
     }
 
