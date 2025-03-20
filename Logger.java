@@ -5,6 +5,7 @@ class Logger {
     private static Map<Object, String> objectList = new HashMap();
     private static int indentation = 0;
 
+    
     /**
      * Objektum létrehozásánál, ezzel a függvénnyel lehet az új objektumot regisztrálni az osztálynál.
      * Fontos, mivel az itt regisztrált objektumokat lehet csak megjeleníteni a hívások során.

@@ -24,6 +24,10 @@ public class Skeleton {
     //Entry point of the program
     public static void main(String[] args) {
 
+        //A Logger működését bemutató osztály
+        Example example = new Example("example");
+        example.Outside();
+
         //The given test cases
         System.out.println("Welcome to the Fungorium Test Program");
         System.out.println("Please select the test you want to run:");
