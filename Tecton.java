@@ -71,9 +71,8 @@ public class Tecton {
      */
     void removeLine(Line toRemove){
         Logger.FunctionStart(this, "removeLine");
-        //TODO
+        connections.remove(toRemove);
         Logger.FunctionEnd();
-        return;
     }
     /**
      * Gombatest növesztése a tektonon. 
@@ -82,7 +81,7 @@ public class Tecton {
      */
     boolean addMushroom(int id){
         Logger.FunctionStart(this, "addMushroom", new Object[]{id});
-        //TODO
+        myMushroom = new Mushroom(id, "Mushroom");
         Logger.FunctionEnd();
         return true;
     }
@@ -93,7 +92,7 @@ public class Tecton {
     */ 
     void destroyMushroom(){
         Logger.FunctionStart(this, "destroyMushroom");
-        //TODO
+        myMushroom = null;
         Logger.FunctionEnd();
         return;
     }
