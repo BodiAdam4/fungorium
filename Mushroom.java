@@ -12,7 +12,7 @@ public class Mushroom{
 
     //Constructor
     public Mushroom(int id, String objectName){
-        Logger.Constructor(this, objectName);
+        Logger.Constructor(this, objectName, new Object[]{id});
         this.id = id;
         Logger.FunctionEnd();
     }
