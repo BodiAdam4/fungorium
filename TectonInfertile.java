@@ -8,13 +8,19 @@ public class TectonInfertile {
      * @return
      */
     boolean addMushroom(int id){
-
+        Logger.FunctionStart(this, "addMushroom", new Object[]{id});
+        //TODO
+        Logger.FunctionEnd();
+        return true;
     }
     /**
      * Mivel a tektonon nem képes gombatest nőni, ezért számolás nélkül false értékkel tér vissza.
      * @return
      */
     boolean hasBody(){
-
+        Logger.FunctionStart(this, "hasBody");
+        //TODO
+        Logger.FunctionEnd();
+        return true;
     }
 }
