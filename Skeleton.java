@@ -15,6 +15,7 @@ public class Skeleton {
      * @return The user's input as a string.
      */
     public static String Ask(String question) {
+        System.out.println("");
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
         System.out.println(question);
         return scanner.nextLine();
@@ -23,12 +24,6 @@ public class Skeleton {
 
     //Entry point of the program
     public static void main(String[] args) {
-
-        //A Logger működését bemutató osztály
-        Example example = new Example("example");
-        example.Outside();
-        
-        Example exampleParam = new Example("example",2);
 
         //The given test cases
         System.out.println("Welcome to the Fungorium Test Program");
@@ -125,7 +120,11 @@ public class Skeleton {
      */
     public static void test_BuildBodyInfertileTecton(){
         System.out.println("Test BuildBodyInfertileTecton");
-        //TODO: Implement this method
+        Tecton it1 = new TectonInfertile("it1");
+        Tecton it2 = new TectonInfertile("it2");
+        Line l1 = new Line("l1", it1, it2, 1);
+
+        l1.growMushroom(it1);
     }
 
 
