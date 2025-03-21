@@ -256,6 +256,8 @@ public class Skeleton {
         Insect i1 = new Insect("i1");
 
         t1.addInsect(i1);
+
+        i1.move(t2);
     }
 
 
