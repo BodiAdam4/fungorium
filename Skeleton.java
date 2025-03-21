@@ -310,6 +310,9 @@ public class Skeleton {
         Tecton t1 = new TectonOnlyLine("t1");
         Tecton t2 = new TectonOnlyLine("t2");
         Mushroom m1 = new Mushroom(1, t1, "m1");
+        t1.setNeighbors(t2);
+        t2.setNeighbors(t1);
+        
         t1.addMushroom(1);
         for (int i = 0; i < 5; i++){
             m1.throwSpores(t2,1);
