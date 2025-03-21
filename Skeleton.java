@@ -199,7 +199,21 @@ public class Skeleton {
      */
     public static void test_EatSlowingSpore(){
         System.out.println("Test EatSlowingSpore");
-        //TODO: Implement this method
+
+        //Initialization of the test environment
+
+        Insect i1 = new Insect("i1");
+        Tecton t1 = new Tecton("t1");
+        Spore ss1 = new SporeSlow("ss1", 0, 1);
+        SporeContainer sc1 = new SporeContainer("sc1");
+        sc1.addSpores(ss1, null);
+        t1.setSpores(sc1);
+        
+        //Function calls
+
+        t1.getSpores().popSpores(0, 1);
+        ss1.addEffect(i1);
+        return;
     }
 
 
@@ -209,7 +223,21 @@ public class Skeleton {
      */
     public static void test_EatFastSpore(){
         System.out.println("Test EatFastSpore");
-        //TODO: Implement this method
+
+        //Initialization of the test environment
+
+        Insect i1 = new Insect("i1");
+        Tecton t1 = new Tecton("t1");
+        Spore sfs1 = new SporeSlow("sfs1", 0, 1);
+        SporeContainer sc1 = new SporeContainer("sc1");
+        sc1.addSpores(sfs1, null);
+        t1.setSpores(sc1);
+        
+        //Function calls
+
+        t1.getSpores().popSpores(0, 1);
+        sfs1.addEffect(i1);
+        return;
     }
 
 

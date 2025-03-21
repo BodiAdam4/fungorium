@@ -85,8 +85,13 @@ public class Insect {
      * @param canCut whether the insect can cut
      * @param canMove whether the insect can move
      */
-    public Insect(int speed, int sporeCount, boolean canCut, boolean canMove) {
-        Logger.Constructor(this, "Insect");
+    
+
+     /**
+     * Constructs an Insect with default values.
+     */
+     public Insect(String objectName) {
+        Logger.Constructor(this, objectName);
         speed = 1;
         sporeCount = 0;
         canCut = true;
@@ -113,6 +118,7 @@ public class Insect {
      */
     public void eatSpores(int count) {
         Logger.FunctionStart(this, "eatSpores", new Object[]{count});
+        sporeCount += count;
         Logger.FunctionEnd();
     }
 
