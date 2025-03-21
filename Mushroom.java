@@ -133,11 +133,10 @@ public class Mushroom{
 
         if ((dist == 1 && this.level == 1) || (dist == 2 && this.level > 1)){
 
-            SporeContainer spores = this.myTecton.getSpores();
             if (this.sporeCount >= count){
                 for (int i = 0; i < count; i++){
                     Spore spore = new Spore("spore", this.id, random.nextInt(10));
-                    to.getSporeContainer().addSpore(spore, this);
+                    to.getSpores().addSpores(spore, this);
                     //TODO: make the getSporeContainer method in Tecton class
                 }
                 Logger.Log("Successfully threw spores to the tecton.");
