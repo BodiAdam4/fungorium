@@ -174,7 +174,13 @@ public class Skeleton {
      */
     public static void test_EatSpore(){
         System.out.println("Test EatSpore");
-        //TODO: Implement this method
+        //elofeltetelek
+        Tecton t1 = new Tecton("t1");
+        Spore s1 = new Spore("sp1", 0, 1);
+        t1.getSpores().addSpores(s1); 
+        Insect i1 = new Insect("i1");
+        //test case
+        i1.eatSpores(1);
     }
 
 
@@ -184,7 +190,13 @@ public class Skeleton {
      */
     public static void test_EatExhaustingSpore(){
         System.out.println("Test EatExhaustingSpore");
-        //TODO: Implement this method
+        //elofeltetelek
+        Tecton t1 = new Tecton("t1");
+        Spore s1 = new Spore("sp1", 0, 1);
+        t1.getSpores().addSpores(s1); 
+        Insect i1 = new Insect("i1");
+        //test case
+        i1.eatSpores(1);
     }
 
 
@@ -194,7 +206,13 @@ public class Skeleton {
      */
     public static void test_EatFreezingSpore(){
         System.out.println("Test EatFreezingSpore");
-        //TODO: Implement this method
+        //elofeltetelek
+        Tecton t1 = new Tecton("t1");
+        Spore s1 = new Spore("sp1", 0, 1);
+        t1.getSpores().addSpores(s1); 
+        Insect i1 = new Insect("i1");
+        //test case
+        i1.eatSpores(1);
     }
 
 
@@ -296,7 +314,7 @@ public class Skeleton {
      * Drenyó
      */
     public static void test_ChackBody(){
-        System.out.println("Test ChackBody");
+        System.out.println("Test CheckBody");
         //TODO: Implement this method
     }
 
