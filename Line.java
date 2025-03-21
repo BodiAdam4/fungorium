@@ -10,8 +10,8 @@ public class Line
     {
         Logger.Constructor(this, name, new Object[]{t1, t2, id});
         this.id = id;
-        connections.add(t1);
-        connections.add(t2);
+        t1.addLine(this);
+        t2.addLine(this);
         Logger.FunctionEnd();
     }
     /**
@@ -68,5 +68,9 @@ public class Line
         Logger.FunctionStart(this, "growLine", new Object[]{to1, to2});
         Line nl = new Line("l" + (Logger.GetObjectName(this).substring(1) + 1), to1, to2, id);
         return true;
+    }
+
+    public int getId() {
+        return id;
     }
 }

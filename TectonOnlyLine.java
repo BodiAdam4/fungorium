@@ -1,5 +1,3 @@
-import javax.sound.sampled.Line;
-
 /**
  * A Tecton osztály leszármazottja, mely rendelkezik egy olyan különleges hatással, ami miatt csak egyfajta gombafonal tud kapcsolódni hozzá.
  */
@@ -18,8 +16,17 @@ public class TectonOnlyLine extends Tecton{
      */
     boolean addLine(Line line){
         Logger.FunctionStart(this, "addLine", new Object[]{line});
-        connections.add(line);
-        Logger.FunctionEnd();
-        return true;
+
+        if ((!this.connections.isEmpty() && this.connections.get(0).getId() == line.getId()) || this.connections.isEmpty()) {
+            connections.add(line);
+            
+            Logger.FunctionEnd();
+            return true;
+        }
+        else {
+            Logger.Log("You can't add lines with different id!");
+            Logger.FunctionEnd();
+            return false;
+        }
     }
 }

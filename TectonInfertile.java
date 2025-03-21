@@ -12,6 +12,7 @@ public class TectonInfertile extends Tecton{
      */
     boolean addMushroom(int id){
         Logger.FunctionStart(this, "addMushroom", new Object[]{id});
+        Logger.Log("You can't grow mushroom on this tecton!");
         Logger.FunctionEnd();
         return false;
     }

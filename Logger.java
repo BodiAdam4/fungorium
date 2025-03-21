@@ -37,7 +37,8 @@ class Logger {
      */
     public static void Constructor(Object classObject, String objectName) {
         objectList.put(classObject, objectName);
-        FunctionStart(classObject, objectName);
+        //TODO:Javítani
+        FunctionStart(classObject, "Constructor");
     }
 
     
@@ -50,7 +51,8 @@ class Logger {
      */
     public static void Constructor(Object classObject, String objectName, Object[] parameters) {
         objectList.put(classObject, objectName);
-        FunctionStart(classObject, objectName, parameters);
+        //TODO:Javítani
+        FunctionStart(classObject, "Constructor", parameters);
     }
 
     /**

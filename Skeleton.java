@@ -147,7 +147,11 @@ public class Skeleton {
      */
     public static void test_BuildLineInOnlyLineTectons(){
         System.out.println("Test BuildLineInOnlyLineTectons");
-        //TODO: Implement this method
+        Tecton t1 = new TectonOnlyLine("t1");
+        Tecton t2 = new TectonOnlyLine("t2");
+
+        Line l1 = new Line("l1", t1, t2, 1);
+        Line l2 = new Line("l2", t1, t2, 2);
     }
 
 

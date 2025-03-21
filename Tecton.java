@@ -1,6 +1,5 @@
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.sound.sampled.Line;
 
 /** 
  * A játékban lévő tektonokat valósítja meg.
@@ -41,7 +40,7 @@ public class Tecton {
      * kezdő- és végpontjukként szolgáló tektonokat.
      * Fontos a fonalak bejárásához.
      */
-    protected List<Line> connections;
+    protected List<Line> connections = new ArrayList<>();
 
     public List<Line> getConnections() {
         Logger.FunctionStart(this, "getConnections");
