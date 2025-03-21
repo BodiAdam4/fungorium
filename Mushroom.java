@@ -143,12 +143,15 @@ public class Mushroom{
                 this.sporeCount -= count;
 
                 //Ha eldobtunk 5db spórákat, akkor a gomba meghal
+               
+
+                Logger.Log("Successfully threw spores to the tecton.");
+
                 if (this.sporeCount == 0){
                     Logger.Log("The mushroom has thrown 5 spores and will now be destroyed.");
                     this.destroy();
                 }
-
-                Logger.Log("Successfully threw spores to the tecton.");
+                
                 Logger.FunctionEnd();
                 return true;
             } else{
@@ -172,7 +175,7 @@ public class Mushroom{
     public void destroy(){
         Logger.FunctionStart(this, "destroy");
         this.myTecton.destroyMushroom();
-        Logger.FunctionEnd();
+        Logger.DestroyObject(this);
     }
     
 }
