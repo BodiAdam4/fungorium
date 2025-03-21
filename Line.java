@@ -26,6 +26,7 @@ public class Line
 
     boolean growMushroom(Tecton to)
     {
+        Logger.FunctionStart(this, "growMushroom");
         return true;
     }
 
