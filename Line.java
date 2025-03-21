@@ -62,10 +62,6 @@ public class Line
         return true;
     }
 
-    void testConflict(){
-
-    }
-
     public boolean growLine(Tecton to1, Tecton to2)
     {
         Logger.FunctionStart(this, "growLine", new Object[]{to1, to2});
