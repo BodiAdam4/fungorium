@@ -76,7 +76,7 @@ public class Tecton {
     /**
      * A tektononnal szomszédos tektonok listája.
      */
-    private List<Tecton> neighbors;
+    private List<Tecton> neighbors = new ArrayList<>();
 
     public List<Tecton> getNeighbors() {
         Logger.FunctionStart(this, "getNeighbors");
