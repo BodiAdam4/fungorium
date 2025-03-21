@@ -31,6 +31,10 @@ public class Line
         return true;
     }
 
+    void testConflict(){
+
+    }
+
     public boolean growLine(Tecton to)
     {
         return true;
