@@ -22,6 +22,15 @@ public class Tecton {
      * a rajtuk lévő gombatestre.
      */
     private Mushroom myMushroom;
+
+    public Mushroom getMyMushroom() {
+        return this.myMushroom;
+    }
+
+    public void setMyMushroom(Mushroom myMushroom) {
+        this.myMushroom = myMushroom;
+    }
+
     /**
      * A Tecton osztály ismeri a hozzá csatlakoztatott gombafonalakat,
      * és a gombafonalak is ismerik a hozzájuk kapcsolt
@@ -29,28 +38,72 @@ public class Tecton {
      * Fontos a fonalak bejárásához.
      */
     protected List<Line> connections;
+
+    public List<Line> getConnections() {
+        return this.connections;
+    }
+
+    public void setConnections(List<Line> connections) {
+        this.connections = connections;
+    }
+
     /**
      * A SporeContainerben tárolja a rá dobott Spore példányokat.
      * Ha egy rovar a tektonra jut, akkor képes ezáltal megnézni
      * az ott található spórákat, ami a spóraevéshez létfontosságú.
      */
     private SporeContainer spores;
+
+    public SporeContainer getSpores() {
+        return this.spores;
+    }
+
+    public void setSpores(SporeContainer spores) {
+        this.spores = spores;
+    }
+
     /**
      * A tektononnal szomszédos tektonok listája.
      */
     private List<Tecton> neighbors;
+
+    public List<Tecton> getNeighbors() {
+        return this.neighbors;
+    }
+
+    public void setNeighbors(List<Tecton> neighbors) {
+        this.neighbors = neighbors;
+    }
+
     /**
      * A tekton x koordinátája.
      */
     private int x;
+
+    public int getX() {
+        return this.x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
     /**
      * A tekton y koordinátája.
      */ 
     private int y;
 
+    public int getY() {
+        return this.y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public Tecton(String objectName){
         Logger.Constructor(this, objectName);
-        spores = new SporeContainer();
+        spores = new SporeContainer("spores");
         Logger.FunctionEnd();
     }
 
