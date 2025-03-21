@@ -191,4 +191,14 @@ public class Tecton {
         Logger.FunctionEnd();
         return;
     }
+
+    List<Insect> insects = new ArrayList<>();
+
+    public void addInsect(Insect insect) {
+        insects.add(insect);
+    }
+
+    public void removeInsect(Insect insect) {
+        insects.remove(insect);
+    }
 }

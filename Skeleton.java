@@ -252,7 +252,14 @@ public class Skeleton {
      */
     public static void test_MoveInsect(){
         System.out.println("Test MoveInsect");
-        //TODO: Implement this method
+        Tecton t1 = new Tecton("t1");
+        Tecton t2 = new Tecton("t2");
+        Line l1 = new Line("l1", t1, t2, 0);
+        Insect i1 = new Insect("i1");
+
+        t1.addInsect(i1);
+
+        i1.move(t2);
     }
 
 
