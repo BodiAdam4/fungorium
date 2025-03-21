@@ -12,9 +12,9 @@ import java.util.Random;
 public class Mushroom{
 
     //Private fields
-    private  int sporeCount;        //A gomba spórarekeszében lévő spórák száma
+    private  int sporeCount = 5;        //A gomba spórarekeszében lévő spórák száma
     private int id;                 //A gomba egyedi azonosítója
-    private int level;              //A gomba szintje
+    private int level = 1;              //A gomba szintje
     private Tecton myTecton;        //A tekton, ahol a gombatest áll éppen
 
 
@@ -137,8 +137,17 @@ public class Mushroom{
                 for (int i = 0; i < count; i++){
                     Spore spore = new Spore("spore", this.id, random.nextInt(10));
                     to.getSpores().addSpores(spore);
-                    //TODO: make the getSporeContainer method in Tecton class
                 }
+
+                //Spóraszám csökkentése
+                this.sporeCount -= count;
+
+                //Ha eldobtunk 5db spórákat, akkor a gomba meghal
+                if (this.sporeCount == 0){
+                    Logger.Log("The mushroom has thrown 5 spores and will now be destroyed.");
+                    this.destroy();
+                }
+
                 Logger.Log("Successfully threw spores to the tecton.");
                 Logger.FunctionEnd();
                 return true;

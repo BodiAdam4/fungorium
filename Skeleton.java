@@ -100,15 +100,15 @@ public class Skeleton {
      */
     public static void test_BuildBody(){ 
         System.out.println("Test BuildBody");
-        //TODO: Implement this method
         Tecton t1 = new Tecton("t1");
         Tecton t2 = new Tecton("t2");
         Line l1 = new Line("l1", t1, t2, 1);
 
         int count = Integer.parseInt(Logger.Ask("Hány spórát dobjunk a tektonra?"));
         for (int i = 0; i < count; i++){
-            t2.getSpores().addSpores(new Spore("spore", 1, 1));
+            t2.getSpores().addSpores(new Spore("s1", 1, 1));
         }
+        l1.growMushroom(t2);
 
     }
 
@@ -135,7 +135,9 @@ public class Skeleton {
      */
     public static void test_BuildLine(){
         System.out.println("Test BuildLine");
-        //TODO: Implement this method
+        Tecton t1 = new Tecton("t1");
+        Tecton t2 = new Tecton("t2");
+        Line l1 = new Line("l1", t1, t2, 1);
     }
 
 
@@ -305,6 +307,16 @@ public class Skeleton {
      */
     public static void test_MushroomDieThrowingSpores(){
         System.out.println("Test MushroomDieThrowingSpores");
-        //TODO: Implement this method
+        Tecton t1 = new TectonOnlyLine("t1");
+        Tecton t2 = new TectonOnlyLine("t2");
+        Mushroom m1 = new Mushroom(1, t1, "m1");
+        t1.setNeighbors(t2);
+        t2.setNeighbors(t1);
+        
+        t1.addMushroom(1);
+        for (int i = 0; i < 5; i++){
+            m1.throwSpores(t2,1);
+        }
+
     }
 }
