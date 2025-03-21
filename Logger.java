@@ -155,4 +155,8 @@ class Logger {
             System.out.println(msg);
         }
     }
+
+    public static String Ask(String msg) {
+        return "Not implemented";
+    }
 }
