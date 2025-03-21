@@ -106,6 +106,15 @@ public class Skeleton {
     public static void test_BuildBody(){ 
         System.out.println("Test BuildBody");
         //TODO: Implement this method
+        Tecton t1 = new Tecton("t1");
+        Tecton t2 = new Tecton("t2");
+        Line l1 = new Line("l1", t1, t2, 1);
+
+        int count = Integer.parseInt(Logger.Ask("Hány spórát dobjunk a tektonra?"));
+        for (int i = 0; i < count; i++){
+            t2.getSporeContainer().addSpore(new Spore("spore", 1, 1), t1);
+        }
+
     }
 
 
