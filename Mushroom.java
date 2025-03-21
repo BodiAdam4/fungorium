@@ -137,8 +137,17 @@ public class Mushroom{
                 for (int i = 0; i < count; i++){
                     Spore spore = new Spore("spore", this.id, random.nextInt(10));
                     to.getSpores().addSpores(spore);
-                    //TODO: make the getSporeContainer method in Tecton class
                 }
+
+                //Spóraszám csökkentése
+                this.sporeCount -= count;
+
+                //Ha eldobtunk 5db spórákat, akkor a gomba meghal
+                if (this.sporeCount > 5){
+                    Logger.Log("The mushroom has thrown 5 spores and will now be destroyed.");
+                    this.destroy();
+                }
+
                 Logger.Log("Successfully threw spores to the tecton.");
                 Logger.FunctionEnd();
                 return true;
