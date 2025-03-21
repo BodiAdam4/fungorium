@@ -1,3 +1,14 @@
+import java.util.List;
+import java.util.Random;
+
+/**
+ * A Mushroom osztály valósítja meg a gombatesteket a játékban. 
+ * A gombatestek felelősek a gombaspórák szórásáért, illetve a tektonok között gombafonalak növesztéséért, 
+ * amik segítik a rovarok mozgását. A gombatestek egy adott mennyiségű spórával keletkeznek, 
+ * és amikor kifogy belőlük, akkor meghalnak. Két életfázisuk van. 
+ * Az elsőben csupán a szomszédos tektonra tudnak spórát szórni, 
+ * a másodikban pedig már a szomszéd szomszédjára is.
+ */
 public class Mushroom{
 
     //Private fields
@@ -84,16 +95,25 @@ public class Mushroom{
      * Gombafonál növesztését teszi lehetővé a paraméterként kapott tektonon. 
      * Ellenőrzi, hogy a kapott tekton szomszédos-e a tektonjával, 
      * vagy gombafonalakkal összekapcsolt tektonokkal szomszédos-e. Emellett figyelembe veszi, 
-     * ha a paraméter tekton rendelkezik gombafonál növesztését hátrányosan érintő effekttel. 
-     * Ha a gombafonál növesztése nem lehetséges, akkor false értékkel tér vissza, másképp true-val.
+     * ha a paraméter tekton rendelkezik gombafonál növesztését hátrányosan érintő effekttel.
      * @param to
-     * @return
+     * @return false, ha a gombafonál növesztése nem lehetséges, true, ha sikeres a gombafonál növesztése
      */
     public boolean growLine(Tecton to){
         Logger.FunctionStart(this, "growLine", new Object[]{to});
-        //TODO: Implement this method
-        Logger.FunctionEnd();
-        return false;
+        
+        List<Tecton> neighborlist = this.myTecton.getNeighbors();
+        
+        if (neighborlist.contains(to)){
+            Line line = new Line("line", this.myTecton, to, this.id);
+            Logger.Log("Successfully added line to the tecton.");
+            Logger.FunctionEnd();
+            return true;
+        } else{
+            Logger.Log("The given tecton is not a neighbor of the current tecton, or it is an 'OnlyLine'-type tecton, which already has line.");
+            Logger.FunctionEnd();
+            return false;
+        }
     }
     
 
@@ -101,17 +121,38 @@ public class Mushroom{
      * Egy szomszédos, vagy fejlettebb gombatest esetén a szomszédok 
      * szomszédjaira történő spóra dobására szolgál. Paraméterként elvárja a 
      * céltektont, amelyre a spórát dobni szeretnénk és a spórák számát. 
-     * Ha a tekton nem szomszédos, akkor false értékkel tér vissza. Abban az esetben, 
-     * ha sikeres a spóra dobás, true értékkel.
      * @param to
      * @param count
-     * @return
+     * @return false, ha a tekton nem szomszédos, true, ha sikeres a spóra dobás
      */
     public boolean throwSpores(Tecton to, int count){
         Logger.FunctionStart(this, "throwSpores", new Object[]{to, count});
-        //TODO: Implement this method
-        Logger.FunctionEnd();
-        return false;
+        Random random = new Random();
+
+        int dist = Integer.parseInt(Logger.Ask("Hányadik szomszédjára akarjuk dobni a spórát?"));
+
+        if ((dist == 1 && this.level == 1) || (dist == 2 && this.level > 1)){
+
+            SporeContainer spores = this.myTecton.getSpores();
+            if (this.sporeCount >= count){
+                for (int i = 0; i < count; i++){
+                    Spore spore = new Spore("spore", this.id, random.nextInt(10));
+                    to.getSporeContainer().addSpore(spore, this);
+                    //TODO: make the getSporeContainer method in Tecton class
+                }
+                Logger.Log("Successfully threw spores to the tecton.");
+                Logger.FunctionEnd();
+                return true;
+            } else{
+                Logger.Log("The spore count is not enough to throw spores.");
+                Logger.FunctionEnd();
+                return false;
+            }
+        }else{
+            Logger.Log("The given tecton is not a neighbor of the current tecton.");
+            Logger.FunctionEnd();
+            return false;
+        }
     }
     
 
@@ -122,7 +163,7 @@ public class Mushroom{
      */
     public void destroy(){
         Logger.FunctionStart(this, "destroy");
-        //TODO: Implement this method
+        this.myTecton.destroyMushroom();
         Logger.FunctionEnd();
     }
     
