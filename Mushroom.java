@@ -136,7 +136,7 @@ public class Mushroom{
             if (this.sporeCount >= count){
                 for (int i = 0; i < count; i++){
                     Spore spore = new Spore("spore", this.id, random.nextInt(10));
-                    to.getSpores().addSpores(spore, this);
+                    to.getSpores().addSpores(spore);
                     //TODO: make the getSporeContainer method in Tecton class
                 }
                 Logger.Log("Successfully threw spores to the tecton.");
