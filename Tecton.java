@@ -85,7 +85,7 @@ public class Tecton {
     }
 
     public void setNeighbors(Tecton neighbor) {
-        Logger.FunctionStart(this, "setNeighbors", new Object[]{neighbors});
+        Logger.FunctionStart(this, "setNeighbors", new Object[]{neighbor});
         neighbors.add(neighbor);
         Logger.FunctionEnd();
     }
