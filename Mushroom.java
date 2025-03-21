@@ -4,23 +4,25 @@ public class Mushroom{
     private  int sporeCount;        //A gomba spórarekeszében lévő spórák száma
     private int id;                 //A gomba egyedi azonosítója
     private int level;              //A gomba szintje
-    //private Tecton myTecton;      //A tekton, ahol a gombatest áll éppen
+    private Tecton myTecton;        //A tekton, ahol a gombatest áll éppen
 
 
     //Public fields
 
 
     //Constructor
-    public Mushroom(int id, String objectName){
-        Logger.Constructor(this, objectName, new Object[]{id});
+    public Mushroom(int id, Tecton myTecton, String objectName){
+        Logger.Constructor(this, objectName, new Object[]{id, myTecton});
         this.id = id;
+        this.myTecton = myTecton;
         Logger.FunctionEnd();
     }
 
     //Default constructor
-    public Mushroom(String objectName){
-        Logger.Constructor(this, objectName);
+    public Mushroom(Tecton myTecton, String objectName){
+        Logger.Constructor(this, objectName, new Object[]{myTecton});
         this.id = 1;
+        this.myTecton = myTecton;
         Logger.FunctionEnd();
     }
 
@@ -75,13 +77,13 @@ public class Mushroom{
      * @param to
      * @return
      */
-    /*
     public boolean growLine(Tecton to){
         Logger.FunctionStart(this, "growLine", new Object[]{to});
         //TODO: Implement this method
         Logger.FunctionEnd();
+        return false;
     }
-    */
+    
 
     /**
      * Egy szomszédos, vagy fejlettebb gombatest esetén a szomszédok 
@@ -93,25 +95,23 @@ public class Mushroom{
      * @param count
      * @return
      */
-    /*
     public boolean throwSpores(Tecton to, int count){
         Logger.FunctionStart(this, "throwSpores", new Object[]{to, count});
         //TODO: Implement this method
         Logger.FunctionEnd();
+        return false;
     }
-    */
+    
 
     /**
      * A gombatest megszüntetése. A függvény szól a gombatest tektonjának, 
      * valamint a hozzá kapcsolódó gombafonalaknak. A gombafonalak ekkor ellenőrzik, 
      * hogy más gombatesttel kapcsolatban vannak-e, és ha nem akkor elindul bennük az elhalás.
      */
-    /*
     public void destroy(){
         Logger.FunctionStart(this, "destroy");
         //TODO: Implement this method
         Logger.FunctionEnd();
     }
-    */
     
 }
