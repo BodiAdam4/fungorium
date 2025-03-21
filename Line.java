@@ -53,6 +53,11 @@ public class Line
     public boolean growMushroom(Tecton to)
     {
         Logger.FunctionStart(this, "growMushroom", new Object[]{to});
+
+        //if()
+
+        to.addMushroom(id);
+
         Logger.FunctionEnd();
         return true;
     }
@@ -61,8 +66,10 @@ public class Line
 
     }
 
-    public boolean growLine(Tecton to)
+    public boolean growLine(Tecton to1, Tecton to2)
     {
+        Logger.FunctionStart(this, "growLine", new Object[]{to1, to2});
+        Line nl = new Line("l" + (Logger.GetObjectName(this).substring(1) + 1), to1, to2, id);
         return true;
     }
 }
