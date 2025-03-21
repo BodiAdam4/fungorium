@@ -24,11 +24,15 @@ public class Tecton {
     private Mushroom myMushroom;
 
     public Mushroom getMyMushroom() {
+        Logger.FunctionStart(this, "getMyMushroom");
+        Logger.FunctionEnd();
         return this.myMushroom;
     }
 
     public void setMyMushroom(Mushroom myMushroom) {
+        Logger.FunctionStart(this, "setMyMushroom", new Object[]{myMushroom});
         this.myMushroom = myMushroom;
+        Logger.FunctionEnd();
     }
 
     /**
@@ -40,11 +44,15 @@ public class Tecton {
     protected List<Line> connections;
 
     public List<Line> getConnections() {
+        Logger.FunctionStart(this, "getConnections");
+        Logger.FunctionEnd();
         return this.connections;
     }
 
     public void setConnections(List<Line> connections) {
+        Logger.FunctionStart(this, "setConnections", new Object[]{connections});
         this.connections = connections;
+        Logger.FunctionEnd();
     }
 
     /**
@@ -55,11 +63,15 @@ public class Tecton {
     private SporeContainer spores;
 
     public SporeContainer getSpores() {
+        Logger.FunctionStart(this, "getSpores");
+        Logger.FunctionEnd();
         return this.spores;
     }
 
     public void setSpores(SporeContainer spores) {
+        Logger.FunctionStart(this, "setSpores", new Object[]{spores});
         this.spores = spores;
+        Logger.FunctionEnd();
     }
 
     /**
@@ -68,11 +80,15 @@ public class Tecton {
     private List<Tecton> neighbors;
 
     public List<Tecton> getNeighbors() {
+        Logger.FunctionStart(this, "getNeighbors");
+        Logger.FunctionEnd();
         return this.neighbors;
     }
 
     public void setNeighbors(List<Tecton> neighbors) {
+        Logger.FunctionStart(this, "setNeighbors", new Object[]{neighbors});
         this.neighbors = neighbors;
+        Logger.FunctionEnd();
     }
 
     /**
@@ -81,11 +97,15 @@ public class Tecton {
     private int x;
 
     public int getX() {
+        Logger.FunctionStart(this, "getX");
+        Logger.FunctionEnd();
         return this.x;
     }
 
     public void setX(int x) {
+        Logger.FunctionStart(this, "setX", new Object[]{x});
         this.x = x;
+        Logger.FunctionEnd();
     }
 
     /**
@@ -94,11 +114,15 @@ public class Tecton {
     private int y;
 
     public int getY() {
+        Logger.FunctionStart(this, "getY");
+        Logger.FunctionEnd();
         return this.y;
     }
 
     public void setY(int y) {
+        Logger.FunctionStart(this, "setY", new Object[]{y});
         this.y = y;
+        Logger.FunctionEnd();
     }
 
     public Tecton(String objectName){
@@ -123,7 +147,7 @@ public class Tecton {
      * @param toRemove A leválasztandó fonal.
      */
     void removeLine(Line toRemove){
-        Logger.FunctionStart(this, "removeLine");
+        Logger.FunctionStart(this, "removeLine", new Object[]{toRemove});
         connections.remove(toRemove);
         Logger.FunctionEnd();
     }
