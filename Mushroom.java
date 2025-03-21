@@ -28,6 +28,18 @@ public class Mushroom{
 
     /* - Getter/Setter methods*/
 
+    public Tecton getMyTecton(){
+        Logger.FunctionStart(this, "getMyTecton");
+        Logger.FunctionEnd();
+        return this.myTecton;
+    }
+
+    public void setMyTecton(Tecton myTecton){
+        Logger.FunctionStart(this, "setMyTecton", new Object[]{myTecton});
+        this.myTecton = myTecton;
+        Logger.FunctionEnd();
+    }
+
     public int getSporeCount(){
         Logger.FunctionStart(this, "getSporeCount");
         Logger.FunctionEnd();
