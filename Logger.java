@@ -12,7 +12,21 @@ import java.util.Scanner;
 class Logger {
     private static Map<Object, String> objectList = new HashMap();
     private static int indentation = 0;
+    
 
+    /**
+     * Objektumok nevének lekérdezése.
+     * @param obj Objektum aminek a nevét szeretnénk.
+     * @return A keresett objektum neve.
+     */
+    public static String GetObjectName(Object obj) {
+        if (!objectList.containsKey(obj)) {
+            System.err.println("Nincsen az objektum a listában.");
+            return "null";
+        }
+
+        return objectList.get(obj);
+    }
 
     /**
      * Konstruktorok elején meghívandó függvény. Ezzel lehet az objektumot regisztrálni a konstruktorból.
