@@ -34,11 +34,10 @@ public class Mushroom{
         return this.myTecton;
     }
 
-    public Tecton setMyTecton(Tecton myTecton){
+    public void setMyTecton(Tecton myTecton){
         Logger.FunctionStart(this, "setMyTecton", new Object[]{myTecton});
         this.myTecton = myTecton;
         Logger.FunctionEnd();
-        return this.myTecton;
     }
 
     public int getSporeCount(){
