@@ -191,4 +191,14 @@ class Logger {
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
         return scanner.nextLine();
     }
+
+    /**
+     * Ha egy objektum megsemmisül akkor ezt a függvényt kell meghívni, hogy
+     * tudassa a logger osztállyal, hogy ő többet nem lesz.
+     * @param obj A töröl objektum
+     */
+    public static void DestroyObject(Object obj) {
+        indentation = 0;
+        Log(objectList.get(obj)+" destroyed");
+    }
 }
