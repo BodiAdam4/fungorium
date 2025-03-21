@@ -48,8 +48,8 @@ public class Tecton {
      */ 
     private int y;
 
-    public Tecton(){
-        Logger.Constructor(this, "Tecton");
+    public Tecton(String objectName){
+        Logger.Constructor(this, objectName);
         spores = new SporeContainer();
         Logger.FunctionEnd();
     }
@@ -81,7 +81,7 @@ public class Tecton {
      */
     boolean addMushroom(int id){
         Logger.FunctionStart(this, "addMushroom", new Object[]{id});
-        myMushroom = new Mushroom(id, "Mushroom");
+        myMushroom = new Mushroom(id, this, "Mushroom");
         Logger.FunctionEnd();
         return true;
     }
@@ -90,7 +90,7 @@ public class Tecton {
     /**
      * A tektonon lévő gombatest eltávolítása
     */ 
-    void destroyMushroom(){
+    public void destroyMushroom(){
         Logger.FunctionStart(this, "destroyMushroom");
         myMushroom = null;
         Logger.FunctionEnd();
