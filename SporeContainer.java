@@ -11,8 +11,8 @@ public class SporeContainer
         Logger.FunctionEnd();
     }
 
-    public boolean addSpores(Spore spore, Mushroom sender) {
-        Logger.FunctionStart(this, "addSpores", new Object[]{spore, sender});
+    public boolean addSpores(Spore spore) {
+        Logger.FunctionStart(this, "addSpores", new Object[]{spore});
 
         spores.add(spore);
 

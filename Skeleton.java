@@ -112,7 +112,7 @@ public class Skeleton {
 
         int count = Integer.parseInt(Logger.Ask("Hány spórát dobjunk a tektonra?"));
         for (int i = 0; i < count; i++){
-            t2.getSporeContainer().addSpore(new Spore("spore", 1, 1), t1);
+            t2.getSpores().addSpores(new Spore("spore", 1, 1));
         }
 
     }
@@ -206,7 +206,7 @@ public class Skeleton {
         Tecton t1 = new Tecton("t1");
         Spore ss1 = new SporeSlow("ss1", 0, 1);
         SporeContainer sc1 = new SporeContainer("sc1");
-        sc1.addSpores(ss1, null);
+        sc1.addSpores(ss1);
         t1.setSpores(sc1);
         
         //Function calls
@@ -230,7 +230,7 @@ public class Skeleton {
         Tecton t1 = new Tecton("t1");
         Spore sfs1 = new SporeSlow("sfs1", 0, 1);
         SporeContainer sc1 = new SporeContainer("sc1");
-        sc1.addSpores(sfs1, null);
+        sc1.addSpores(sfs1);
         t1.setSpores(sc1);
         
         //Function calls
