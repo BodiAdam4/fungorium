@@ -1,5 +1,7 @@
+import java.io.BufferedInputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 
 
@@ -154,5 +156,23 @@ class Logger {
             }
             System.out.println(msg);
         }
+    }
+
+
+    /**
+     * Konzolos bemenethez lehet kérdést feltenni, majd a válasszal visszatér.
+     * @param msg A kérdés, amit feltesz a függvény.
+     * @return A kérdésre adott válasz.
+     */
+    public static String Ask(String msg) {
+
+        if (firstMsg) {
+            System.out.println("");
+        }
+        System.out.print(msg+":");
+        firstMsg = false;
+
+        Scanner scanner = new Scanner(new BufferedInputStream(System.in));
+        return scanner.nextLine();
     }
 }

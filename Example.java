@@ -47,8 +47,18 @@ public class Example {
 
         Logger.Log("Ez a függvény kintről lett meghívva");
 
-        Foo(2,3);
+        question();
 
+        Logger.FunctionEnd();
+    }
+
+    public void question() {
+        Logger.FunctionStart(this, "Outside");
+
+        String answer = Logger.Ask("Mondj egy számot");
+
+        Logger.Log("A választott szám: "+answer);
+        
         Logger.FunctionEnd();
     }
 }
