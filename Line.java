@@ -13,10 +13,36 @@ public class Line
         connections.add(t2);
         Logger.FunctionEnd();
     }
-
+    /**
+    * 
+    * @return
+    */
     public boolean checkConnections()
     {
-        return true;
+        Logger.FunctionStart(this, "checkConnections");
+        boolean t1h = connections.get(0).hasBody();
+        if(t1h)
+        {
+            Logger.FunctionEnd();
+            return true;
+        }
+        else
+        {
+            String ans = Logger.Ask("Ez az utolsó vonal?");
+            if(ans.equals("igen"))
+            {
+                Logger.FunctionEnd();
+                return connections.get(1).hasBody();
+            }
+            else
+            {
+                Tecton nt = new Tecton("t" + (Logger.GetObjectName(connections.get(1)).substring(1) + 1));
+                Line nl = new Line("l" + (Logger.GetObjectName(this).substring(1) + 1), connections.get(1), nt, id);
+                boolean res = nl.checkConnections();
+                Logger.FunctionEnd();
+                return res;
+            }
+        }
     }
 
     public void notifyNeighbors()
