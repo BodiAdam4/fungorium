@@ -5,7 +5,7 @@ public class Line
     List<Tecton> connections;
     int id;
 
-    Line(String name, Tecton t1, Tecton t2, int id)
+    public Line(String name, Tecton t1, Tecton t2, int id)
     {
         Logger.Constructor(this, name, new Object[]{t1, t2, id});
         this.id = id;
@@ -14,23 +14,24 @@ public class Line
         Logger.FunctionEnd();
     }
 
-    boolean checkConnections()
+    public boolean checkConnections()
     {
         return true;
     }
 
-    void notifyNeighbors()
+    public void notifyNeighbors()
     {
 
     }
 
-    boolean growMushroom(Tecton to)
+    public boolean growMushroom(Tecton to)
     {
-        Logger.FunctionStart(this, "growMushroom");
+        Logger.FunctionStart(this, "growMushroom", new Object[]{to});
+        Logger.FunctionEnd();
         return true;
     }
 
-    boolean growLine(Tecton to)
+    public boolean growLine(Tecton to)
     {
         return true;
     }
