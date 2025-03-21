@@ -2,6 +2,9 @@
  * A Tecton osztály leszármazottja, mely rendelkezik egy olyan különleges hatással, ami azt eredményezi, hogy nem képes rajta gombatest nőni.
  */
 public class TectonInfertile extends Tecton{
+    public TectonInfertile(String objectName){
+        super(objectName);
+    }
     /**
      * Mivel ezen a típusú tektonon nem tud gombatest nőni, ezért mindig false értékkel tér vissza, ezzel meggátolva a növesztést.
      * @param id A hozzáadandó gombatest id-je.
