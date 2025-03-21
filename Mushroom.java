@@ -12,7 +12,7 @@ import java.util.Random;
 public class Mushroom{
 
     //Private fields
-    private  int sporeCount;        //A gomba spórarekeszében lévő spórák száma
+    private  int sporeCount = 5;        //A gomba spórarekeszében lévő spórák száma
     private int id;                 //A gomba egyedi azonosítója
     private int level;              //A gomba szintje
     private Tecton myTecton;        //A tekton, ahol a gombatest áll éppen
@@ -143,7 +143,7 @@ public class Mushroom{
                 this.sporeCount -= count;
 
                 //Ha eldobtunk 5db spórákat, akkor a gomba meghal
-                if (this.sporeCount > 5){
+                if (this.sporeCount == 0){
                     Logger.Log("The mushroom has thrown 5 spores and will now be destroyed.");
                     this.destroy();
                 }
