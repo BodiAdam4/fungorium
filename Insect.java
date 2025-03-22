@@ -1,4 +1,3 @@
-import java.util.List;
 
 /**
  * Represents an insect with various attributes such as speed, spore count,
@@ -162,6 +161,7 @@ public class Insect {
      */
     public boolean cutLine(Line line) {
         Logger.FunctionStart(this, "cutLine", new Object[]{line});
+        line.Destroy();
         Logger.FunctionEnd();
         return true;
     }

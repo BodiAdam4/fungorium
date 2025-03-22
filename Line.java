@@ -33,7 +33,8 @@ public class Line
         if (!res2 && res1) {
             t1.removeLine(this);
         }
-
+        connections.add(t1);
+        connections.add(t2);
         Logger.FunctionEnd();
     }
 
@@ -101,10 +102,19 @@ public class Line
     {
         Logger.FunctionStart(this, "growLine", new Object[]{to1, to2});
         Line nl = new Line("l" + (Integer.parseInt((Logger.GetObjectName(this).substring(1))) + 1), to1, to2, id);
+        Logger.FunctionEnd();
         return true;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void Destroy() {
+        Logger.FunctionStart(this, "Destroy");
+        for (Tecton t : connections) {
+            t.removeLine(this);
+        }
+        Logger.DestroyObject(this);
     }
 }
