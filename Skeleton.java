@@ -79,7 +79,7 @@ public class Skeleton {
             } else if (answer.equals("13")) {
                 test_TectonBreak();
             } else if (answer.equals("14")) {
-                test_ChackBody();
+                test_CheckBody();
             } else if (answer.equals("15")) {
                 test_MushroomDieThrowingSpores();
             } else {
@@ -313,7 +313,7 @@ public class Skeleton {
      * megismételjük ezt a folyamatot, amíg az utolsó fonálig nem érünk.
      * Drenyó
      */
-    public static void test_ChackBody(){
+    public static void test_CheckBody(){
         System.out.println("Test CheckBody");
         //TODO: Implement this method
     }
