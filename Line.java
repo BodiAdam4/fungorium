@@ -18,8 +18,17 @@ public class Line
     {
         Logger.Constructor(this, name, new Object[]{t1, t2, id});
         this.id = id;
-        t1.addLine(this);
-        t2.addLine(this);
+        boolean res1 = t1.addLine(this);
+        boolean res2 = t2.addLine(this);
+
+        if (!res1 && res2) {
+            t2.removeLine(this);
+        }
+
+        if (!res2 && res1) {
+            t1.removeLine(this);
+        }
+
         Logger.FunctionEnd();
     }
 
