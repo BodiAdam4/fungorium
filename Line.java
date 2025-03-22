@@ -73,9 +73,8 @@ public class Line
     {
         Logger.FunctionStart(this, "growMushroom", new Object[]{to});
 
-        //if()
+        boolean result = to.addMushroom(id);
 
-        to.addMushroom(id);
 
         Logger.FunctionEnd();
         return true;

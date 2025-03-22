@@ -106,7 +106,8 @@ public class Skeleton {
 
         int count = Integer.parseInt(Logger.Ask("Hány spórát dobjunk a tektonra?"));
         for (int i = 0; i < count; i++){
-            t2.getSpores().addSpores(new Spore("s1", 1, 1));
+            Spore s1 = new Spore("s1", 1, 1);
+            t2.getSpores().addSpores(s1);
         }
         l1.growMushroom(t2);
 

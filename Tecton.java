@@ -157,9 +157,19 @@ public class Tecton {
      */
     boolean addMushroom(int id){
         Logger.FunctionStart(this, "addMushroom", new Object[]{id});
-        myMushroom = new Mushroom(id, this, "Mushroom");
-        Logger.FunctionEnd();
-        return true;
+        boolean sporeCountOK = spores.getSporeCount(id) >= 3;
+        System.out.println(spores.getSporeCount(id));
+        if (sporeCountOK) {
+            myMushroom = new Mushroom(id, this, "Mushroom");
+            Logger.Log("Mushroom built successfully");
+            Logger.FunctionEnd();
+            return true;
+        }
+        else {
+            Logger.Log("Mushroom failed to build");
+            Logger.FunctionEnd();
+            return false;
+        }
     }
 
     
