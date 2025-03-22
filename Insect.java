@@ -131,6 +131,10 @@ public class Insect {
     public boolean move(Tecton to) {
         Logger.FunctionStart(this, "move", new Object[]{to});
         if(to.getNeighbors().contains(currentTecton)){
+            List<Line> lines = to.getConnections();
+            for(Line line : lines){
+                //get t1, t2?
+            }
             to.addInsect(this);
             currentTecton.removeInsect(this);
             currentTecton = to;
@@ -171,6 +175,8 @@ public class Insect {
      */
     public void resetEffect() {
         Logger.FunctionStart(this, "resetEffect");
+        canMove = true;
+        canCut = true;
         Logger.FunctionEnd();
     }
 }
