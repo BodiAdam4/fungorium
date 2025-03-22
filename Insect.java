@@ -1,7 +1,7 @@
 
 /**
- * Represents an insect with various attributes such as speed, spore count,
- * and abilities to cut and move.
+ * Egy rovart reprezentál különböző tulajdonságokkal, például sebesség,
+ * spóraszám, valamint a vágás és mozgás képessége.
  */
 public class Insect {
 
@@ -12,9 +12,9 @@ public class Insect {
     private Tecton currentTecton;
 
     /**
-     * Sets the speed of the insect.
+     * Beállítja a rovar sebességét.
      *
-     * @param speed the new speed value
+     * @param speed az új sebesség értéke
      */
     public void setSpeed(int speed) {
         Logger.FunctionStart(this, "setSpeed", new Object[]{speed});
@@ -23,9 +23,9 @@ public class Insect {
     }
 
     /**
-     * Gets the current Tecton of the insect.
+     * Lekéri a rovar jelenlegi Tectonját.
      *
-     * @return the current Tecton
+     * @return a jelenlegi Tecton
      */
     public Tecton getTecton() {
         Logger.FunctionStart(this, "getTecton");
@@ -34,9 +34,9 @@ public class Insect {
     }
 
     /**
-     * Sets the Tecton of the insect.
+     * Beállítja a rovar Tectonját.
      *
-     * @param t the new Tecton;
+     * @param t az új Tecton
      */
     public void setTecton(Tecton t) {
         Logger.FunctionStart(this, "setTecton", new Object[]{t});
@@ -45,9 +45,9 @@ public class Insect {
     }
 
     /**
-     * Gets the speed of the insect.
+     * Lekéri a rovar sebességét.
      *
-     * @return the current speed value
+     * @return a jelenlegi sebesség értéke
      */
     public int getSpeed() {
         Logger.FunctionStart(this, "getSpeed");
@@ -56,9 +56,9 @@ public class Insect {
     }
 
     /**
-     * Sets whether the insect can cut.
+     * Beállítja, hogy a rovar tud-e vágni.
      *
-     * @param canCut true if the insect can cut, false otherwise
+     * @param canCut igaz, ha a rovar tud vágni, egyébként hamis
      */
     public void setCanCut(boolean canCut) {
         Logger.FunctionStart(this, "setCanCut", new Object[]{canCut});
@@ -67,9 +67,9 @@ public class Insect {
     }
 
     /**
-     * Checks if the insect can cut.
+     * Ellenőrzi, hogy a rovar tud-e vágni.
      *
-     * @return true if the insect can cut, false otherwise
+     * @return igaz, ha a rovar tud vágni, egyébként hamis
      */
     public boolean getCanCut() {
         Logger.FunctionStart(this, "getCanCut");
@@ -78,9 +78,9 @@ public class Insect {
     }
 
     /**
-     * Sets whether the insect can move.
+     * Beállítja, hogy a rovar tud-e mozogni.
      *
-     * @param canMove true if the insect can move, false otherwise
+     * @param canMove igaz, ha a rovar tud mozogni, egyébként hamis
      */
     public void setCanMove(boolean canMove) {
         Logger.FunctionStart(this, "setCanMove", new Object[]{canMove});
@@ -89,9 +89,9 @@ public class Insect {
     }
 
     /**
-     * Checks if the insect can move.
+     * Ellenőrzi, hogy a rovar tud-e mozogni.
      *
-     * @return true if the insect can move, false otherwise
+     * @return igaz, ha a rovar tud mozogni, egyébként hamis
      */
     public boolean getCanMove() {
         Logger.FunctionStart(this, "getCanMove");
@@ -100,19 +100,18 @@ public class Insect {
     }
 
     /**
-     * Constructs an Insect with specified attributes.
+     * Létrehoz egy rovart a megadott tulajdonságokkal.
      *
-     * @param speed the speed of the insect
-     * @param sporeCount the number of spores the insect has
-     * @param canCut whether the insect can cut
-     * @param canMove whether the insect can move
+     * @param speed a rovar sebessége
+     * @param sporeCount a rovar által birtokolt spórák száma
+     * @param canCut képes-e vágni a rovar
+     * @param canMove képes-e mozogni a rovar
      */
-    
 
-     /**
-     * Constructs an Insect with default values.
+    /**
+     * Létrehoz egy rovart alapértelmezett értékekkel.
      */
-     public Insect(String objectName) {
+    public Insect(String objectName) {
         Logger.Constructor(this, objectName);
         speed = 1;
         sporeCount = 0;
@@ -122,10 +121,10 @@ public class Insect {
     }
 
     /**
-     * Moves the insect to a new location.
+     * A rovart egy új helyre mozgatja.
      *
-     * @param to the destination Tecton
-     * @return true if the move was successful, false otherwise
+     * @param to a cél Tecton
+     * @return igaz, ha a mozgás sikeres volt, egyébként hamis
      */
     public boolean move(Tecton to) {
         Logger.FunctionStart(this, "move", new Object[]{to});
@@ -133,19 +132,19 @@ public class Insect {
             to.addInsect(this);
             currentTecton.removeInsect(this);
             currentTecton = to;
-            Logger.Log("Insect moved to tecton");
+            Logger.Log("A rovar áthelyeződött a tectonra");
         }
         else{
-            Logger.Log("No line between the tectons");
+            Logger.Log("Nincs kapcsolat a tectonok között");
         }
         Logger.FunctionEnd();
         return true;
     }
 
     /**
-     * Reduces the spore count by the specified amount.
+     * Csökkenti a spórák számát a megadott mennyiséggel.
      *
-     * @param count the number of spores to eat
+     * @param count az elfogyasztandó spórák száma
      */
     public void eatSpores(int count) {
         Logger.FunctionStart(this, "eatSpores", new Object[]{count});
@@ -158,10 +157,10 @@ public class Insect {
     }
 
     /**
-     * Attempts to cut a line.
+     * Megpróbál elvágni egy vonalat.
      *
-     * @param line the line to be cut
-     * @return true if the line was successfully cut, false otherwise
+     * @param line az elvágandó vonal
+     * @return igaz, ha a vonalat sikeresen elvágta, egyébként hamis
      */
     public boolean cutLine(Line line) {
         Logger.FunctionStart(this, "cutLine", new Object[]{line});
@@ -171,7 +170,7 @@ public class Insect {
     }
 
     /**
-     * Resets the insect's effects.
+     * Visszaállítja a rovar hatásait alapállapotba.
      */
     public void resetEffect() {
         Logger.FunctionStart(this, "resetEffect");
