@@ -62,11 +62,11 @@ public class Skeleton {
                 test_BuildLineInOnlyLineTectons();
             } else if (answer.equals("5")) {
                 test_CutLine();
-            } else if (answer.equals("6")) {    //Szar
+            } else if (answer.equals("6")) {
                 test_EatSpore();
-            } else if (answer.equals("7")) {    //Szar
+            } else if (answer.equals("7")) {
                 test_EatExhaustingSpore();
-            } else if (answer.equals("8")) {    //Szar
+            } else if (answer.equals("8")) {
                 test_EatFreezingSpore();
             } else if (answer.equals("9")) {
                 test_EatSlowingSpore();
@@ -76,9 +76,9 @@ public class Skeleton {
                 test_MoveInsect();
             } else if (answer.equals("12")) {
                 test_ThrowSpores();
-            } else if (answer.equals("13")) {   //Nincs meg
+            } else if (answer.equals("13")) {
                 test_TectonBreak();
-            } else if (answer.equals("14")) {   //Oda kell írni, hogy milyen válaszlehetőségekkel kommunikálhat a felhasználó a terminállal
+            } else if (answer.equals("14")) {
                 test_CheckBody();
             } else if (answer.equals("15")) {
                 test_MushroomDieThrowingSpores();
@@ -96,7 +96,6 @@ public class Skeleton {
      * A tektonra annyi spórát helyezünk el, amennyit a tesztelő megadott. 
      * Ha ez a mennyiség 3, vagy annál több, akkor gombatestet növesztünk a tektonra. 
      * Ha kevesebb, akkor jelezzük, hogy nincs elég spóra.
-     * Geri 
      */
     public static void test_BuildBody(){ 
         System.out.println("Test BuildBody");
@@ -117,7 +116,6 @@ public class Skeleton {
     /**
      * Létrehozunk egy terméketlen tektont annyi spórával, amennyit a tesztelő megad. 
      * Ezután tekton jelzi, hogy nem lehet rá gombatestet növeszteni.
-     * Feri
      */
     public static void test_BuildBodyInfertileTecton(){
         System.out.println("Test BuildBodyInfertileTecton");
@@ -132,7 +130,6 @@ public class Skeleton {
     /**
      * A két tekton között hozunk létre összeköttetést, 
      * majd leellenőrizzük, hogy létrejött-e a gombafonal.
-     * Geri
      */
     public static void test_BuildLine(){
         System.out.println("Test BuildLine");
@@ -147,7 +144,6 @@ public class Skeleton {
      * Két tekton között létezik már gombafonal. Ezután egy másik 
      * gombaazonosítóval rendelkező gombafonalat akarunk közéjük növeszteni. 
      * Ez meghíusúl, mivel a tektononokon csak egyfajta gombafonal nőhet.
-     * Feri
      */
     public static void test_BuildLineInOnlyLineTectons(){
         System.out.println("Test BuildLineInOnlyLineTectons");
@@ -165,7 +161,6 @@ public class Skeleton {
     /**
      * Az adott rovar a tektonon állva megpróbál elvágni 
      * egy gombafonalat, mely két tektont köt össze.
-     * Drenyó
      */
     public static void test_CutLine(){
         System.out.println("Test CutLine");
@@ -181,7 +176,6 @@ public class Skeleton {
 
     /**
      * A rovar elfogyaszt egy spórát azon a tektonon, ahol éppen tartózkodik.
-     * Ádám
      */
     public static void test_EatSpore(){
         System.out.println("Test EatSpore");
@@ -198,7 +192,6 @@ public class Skeleton {
 
     /**
      * A rovar elfogyaszt egy spórát, aminek következtében elveszti a vágóképességét.
-     * Ádám
      */
     public static void test_EatExhaustingSpore(){
         System.out.println("Test EatExhaustingSpore");
@@ -215,7 +208,6 @@ public class Skeleton {
 
     /**
      * A rovar elfogyaszt egy spórát, aminek következtében a rovar nem fog tudni mozogni.
-     * Ádám
      */
     public static void test_EatFreezingSpore(){
         System.out.println("Test EatFreezingSpore");
@@ -232,7 +224,6 @@ public class Skeleton {
 
     /**
      * A rovar elfogyaszt egy spórát, aminek következtében a rovar lassabban tud mozogni.
-     * Bence
      */
     public static void test_EatSlowingSpore(){
         System.out.println("Test EatSlowingSpore");
@@ -255,7 +246,6 @@ public class Skeleton {
 
     /**
      * A rovar elfogyaszt egy spórát, aminek következtében a rovar gyorsabban fog tudni mozogni.
-     * Bence
      */
     public static void test_EatFastSpore(){
         System.out.println("Test EatFastSpore");
@@ -278,7 +268,6 @@ public class Skeleton {
 
     /**
      * A rovar átmegy az egyik tektonról a másikra a fonalon keresztül.
-     * Feri
      */
     public static void test_MoveInsect(){
         System.out.println("Test MoveInsect");
@@ -298,7 +287,6 @@ public class Skeleton {
      * a másik tektonra, amely szomszédos vele. 
      * Ekkor a gombatestnek az eldobható spóráinak száma csökkenni fog, 
      * a szomszédos tektonon megtalálható spórák száma növekszik.
-     * Drenyó
      */
     public static void test_ThrowSpores(){
         System.out.println("Test ThrowSpores");
@@ -316,7 +304,6 @@ public class Skeleton {
      * A tektont kettétörjük. Ezáltal létrejön két különböző szomszédos tekton. 
      * A tektonon lévő gombatest ekkor fennmarad az egyik tektonon, a fonalak, 
      * melyek a kettétört tektont érintették, azonban elvesznek.
-     * Bence
      */
     public static void test_TectonBreak(){
         System.out.println("Test TectonBreak");
@@ -336,7 +323,6 @@ public class Skeleton {
      * Ha ezen nincs gombatest, akkor megnézzük, hogy ez a fonal-e az utolsó a sorban. 
      * Ha igen, akkor megnézzük a másik tektonját is. Ha nem, akkor továbbmegyünk és 
      * megismételjük ezt a folyamatot, amíg az utolsó fonálig nem érünk.
-     * Drenyó
      */
     public static void test_CheckBody(){
         System.out.println("Test CheckBody");
@@ -349,7 +335,6 @@ public class Skeleton {
 
     /**
      * A gomba spórát dob ötször a szomszédos tektonra, ezáltal kifogy a gombaspórákból és meghal.
-     * Geri
      */
     public static void test_MushroomDieThrowingSpores(){
         System.out.println("Test MushroomDieThrowingSpores");
