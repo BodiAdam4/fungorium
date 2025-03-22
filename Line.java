@@ -49,6 +49,7 @@ public class Line
         boolean t1h = connections.get(0).hasBody();
         if(t1h)
         {
+            Logger.Log("return "+true);
             Logger.FunctionEnd();
             return true;
         }
@@ -56,15 +57,18 @@ public class Line
         {
             String ans = Logger.Ask("Ez az utolsó vonal (y/n)?");
             if(ans.equalsIgnoreCase("y"))
-            {
+            {   
+                boolean res = connections.get(1).hasBody();
+                Logger.Log("return "+res);
                 Logger.FunctionEnd();
-                return connections.get(1).hasBody();
+                return res;
             }
             else
             {
                 Tecton nt = new Tecton("t" + (Integer.parseInt((Logger.GetObjectName(connections.get(1)).substring(1))) + 1));
                 Line nl = new Line("l" + (Integer.parseInt((Logger.GetObjectName(this).substring(1))) + 1), connections.get(1), nt, id);
                 boolean res = nl.checkConnections();
+                Logger.Log("return "+res);
                 Logger.FunctionEnd();
                 return res;
             }

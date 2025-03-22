@@ -173,7 +173,7 @@ public class Mushroom{
      */
     public void destroy(){
         Logger.FunctionStart(this, "destroy");
-        this.myTecton.destroyMushroom();
+        this.myTecton.setMyMushroom(null);
         Logger.DestroyObject(this);
     }
     

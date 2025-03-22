@@ -174,15 +174,6 @@ public class Tecton {
 
     
     /**
-     * A tektonon lévő gombatest eltávolítása
-    */ 
-    public void destroyMushroom(){
-        Logger.FunctionStart(this, "destroyMushroom");
-        myMushroom = null;
-        Logger.FunctionEnd();
-        return;
-    }
-    /**
       * A függvény segítségével lekérdezhető, hogy a tektonon van-e gombatest 
       * @return Visszaadja, hogy van-e a tektonon gombatest.
       */

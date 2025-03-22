@@ -114,14 +114,23 @@ class Logger {
 
         for(int i = 0; i<parameters.length; i++) {
 
-            String param = parameters[i].toString();
+            String param = "";
+
+            if (parameters[i] == null) {
+                param = null;
+                paramLength+=4;
+            }
+            else {
+                param = parameters[i].toString();
+                paramLength+=param.length();
+            }
+
 
             if (objectList.containsKey(parameters[i])) {
                 param = objectList.get(parameters[i]);
             }
 
             System.out.print(param);
-            paramLength+=param.length();
 
             if(i<parameters.length-1) {
                 System.out.print(", ");
@@ -146,6 +155,7 @@ class Logger {
     public static void FunctionEnd() {
         indentation--;
     }
+
 
     private static boolean firstMsg = true;
     private static int objLength;
