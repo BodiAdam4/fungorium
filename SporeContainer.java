@@ -1,16 +1,30 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A gombaspórák tárolására és kezelésére alkalmas osztály.
+ */
 public class SporeContainer 
 {
+    /* Privát attribútumok */
     private List<Spore> spores;
 
+
+    /**
+     * Paraméter nélküli kontstruktor. (A String name paraméter csupán tesztelés céljából van bent)
+     */
     public SporeContainer(String name) {
         Logger.Constructor(this, name);
         spores = new ArrayList<>();
         Logger.FunctionEnd();
     }
 
+
+    /**
+     * Spóra hozzáadása a listához.
+     * @param spore A hozzáadandó spóra
+     * @return A hozzáadás sikerességét tartalmazó logikai érték
+     */
     public boolean addSpores(Spore spore) {
         Logger.FunctionStart(this, "addSpores", new Object[]{spore});
 
@@ -20,6 +34,12 @@ public class SporeContainer
         return true;
     }
 
+
+    /**
+     * Spóra kivétele a listából. Az utolsó spórát törli a listából és visszaadja
+     * @param count A spórák száma, amiket ki szeretnénk venni.
+     * @return A kivett spórák.
+     */
     public Spore[] popSpores(int count) {
         Logger.FunctionStart(this, "popSpores", new Object[]{count});
 
@@ -37,6 +57,13 @@ public class SporeContainer
         return selected;
     }
 
+
+    /**
+     * Spórák kivétele a listából gombaazonosító szerint.
+     * @param id A gombaazonosító.
+     * @param count A spórák száma, amiket ki szeretnénk venni.
+     * @return A kivett spórák.
+     */
     public Spore[] popSpores(int id, int count) {
         Logger.FunctionStart(this, "popSpores", new Object[]{count});
 
@@ -56,12 +83,23 @@ public class SporeContainer
         return selected;
     }
 
+
+    /**
+     * A listában lévő spórák számának lekérdezése
+     * @return A spórák száma.
+     */
     public int getSporeCount() {
         Logger.FunctionStart(this, "getSporeCount");
         Logger.FunctionEnd();
         return spores.size();
     }
 
+
+    /**
+     * Adott azonosítóval rendelkező gombaspórák számának lekérdezése.
+     * @param id A gombaazonosító.
+     * @return A gombaazonosítóval rendelkező spórák száma.
+     */
     public int getSporeCount(int id) {
         Logger.FunctionStart(this, "getSporeCount", new Object[]{id});
         
