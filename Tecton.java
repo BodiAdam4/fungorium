@@ -161,6 +161,7 @@ public class Tecton {
         if (sporeCountOK) {
             myMushroom = new Mushroom(id, this, "Mushroom");
             Logger.Log("Mushroom built successfully");
+            spores.popSpores(id, 3);
             Logger.FunctionEnd();
             return true;
         }

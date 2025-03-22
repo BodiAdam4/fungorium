@@ -121,11 +121,11 @@ public class Skeleton {
      */
     public static void test_BuildBodyInfertileTecton(){
         System.out.println("Test BuildBodyInfertileTecton");
-        Tecton it1 = new TectonInfertile("it1");
-        Tecton it2 = new TectonInfertile("it2");
-        Line l1 = new Line("l1", it1, it2, 1);
+        Tecton t1 = new TectonInfertile("t1");
+        Tecton t2 = new TectonInfertile("t2");
+        Line l1 = new Line("l1", t1, t2, 1);
         
-        l1.growMushroom(it1);
+        l1.growMushroom(t1);
     }
 
 
