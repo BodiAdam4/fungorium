@@ -237,6 +237,7 @@ public class Skeleton {
         SporeContainer sc1 = new SporeContainer("sc1");
         sc1.addSpores(ss1);
         t1.setSpores(sc1);
+        i1.setTecton(t1);
         
         //Function calls
 
@@ -260,6 +261,7 @@ public class Skeleton {
         SporeContainer sc1 = new SporeContainer("sc1");
         sc1.addSpores(sfs1);
         t1.setSpores(sc1);
+        i1.setTecton(t1);
         
         //Function calls
 
