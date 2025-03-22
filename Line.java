@@ -54,8 +54,8 @@ public class Line
         }
         else
         {
-            String ans = Logger.Ask("Ez az utolsó vonal?");
-            if(ans.equals("igen"))
+            String ans = Logger.Ask("Ez az utolsó vonal (y/n)?");
+            if(ans.equalsIgnoreCase("y"))
             {
                 Logger.FunctionEnd();
                 return connections.get(1).hasBody();

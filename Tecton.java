@@ -188,8 +188,8 @@ public class Tecton {
       */
     boolean hasBody(){
         Logger.FunctionStart(this, "hasBody");
-        String ans = Logger.Ask("Van gombatest a tektonon?");
-        if(ans.equals("igen")){
+        String ans = Logger.Ask("Van gombatest a tektonon(y/n)?");
+        if(ans.equalsIgnoreCase("y")){
             Logger.FunctionEnd();
             return true;
         }
