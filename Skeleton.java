@@ -123,7 +123,7 @@ public class Skeleton {
         Tecton it1 = new TectonInfertile("it1");
         Tecton it2 = new TectonInfertile("it2");
         Line l1 = new Line("l1", it1, it2, 1);
-
+        
         l1.growMushroom(it1);
     }
 
@@ -192,7 +192,7 @@ public class Skeleton {
         System.out.println("Test EatExhaustingSpore");
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
-        Spore s1 = new Spore("sp1", 0, 1);
+        Spore s1 = new SporeExhausting("sp1", 0, 1);
         t1.getSpores().addSpores(s1); 
         Insect i1 = new Insect("i1");
         //test case
@@ -208,7 +208,7 @@ public class Skeleton {
         System.out.println("Test EatFreezingSpore");
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
-        Spore s1 = new Spore("sp1", 0, 1);
+        Spore s1 = new SporeFrozen("sp1", 0, 1);
         t1.getSpores().addSpores(s1); 
         Insect i1 = new Insect("i1");
         //test case
