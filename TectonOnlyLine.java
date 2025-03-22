@@ -3,6 +3,7 @@
  */
 public class TectonOnlyLine extends Tecton{
 
+    //Konstruktor
     public TectonOnlyLine(String objectName){
         super(objectName);
     }

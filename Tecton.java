@@ -12,6 +12,7 @@ import java.util.List;
  * viszont csak egy gombatest nőhet rajta.
 */
 public class Tecton {
+    //Privat attribútumok
     /**
      * A Tecton osztály tartalmazza a tektonon lévő 
      * Mushroom példányt. 
@@ -22,6 +23,58 @@ public class Tecton {
      */
     private Mushroom myMushroom;
 
+    /**
+     * A Tecton osztály ismeri a hozzá csatlakoztatott gombafonalakat,
+     * és a gombafonalak is ismerik a hozzájuk kapcsolt
+     * kezdő- és végpontjukként szolgáló tektonokat.
+     * Fontos a fonalak bejárásához.
+     */
+    protected List<Line> connections = new ArrayList<>();
+
+
+    /**
+     * A SporeContainerben tárolja a rá dobott Spore példányokat.
+     * Ha egy rovar a tektonra jut, akkor képes ezáltal megnézni
+     * az ott található spórákat, ami a spóraevéshez létfontosságú.
+     */
+    private SporeContainer spores;
+
+    /**
+     * A tektononnal szomszédos tektonok listája.
+     */
+    private List<Tecton> neighbors = new ArrayList<>();
+
+    /**
+     * A tektonon tartózkodó rovarok listája.
+     */
+    List<Insect> insects = new ArrayList<>();
+
+    /**
+     * A tekton x koordinátája.
+     */
+    private int x;
+
+    /**
+     * A tekton y koordinátája.
+     */ 
+    private int y;
+
+
+    
+    /**
+     * Tecton konstruktor.
+     * @param objectName Objektum neve
+     */
+    public Tecton(String objectName){
+        Logger.Constructor(this, objectName);
+        spores = new SporeContainer("sc" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)))));
+        Logger.FunctionEnd();
+    }
+
+    
+    
+    
+    //Getterek és setterek
     public Mushroom getMyMushroom() {
         Logger.FunctionStart(this, "getMyMushroom");
         Logger.FunctionEnd();
@@ -33,14 +86,6 @@ public class Tecton {
         this.myMushroom = myMushroom;
         Logger.FunctionEnd();
     }
-
-    /**
-     * A Tecton osztály ismeri a hozzá csatlakoztatott gombafonalakat,
-     * és a gombafonalak is ismerik a hozzájuk kapcsolt
-     * kezdő- és végpontjukként szolgáló tektonokat.
-     * Fontos a fonalak bejárásához.
-     */
-    protected List<Line> connections = new ArrayList<>();
 
     public List<Line> getConnections() {
         Logger.FunctionStart(this, "getConnections");
@@ -54,13 +99,6 @@ public class Tecton {
         Logger.FunctionEnd();
     }
 
-    /**
-     * A SporeContainerben tárolja a rá dobott Spore példányokat.
-     * Ha egy rovar a tektonra jut, akkor képes ezáltal megnézni
-     * az ott található spórákat, ami a spóraevéshez létfontosságú.
-     */
-    private SporeContainer spores;
-
     public SporeContainer getSporeContainer() {
         Logger.FunctionStart(this, "getSporeContainer");
         Logger.FunctionEnd();
@@ -72,11 +110,6 @@ public class Tecton {
         this.spores = spores;
         Logger.FunctionEnd();
     }
-
-    /**
-     * A tektononnal szomszédos tektonok listája.
-     */
-    private List<Tecton> neighbors = new ArrayList<>();
 
     public List<Tecton> getNeighbors() {
         Logger.FunctionStart(this, "getNeighbors");
@@ -90,11 +123,6 @@ public class Tecton {
         Logger.FunctionEnd();
     }
 
-    /**
-     * A tekton x koordinátája.
-     */
-    private int x;
-
     public int getX() {
         Logger.FunctionStart(this, "getX");
         Logger.FunctionEnd();
@@ -106,11 +134,6 @@ public class Tecton {
         this.x = x;
         Logger.FunctionEnd();
     }
-
-    /**
-     * A tekton y koordinátája.
-     */ 
-    private int y;
 
     public int getY() {
         Logger.FunctionStart(this, "getY");
@@ -124,12 +147,8 @@ public class Tecton {
         Logger.FunctionEnd();
     }
 
-    public Tecton(String objectName){
-        Logger.Constructor(this, objectName);
-        spores = new SporeContainer("sc" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)))));
-        Logger.FunctionEnd();
-    }
 
+    //Függvények
     /**
      * Gombafonál csatlakoztatása a tektonhoz. 
      * @param line A hozzáadandó fonal.
@@ -203,13 +222,18 @@ public class Tecton {
 
         Logger.FunctionEnd();
     }
-
-    List<Insect> insects = new ArrayList<>();
-
+    /**
+     * A tektonra rárakja az átadott rovart.
+     * @param insect A rárakandó rovar.
+     */
     public void addInsect(Insect insect) {
         insects.add(insect);
     }
 
+    /**
+     * A tektonról leveszi az átadott rovart.
+     * @param insect A leveszendő rovar.
+     */
     public void removeInsect(Insect insect) {
         insects.remove(insect);
     }

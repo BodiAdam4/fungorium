@@ -3,6 +3,7 @@
  */
 public class TectonTime extends Tecton{
     
+    //Konstruktor
     public TectonTime(String objectName){
         super(objectName);
     }
