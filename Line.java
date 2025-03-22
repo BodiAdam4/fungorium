@@ -18,10 +18,23 @@ public class Line
     {
         Logger.Constructor(this, name, new Object[]{t1, t2, id});
         this.id = id;
+        boolean res1 = t1.addLine(this);
+
+        boolean res2 = false;
+
+        if (res1) {
+            res2 = t2.addLine(this);
+        }
+
+        if (!res1 && res2) {
+            t2.removeLine(this);
+        }
+
+        if (!res2 && res1) {
+            t1.removeLine(this);
+        }
         connections.add(t1);
         connections.add(t2);
-        t1.addLine(this);
-        t2.addLine(this);
         Logger.FunctionEnd();
     }
 
@@ -72,11 +85,8 @@ public class Line
     public boolean growMushroom(Tecton to)
     {
         Logger.FunctionStart(this, "growMushroom", new Object[]{to});
-
         //if()
-
         to.addMushroom(id);
-
         Logger.FunctionEnd();
         return true;
     }
@@ -91,11 +101,20 @@ public class Line
     public boolean growLine(Tecton to1, Tecton to2)
     {
         Logger.FunctionStart(this, "growLine", new Object[]{to1, to2});
-        Line nl = new Line("l" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)) + 1)), to1, to2, id);
+        Line nl = new Line("l" + (Integer.parseInt((Logger.GetObjectName(this).substring(1))) + 1), to1, to2, id);
+        Logger.FunctionEnd();
         return true;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void Destroy() {
+        Logger.FunctionStart(this, "Destroy");
+        for (Tecton t : connections) {
+            t.removeLine(this);
+        }
+        Logger.DestroyObject(this);
     }
 }

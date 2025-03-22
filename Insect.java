@@ -1,4 +1,3 @@
-import java.util.List;
 
 /**
  * Represents an insect with various attributes such as speed, spore count,
@@ -62,7 +61,7 @@ public class Insect {
      * @param canCut true if the insect can cut, false otherwise
      */
     public void setCanCut(boolean canCut) {
-        Logger.FunctionStart(this, "canCut", new Object[]{canCut});
+        Logger.FunctionStart(this, "setCanCut", new Object[]{canCut});
         this.canCut = canCut;
         Logger.FunctionEnd();
     }
@@ -162,6 +161,7 @@ public class Insect {
      */
     public boolean cutLine(Line line) {
         Logger.FunctionStart(this, "cutLine", new Object[]{line});
+        line.Destroy();
         Logger.FunctionEnd();
         return true;
     }

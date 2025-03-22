@@ -126,7 +126,7 @@ public class Tecton {
 
     public Tecton(String objectName){
         Logger.Constructor(this, objectName);
-        spores = new SporeContainer("spores");
+        spores = new SporeContainer("sc" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)))));
         Logger.FunctionEnd();
     }
 
@@ -157,9 +157,19 @@ public class Tecton {
      */
     boolean addMushroom(int id){
         Logger.FunctionStart(this, "addMushroom", new Object[]{id});
-        myMushroom = new Mushroom(id, this, "Mushroom");
-        Logger.FunctionEnd();
-        return true;
+        boolean sporeCountOK = spores.getSporeCount(id) >= 3;
+        if (sporeCountOK) {
+            myMushroom = new Mushroom(id, this, "Mushroom");
+            Logger.Log("Mushroom built successfully");
+            spores.popSpores(id, 3);
+            Logger.FunctionEnd();
+            return true;
+        }
+        else {
+            Logger.Log("Mushroom failed to build");
+            Logger.FunctionEnd();
+            return false;
+        }
     }
 
     

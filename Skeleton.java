@@ -62,11 +62,11 @@ public class Skeleton {
                 test_BuildLineInOnlyLineTectons();
             } else if (answer.equals("5")) {
                 test_CutLine();
-            } else if (answer.equals("6")) {
+            } else if (answer.equals("6")) {    //Szar
                 test_EatSpore();
-            } else if (answer.equals("7")) {
+            } else if (answer.equals("7")) {    //Szar
                 test_EatExhaustingSpore();
-            } else if (answer.equals("8")) {
+            } else if (answer.equals("8")) {    //Szar
                 test_EatFreezingSpore();
             } else if (answer.equals("9")) {
                 test_EatSlowingSpore();
@@ -76,9 +76,9 @@ public class Skeleton {
                 test_MoveInsect();
             } else if (answer.equals("12")) {
                 test_ThrowSpores();
-            } else if (answer.equals("13")) {
+            } else if (answer.equals("13")) {   //Nincs meg
                 test_TectonBreak();
-            } else if (answer.equals("14")) {
+            } else if (answer.equals("14")) {   //Oda kell írni, hogy milyen válaszlehetőségekkel kommunikálhat a felhasználó a terminállal
                 test_CheckBody();
             } else if (answer.equals("15")) {
                 test_MushroomDieThrowingSpores();
@@ -106,7 +106,8 @@ public class Skeleton {
 
         int count = Integer.parseInt(Logger.Ask("Hány spórát dobjunk a tektonra?"));
         for (int i = 0; i < count; i++){
-            t2.getSpores().addSpores(new Spore("s1", 1, 1));
+            Spore s1 = new Spore("s1", 1, 1);
+            t2.getSpores().addSpores(s1);
         }
         l1.growMushroom(t2);
 
@@ -120,11 +121,11 @@ public class Skeleton {
      */
     public static void test_BuildBodyInfertileTecton(){
         System.out.println("Test BuildBodyInfertileTecton");
-        Tecton it1 = new TectonInfertile("it1");
-        Tecton it2 = new TectonInfertile("it2");
-        Line l1 = new Line("l1", it1, it2, 1);
-
-        l1.growMushroom(it1);
+        Tecton t1 = new TectonInfertile("t1");
+        Tecton t2 = new TectonInfertile("t2");
+        Line l1 = new Line("l1", t1, t2, 1);
+        
+        l1.growMushroom(t1);
     }
 
 
@@ -138,6 +139,7 @@ public class Skeleton {
         Tecton t1 = new Tecton("t1");
         Tecton t2 = new Tecton("t2");
         Line l1 = new Line("l1", t1, t2, 1);
+        l1.growLine(t2, t1);
     }
 
 
@@ -151,9 +153,12 @@ public class Skeleton {
         System.out.println("Test BuildLineInOnlyLineTectons");
         Tecton t1 = new TectonOnlyLine("t1");
         Tecton t2 = new TectonOnlyLine("t2");
-
-        Line l1 = new Line("l1", t1, t2, 1);
-        Line l2 = new Line("l2", t1, t2, 2);
+        t1.setNeighbors(t2);
+        t2.setNeighbors(t1);
+        Mushroom m1 = new Mushroom(1, t1, "m1");
+        t1.setMyMushroom(m1);
+        Line l1 = new Line("l1", t1, t2, 2);
+        m1.growLine(t2);
     }
 
 
@@ -185,6 +190,7 @@ public class Skeleton {
         Spore s1 = new Spore("sp1", 0, 1);
         t1.getSpores().addSpores(s1); 
         Insect i1 = new Insect("i1");
+        i1.setTecton(t1);
         //test case
         i1.eatSpores(1);
     }
@@ -198,9 +204,10 @@ public class Skeleton {
         System.out.println("Test EatExhaustingSpore");
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
-        Spore s1 = new Spore("sp1", 0, 1);
+        Spore s1 = new SporeExhausting("sp1", 0, 1);
         t1.getSpores().addSpores(s1); 
         Insect i1 = new Insect("i1");
+        i1.setTecton(t1);
         //test case
         i1.eatSpores(1);
     }
@@ -214,9 +221,10 @@ public class Skeleton {
         System.out.println("Test EatFreezingSpore");
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
-        Spore s1 = new Spore("sp1", 0, 1);
+        Spore s1 = new SporeFrozen("sp1", 0, 1);
         t1.getSpores().addSpores(s1); 
         Insect i1 = new Insect("i1");
+        i1.setTecton(t1);
         //test case
         i1.eatSpores(1);
     }
@@ -298,6 +306,9 @@ public class Skeleton {
         System.out.println("Test ThrowSpores");
         //t1 sporeContainere rossz nevet kap
         Tecton t1 = new Tecton("t1");
+        Tecton t2 = new Tecton("t2");
+        t2.setNeighbors(t1);
+        t1.setNeighbors(t2);
         Mushroom m1 = new Mushroom(1, t1, "m1");
         m1.throwSpores(t1, 1);
     }
