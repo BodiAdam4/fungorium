@@ -240,8 +240,7 @@ public class Skeleton {
         
         //Function calls
 
-        t1.getSpores().popSpores(0, 1);
-        ss1.addEffect(i1);
+        i1.eatSpores(1);
         return;
     }
 
@@ -264,8 +263,7 @@ public class Skeleton {
         
         //Function calls
 
-        t1.getSpores().popSpores(0, 1);
-        sfs1.addEffect(i1);
+        i1.eatSpores(1);
         return;
     }
 

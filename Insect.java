@@ -1,3 +1,5 @@
+import java.util.List;
+
 /**
  * Represents an insect with various attributes such as speed, spore count,
  * and abilities to cut and move.
@@ -8,6 +10,7 @@ public class Insect {
     private int sporeCount;
     private boolean canCut;
     private boolean canMove;
+    private Tecton currentTecton;
 
     /**
      * Sets the speed of the insect.
@@ -17,6 +20,28 @@ public class Insect {
     public void setSpeed(int speed) {
         Logger.FunctionStart(this, "setSpeed", new Object[]{speed});
         this.speed = speed;
+        Logger.FunctionEnd();
+    }
+
+    /**
+     * Gets the current Tecton of the insect.
+     *
+     * @return the current Tecton
+     */
+    public Tecton getTecton() {
+        Logger.FunctionStart(this, "getTecton");
+        Logger.FunctionEnd();
+        return currentTecton;
+    }
+
+    /**
+     * Sets the Tecton of the insect.
+     *
+     * @param t the new Tecton;
+     */
+    public void setTecton(Tecton t) {
+        Logger.FunctionStart(this, "setTecton", new Object[]{t});
+        currentTecton = t;
         Logger.FunctionEnd();
     }
 
@@ -105,6 +130,11 @@ public class Insect {
      */
     public boolean move(Tecton to) {
         Logger.FunctionStart(this, "move", new Object[]{to});
+        if(to.getNeighbors().contains(currentTecton)){
+            to.addInsect(this);
+            currentTecton.removeInsect(this);
+            currentTecton = to;
+        }
         Logger.FunctionEnd();
         return true;
     }
@@ -116,6 +146,10 @@ public class Insect {
      */
     public void eatSpores(int count) {
         Logger.FunctionStart(this, "eatSpores", new Object[]{count});
+        Spore[] selected = currentTecton.getSpores().popSpores(count);
+        for(int i = 0; i < count; i++){
+            selected[i].addEffect(this);
+        }
         sporeCount += count;
         Logger.FunctionEnd();
     }
