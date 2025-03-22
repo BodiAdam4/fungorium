@@ -39,8 +39,8 @@ public class Line
             }
             else
             {
-                Tecton nt = new Tecton("t" + (Logger.GetObjectName(connections.get(1)).substring(1) + 1));
-                Line nl = new Line("l" + (Logger.GetObjectName(this).substring(1) + 1), connections.get(1), nt, id);
+                Tecton nt = new Tecton("t" + (Integer.parseInt((Logger.GetObjectName(connections.get(1)).substring(1))) + 1));
+                Line nl = new Line("l" + (Integer.parseInt((Logger.GetObjectName(this).substring(1))) + 1), connections.get(1), nt, id);
                 boolean res = nl.checkConnections();
                 Logger.FunctionEnd();
                 return res;
@@ -68,7 +68,7 @@ public class Line
     public boolean growLine(Tecton to1, Tecton to2)
     {
         Logger.FunctionStart(this, "growLine", new Object[]{to1, to2});
-        Line nl = new Line("l" + (Logger.GetObjectName(this).substring(1) + 1), to1, to2, id);
+        Line nl = new Line("l" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)) + 1)), to1, to2, id);
         return true;
     }
 
