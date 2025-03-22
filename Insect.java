@@ -175,6 +175,8 @@ public class Insect {
      */
     public void resetEffect() {
         Logger.FunctionStart(this, "resetEffect");
+        canMove = true;
+        canCut = true;
         Logger.FunctionEnd();
     }
 }
