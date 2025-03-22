@@ -290,7 +290,10 @@ public class Skeleton {
      */
     public static void test_ThrowSpores(){
         System.out.println("Test ThrowSpores");
-        //TODO: Implement this method
+        //t1 sporeContainere rossz nevet kap
+        Tecton t1 = new Tecton("t1");
+        Mushroom m1 = new Mushroom(1, t1, "m1");
+        m1.throwSpores(t1, 1);
     }
 
 
@@ -315,7 +318,10 @@ public class Skeleton {
      */
     public static void test_CheckBody(){
         System.out.println("Test CheckBody");
-        //TODO: Implement this method
+        Tecton t1 = new Tecton("t1");
+        Tecton t2 = new Tecton("t2");
+        Line l1 = new Line("l1", t1, t2, 1);
+        l1.checkConnections();
     }
 
 
