@@ -62,11 +62,11 @@ public class Skeleton {
                 test_BuildLineInOnlyLineTectons();
             } else if (answer.equals("5")) {
                 test_CutLine();
-            } else if (answer.equals("6")) {
+            } else if (answer.equals("6")) {    //Szar
                 test_EatSpore();
-            } else if (answer.equals("7")) {
+            } else if (answer.equals("7")) {    //Szar
                 test_EatExhaustingSpore();
-            } else if (answer.equals("8")) {
+            } else if (answer.equals("8")) {    //Szar
                 test_EatFreezingSpore();
             } else if (answer.equals("9")) {
                 test_EatSlowingSpore();
@@ -74,11 +74,11 @@ public class Skeleton {
                 test_EatFastSpore();
             } else if (answer.equals("11")) {
                 test_MoveInsect();
-            } else if (answer.equals("12")) {
+            } else if (answer.equals("12")) {   //Szar
                 test_ThrowSpores();
-            } else if (answer.equals("13")) {
+            } else if (answer.equals("13")) {   //Nincs meg
                 test_TectonBreak();
-            } else if (answer.equals("14")) {
+            } else if (answer.equals("14")) {   //Oda kell írni, hogy milyen válaszlehetőségekkel kommunikálhat a felhasználó a terminállal
                 test_CheckBody();
             } else if (answer.equals("15")) {
                 test_MushroomDieThrowingSpores();
@@ -237,11 +237,11 @@ public class Skeleton {
         SporeContainer sc1 = new SporeContainer("sc1");
         sc1.addSpores(ss1);
         t1.setSpores(sc1);
+        i1.setTecton(t1);
         
         //Function calls
 
-        t1.getSpores().popSpores(0, 1);
-        ss1.addEffect(i1);
+        i1.eatSpores(1);
         return;
     }
 
@@ -261,11 +261,11 @@ public class Skeleton {
         SporeContainer sc1 = new SporeContainer("sc1");
         sc1.addSpores(sfs1);
         t1.setSpores(sc1);
+        i1.setTecton(t1);
         
         //Function calls
 
-        t1.getSpores().popSpores(0, 1);
-        sfs1.addEffect(i1);
+        i1.eatSpores(1);
         return;
     }
 
