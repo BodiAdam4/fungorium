@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Line osztály valósítja meg a gombafonalakat a játékban.
+ * A gombafonalak két tektont kötnek össze, és új gombatestek növesztéséért felelősek.
+ */
 public class Line 
 {
     List<Tecton> connections = new ArrayList<Tecton>();
@@ -55,7 +59,7 @@ public class Line
         }
         else
         {
-            String ans = Logger.Ask("Ez az utolsó vonal (y/n)?");
+            String ans = Logger.Ask("Is this the last line? (y/n)?");
             if(ans.equalsIgnoreCase("y"))
             {   
                 boolean res = connections.get(1).hasBody();
@@ -75,6 +79,10 @@ public class Line
         }
     }
 
+    /**
+     * Értesíti a fonalakat a gombatest hiányáról.
+     * (Ez a függvény a vezérlővel lesz erősebb kapcsolatban)
+     */
     public void notifyNeighbors()
     {
 
@@ -114,6 +122,9 @@ public class Line
         return id;
     }
 
+    /**
+     * Megsemmisíti a fonalat.
+     */
     public void Destroy() {
         Logger.FunctionStart(this, "Destroy");
         for (Tecton t : connections) {
