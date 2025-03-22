@@ -107,7 +107,7 @@ public class Skeleton {
         int count = Integer.parseInt(Logger.Ask("Hány spórát dobjunk a tektonra?"));
         for (int i = 0; i < count; i++){
             Spore s1 = new Spore("s1", 1, 1);
-            t2.getSpores().addSpores(s1);
+            t2.getSporeContainer().addSpores(s1);
         }
         l1.growMushroom(t2);
 
@@ -188,7 +188,7 @@ public class Skeleton {
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
         Spore s1 = new Spore("sp1", 0, 1);
-        t1.getSpores().addSpores(s1); 
+        t1.getSporeContainer().addSpores(s1); 
         Insect i1 = new Insect("i1");
         i1.setTecton(t1);
         //test case
@@ -205,7 +205,7 @@ public class Skeleton {
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
         Spore s1 = new SporeExhausting("sp1", 0, 1);
-        t1.getSpores().addSpores(s1); 
+        t1.getSporeContainer().addSpores(s1); 
         Insect i1 = new Insect("i1");
         i1.setTecton(t1);
         //test case
@@ -222,7 +222,7 @@ public class Skeleton {
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
         Spore s1 = new SporeFrozen("sp1", 0, 1);
-        t1.getSpores().addSpores(s1); 
+        t1.getSporeContainer().addSpores(s1); 
         Insect i1 = new Insect("i1");
         i1.setTecton(t1);
         //test case
@@ -244,13 +244,12 @@ public class Skeleton {
         Spore ss1 = new SporeSlow("ss1", 0, 1);
         SporeContainer sc1 = new SporeContainer("sc1");
         sc1.addSpores(ss1);
-        t1.setSpores(sc1);
+        t1.setSporeContainer(sc1);
         i1.setTecton(t1);
         
         //Function calls
 
         i1.eatSpores(1);
-        return;
     }
 
 
@@ -265,16 +264,15 @@ public class Skeleton {
 
         Insect i1 = new Insect("i1");
         Tecton t1 = new Tecton("t1");
-        Spore sfs1 = new SporeSlow("sfs1", 0, 1);
+        Spore sfs1 = new SporeFast("sfs1", 0, 1);
         SporeContainer sc1 = new SporeContainer("sc1");
         sc1.addSpores(sfs1);
-        t1.setSpores(sc1);
+        t1.setSporeContainer(sc1);
         i1.setTecton(t1);
         
         //Function calls
 
         i1.eatSpores(1);
-        return;
     }
 
 
@@ -288,7 +286,7 @@ public class Skeleton {
         Tecton t2 = new Tecton("t2");
         Line l1 = new Line("l1", t1, t2, 0);
         Insect i1 = new Insect("i1");
-
+        i1.setTecton(t1);
         t1.addInsect(i1);
 
         i1.move(t2);
@@ -304,12 +302,12 @@ public class Skeleton {
      */
     public static void test_ThrowSpores(){
         System.out.println("Test ThrowSpores");
-        //t1 sporeContainere rossz nevet kap
         Tecton t1 = new Tecton("t1");
         Tecton t2 = new Tecton("t2");
         t2.setNeighbors(t1);
         t1.setNeighbors(t2);
         Mushroom m1 = new Mushroom(1, t1, "m1");
+        t1.setMyMushroom(m1);
         m1.throwSpores(t1, 1);
     }
 
@@ -322,7 +320,14 @@ public class Skeleton {
      */
     public static void test_TectonBreak(){
         System.out.println("Test TectonBreak");
-        //TODO: Implement this method
+        
+        Tecton t1 = new Tecton("t1");
+        Tecton t2 = new Tecton("t2");
+        
+        t2.setNeighbors(t1);
+        t1.setNeighbors(t2);
+
+        t1.breakTecton();
     }
 
 

@@ -6,4 +6,12 @@ public class SporeFast extends Spore
         Logger.Constructor(this, name, new Object[]{id, value});
         Logger.FunctionEnd();
     }
+
+    
+    @Override
+    public void addEffect(Insect insect) {
+        Logger.FunctionStart(this, "addEffect", new Object[]{insect});
+        insect.setSpeed(3);
+        Logger.FunctionEnd();
+    }
 }

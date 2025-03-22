@@ -129,10 +129,14 @@ public class Insect {
      */
     public boolean move(Tecton to) {
         Logger.FunctionStart(this, "move", new Object[]{to});
-        if(to.getNeighbors().contains(currentTecton)){
+        if(to.getConnections().stream().anyMatch(line -> line.connections.contains(to))){
             to.addInsect(this);
             currentTecton.removeInsect(this);
             currentTecton = to;
+            Logger.Log("Insect moved to tecton");
+        }
+        else{
+            Logger.Log("No line between the tectons");
         }
         Logger.FunctionEnd();
         return true;
@@ -145,7 +149,7 @@ public class Insect {
      */
     public void eatSpores(int count) {
         Logger.FunctionStart(this, "eatSpores", new Object[]{count});
-        Spore[] selected = currentTecton.getSpores().popSpores(count);
+        Spore[] selected = currentTecton.getSporeContainer().popSpores(count);
         for(int i = 0; i < count; i++){
             selected[i].addEffect(this);
         }

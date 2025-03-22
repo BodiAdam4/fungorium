@@ -61,14 +61,14 @@ public class Tecton {
      */
     private SporeContainer spores;
 
-    public SporeContainer getSpores() {
-        Logger.FunctionStart(this, "getSpores");
+    public SporeContainer getSporeContainer() {
+        Logger.FunctionStart(this, "getSporeContainer");
         Logger.FunctionEnd();
         return this.spores;
     }
 
-    public void setSpores(SporeContainer spores) {
-        Logger.FunctionStart(this, "setSpores", new Object[]{spores});
+    public void setSporeContainer(SporeContainer spores) {
+        Logger.FunctionStart(this, "setSporeContainer", new Object[]{spores});
         this.spores = spores;
         Logger.FunctionEnd();
     }
@@ -203,9 +203,14 @@ public class Tecton {
      */
     void breakTecton(){
         Logger.FunctionStart(this, "breakTecton");
-        //TODO
+        List<Tecton> ng = getNeighbors();
+        Tecton t3 = new Tecton("t3");
+
+        for (Tecton t : ng) {
+            t3.setNeighbors(t);
+        }
+
         Logger.FunctionEnd();
-        return;
     }
 
     List<Insect> insects = new ArrayList<>();

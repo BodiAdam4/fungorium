@@ -128,14 +128,14 @@ public class Mushroom{
         Logger.FunctionStart(this, "throwSpores", new Object[]{to, count});
         Random random = new Random();
 
-        int dist = Integer.parseInt(Logger.Ask("Hányadik szomszédjára akarjuk dobni a spórát?"));
+        int dist = 1;
 
         if ((dist == 1 && this.level == 1) || (dist == 2 && this.level > 1)){
 
             if (this.sporeCount >= count){
                 for (int i = 0; i < count; i++){
                     Spore spore = new Spore("spore", this.id, random.nextInt(10));
-                    to.getSpores().addSpores(spore);
+                    to.getSporeContainer().addSpores(spore);
                 }
 
                 //Spóraszám csökkentése
