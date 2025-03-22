@@ -139,6 +139,7 @@ public class Skeleton {
         Tecton t1 = new Tecton("t1");
         Tecton t2 = new Tecton("t2");
         Line l1 = new Line("l1", t1, t2, 1);
+        l1.growLine(t2, t1);
     }
 
 
