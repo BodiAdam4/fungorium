@@ -1,8 +1,9 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Line 
 {
-    List<Tecton> connections;
+    List<Tecton> connections = new ArrayList<Tecton>();
     int id;
 
     public Line(String name, Tecton t1, Tecton t2, int id)
