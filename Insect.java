@@ -5,11 +5,11 @@
  */
 public class Insect {
 
-    private int speed;
-    private int sporeCount;
-    private boolean canCut;
-    private boolean canMove;
-    private Tecton currentTecton;
+    private int speed; //A rovar sebessége
+    private int sporeCount; //A rovar által elfogyasztott spórák száma
+    private boolean canCut; //Tud-e éppen vágni a rovar
+    private boolean canMove; //Mozgásképes-e a rovar
+    private Tecton currentTecton; // A tekton amin a rovar éppen van.
 
     /**
      * Beállítja a rovar sebességét.
@@ -132,10 +132,10 @@ public class Insect {
             to.addInsect(this);
             currentTecton.removeInsect(this);
             currentTecton = to;
-            Logger.Log("A rovar áthelyeződött a tectonra");
+            Logger.Log("Insect moved to tecton");
         }
         else{
-            Logger.Log("Nincs kapcsolat a tectonok között");
+            Logger.Log("No line between the tectons");
         }
         Logger.FunctionEnd();
         return true;
