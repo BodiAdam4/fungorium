@@ -153,9 +153,12 @@ public class Skeleton {
         System.out.println("Test BuildLineInOnlyLineTectons");
         Tecton t1 = new TectonOnlyLine("t1");
         Tecton t2 = new TectonOnlyLine("t2");
-
-        Line l1 = new Line("l1", t1, t2, 1);
-        Line l2 = new Line("l2", t1, t2, 2);
+        t1.setNeighbors(t2);
+        t2.setNeighbors(t1);
+        Mushroom m1 = new Mushroom(1, t1, "m1");
+        t1.setMyMushroom(m1);
+        Line l1 = new Line("l1", t1, t2, 2);
+        m1.growLine(t2);
     }
 
 

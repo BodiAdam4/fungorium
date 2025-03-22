@@ -106,11 +106,10 @@ public class Mushroom{
         
         if (neighborlist.contains(to)){
             Line line = new Line("line", this.myTecton, to, this.id);
-            Logger.Log("Successfully added line to the tecton.");
             Logger.FunctionEnd();
             return true;
         } else{
-            Logger.Log("The given tecton is not a neighbor of the current tecton, or it is an 'OnlyLine'-type tecton, which already has line.");
+            Logger.Log("The given tecton is not a neighbor of the current tecton.");
             Logger.FunctionEnd();
             return false;
         }
