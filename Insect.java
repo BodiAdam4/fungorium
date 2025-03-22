@@ -61,7 +61,7 @@ public class Insect {
      * @param canCut true if the insect can cut, false otherwise
      */
     public void setCanCut(boolean canCut) {
-        Logger.FunctionStart(this, "canCut", new Object[]{canCut});
+        Logger.FunctionStart(this, "setCanCut", new Object[]{canCut});
         this.canCut = canCut;
         Logger.FunctionEnd();
     }

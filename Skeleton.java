@@ -190,6 +190,7 @@ public class Skeleton {
         Spore s1 = new Spore("sp1", 0, 1);
         t1.getSpores().addSpores(s1); 
         Insect i1 = new Insect("i1");
+        i1.setTecton(t1);
         //test case
         i1.eatSpores(1);
     }
@@ -206,6 +207,7 @@ public class Skeleton {
         Spore s1 = new SporeExhausting("sp1", 0, 1);
         t1.getSpores().addSpores(s1); 
         Insect i1 = new Insect("i1");
+        i1.setTecton(t1);
         //test case
         i1.eatSpores(1);
     }
@@ -222,6 +224,7 @@ public class Skeleton {
         Spore s1 = new SporeFrozen("sp1", 0, 1);
         t1.getSpores().addSpores(s1); 
         Insect i1 = new Insect("i1");
+        i1.setTecton(t1);
         //test case
         i1.eatSpores(1);
     }
