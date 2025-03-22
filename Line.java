@@ -6,6 +6,14 @@ public class Line
     List<Tecton> connections = new ArrayList<Tecton>();
     int id;
 
+    /**
+     * Line konstruktor.
+     *
+     * @param name Line neve
+     * @param t1 A vonal által összekötött első Tecton
+     * @param t2 A vonal által összekötött második Tecton
+     * @param id A gombafaj azonosítója
+     */
     public Line(String name, Tecton t1, Tecton t2, int id)
     {
         Logger.Constructor(this, name, new Object[]{t1, t2, id});
@@ -16,10 +24,12 @@ public class Line
         t2.addLine(this);
         Logger.FunctionEnd();
     }
+
     /**
-    * 
-    * @return
-    */
+     * Megnézi a vele összekötött vonalakon keresztül, hogy a gombafajnak van-e teste.
+     * 
+     * @return true, ha a gombafajnak van teste, false ha nincs
+     */
     public boolean checkConnections()
     {
         Logger.FunctionStart(this, "checkConnections");
@@ -53,6 +63,12 @@ public class Line
 
     }
 
+    /**
+     * Növeszt egy gombát valamelyik Tectonjára
+     *
+     * @param to Az a Tecton, amelyre a gomba nő
+     * @return Tesztelés miatt mindig true
+     */
     public boolean growMushroom(Tecton to)
     {
         Logger.FunctionStart(this, "growMushroom", new Object[]{to});
@@ -65,6 +81,13 @@ public class Line
         return true;
     }
 
+    /**
+     * Növeszt egy vonalat a két Tecton között.
+     *
+     * @param to1 Az első Tecton
+     * @param to2 A második Tecton
+     * @return Tesztelés miatt mindig true
+     */
     public boolean growLine(Tecton to1, Tecton to2)
     {
         Logger.FunctionStart(this, "growLine", new Object[]{to1, to2});
