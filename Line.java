@@ -18,8 +18,6 @@ public class Line
     {
         Logger.Constructor(this, name, new Object[]{t1, t2, id});
         this.id = id;
-        connections.add(t1);
-        connections.add(t2);
         t1.addLine(this);
         t2.addLine(this);
         Logger.FunctionEnd();
@@ -72,10 +70,8 @@ public class Line
     public boolean growMushroom(Tecton to)
     {
         Logger.FunctionStart(this, "growMushroom", new Object[]{to});
-
-        boolean result = to.addMushroom(id);
-
-
+        //if()
+        to.addMushroom(id);
         Logger.FunctionEnd();
         return true;
     }
