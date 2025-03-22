@@ -126,7 +126,7 @@ public class Tecton {
 
     public Tecton(String objectName){
         Logger.Constructor(this, objectName);
-        spores = new SporeContainer("spores");
+        spores = new SporeContainer("sc" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)))));
         Logger.FunctionEnd();
     }
 
