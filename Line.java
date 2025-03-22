@@ -59,7 +59,7 @@ public class Line
         }
         else
         {
-            String ans = Logger.Ask("Ez az utolsó vonal (y/n)?");
+            String ans = Logger.Ask("Is this the last line? (y/n)?");
             if(ans.equalsIgnoreCase("y"))
             {   
                 boolean res = connections.get(1).hasBody();
