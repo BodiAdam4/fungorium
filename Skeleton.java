@@ -74,7 +74,7 @@ public class Skeleton {
                 test_EatFastSpore();
             } else if (answer.equals("11")) {
                 test_MoveInsect();
-            } else if (answer.equals("12")) {   //Szar
+            } else if (answer.equals("12")) {
                 test_ThrowSpores();
             } else if (answer.equals("13")) {   //Nincs meg
                 test_TectonBreak();
