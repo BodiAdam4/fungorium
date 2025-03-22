@@ -126,7 +126,7 @@ public class Tecton {
 
     public Tecton(String objectName){
         Logger.Constructor(this, objectName);
-        spores = new SporeContainer("spores");
+        spores = new SporeContainer("sc" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)))));
         Logger.FunctionEnd();
     }
 
@@ -178,9 +178,15 @@ public class Tecton {
       */
     boolean hasBody(){
         Logger.FunctionStart(this, "hasBody");
-        //TODO
-        Logger.FunctionEnd();
-        return true;
+        String ans = Logger.Ask("Van gombatest a tektonon?");
+        if(ans.equals("igen")){
+            Logger.FunctionEnd();
+            return true;
+        }
+        else{
+            Logger.FunctionEnd();
+            return false;
+        }
     }
     /**
      * A tekton két tektonra törése
