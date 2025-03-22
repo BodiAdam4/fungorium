@@ -1,5 +1,3 @@
-import javax.sound.sampled.Line;
-
 /**
  * Represents an insect with various attributes such as speed, spore count,
  * and abilities to cut and move.
