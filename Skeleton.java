@@ -298,6 +298,9 @@ public class Skeleton {
         System.out.println("Test ThrowSpores");
         //t1 sporeContainere rossz nevet kap
         Tecton t1 = new Tecton("t1");
+        Tecton t2 = new Tecton("t2");
+        t2.setNeighbors(t1);
+        t1.setNeighbors(t2);
         Mushroom m1 = new Mushroom(1, t1, "m1");
         m1.throwSpores(t1, 1);
     }

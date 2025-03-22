@@ -181,7 +181,7 @@ class Logger {
      * @return A kérdésre adott válasz.
      */
     public static String Ask(String msg) {
-
+        //indentation? -Drenyó
         if (firstMsg) {
             System.out.println("");
         }
