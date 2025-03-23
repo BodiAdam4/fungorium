@@ -26,7 +26,6 @@ public class SporeFrozen extends Spore
     @Override
     public void addEffect(Insect i) {
         Logger.FunctionStart(this, "addEffect", new Object[]{i});
-        i.setSporeCount(i.getSporeCount() + value);
         i.setCanMove(false);
         Logger.FunctionEnd();
     }

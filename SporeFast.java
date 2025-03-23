@@ -19,14 +19,12 @@ public class SporeFast extends Spore
 
     /**
      * Spóra megevése után meghívódó függvény.
-     * Az adott rovar megkapja a spóra tápértékét.
      * Növeli a rovar sebességét.
      * @param i A rovar, aki megeszi a spórát.
      */
     @Override
     public void addEffect(Insect i) {
         Logger.FunctionStart(this, "addEffect", new Object[]{i});
-        i.setSporeCount(i.getSporeCount() + value);
         i.setSpeed(3);
         Logger.FunctionEnd();
     }

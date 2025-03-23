@@ -19,14 +19,12 @@ public class SporeExhausting extends Spore
 
     /**
      * Spóra megevése után meghívódó függvény.
-     * Az adott rovar megkapja a spóra tápértékét.
      * Beállítja, hogy a rovar ne tudjon fonalat vágni
      * @param i A rovar, aki megeszi a spórát.
      */
     @Override
     public void addEffect(Insect i) {
         Logger.FunctionStart(this, "addEffect", new Object[]{i});
-        i.setSporeCount(i.getSporeCount() + value);
         i.setCanCut(false);
         Logger.FunctionEnd();
     }

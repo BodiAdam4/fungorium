@@ -23,28 +23,6 @@ public class Insect {
     }
 
     /**
-     * Lekéri a rovar spóraszámát.
-     *
-     * @return a spóraszám
-     */
-    public int getSporeCount() {
-        Logger.FunctionStart(this, "getSporeCount");
-        Logger.FunctionEnd();
-        return sporeCount;
-    }
-
-    /**
-     * Beállítja a rovar spóraszámát.
-     * 
-     * @param sporeCount az új spóraszám
-     */
-    public void setSporeCount(int sporeCount) {
-        Logger.FunctionStart(this, "setSporeCount", new Object[]{sporeCount});
-        this.sporeCount = sporeCount;
-        Logger.FunctionEnd();
-    }
-
-    /**
      * Lekéri a rovar jelenlegi Tectonját.
      *
      * @return a jelenlegi Tecton
@@ -173,6 +151,7 @@ public class Insect {
         Spore[] selected = currentTecton.getSporeContainer().popSpores(count);
         for(int i = 0; i < count; i++){
             selected[i].addEffect(this);
+            sporeCount += selected[i].getValue();
         }
         Logger.FunctionEnd();
     }

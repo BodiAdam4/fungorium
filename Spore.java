@@ -7,6 +7,12 @@ class Spore
     int value;
     int id;
 
+    public int getValue() {
+        Logger.FunctionStart(this, "getValue");
+        Logger.FunctionEnd();
+        return value;
+    }
+
     /**
      * Konstruktor
      * @param name A spóra neve (teszteléshez szükséges)
@@ -23,13 +29,11 @@ class Spore
 
     /**
      * Spóra megevése után meghívódó függvény.
-     * Az adott rovar megkapja a spóra tápértékét.
      * @param i A rovar, aki megeszi a spórát.
      */
     public void addEffect(Insect i)
     {
         Logger.FunctionStart(this, "addEffect", new Object[]{i});
-        i.setSporeCount(i.getSporeCount() + value);
         Logger.FunctionEnd();
     }
 }
