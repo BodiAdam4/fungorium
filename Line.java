@@ -118,10 +118,6 @@ public class Line
         return true;
     }
 
-    public int getId() {
-        return id;
-    }
-
     /**
      * Megsemmisíti a fonalat.
      */
@@ -131,5 +127,9 @@ public class Line
             t.removeLine(this);
         }
         Logger.DestroyObject(this);
+    }
+
+    public int getId() {
+        return id;
     }
 }
