@@ -211,4 +211,15 @@ class Logger {
         indentation = 0;
         Log(objectList.get(obj)+" destroyed");
     }
+
+
+    /**
+     * Tesztek végén meghívandó függvény, mely visszaállítja a Logger osztályt
+     * az alapértelmezett értékeire.
+     */
+    public static void ResetLogger() {
+        indentation = 0;
+        firstMsg = true;
+        objectList.clear();
+    }
 }
