@@ -197,7 +197,7 @@ public class Skeleton {
         System.out.println("Test EatExhaustingSpore");
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
-        Spore s1 = new SporeExhausting("sp1", 0, 1);
+        Spore s1 = new SporeExhausting("se1", 0, 1);
         t1.getSporeContainer().addSpores(s1); 
         Insect i1 = new Insect("i1");
         i1.setTecton(t1);
@@ -213,7 +213,7 @@ public class Skeleton {
         System.out.println("Test EatFreezingSpore");
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
-        Spore s1 = new SporeFrozen("sp1", 0, 1);
+        Spore s1 = new SporeFrozen("sf1", 0, 1);
         t1.getSporeContainer().addSpores(s1); 
         Insect i1 = new Insect("i1");
         i1.setTecton(t1);
