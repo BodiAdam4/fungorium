@@ -42,6 +42,10 @@ public class Line
         Logger.FunctionEnd();
     }
 
+    public int getId() {
+        return id;
+    }
+
     /**
      * Megnézi a vele összekötött vonalakon keresztül, hogy a gombafajnak van-e teste.
      * 
@@ -97,7 +101,6 @@ public class Line
     public boolean growMushroom(Tecton to)
     {
         Logger.FunctionStart(this, "growMushroom", new Object[]{to});
-        //if()
         to.addMushroom(id);
         Logger.FunctionEnd();
         return true;
@@ -127,9 +130,5 @@ public class Line
             t.removeLine(this);
         }
         Logger.DestroyObject(this);
-    }
-
-    public int getId() {
-        return id;
     }
 }
