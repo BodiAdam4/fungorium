@@ -174,7 +174,6 @@ public class Insect {
         for(int i = 0; i < count; i++){
             selected[i].addEffect(this);
         }
-        sporeCount += count;
         Logger.FunctionEnd();
     }
 
