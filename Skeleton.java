@@ -44,48 +44,45 @@ public class Skeleton {
         System.out.println("14) Test the 'CheckBody' method");
         System.out.println("15) Test the 'Mushroom dies after throwing spores' method");
 
-        
-        String answer = "";
 
-        while(!answer.equals("q")){
-            //Ask the user which test to run
-            answer = Ask("Which test do you want to run?");
+        //Ask the user which test to run
+        String answer = Ask("Which test do you want to run?");
 
-            //Choose the test to run
-            if (answer.equals("1")) {
-                test_BuildBody();
-            } else if (answer.equals("2")) {
-                test_BuildBodyInfertileTecton();
-            } else if (answer.equals("3")) {
-                test_BuildLine();
-            } else if (answer.equals("4")) {
-                test_BuildLineInOnlyLineTectons();
-            } else if (answer.equals("5")) {
-                test_CutLine();
-            } else if (answer.equals("6")) {
-                test_EatSpore();
-            } else if (answer.equals("7")) {
-                test_EatExhaustingSpore();
-            } else if (answer.equals("8")) {
-                test_EatFreezingSpore();
-            } else if (answer.equals("9")) {
-                test_EatSlowingSpore();
-            } else if (answer.equals("10")) {
-                test_EatFastSpore();
-            } else if (answer.equals("11")) {
-                test_MoveInsect();
-            } else if (answer.equals("12")) {
-                test_ThrowSpores();
-            } else if (answer.equals("13")) {
-                test_TectonBreak();
-            } else if (answer.equals("14")) {
-                test_CheckBody();
-            } else if (answer.equals("15")) {
-                test_MushroomDieThrowingSpores();
-            } else {
-                System.out.println("Invalid test number");
-            }
+        //Choose the test to run
+        if (answer.equals("1")) {
+            test_BuildBody();
+        } else if (answer.equals("2")) {
+            test_BuildBodyInfertileTecton();
+        } else if (answer.equals("3")) {
+            test_BuildLine();
+        } else if (answer.equals("4")) {
+            test_BuildLineInOnlyLineTectons();
+        } else if (answer.equals("5")) {
+            test_CutLine();
+        } else if (answer.equals("6")) {
+            test_EatSpore();
+        } else if (answer.equals("7")) {
+            test_EatExhaustingSpore();
+        } else if (answer.equals("8")) {
+            test_EatFreezingSpore();
+        } else if (answer.equals("9")) {
+            test_EatSlowingSpore();
+        } else if (answer.equals("10")) {
+            test_EatFastSpore();
+        } else if (answer.equals("11")) {
+            test_MoveInsect();
+        } else if (answer.equals("12")) {
+            test_ThrowSpores();
+        } else if (answer.equals("13")) {
+            test_TectonBreak();
+        } else if (answer.equals("14")) {
+            test_CheckBody();
+        } else if (answer.equals("15")) {
+            test_MushroomDieThrowingSpores();
+        } else {
+            System.out.println("Invalid test number");
         }
+        
     
     }
 
@@ -197,7 +194,7 @@ public class Skeleton {
         System.out.println("Test EatExhaustingSpore");
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
-        Spore s1 = new SporeExhausting("se1", 0, 1);
+        Spore s1 = new SporeExhausting("sp1", 0, 1);
         t1.getSporeContainer().addSpores(s1); 
         Insect i1 = new Insect("i1");
         i1.setTecton(t1);
@@ -213,7 +210,7 @@ public class Skeleton {
         System.out.println("Test EatFreezingSpore");
         //elofeltetelek
         Tecton t1 = new Tecton("t1");
-        Spore s1 = new SporeFrozen("sf1", 0, 1);
+        Spore s1 = new SporeFrozen("sp1", 0, 1);
         t1.getSporeContainer().addSpores(s1); 
         Insect i1 = new Insect("i1");
         i1.setTecton(t1);
