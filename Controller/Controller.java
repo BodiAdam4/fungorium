@@ -1,9 +1,8 @@
 package Controller;
-import Model.Mushroom;
-import Model.Line;
 import Model.Insect;
+import Model.Line;
+import Model.Mushroom;
 import Model.Tecton;
-
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,32 +42,33 @@ public class Controller {
         return allMushroom;
     }
 
-    public void setAllMushroom(HashMap<String, Mushroom> allMushroom) {
-        this.allMushroom = allMushroom;
-    }
-
     public HashMap<String, Line> getAllLine() {
         return allLine;
-    }
-
-    public void setAllLine(HashMap<String, Line> allLine) {
-        this.allLine = allLine;
     }
 
     public HashMap<String, Insect> getAllInsect() {
         return allInsect;
     }
 
-    public void setAllInsect(HashMap<String, Insect> allInsect) {
-        this.allInsect = allInsect;
-    }
-
     public HashMap<String, Tecton> getAllTecton() {
         return allTecton;
     }
 
-    public void setAllTecton(HashMap<String, Tecton> allTecton) {
-        this.allTecton = allTecton;
+    public Tecton getTectonById(String id) {
+        if (!allTecton.containsKey(id)) {
+            return null;
+        }
+
+        return allTecton.get(id);
+    }
+
+    public String getTectonId(Tecton tecton) {
+        for (String id : allTecton.keySet()) {
+            if (allTecton.get(id).equals(tecton)) {
+                return id;
+            }
+        }
+        return "Null";
     }
 
 }
