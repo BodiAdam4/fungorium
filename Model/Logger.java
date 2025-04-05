@@ -14,6 +14,7 @@ class Logger {
     private static Map<Object, String> objectList = new HashMap();
     private static int indentation = 0;
     
+    private static boolean active = false;
 
     /**
      * Objektumok nevének lekérdezése.
@@ -37,7 +38,13 @@ class Logger {
      * @param className Az objektum neve, ahogyan az változóban el van mentve.
      */
     public static void Constructor(Object classObject, String objectName) {
+        
+
         objectList.put(classObject, objectName);
+        if(!active) {
+            return;
+        }
+
         //TODO:Javítani
         FunctionStart(classObject, "Constructor");
     }
@@ -51,8 +58,12 @@ class Logger {
      * @param className Az objektum neve, ahogyan az változóban el van mentve.
      */
     public static void Constructor(Object classObject, String objectName, Object[] parameters) {
+        
         objectList.put(classObject, objectName);
         //TODO:Javítani
+        if(!active) {
+            return;
+        }
         FunctionStart(classObject, "Constructor", parameters);
     }
 
@@ -64,6 +75,9 @@ class Logger {
      * @param functioName A függvény neve szövegesen.
      */
     public static void FunctionStart(Object functionContainer, String functioName) {
+        if(!active) {
+            return;
+        }
         if (!objectList.containsKey(functionContainer)) {
             System.err.println("Az objektum nincs regisztrálva a Logger osztályban");
         }
@@ -96,6 +110,9 @@ class Logger {
      * @param parameters A paraméterek objektumai. (Az objektum alapján megtalálja az objektum regisztrált nevét)
      */
     public static void FunctionStart(Object functionContainer, String functioName, Object[] parameters) {
+        if(!active) {
+            return;
+        }
         if (!objectList.containsKey(functionContainer)) {
             System.err.println("Az objektum nincs regisztrálva a Logger osztályban");
         }
@@ -154,6 +171,9 @@ class Logger {
      * metódust, vagy különben elromlanak a behúzások.
      */
     public static void FunctionEnd() {
+        if(!active) {
+            return;
+        }
         indentation--;
     }
 
@@ -169,6 +189,9 @@ class Logger {
      * @param msg A kiíratandó szöveg
      */
     public static void Log(String msg) {
+        if(!active) {
+            return;
+        }
         
         if (firstMsg) {
             System.out.println(msg);
@@ -192,6 +215,7 @@ class Logger {
      * @return A kérdésre adott válasz.
      */
     public static String Ask(String msg) {
+        
         //indentation? -Drenyó
         if (firstMsg) {
             System.out.println("");
@@ -209,6 +233,9 @@ class Logger {
      * @param obj A töröl objektum
      */
     public static void DestroyObject(Object obj) {
+        if(!active) {
+            return;
+        }
         indentation = 0;
         Log(objectList.get(obj)+" destroyed");
     }
@@ -219,6 +246,9 @@ class Logger {
      * az alapértelmezett értékeire.
      */
     public static void ResetLogger() {
+        if(!active) {
+            return;
+        }
         indentation = 0;
         firstMsg = true;
         objectList.clear();

@@ -9,8 +9,6 @@ class Spore
     int id;
 
     public int getValue() {
-        Logger.FunctionStart(this, "getValue");
-        Logger.FunctionEnd();
         return value;
     }
 
@@ -20,12 +18,10 @@ class Spore
      * @param id A gombafaj azonosítója
      * @param value A spóra tápértéke
      */
-    public Spore(String name, int id, int value)
+    public Spore(int id, int value)
     {
-        Logger.Constructor(this, name, new Object[]{id, value});
         this.id = id;
         this.value = value;
-        Logger.FunctionEnd();
     }
 
     /**
@@ -34,7 +30,6 @@ class Spore
      */
     public void addEffect(Insect i)
     {
-        Logger.FunctionStart(this, "addEffect", new Object[]{i});
-        Logger.FunctionEnd();
+        return;
     }
 }

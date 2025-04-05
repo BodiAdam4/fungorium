@@ -6,8 +6,8 @@ public class TectonInfertile extends Tecton{
     
     
     //Konstruktor
-    public TectonInfertile(String objectName){
-        super(objectName);
+    public TectonInfertile(){
+        super();
     }
 
     //Függvények
@@ -17,9 +17,7 @@ public class TectonInfertile extends Tecton{
      * @return Mindig false
      */
     boolean addMushroom(int id){
-        Logger.FunctionStart(this, "addMushroom", new Object[]{id});
         Logger.Log("You can't grow mushroom on this tecton!");
-        Logger.FunctionEnd();
         return false;
     }
     /**
@@ -27,8 +25,6 @@ public class TectonInfertile extends Tecton{
      * @return Mindig false
      */
     boolean hasBody(){
-        Logger.FunctionStart(this, "hasBody");
-        Logger.FunctionEnd();
         return false;
     }
 }

@@ -14,14 +14,18 @@ public class Insect {
     private Tecton currentTecton; // A tekton amin a rovar éppen van.
 
 
+    public int getSporeCount() {
+        return sporeCount;
+    }
+
+
+
     /**
      * Lekéri a rovar azaonosítóját.
      *
      * @return rovarazonosító.
      */
     public int getInsectId() {
-        Logger.FunctionStart(this, "getInsectId");
-        Logger.FunctionEnd();
         return insectId;
     }
 
@@ -31,9 +35,7 @@ public class Insect {
      * @param speed az új sebesség értéke
      */
     public void setSpeed(int speed) {
-        Logger.FunctionStart(this, "setSpeed", new Object[]{speed});
         this.speed = speed;
-        Logger.FunctionEnd();
     }
 
     /**
@@ -42,8 +44,6 @@ public class Insect {
      * @return a jelenlegi Tecton
      */
     public Tecton getTecton() {
-        Logger.FunctionStart(this, "getTecton");
-        Logger.FunctionEnd();
         return currentTecton;
     }
 
@@ -53,9 +53,7 @@ public class Insect {
      * @param t az új Tecton
      */
     public void setTecton(Tecton t) {
-        Logger.FunctionStart(this, "setTecton", new Object[]{t});
         currentTecton = t;
-        Logger.FunctionEnd();
     }
 
     /**
@@ -64,8 +62,6 @@ public class Insect {
      * @return a jelenlegi sebesség értéke
      */
     public int getSpeed() {
-        Logger.FunctionStart(this, "getSpeed");
-        Logger.FunctionEnd();
         return speed;
     }
 
@@ -75,9 +71,7 @@ public class Insect {
      * @param canCut igaz, ha a rovar tud vágni, egyébként hamis
      */
     public void setCanCut(boolean canCut) {
-        Logger.FunctionStart(this, "setCanCut", new Object[]{canCut});
         this.canCut = canCut;
-        Logger.FunctionEnd();
     }
 
     /**
@@ -86,8 +80,6 @@ public class Insect {
      * @return igaz, ha a rovar tud vágni, egyébként hamis
      */
     public boolean getCanCut() {
-        Logger.FunctionStart(this, "getCanCut");
-        Logger.FunctionEnd();
         return canCut;
     }
 
@@ -97,9 +89,7 @@ public class Insect {
      * @param canMove igaz, ha a rovar tud mozogni, egyébként hamis
      */
     public void setCanMove(boolean canMove) {
-        Logger.FunctionStart(this, "setCanMove", new Object[]{canMove});
         this.canMove = canMove;
-        Logger.FunctionEnd();
     }
 
     /**
@@ -108,8 +98,6 @@ public class Insect {
      * @return igaz, ha a rovar tud mozogni, egyébként hamis
      */
     public boolean getCanMove() {
-        Logger.FunctionStart(this, "getCanMove");
-        Logger.FunctionEnd();
         return canMove;
     }
 
@@ -125,14 +113,12 @@ public class Insect {
     /**
      * Létrehoz egy rovart alapértelmezett értékekkel.
      */
-    public Insect(String objectName) {
-        Logger.Constructor(this, objectName);
+    public Insect() {
         insectId = 1; //A rovar azonosítója
         speed = 1;
         sporeCount = 0;
         canCut = true;
         canMove = true;
-        Logger.FunctionEnd();
     }
 
     /**
@@ -142,8 +128,7 @@ public class Insect {
      * @return igaz, ha a mozgás sikeres volt, egyébként hamis
      */
     public boolean move(Tecton to) {
-        Logger.FunctionStart(this, "move", new Object[]{to});
-        if(to.getConnections().stream().anyMatch(line -> line.connections.contains(to))){
+        if(to.getConnections().stream().anyMatch(line -> line.getEnds()[0] == currentTecton || line.getEnds()[1] == currentTecton)){
             to.addInsect(this);
             currentTecton.removeInsect(this);
             currentTecton = to;
@@ -152,7 +137,6 @@ public class Insect {
         else{
             Logger.Log("No line between the tectons");
         }
-        Logger.FunctionEnd();
         return true;
     }
 
@@ -162,13 +146,11 @@ public class Insect {
      * @param count az elfogyasztandó spórák száma
      */
     public void eatSpores(int count) {
-        Logger.FunctionStart(this, "eatSpores", new Object[]{count});
         Spore[] selected = currentTecton.getSporeContainer().popSpores(count);
         for(int i = 0; i < count; i++){
             selected[i].addEffect(this);
             sporeCount += selected[i].getValue();
         }
-        Logger.FunctionEnd();
     }
 
     /**
@@ -178,9 +160,7 @@ public class Insect {
      * @return igaz, ha a vonalat sikeresen elvágta, egyébként hamis
      */
     public boolean cutLine(Line line) {
-        Logger.FunctionStart(this, "cutLine", new Object[]{line});
         line.Destroy();
-        Logger.FunctionEnd();
         return true;
     }
 
@@ -188,9 +168,7 @@ public class Insect {
      * Visszaállítja a rovar hatásait alapállapotba.
      */
     public void resetEffect() {
-        Logger.FunctionStart(this, "resetEffect");
         canMove = true;
         canCut = true;
-        Logger.FunctionEnd();
     }
 }

@@ -1,4 +1,5 @@
 package Controller;
+import Listeners.ObjectChangeListener;
 import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
@@ -20,6 +21,8 @@ public class Controller {
     private Time time;
     private int actualPlayerIdx;
 
+    private ObjectChangeListener objectChangeListener;
+
     /* - Publikus attribútumok*/
 
     /* - Konstruktorok*/
@@ -33,6 +36,44 @@ public class Controller {
         this.players = new ArrayList<>();
         this.mushroomPickers = new ArrayList<>();
         this.insectPickers = new ArrayList<>();
+
+        objectChangeListener = new ObjectChangeListener() {
+            @Override
+            public void insectChanged(ObjectChangeEvent event, Insect insect) {
+                if(event == ObjectChangeEvent.OBJECT_ADDED) {
+                    addInsect(("i"+(allInsect.size()+1)), insect);
+                } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
+                    //TODO: implement remove insect logic
+                }
+            }
+
+            @Override
+            public void lineChanged(ObjectChangeEvent event, Line line) {
+                if(event == ObjectChangeEvent.OBJECT_ADDED) {
+                    addLine(("l"+(allLine.size()+1)), line);
+                } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
+                    allLine.remove(getLineId(line));
+                }
+            }
+
+            @Override
+            public void tectonChanged(ObjectChangeEvent event, Tecton tecton) {
+                if(event == ObjectChangeEvent.OBJECT_ADDED) {
+                    addTecton(("t"+(allTecton.size()+1)), tecton);
+                } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
+                    //TODO: implement remove insect logic
+                }
+            }
+
+            @Override
+            public void mushroomChanged(ObjectChangeEvent event, Mushroom mushroom) {
+                if(event == ObjectChangeEvent.OBJECT_ADDED) {
+                    addMushroom(("m"+(allMushroom.size()+1)), mushroom);
+                } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
+                    //TODO: implement remove insect logic
+                }
+            }
+        };
 
     }
 
@@ -50,6 +91,7 @@ public class Controller {
             System.out.println("Mushroom with this ID already exists.");
             return;
         }
+        mushroom.changeListener = objectChangeListener;
         allMushroom.put(id, mushroom);
     }
 
@@ -84,6 +126,7 @@ public class Controller {
             System.out.println("Line with this ID already exists.");
             return;
         }
+        line.changeListener = objectChangeListener;
         allLine.put(id, line);
     }
 
@@ -152,6 +195,7 @@ public class Controller {
             System.out.println("Tecton with this ID already exists.");
             return;
         }
+        tecton.changeListener = objectChangeListener;
         allTecton.put(id, tecton);
     }
 

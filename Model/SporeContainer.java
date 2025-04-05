@@ -14,10 +14,8 @@ public class SporeContainer
     /**
      * Paraméter nélküli kontstruktor. (A String name paraméter csupán tesztelés céljából van bent)
      */
-    public SporeContainer(String name) {
-        Logger.Constructor(this, name);
+    public SporeContainer() {
         spores = new ArrayList<>();
-        Logger.FunctionEnd();
     }
 
 
@@ -27,11 +25,9 @@ public class SporeContainer
      * @return A hozzáadás sikerességét tartalmazó logikai érték
      */
     public boolean addSpores(Spore spore) {
-        Logger.FunctionStart(this, "addSpores", new Object[]{spore});
 
         spores.add(spore);
 
-        Logger.FunctionEnd();
         return true;
     }
 
@@ -42,7 +38,6 @@ public class SporeContainer
      * @return A kivett spórák.
      */
     public Spore[] popSpores(int count) {
-        Logger.FunctionStart(this, "popSpores", new Object[]{count});
 
         Spore[] selected = new Spore[count];
 
@@ -54,7 +49,6 @@ public class SporeContainer
             spores.remove(selected[i]);
         }
 
-        Logger.FunctionEnd();
         return selected;
     }
 
@@ -66,7 +60,6 @@ public class SporeContainer
      * @return A kivett spórák.
      */
     public Spore[] popSpores(int id, int count) {
-        Logger.FunctionStart(this, "popSpores", new Object[]{count});
 
         Spore[] selected = new Spore[count];
         int idx = 0;
@@ -80,7 +73,6 @@ public class SporeContainer
             spores.remove(selected[i]);
         }
 
-        Logger.FunctionEnd();
         return selected;
     }
 
@@ -90,8 +82,6 @@ public class SporeContainer
      * @return A spórák száma.
      */
     public int getSporeCount() {
-        Logger.FunctionStart(this, "getSporeCount");
-        Logger.FunctionEnd();
         return spores.size();
     }
 
@@ -102,7 +92,6 @@ public class SporeContainer
      * @return A gombaazonosítóval rendelkező spórák száma.
      */
     public int getSporeCount(int id) {
-        Logger.FunctionStart(this, "getSporeCount", new Object[]{id});
         
         int count = 0;
 
@@ -112,7 +101,6 @@ public class SporeContainer
             }
         }
         
-        Logger.FunctionEnd();
         return count;
     }
 }

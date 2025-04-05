@@ -5,8 +5,8 @@ package Model;
 public class TectonTime extends Tecton{
     
     //Konstruktor
-    public TectonTime(String objectName){
-        super(objectName);
+    public TectonTime(){
+        super();
     }
     /**
      * Gombafonál csatlakoztatása a tektonhoz.
@@ -14,9 +14,8 @@ public class TectonTime extends Tecton{
      * @return Visszatér egy boolean-el annak függvényében, hogy sikerült-e a fonalat hozzáadni.
      */
     boolean addLine(Line line){
-        Logger.FunctionStart(this, "addLine", new Object[]{line});
         connections.add(line);
-        Logger.FunctionEnd();
+        //TODO:Időzítő hozzáadása
         return true;
     }
 }

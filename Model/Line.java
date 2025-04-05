@@ -1,6 +1,7 @@
 package Model;
-import java.util.ArrayList;
-import java.util.List;
+
+import Listeners.ObjectChangeListener;
+import Listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
  * A Line osztály valósítja meg a gombafonalakat a játékban.
@@ -8,8 +9,11 @@ import java.util.List;
  */
 public class Line 
 {
-    List<Tecton> connections = new ArrayList<Tecton>();
-    int id;
+    int mushroomId;
+    int ttl = -1;
+    Tecton[] ends;
+
+    public ObjectChangeListener changeListener;
 
     /**
      * Line konstruktor.
@@ -19,10 +23,9 @@ public class Line
      * @param t2 A vonal által összekötött második Tecton
      * @param id A gombafaj azonosítója
      */
-    public Line(String name, Tecton t1, Tecton t2, int id)
+    public Line(Tecton t1, Tecton t2, int id)
     {
-        Logger.Constructor(this, name, new Object[]{t1, t2, id});
-        this.id = id;
+        this.mushroomId = id;
         boolean res1 = t1.addLine(this);
 
         boolean res2 = false;
@@ -38,13 +41,17 @@ public class Line
         if (!res2 && res1) {
             t1.removeLine(this);
         }
-        connections.add(t1);
-        connections.add(t2);
-        Logger.FunctionEnd();
+        ends = new Tecton[2];
+        ends[0] = t1;
+        ends[1] = t2;
     }
 
     public int getId() {
-        return id;
+        return mushroomId;
+    }
+
+    public int getTtl() {
+        return ttl;
     }
 
     /**
@@ -54,34 +61,12 @@ public class Line
      */
     public boolean checkConnections()
     {
-        Logger.FunctionStart(this, "checkConnections");
-        boolean t1h = connections.get(0).hasBody();
-        if(t1h)
-        {
-            Logger.Log("return "+true);
-            Logger.FunctionEnd();
-            return true;
-        }
-        else
-        {
-            String ans = Logger.Ask("Is this the last line? (y/n)?");
-            if(ans.equalsIgnoreCase("y"))
-            {   
-                boolean res = connections.get(1).hasBody();
-                Logger.Log("return "+res);
-                Logger.FunctionEnd();
-                return res;
-            }
-            else
-            {
-                Tecton nt = new Tecton("t" + (Integer.parseInt((Logger.GetObjectName(connections.get(1)).substring(1))) + 1));
-                Line nl = new Line("l" + (Integer.parseInt((Logger.GetObjectName(this).substring(1))) + 1), connections.get(1), nt, id);
-                boolean res = nl.checkConnections();
-                Logger.Log("return "+res);
-                Logger.FunctionEnd();
-                return res;
-            }
-        }
+        //TODO: implement this method
+        return false;
+    }
+
+    public Tecton[] getEnds() {
+        return ends;
     }
 
     /**
@@ -101,9 +86,7 @@ public class Line
      */
     public boolean growMushroom(Tecton to)
     {
-        Logger.FunctionStart(this, "growMushroom", new Object[]{to});
-        to.addMushroom(id);
-        Logger.FunctionEnd();
+        to.addMushroom(mushroomId);
         return true;
     }
 
@@ -116,9 +99,8 @@ public class Line
      */
     public boolean growLine(Tecton to1, Tecton to2)
     {
-        Logger.FunctionStart(this, "growLine", new Object[]{to1, to2});
-        Line nl = new Line("l" + (Integer.parseInt((Logger.GetObjectName(this).substring(1))) + 1), to1, to2, id);
-        Logger.FunctionEnd();
+        Line nl = new Line(to1, to2, mushroomId);
+        changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, nl);
         return true;
     }
 
@@ -126,10 +108,8 @@ public class Line
      * Megsemmisíti a fonalat.
      */
     public void Destroy() {
-        Logger.FunctionStart(this, "Destroy");
-        for (Tecton t : connections) {
-            t.removeLine(this);
-        }
-        Logger.DestroyObject(this);
+        ends[0].removeLine(this);
+        ends[1].removeLine(this);
+        changeListener.lineChanged(ObjectChangeEvent.OBJECT_REMOVED, this);
     }
 }

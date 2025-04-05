@@ -1,4 +1,6 @@
 package Model;
+import Listeners.ObjectChangeListener;
+import Listeners.ObjectChangeListener.ObjectChangeEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,15 +52,7 @@ public class Tecton {
      */
     List<Insect> insects = new ArrayList<>();
 
-    /**
-     * A tekton x koordinátája.
-     */
-    private int x;
-
-    /**
-     * A tekton y koordinátája.
-     */ 
-    private int y;
+    public ObjectChangeListener changeListener;
 
 
     
@@ -66,10 +60,8 @@ public class Tecton {
      * Tecton konstruktor.
      * @param objectName Objektum neve
      */
-    public Tecton(String objectName){
-        Logger.Constructor(this, objectName);
-        sporeContainer = new SporeContainer("sc" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)))));
-        Logger.FunctionEnd();
+    public Tecton(){
+        sporeContainer = new SporeContainer();
     }
 
     
@@ -77,82 +69,41 @@ public class Tecton {
     
     //Getterek és setterek
     public Mushroom getMyMushroom() {
-        Logger.FunctionStart(this, "getMyMushroom");
-        Logger.FunctionEnd();
         return this.myMushroom;
     }
 
     public void setMyMushroom(Mushroom myMushroom) {
-        Logger.FunctionStart(this, "setMyMushroom", new Object[]{myMushroom});
         this.myMushroom = myMushroom;
-        Logger.FunctionEnd();
     }
 
     public List<Line> getConnections() {
-        Logger.FunctionStart(this, "getConnections");
-        Logger.FunctionEnd();
         return this.connections;
     }
 
     public void setConnections(List<Line> connections) {
-        Logger.FunctionStart(this, "setConnections", new Object[]{connections});
         this.connections = connections;
-        Logger.FunctionEnd();
     }
 
     public SporeContainer getSporeContainer() {
-        Logger.FunctionStart(this, "getSporeContainer");
-        Logger.FunctionEnd();
         return this.sporeContainer;
     }
 
     public void setSporeContainer(SporeContainer spores) {
-        Logger.FunctionStart(this, "setSporeContainer", new Object[]{spores});
         this.sporeContainer = spores;
-        Logger.FunctionEnd();
     }
 
     public List<Tecton> getNeighbors() {
-        Logger.FunctionStart(this, "getNeighbors");
-        Logger.FunctionEnd();
         return this.neighbors;
     }
 
     public List<Insect> getInsects() {
-        Logger.FunctionStart(this, "getInsects");
-        Logger.FunctionEnd();
         return this.insects;
     }
 
     public void setNeighbors(Tecton neighbor) {
-        Logger.FunctionStart(this, "setNeighbors", new Object[]{neighbor});
         neighbors.add(neighbor);
-        Logger.FunctionEnd();
     }
 
-    public int getX() {
-        Logger.FunctionStart(this, "getX");
-        Logger.FunctionEnd();
-        return this.x;
-    }
-
-    public void setX(int x) {
-        Logger.FunctionStart(this, "setX", new Object[]{x});
-        this.x = x;
-        Logger.FunctionEnd();
-    }
-
-    public int getY() {
-        Logger.FunctionStart(this, "getY");
-        Logger.FunctionEnd();
-        return this.y;
-    }
-
-    public void setY(int y) {
-        Logger.FunctionStart(this, "setY", new Object[]{y});
-        this.y = y;
-        Logger.FunctionEnd();
-    }
 
 
     //Függvények
@@ -162,9 +113,7 @@ public class Tecton {
      * @return A visszatérési érték a csatlakoztatás sikerességéről küld visszajelzést.
      */
     boolean addLine(Line line){
-        Logger.FunctionStart(this, "addLine", new Object[]{line});
         connections.add(line);
-        Logger.FunctionEnd();
         return true;
     }
     /**
@@ -172,9 +121,7 @@ public class Tecton {
      * @param toRemove A leválasztandó fonal.
      */
     void removeLine(Line toRemove){
-        Logger.FunctionStart(this, "removeLine", new Object[]{toRemove});
         connections.remove(toRemove);
-        Logger.FunctionEnd();
     }
     /**
      * Gombatest növesztése a tektonon. 
@@ -182,18 +129,16 @@ public class Tecton {
      * @return Ha effekt vagy egyéb indok miatt nem tud ott gomba létesülni, akkor false értéket ad vissza.
      */
     boolean addMushroom(int id){
-        Logger.FunctionStart(this, "addMushroom", new Object[]{id});
         boolean sporeCountOK = sporeContainer.getSporeCount(id) >= 3;
         if (sporeCountOK) {
-            myMushroom = new Mushroom(id, this, "Mushroom");
+            myMushroom = new Mushroom(id, this);
+            changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_ADDED, myMushroom);
             Logger.Log("Mushroom built successfully");
             sporeContainer.popSpores(id, 3);
-            Logger.FunctionEnd();
             return true;
         }
         else {
             Logger.Log("Mushroom failed to build");
-            Logger.FunctionEnd();
             return false;
         }
     }
@@ -203,31 +148,23 @@ public class Tecton {
       * A függvény segítségével lekérdezhető, hogy a tektonon van-e gombatest 
       * @return Visszaadja, hogy van-e a tektonon gombatest.
       */
-    boolean hasBody(){
-        Logger.FunctionStart(this, "hasBody");
-        String ans = Logger.Ask("Van gombatest a tektonon(y/n)?");
-        if(ans.equalsIgnoreCase("y")){
-            Logger.FunctionEnd();
-            return true;
+    boolean hasBody(int mushroomId){
+        if (myMushroom != null) {
+            return myMushroom.getMushroomId() == mushroomId;
         }
-        else{
-            Logger.FunctionEnd();
-            return false;
-        }
+        return false;
+        
     }
     /**
      * A tekton két tektonra törése
      */
-    void breakTecton(){
-        Logger.FunctionStart(this, "breakTecton");
+    public void breakTecton(){
         List<Tecton> ng = getNeighbors();
-        Tecton t3 = new Tecton("t3");
-
+        Tecton t3 = new Tecton();
+        changeListener.tectonChanged(ObjectChangeEvent.OBJECT_ADDED, t3);
         for (Tecton t : ng) {
             t3.setNeighbors(t);
         }
-
-        Logger.FunctionEnd();
     }
     /**
      * A tektonra rárakja az átadott rovart.

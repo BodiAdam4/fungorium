@@ -11,11 +11,9 @@ public class SporeFast extends Spore
      * @param id A gombafaj azonosítója
      * @param value A spóra tápértéke
      */
-    public SporeFast(String name, int id, int value)
+    public SporeFast(int id, int value)
     {
-        super(name, id, value);
-        Logger.Constructor(this, name, new Object[]{id, value});
-        Logger.FunctionEnd();
+        super(id, value);
     }
 
     /**
@@ -25,8 +23,6 @@ public class SporeFast extends Spore
      */
     @Override
     public void addEffect(Insect i) {
-        Logger.FunctionStart(this, "addEffect", new Object[]{i});
         i.setSpeed(3);
-        Logger.FunctionEnd();
     }
 }
