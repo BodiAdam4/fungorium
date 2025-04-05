@@ -1,3 +1,4 @@
+package Model;
 
 /**
  * Egy rovart reprezentál különböző tulajdonságokkal, például sebesség,

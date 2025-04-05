@@ -1,8 +1,9 @@
+package Model;
 /**
  * A Spóra leszármazottja.
  * Felülírja az addEffect metódust, hogy a saját hatását átadja a rovarnak.
  */
-public class SporeFast extends Spore
+public class SporeSlow extends Spore
 {
     /**
      * Konstruktor
@@ -10,7 +11,7 @@ public class SporeFast extends Spore
      * @param id A gombafaj azonosítója
      * @param value A spóra tápértéke
      */
-    public SporeFast(String name, int id, int value)
+    public SporeSlow(String name, int id, int value)
     {
         super(name, id, value);
         Logger.Constructor(this, name, new Object[]{id, value});
@@ -19,13 +20,13 @@ public class SporeFast extends Spore
 
     /**
      * Spóra megevése után meghívódó függvény.
-     * Növeli a rovar sebességét.
+     * Csökkenti a rovar sebességét.
      * @param i A rovar, aki megeszi a spórát.
      */
     @Override
     public void addEffect(Insect i) {
         Logger.FunctionStart(this, "addEffect", new Object[]{i});
-        i.setSpeed(3);
+        i.setSpeed(1);
         Logger.FunctionEnd();
     }
 }

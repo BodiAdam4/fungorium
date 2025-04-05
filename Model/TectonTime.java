@@ -1,3 +1,4 @@
+package Model;
 /**
  * A Tecton osztály leszármazottja, mely rendelkezik egy olyan különleges hatással, ami miatt csak a kapcsolódott gombafonalak egy idő után megszűnnek
  */

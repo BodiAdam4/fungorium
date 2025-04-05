@@ -1,3 +1,4 @@
+package Model;
 /**
  * A Tecton osztály leszármazottja, mely rendelkezik egy olyan különleges hatással, ami azt eredményezi, hogy nem képes rajta gombatest nőni.
  */

@@ -1,3 +1,4 @@
+package Model;
 /**
  * A Spóra leszármazottja.
  * Felülírja az addEffect metódust, hogy a saját hatását átadja a rovarnak.
