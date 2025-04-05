@@ -4,7 +4,7 @@ public class Player {
     /* - Privát attribútumok*/
     private int playerId;
     private String displayName;
-    private Controller controller;
+    protected Controller controller;
 
     /* - Publikus attribútumok*/
     /* - Konstruktorok*/
@@ -27,9 +27,6 @@ public class Player {
     public String getDisplayName() {
         return displayName;
     }
-
-
-
 
     /* - Egyéb metódusok*/
 

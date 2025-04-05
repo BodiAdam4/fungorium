@@ -6,11 +6,24 @@ package Model;
  */
 public class Insect {
 
+    private int insectId; //A rovar azonosítója
     private int speed; //A rovar sebessége
     private int sporeCount; //A rovar által elfogyasztott spórák száma
     private boolean canCut; //Tud-e éppen vágni a rovar
     private boolean canMove; //Mozgásképes-e a rovar
     private Tecton currentTecton; // A tekton amin a rovar éppen van.
+
+
+    /**
+     * Lekéri a rovar azaonosítóját.
+     *
+     * @return rovarazonosító.
+     */
+    public int getInsectId() {
+        Logger.FunctionStart(this, "getInsectId");
+        Logger.FunctionEnd();
+        return insectId;
+    }
 
     /**
      * Beállítja a rovar sebességét.
@@ -114,6 +127,7 @@ public class Insect {
      */
     public Insect(String objectName) {
         Logger.Constructor(this, objectName);
+        insectId = 1; //A rovar azonosítója
         speed = 1;
         sporeCount = 0;
         canCut = true;
