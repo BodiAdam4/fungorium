@@ -36,6 +36,7 @@ public class InsectPicker extends Player {
 
     /* - Egyéb metódusok*/
 
+    @Override
     public int calculateScore() {
         // TODO - implement Player.calculateScore
         return 0;

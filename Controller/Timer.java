@@ -6,6 +6,7 @@ public class Timer {
     /* - Privát attribútumok*/
     private HashMap<Schedule, Integer> oneTimeSchedules;
     private HashMap<Schedule, Integer> repeatSchedules;
+
     /* - Publikus attribútumok*/
 
     /* - Konstruktorok*/

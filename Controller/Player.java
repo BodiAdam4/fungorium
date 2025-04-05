@@ -4,6 +4,8 @@ public class Player {
     /* - Privát attribútumok*/
     private int playerId;
     private String displayName;
+
+    /* - Protected attribútumok*/
     protected Controller controller;
 
     /* - Publikus attribútumok*/

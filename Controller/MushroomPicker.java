@@ -34,7 +34,6 @@ public class MushroomPicker extends Player {
 
 
     public List<Line> getLines() {
-        // TODO - implement MushroomPicker.getLines
         //TODO: get the whole line list and search for it's own lines
         HashMap<String, Line> allLine = controller.getAllLine();
         List<Line> myLineList = new ArrayList<>();
@@ -49,6 +48,7 @@ public class MushroomPicker extends Player {
 
     /* - Egyéb metódusok*/
 
+    @Override
     public int calculateScore() {
         // TODO - implement MushroomPicker.calculateScore
         return 0;
