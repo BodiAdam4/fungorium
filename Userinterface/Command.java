@@ -1,6 +1,12 @@
 package Userinterface;
 
-public interface Command {
+import java.util.HashMap;
 
-    public void execute();
+public abstract class Command {
+
+    public String getOption(HashMap<String, String> options, String toFind, String defValue) {
+        return options.containsKey(toFind) ? options.get(toFind) : defValue;
+    }
+
+    public abstract void execute(String[] args, HashMap<String, String> options);
 }

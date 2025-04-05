@@ -11,16 +11,16 @@ public class CsakTesztTorold {
     public static void main(String[] args) {
         Controller controller = new Controller();
         
-        Tecton t1 = new TectonOnlyLine("t1");
+        Tecton t1 = new TectonOnlyLine();
         controller.addTecton("t_1", t1);
 
-        Tecton t2 = new TectonOnlyLine("t2");
+        Tecton t2 = new TectonOnlyLine();
         controller.addTecton("t_2", t2);
 
         t1.setNeighbors(t2);
         t2.setNeighbors(t1);
 
-        Mushroom m1 = new Mushroom(1, t1, "m1");
+        Mushroom m1 = new Mushroom(1, t1);
         controller.addMushroom("m_1", m1);
 
         t1.setMyMushroom(m1);
@@ -39,7 +39,7 @@ public class CsakTesztTorold {
         i1.move(t2);
         m1.throwSpores(t2, 2);
 
-        Tecton t3 = new TectonOnlyLine("t3");
+        Tecton t3 = new TectonOnlyLine();
         controller.addTecton("t_3", t3);
 
         t2.setNeighbors(t3);
