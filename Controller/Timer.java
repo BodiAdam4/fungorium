@@ -18,4 +18,18 @@ public class Timer {
 
 
     /* - Getter/Setter metódusok*/
+
+
+    /* - Egyéb metódusok*/
+    public void addOneTimeSchedule(Schedule schedule, int time) {
+        oneTimeSchedules.put(schedule, time);
+    }
+
+
+    public void addRepeatSchedule(Schedule schedule, int time) {
+        repeatSchedules.put(schedule, time);
+    }
+
+    public void forwardTime(int time) {
+    }
 }

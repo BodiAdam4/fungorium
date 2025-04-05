@@ -2,7 +2,7 @@ package Controller;
 
 public class Player {
     /* - Privát attribútumok*/
-    private String playerId;
+    private int playerId;
     private String displayName;
     private Controller controller;
 
@@ -10,7 +10,7 @@ public class Player {
     /* - Konstruktorok*/
 
     //Konstruktor
-    public Player(String playerId, String displayName, Controller controller) {
+    public Player(int playerId, String displayName, Controller controller) {
         this.playerId = playerId;
         this.displayName = displayName;
         this.controller = controller;
@@ -18,4 +18,23 @@ public class Player {
 
 
     /* - Getter/Setter metódusok*/
+
+    public int getPlayerId() {
+        return playerId;
+    }
+
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+
+
+
+    /* - Egyéb metódusok*/
+
+    public int calculateScore() {
+        // TODO - implement Player.calculateScore
+        return 0;
+    }
 }

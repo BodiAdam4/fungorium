@@ -45,6 +45,15 @@ public class Controller {
     }
 
 
+    public void addMushroom(String id, Mushroom mushroom) {
+        if (allMushroom.containsKey(id)) {
+            System.out.println("Mushroom with this ID already exists.");
+            return;
+        }
+        allMushroom.put(id, mushroom);
+    }
+
+
     public Mushroom getMushroomById(String id) {
         if (!allMushroom.containsKey(id)) {
             return null;
@@ -67,6 +76,15 @@ public class Controller {
     /* - Line */
     public HashMap<String, Line> getAllLine() {
         return allLine;
+    }
+
+
+    public void addLine(String id, Line line) {
+        if (allLine.containsKey(id)) {
+            System.out.println("Line with this ID already exists.");
+            return;
+        }
+        allLine.put(id, line);
     }
 
 
@@ -95,6 +113,15 @@ public class Controller {
     }
 
 
+    public void addInsect(String id, Insect insect) {
+        if (allInsect.containsKey(id)) {
+            System.out.println("Insect with this ID already exists.");
+            return;
+        }
+        allInsect.put(id, insect);
+    }
+
+
     public Insect getInsectById(String id) {
         if (!allInsect.containsKey(id)) {
             return null;
@@ -117,6 +144,15 @@ public class Controller {
     /* - Tecton */
     public HashMap<String, Tecton> getAllTecton() {
         return allTecton;
+    }
+
+
+    public void addTecton(String id, Tecton tecton) {
+        if (allTecton.containsKey(id)) {
+            System.out.println("Tecton with this ID already exists.");
+            return;
+        }
+        allTecton.put(id, tecton);
     }
 
 
