@@ -7,4 +7,15 @@ public class Player {
     private Controller controller;
 
     /* - Publikus attribútumok*/
+    /* - Konstruktorok*/
+
+    //Konstruktor
+    public Player(String playerId, String displayName, Controller controller) {
+        this.playerId = playerId;
+        this.displayName = displayName;
+        this.controller = controller;
+    }
+
+
+    /* - Getter/Setter metódusok*/
 }

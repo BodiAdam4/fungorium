@@ -15,4 +15,7 @@ public class Timer {
         this.oneTimeSchedules = new HashMap<>();
         this.repeatSchedules = new HashMap<>();
     }
+
+
+    /* - Getter/Setter metódusok*/
 }
