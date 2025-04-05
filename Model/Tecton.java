@@ -38,7 +38,7 @@ public class Tecton {
      * Ha egy rovar a tektonra jut, akkor képes ezáltal megnézni
      * az ott található spórákat, ami a spóraevéshez létfontosságú.
      */
-    private SporeContainer spores;
+    private SporeContainer sporeContainer;
 
     /**
      * A tektononnal szomszédos tektonok listája.
@@ -68,7 +68,7 @@ public class Tecton {
      */
     public Tecton(String objectName){
         Logger.Constructor(this, objectName);
-        spores = new SporeContainer("sc" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)))));
+        sporeContainer = new SporeContainer("sc" + (Integer.parseInt((Logger.GetObjectName(this).substring(1)))));
         Logger.FunctionEnd();
     }
 
@@ -103,12 +103,12 @@ public class Tecton {
     public SporeContainer getSporeContainer() {
         Logger.FunctionStart(this, "getSporeContainer");
         Logger.FunctionEnd();
-        return this.spores;
+        return this.sporeContainer;
     }
 
     public void setSporeContainer(SporeContainer spores) {
         Logger.FunctionStart(this, "setSporeContainer", new Object[]{spores});
-        this.spores = spores;
+        this.sporeContainer = spores;
         Logger.FunctionEnd();
     }
 
@@ -116,6 +116,12 @@ public class Tecton {
         Logger.FunctionStart(this, "getNeighbors");
         Logger.FunctionEnd();
         return this.neighbors;
+    }
+
+    public List<Insect> getInsects() {
+        Logger.FunctionStart(this, "getInsects");
+        Logger.FunctionEnd();
+        return this.insects;
     }
 
     public void setNeighbors(Tecton neighbor) {
@@ -177,11 +183,11 @@ public class Tecton {
      */
     boolean addMushroom(int id){
         Logger.FunctionStart(this, "addMushroom", new Object[]{id});
-        boolean sporeCountOK = spores.getSporeCount(id) >= 3;
+        boolean sporeCountOK = sporeContainer.getSporeCount(id) >= 3;
         if (sporeCountOK) {
             myMushroom = new Mushroom(id, this, "Mushroom");
             Logger.Log("Mushroom built successfully");
-            spores.popSpores(id, 3);
+            sporeContainer.popSpores(id, 3);
             Logger.FunctionEnd();
             return true;
         }
