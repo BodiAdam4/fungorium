@@ -25,7 +25,7 @@ public class MushroomPicker extends Player {
         HashMap<String, Mushroom> allMushroom = controller.getAllMushroom();
         List<Mushroom> myMushroomList = new ArrayList<>();
         for (Mushroom mushroom : allMushroom.values()) {
-            if (mushroom.getId() == this.getPlayerId()) {
+            if (mushroom.getMushroomId() == this.getPlayerId()) {
                 myMushroomList.add(mushroom);
             }
         }

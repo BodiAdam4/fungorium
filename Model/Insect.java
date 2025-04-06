@@ -115,7 +115,7 @@ public class Insect {
      */
     public Insect() {
         insectId = 1; //A rovar azonosítója
-        speed = 1;
+        speed = 2;
         sporeCount = 0;
         canCut = true;
         canMove = true;
