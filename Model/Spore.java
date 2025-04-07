@@ -3,10 +3,10 @@ package Model;
  * A játékban lévő spórákat valósítja meg.
  * Tartalmazza a tápértéket és a gombához tartozó azonosítót.
  */
-class Spore
+public class Spore
 {
-    int value;
-    int id;
+    private int value;
+    private int id;
 
     public int getValue() {
         return value;
@@ -22,6 +22,14 @@ class Spore
     {
         this.id = id;
         this.value = value;
+    }
+
+    /**
+     * Getter a spóra azonosítójához.
+     * @return A spóra azonosítója.
+     */
+    public int getSporeId() {
+        return id;
     }
 
     /**

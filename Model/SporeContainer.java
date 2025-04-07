@@ -64,7 +64,7 @@ public class SporeContainer
         Spore[] selected = new Spore[count];
         int idx = 0;
         for (int i = 0; i<count; i++) {
-            if (spores.get(i).id == id) {
+            if (spores.get(i).getSporeId() == id) {
                 selected[idx++] = spores.get(i);
             }
         }
@@ -96,7 +96,7 @@ public class SporeContainer
         int count = 0;
 
         for (int i = 0; i<spores.size(); i++) {
-            if (spores.get(i).id == id) {
+            if (spores.get(i).getSporeId() == id) {
                 count++;
             }
         }

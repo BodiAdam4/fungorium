@@ -5,9 +5,14 @@ import Model.Insect;
 import Model.Mushroom;
 import Model.Tecton;
 import Model.Line;
+import Model.Spore;
 import Model.TectonInfertile;
 import Model.TectonOnlyLine;
 import Model.TectonTime;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class CommandProccessor {
@@ -83,6 +88,36 @@ public class CommandProccessor {
             }
         });
 
+
+        /**
+         * /load <elérési út>
+         * Leírás: Játék betöltése mentett állapotból. Paraméterként el kell adni a mentést tartalmazó parancsfájl elérési útját. Sorra végrehajtódnak az itt tárolt parancsok.
+        */
+        commands.put("/load", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String filePath = args[0];
+                try (
+                BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                try {
+                    BufferedReader reader = new BufferedReader(new FileReader(filePath));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+
+                        ExecuteCommand(line);
+                    }
+                    reader.close();
+                    
+                } catch (Exception e) {
+                    // TODO: handle exception
+                }
+
+            }
+        });
+
         /**
          * /create-insect <tecton>
          * Leírás: Rovar lehelyezése a paraméterként tekton azonosítóval rendelkezó tektonra.
@@ -142,6 +177,7 @@ public class CommandProccessor {
          * frozen: A rovar nem tud mozogni.
          * fast: A rovar gyorsabban tud mozogni.
          * exhausting: A rovar nem tud fonalat vágni.
+         * //TODO: duplicate : Duplikáló hatással lesz a spóra a rovarra. Látrejön egy új rovar, mely független az előzőtől, és ugyan ahoz a rovarászhoz fog tartozni, azaz a playerId-ja megyegyezik azzal a rovarral, aki megette ezt a spórát
         */
         commands.put("/add-effect", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -285,10 +321,86 @@ public class CommandProccessor {
         });
 
 
+        /**
+         * /add-spore <tecton>
+         * Leírás: Spórák hozzáadása a tektonhoz.
+         * Opciók: 
+         * -sp <spóra darabszáma> : Hány darab spótát szeretnénk az adott tektonra elhelyezni.
+         * -i <gombaazonosító> : Azon gombatest azonosítója, amely az adott spórát eldobja.
+         * -t <típus> :
+         * slow : Lassító hatással lesz a spóra a rovarra.
+         * frozen : Fagyasztó hatással lesz a spóra a rovarra.
+         * fast : Gyorsító hatással lesz a spóra a rovarra.
+         * exhausting : Kimerült hatással lesz a spóra a rovarra.
+         * duplicate : Duplikáló hatással lesz a spóra a rovarra. Látrejön egy új rovar, mely független az előzőtől, és ugyan ahoz a rovarászhoz fog tartozni, azaz a playerId-ja megyegyezik azzal a rovarral, aki megette ezt a spórát
+         * ha nem adjuk meg a -t opciót, akkor alapértelmezetten a "normal" típusú spórát helyezi el.
+        */
+        //TODO: Javítani
+        commands.put("/add-spore", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String id = getOption(options, "-i", "1");
+                String tectonId = args[0];
+                int sporeCount = Integer.parseInt(getOption(options, "-sp", "1"));
+                String type = getOption(options, "-t", "normal");
+                int randomSporeValue;
+                randomSporeValue = (int) (Math.random() * 10) + 1;      //Set random value for the spore between 1 and 10
+                int value = Integer.parseInt(getOption(options, "-v", String.valueOf(randomSporeValue)));
+                System.out.println("Spore value: " + randomSporeValue);
+
+                //if the value is 1-to 5, then it's type is normal
+                //if the value is 6, then it's type is slow
+                //if the value is 7, then it's type is frozen
+                //if the value is 8, then it's type is fast
+                //if the value is 9, then it's type is exhausting
+                //if the value is 10, then it's type is duplicate
+                if (value >= 1 && value <= 5) {
+                    type = "normal";
+                } else if (value == 6) {
+                    type = "slow";
+                } else if (value == 7) {
+                    type = "frozen";
+                } else if (value == 8) {
+                    type = "fast";
+                } else if (value == 9) {
+                    type = "exhausting";
+                } else if (value == 10) {
+                    type = "duplicate";
+                }
+
+                //ensuring that we can add the spore's type manually withy the -t option
+                if (type.equalsIgnoreCase("slow")) {
+                    value = 6;
+                } else if (type.equalsIgnoreCase("frozen")) {
+                    value = 7;
+                } else if (type.equalsIgnoreCase("fast")) {
+                    value = 8;
+                } else if (type.equalsIgnoreCase("exhausting")) {
+                    value = 9;
+                } else if (type.equalsIgnoreCase("duplicate")) {
+                    value = 10;
+                }
+                
+
+                Tecton tecton = controller.getTectonById(tectonId);
+                if (tecton == null) {
+                    System.out.println("Tecton with ID " + tectonId + " not found.");
+                    return;
+                } else {
+                    System.out.println("Tecton with ID " + tectonId + " found.");
+                }
+
+                // Create the spores and add them to the tecton
+                for (int i = 0; i < sporeCount; i++) {
+                    Spore spore = new Spore(Integer.parseInt(id), value);
+                    //controller.addSpore(spore, value);
+                    tecton.getSporeContainer().addSpores(spore);
+                }
+            }
+        });
+
         
 
         /*
-        commands.put("/load", new LoadCommand(controller));
         commands.put("/save", new SaveCommand(controller));
         commands.put("/compare", new CompareCommand(controller));
         commands.put("/help", new HelpCommand());
