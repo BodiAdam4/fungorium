@@ -1,9 +1,8 @@
 package Controller;
+import Model.Insect;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import Model.Insect;
 
 public class InsectPicker extends Player {
     /* - Privát attribútumok*/
@@ -12,8 +11,8 @@ public class InsectPicker extends Player {
     /* - Konstruktorok*/
 
     //Konstruktor
-    public InsectPicker(int playerId, String displayName, Controller controller) {
-        super(playerId, displayName, controller);
+    public InsectPicker(String displayName, Controller controller) {
+        super(displayName, controller);
         // TODO - implement InsectPicker.InsectPicker
     }
 

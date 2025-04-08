@@ -1,0 +1,5 @@
+/create-tecton -i tec4
+/create-tecton -i tec10 -n tec4
+/create-line tec4 tec10
+/list
+/save outcmd.txt

@@ -3,7 +3,9 @@ package Controller;
 public class Player {
     /* - Privát attribútumok*/
     private int playerId;
+    private static int playerIdCounter = 0;
     private String displayName;
+
 
     /* - Protected attribútumok*/
     protected Controller controller;
@@ -12,8 +14,8 @@ public class Player {
     /* - Konstruktorok*/
 
     //Konstruktor
-    public Player(int playerId, String displayName, Controller controller) {
-        this.playerId = playerId;
+    public Player(String displayName, Controller controller) {
+        this.playerId = playerIdCounter++;
         this.displayName = displayName;
         this.controller = controller;
     }

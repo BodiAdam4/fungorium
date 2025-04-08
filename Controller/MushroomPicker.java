@@ -1,7 +1,6 @@
 package Controller;
-import Model.Mushroom;
 import Model.Line;
-
+import Model.Mushroom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,8 +12,8 @@ public class MushroomPicker extends Player {
     /* - Konstruktorok*/
 
     //Konstruktor
-    public MushroomPicker(int playerId, String displayName, Controller controller) {
-        super(playerId, displayName, controller);
+    public MushroomPicker(String displayName, Controller controller) {
+        super(displayName, controller);
         // TODO - implement MushroomPicker.MushroomPicker
     }
 

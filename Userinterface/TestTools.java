@@ -5,27 +5,47 @@ import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
 import Model.Tecton;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestTools {
     
     public static String GetStatus(Controller controller) {
         StringBuilder sb = new StringBuilder();
-        for(String tId : controller.getAllTecton().keySet()) {
+
+        List<String> sorted = new ArrayList<>(controller.getAllTecton().keySet());
+        sorted.sort((k1, k2) -> k1.compareTo(k2));
+
+        for(String tId : sorted) {
             sb.append(GetTectonStatus(controller, tId));
             sb.append("\n");
         }
 
-        for(String lId : controller.getAllLine().keySet()) {
+
+        sorted = new ArrayList<>(controller.getAllLine().keySet());
+        sorted.sort((k1, k2) -> k1.compareTo(k2));
+
+        for(String lId : sorted) {
             sb.append(GetLineStatus(controller, lId));
             sb.append("\n");
         }
 
-        for(String iId : controller.getAllInsect().keySet()) {
+
+        sorted = new ArrayList<>(controller.getAllInsect().keySet());
+        sorted.sort((k1, k2) -> k1.compareTo(k2));
+
+        for(String iId : sorted) {
             sb.append(GetInsectStatus(controller, iId));
             sb.append("\n");
         }
 
-        for(String mId : controller.getAllMushroom().keySet()) {
+
+        sorted = new ArrayList<>(controller.getAllMushroom().keySet());
+        sorted.sort((k1, k2) -> k1.compareTo(k2));
+
+        for(String mId : sorted) {
             sb.append(GetMushroomStatus(controller, mId));
             sb.append("\n");
         }
@@ -124,5 +144,15 @@ public class TestTools {
         sb.append("\tlevel: ").append(mushroom.getLevel()).append("\n");
         sb.append("\tmyTecton: ").append(controller.getTectonId(mushroom.getMyTecton())).append("\n");
         return sb.toString();
+    }
+
+    public static void writeLogToFile(String fileName, Controller controller) {
+        String content = GetStatus(controller);
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.write(content);
+            System.out.println("Sikeresen kiírva a fájlba: " + fileName);
+        } catch (IOException e) {
+            System.err.println("Hiba történt a fájl írása közben: " + e.getMessage());
+        }
     }
 }

@@ -15,7 +15,6 @@ public class Controller {
     private HashMap<String, Line> allLine;
     private HashMap<String, Insect> allInsect;
     private HashMap<String, Tecton> allTecton;
-    private List<Player> players;
     private List<MushroomPicker> mushroomPickers;
     private List<InsectPicker> insectPickers;
     private Time time;
@@ -33,9 +32,10 @@ public class Controller {
         this.allLine = new HashMap<>();
         this.allInsect = new HashMap<>();
         this.allTecton = new HashMap<>();
-        this.players = new ArrayList<>();
         this.mushroomPickers = new ArrayList<>();
         this.insectPickers = new ArrayList<>();
+
+        //PlayerHandler playerHandler = new PlayerHandler(2, 2);
 
         objectChangeListener = new ObjectChangeListener() {
             @Override

@@ -2,23 +2,27 @@ package Userinterface;
 
 import Controller.Controller;
 import Model.Insect;
-import Model.Mushroom;
-import Model.Tecton;
 import Model.Line;
+import Model.Mushroom;
 import Model.Spore;
+import Model.Tecton;
 import Model.TectonInfertile;
 import Model.TectonOnlyLine;
 import Model.TectonTime;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class CommandProccessor {
     /* - Privát attribútumok*/
     private HashMap<String, Command> commands;
     private Controller controller;
+
+    private List<String> commandHistory;
 
     /* - Publikus attribútumok*/
     /* - Konstruktorok*/
@@ -27,6 +31,7 @@ public class CommandProccessor {
     public CommandProccessor(Controller controller) {
         this.controller = controller;
         this.commands = new HashMap<>();
+        this.commandHistory = new ArrayList<>();
 
         commands.put("/create-tecton", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -479,6 +484,35 @@ public class CommandProccessor {
                 //spore.setType(type); // Set the type based on the -t option
             }
         });
+
+
+        commands.put("/save", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String savePath = args[0];
+                boolean logFile = getOption(options, "-log", "false").equalsIgnoreCase("true");
+                boolean commandFile = getOption(options, "-cmd", "false").equalsIgnoreCase("true");
+
+
+                System.out.println("Saving game to " + savePath);
+                System.out.println("Log file: " + logFile);
+                System.out.println("Command file: " + commandFile);
+
+                if (logFile) {
+                    TestTools.writeLogToFile(savePath, controller);
+                }
+                else if (commandFile) {
+                    String content = commandHistory.stream()
+                                        .reduce((s1, s2) -> s1 + "\n" + s2)
+                                        .orElse("");
+                    try (FileWriter writer = new FileWriter(savePath)) {
+                        writer.write(content);
+                        System.out.println("Sikeresen kiírva a fájlba: " + savePath);
+                    } catch (IOException e) {
+                        System.err.println("Hiba történt a fájl írása közben: " + e.getMessage());
+                    }
+                }
+            }
+        });
         
 
         /*
@@ -514,17 +548,34 @@ public class CommandProccessor {
             optionFieldIndex++;
             String[] optionsRaw = command.substring(optionFieldIndex, command.length()).split(" ");
             for (int i = 0; i<optionsRaw.length; i+=2){
-                options.put(optionsRaw[i].strip(), optionsRaw[i+1].strip());
+
+                if (i+1 >= optionsRaw.length) {
+                    options.put(optionsRaw[i].strip(), "true");
+                }
+                else if (optionsRaw[i+1].charAt(0) == '-') {
+                    options.put(optionsRaw[i].strip(), "true");
+                    i--;
+                }
+                else {
+                    options.put(optionsRaw[i].strip(), optionsRaw[i+1].strip());
+                }
             }
         }
         else {
             optionFieldIndex = command.length();
         }
 
+        for (String key : options.keySet()) {
+            System.out.println("Option: " + key + " Value: " + options.get(key));
+        }
+
         String[] plainArgs = command.substring(command.indexOf(" ")+1, optionFieldIndex).split(" ");
 
         if (commands.containsKey(baseCommand)) {
             commands.get(baseCommand).execute(plainArgs, options);
+            if (!baseCommand.equalsIgnoreCase("/save")){
+                commandHistory.add(command);
+            }
         } else {
             System.out.println("Unknown command: " + command);
         }
