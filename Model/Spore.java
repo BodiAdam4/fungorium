@@ -5,16 +5,17 @@ package Model;
  */
 public class Spore
 {
+    /* - Privát attribútumok*/
     private int value;
     private int id;
 
-    public int getValue() {
-        return value;
-    }
+    /* - Publikus attribútumok*/
+
+
+    /* - Konstruktorok*/
 
     /**
      * Konstruktor
-     * @param name A spóra neve (teszteléshez szükséges)
      * @param id A gombafaj azonosítója
      * @param value A spóra tápértéke
      */
@@ -24,10 +25,14 @@ public class Spore
         this.value = value;
     }
 
-    /**
-     * Getter a spóra azonosítójához.
-     * @return A spóra azonosítója.
-     */
+
+    /* - Getter/Setter metódusok*/
+
+    public int getValue() {
+        return value;
+    }
+
+    
     public int getSporeId() {
         return id;
     }

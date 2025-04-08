@@ -145,7 +145,6 @@ public class CommandProccessor {
                 }else {
                     System.out.println("Tecton with ID " + tectonId + " found.");
                     insect.setTecton(tecton);
-                    System.out.println("Insect moved to tecton with ID " + tectonId);
                 }
 
                 if (effectType.equalsIgnoreCase("slow")) {
@@ -166,6 +165,105 @@ public class CommandProccessor {
                 controller.addInsect(id, insect);
                 tecton.addInsect(insect);
 
+            }
+        });
+
+
+        /**
+         * /move <insect> <tecton>
+         * Leírás: A rovarász elmozdíthatja a rovarját egy tektonon állva, egy vele gombafonalakkal összekapcsolt tektonra. 
+         * Paraméterként meg kell adni a rovar azonosítóját, amivel mozogni szeretnénk és a tekton azonosítóját amire szeretnénk mozgatni.
+         * 
+        */
+        commands.put("/move", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String insectId = args[0];
+                String tectonId = args[1];
+
+                Insect insect = controller.getInsectById(insectId);
+                if (insect == null) {
+                    System.out.println("Insect with ID " + insectId + " not found.");
+                    return;
+                } else {
+                    System.out.println("Insect with ID " + insectId + " found.");
+                }
+
+                Tecton tecton = controller.getTectonById(tectonId);
+                if (tecton == null) {
+                    System.out.println("Tecton with ID " + tectonId + " not found.");
+                    return;
+                } else {
+                    System.out.println("Tecton with ID " + tectonId + " found.");
+                }
+
+                insect.move(tecton);
+                System.out.println("Insect moved form " + controller.getTectonId(insect.getTecton()) + " to " + tectonId);
+                //TODO: valami miatt a rovar át tud menni olyan tectonra is, ami nincs összeköttetéssel a kiinduló tectonnal.
+            }
+        });
+
+
+        /**
+         * /cut-line <insect> <line>
+         * Leírás: Gombafonal elvágása azon a tektonon, ahol a rovar tartózkodik. 
+         * Paraméterként át kell adni, hogy melyik a tektonhoz tartozó gombafonalat szeretnénk elvágni és a rovar azonosítóját, 
+         * amivel a műveletet végre szeretnénk hajtani.  Ha a rovar “exhausting” effekt hatása alatt áll akkor nem tudja ezt megtenni.elvágni.
+        */
+        commands.put("/cut-line", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String insectId = args[0];
+                String lineId = args[1];
+
+                Insect insect = controller.getInsectById(insectId);
+                if (insect == null) {
+                    System.out.println("Insect with ID " + insectId + " not found.");
+                    return;
+                } else {
+                    System.out.println("Insect with ID " + insectId + " found.");
+                }
+
+                Line line = controller.getLineById(lineId);
+                if (line == null) {
+                    System.out.println("Line with ID " + lineId + " not found.");
+                    return;
+                } else {
+                    System.out.println("Line with ID " + lineId + " found.");
+                }
+
+                if (insect.getCanCut()) {
+                    line.Destroy();
+                    System.out.println("Line cut successfully.");
+                } else {
+                    System.out.println("Insect cannot cut the line due to exhausting effect.");
+                }
+            }
+        });
+
+        //TODO: /eat-spore <insect> <spore>
+
+
+        /**
+         * /grow-line <source_tecton> <destination_tecton>
+         * Leírás: Gombafonal növesztése a két tekton között.
+         * Paraméterként át kell adni a két tekton azonosítóját, amik között a gombafonalat szeretnénk növeszteni.
+        */
+        //TODO: Ennek véres a torka
+        commands.put("/grow-line", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String id = getOption(options, "-i", "m0");
+                String tectonId1 = args[0];
+                String tectonId2 = args[1];
+
+                Tecton tecton1 = controller.getTectonById(tectonId1);
+                Tecton tecton2 = controller.getTectonById(tectonId2);
+
+                if (tecton1 == null || tecton2 == null) {
+                    System.out.println("One or both tectons not found.");
+                    return;
+                }
+
+                Mushroom mushroom1 = controller.getMushroomById(id);
+                mushroom1.growLine(tecton2);
             }
         });
 
@@ -335,52 +433,34 @@ public class CommandProccessor {
          * duplicate : Duplikáló hatással lesz a spóra a rovarra. Látrejön egy új rovar, mely független az előzőtől, és ugyan ahoz a rovarászhoz fog tartozni, azaz a playerId-ja megyegyezik azzal a rovarral, aki megette ezt a spórát
          * ha nem adjuk meg a -t opciót, akkor alapértelmezetten a "normal" típusú spórát helyezi el.
         */
-        //TODO: Javítani
+        //TODO: Ennek véres a torka
         commands.put("/add-spore", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String id = getOption(options, "-i", "1");
                 String tectonId = args[0];
                 int sporeCount = Integer.parseInt(getOption(options, "-sp", "1"));
                 String type = getOption(options, "-t", "normal");
-                int randomSporeValue;
-                randomSporeValue = (int) (Math.random() * 10) + 1;      //Set random value for the spore between 1 and 10
-                int value = Integer.parseInt(getOption(options, "-v", String.valueOf(randomSporeValue)));
-                System.out.println("Spore value: " + randomSporeValue);
 
-                //if the value is 1-to 5, then it's type is normal
-                //if the value is 6, then it's type is slow
-                //if the value is 7, then it's type is frozen
-                //if the value is 8, then it's type is fast
-                //if the value is 9, then it's type is exhausting
-                //if the value is 10, then it's type is duplicate
-                if (value >= 1 && value <= 5) {
-                    type = "normal";
-                } else if (value == 6) {
-                    type = "slow";
-                } else if (value == 7) {
-                    type = "frozen";
-                } else if (value == 8) {
-                    type = "fast";
-                } else if (value == 9) {
-                    type = "exhausting";
-                } else if (value == 10) {
-                    type = "duplicate";
-                }
-
-                //ensuring that we can add the spore's type manually withy the -t option
-                if (type.equalsIgnoreCase("slow")) {
-                    value = 6;
+                int valueIsType;
+                if (type.equalsIgnoreCase("normal")) {
+                    valueIsType = 1;
                 } else if (type.equalsIgnoreCase("frozen")) {
-                    value = 7;
+                    valueIsType = 6;
                 } else if (type.equalsIgnoreCase("fast")) {
-                    value = 8;
+                    valueIsType = 7;
                 } else if (type.equalsIgnoreCase("exhausting")) {
-                    value = 9;
+                    valueIsType = 8;
                 } else if (type.equalsIgnoreCase("duplicate")) {
-                    value = 10;
+                    valueIsType = 9;
+                } else {
+                    if (Integer.parseInt(type) % 1 == 0) {
+                        valueIsType = Integer.parseInt(type);
+                        
+                    }else {
+                        System.out.println("Unknown type: " + type);
+                        return;
+                    }
                 }
-                
-
                 Tecton tecton = controller.getTectonById(tectonId);
                 if (tecton == null) {
                     System.out.println("Tecton with ID " + tectonId + " not found.");
@@ -389,15 +469,16 @@ public class CommandProccessor {
                     System.out.println("Tecton with ID " + tectonId + " found.");
                 }
 
-                // Create the spores and add them to the tecton
+                Spore spore = new Spore(Integer.parseInt(id),valueIsType);
                 for (int i = 0; i < sporeCount; i++) {
-                    Spore spore = new Spore(Integer.parseInt(id), value);
-                    //controller.addSpore(spore, value);
-                    tecton.getSporeContainer().addSpores(spore);
+                    tecton.getSporeContainer().addSpores(spore); // Add spores to the spore container of the tecton
+                    Mushroom mushroom = controller.getMushroomById(id);
+                    mushroom.setSporeCount(mushroom.getSporeCount() - sporeCount); // Increase the spore count of the mushroom
                 }
+                //spore.setType(type); // Set the type based on the -t option
+                //spore.setType(type); // Set the type based on the -t option
             }
         });
-
         
 
         /*
