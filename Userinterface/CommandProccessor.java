@@ -202,8 +202,6 @@ public class CommandProccessor {
                 }
 
                 insect.move(tecton);
-                System.out.println("Insect moved form " + controller.getTectonId(insect.getTecton()) + " to " + tectonId);
-                //TODO: valami miatt a rovar át tud menni olyan tectonra is, ami nincs összeköttetéssel a kiinduló tectonnal.
             }
         });
 
