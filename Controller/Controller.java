@@ -17,7 +17,6 @@ public class Controller {
     private HashMap<String, Tecton> allTecton;
     private List<MushroomPicker> mushroomPickers;
     private List<InsectPicker> insectPickers;
-    private Time time;
     private int actualPlayerIdx;
 
     private ObjectChangeListener objectChangeListener;
