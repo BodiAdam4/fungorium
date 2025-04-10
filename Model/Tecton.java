@@ -133,12 +133,12 @@ public class Tecton {
         if (sporeCountOK) {
             myMushroom = new Mushroom(id, this);
             changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_ADDED, myMushroom);
-            Logger.Log("Mushroom built successfully");
+            System.out.println("Mushroom built successfully");
             sporeContainer.popSpores(id, 3);
             return true;
         }
         else {
-            Logger.Log("Mushroom failed to build");
+            System.out.println("Mushroom failed to build");
             return false;
         }
     }

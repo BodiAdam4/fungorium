@@ -578,7 +578,6 @@ public class CommandProccessor {
          * duplicate : Duplikáló hatással lesz a spóra a rovarra. Látrejön egy új rovar, mely független az előzőtől, és ugyan ahoz a rovarászhoz fog tartozni, azaz a playerId-ja megyegyezik azzal a rovarral, aki megette ezt a spórát
          * ha nem adjuk meg a -t opciót, akkor alapértelmezetten a "normal" típusú spórát helyezi el.
         */
-        //TODO: Ennek véres a torka
         commands.put("/add-spore", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
@@ -610,6 +609,51 @@ public class CommandProccessor {
 
                 for (int i = 0; i < sporeCount; i++) {
                     tecton.getSporeContainer().addSpores(spore);
+                }
+            }
+        });
+
+        //TODO: Leírás
+        commands.put("/eat-spore", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String insectId = args[0];
+                Insect insect = controller.getInsectById(insectId);
+
+                insect.eatSpores(1);
+            }
+
+            @Override
+            public String toString() {
+                return "Eats a spore from the tecton.\n\tUsing: /eat-spore <insectId>";
+            }
+        });
+
+        //TODO: Leírás
+        commands.put("/build-mushroom", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String tectonId = args[0];
+                int id = Integer.parseInt(getOption(options, "-i", "1"));
+                Tecton tecton = controller.getTectonById(tectonId);
+
+                if (controller.isGameRunning()) {
+                    MushroomPicker mpicker = (MushroomPicker)(controller.getPlayerHandler().getActualPlayer());
+                    //mpicker.buildMushroom(tecton);
+                    //TODO: Játékmenet alatti építés
+                } else {
+                    Line selected = null;
+
+                    for (Line line : tecton.getConnections()) {
+                        if (line.getId() == id) {
+                            selected = line;
+                            break;
+                        }
+                    }
+
+                    if (selected != null) {
+                        selected.growMushroom(tecton);
+                    } else {
+                        System.out.println("Line with ID " + id + " not found on tecton " + tectonId + ".");
+                    }
                 }
             }
         });
@@ -650,11 +694,14 @@ public class CommandProccessor {
         
         commands.put("/help", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-                
-                for (String name : commands.keySet()) {
+                System.out.println("Available commands: ");
+                System.out.println("=========================================");
+                List<String> sorted = new ArrayList<>(commands.keySet());
+                sorted.sort((k1, k2) -> k1.compareTo(k2));
+                for (String name : sorted) {
                     System.out.println(name+" : \n\t" + commands.get(name).toString()+"\n");
                 }
-
+                System.out.println("=========================================");
             }
 
             @Override
