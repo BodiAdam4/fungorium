@@ -565,10 +565,6 @@ public class CommandProccessor {
             optionFieldIndex = command.length();
         }
 
-        for (String key : options.keySet()) {
-            System.out.println("Option: " + key + " Value: " + options.get(key));
-        }
-
         String[] plainArgs = command.substring(command.indexOf(" ")+1, optionFieldIndex).split(" ");
 
         if (commands.containsKey(baseCommand)) {
@@ -580,7 +576,6 @@ public class CommandProccessor {
             System.out.println("Unknown command: " + command);
         }
 
- 
     }
 
     public void getInput(){
