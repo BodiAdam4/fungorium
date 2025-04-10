@@ -133,33 +133,32 @@ public class Mushroom{
 
         int dist = 1;       //A tektonok távolsága
 
-        if ((dist == 1 && this.level == 1) || (dist == 2 && this.level > 1)){
+        boolean inRange = false;
 
-            if (this.sporeCount >= count){
-                for (int i = 0; i < count; i++){
-                    Spore spore = new Spore(this.id, random.nextInt(10));
-                    to.getSporeContainer().addSpores(spore);
-                }
-
-                this.sporeCount -= count;       //Spóraszám csökkentése
-
-                Logger.Log("Successfully threw spores to the tecton.");
-
-                //Ha eldobtunk 5db spórákat, azaz a spórarekesz kiürül, akkor a gombatest meghal
-                if (this.sporeCount == 0){
-                    Logger.Log("The mushroom has thrown 5 spores and will now be destroyed.");
-                    this.destroy();
-                }
-                
-                return true;
-            } else{
-                Logger.Log("The spore count is not enough to throw spores.");
-                return false;
+        for  (Tecton t : this.myTecton.getNeighbors()){
+            if (level > 1 && t.getNeighbors().contains(to)){
+                inRange = true;
+            } 
+            
+            if (t == to){
+                inRange = true;
             }
-        }else{
-            Logger.Log("The given tecton is not a neighbor of the current tecton.");
-            return false;
         }
+
+        if (inRange){
+            Spore spore = new Spore(this.id, random.nextInt(10));
+            to.getSporeContainer().addSpores(spore);
+            this.sporeCount -= count; 
+
+            if (this.sporeCount == 0) {
+                destroy();
+            }
+            System.out.println("Spore succesfully thrown to with value: " + spore.getValue());
+            return true;
+        }
+
+        System.out.println("Tecton is not in range");
+        return false;
     }
     
 

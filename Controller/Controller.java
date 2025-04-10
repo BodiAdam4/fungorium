@@ -45,7 +45,7 @@ public class Controller {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
                     addInsect(("i"+(allInsect.size()+1)), insect);
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
-                    //TODO: implement remove insect logic
+                    allInsect.remove(getInsectId(insect));
                 }
             }
 
@@ -63,7 +63,7 @@ public class Controller {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
                     addTecton(("t"+(allTecton.size()+1)), tecton);
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
-                    //TODO: implement remove insect logic
+                    allTecton.remove(getTectonId(tecton));
                 }
             }
 
@@ -72,7 +72,7 @@ public class Controller {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
                     addMushroom(("m"+(allMushroom.size()+1)), mushroom);
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
-                    //TODO: implement remove insect logic
+                    allMushroom.remove(getMushroomId(mushroom));
                 }
             }
         };

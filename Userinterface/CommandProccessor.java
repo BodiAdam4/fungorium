@@ -629,6 +629,23 @@ public class CommandProccessor {
         });
 
         //TODO: Leírás
+        commands.put("/throw-spore", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String mushroomId = args[0];
+                String tectonId = args[1];
+                Mushroom mushroom = controller.getMushroomById(mushroomId);
+                Tecton tecton = controller.getTectonById(tectonId);
+
+                mushroom.throwSpores(tecton, 1);
+            }
+
+            @Override
+            public String toString() {
+                return "Eats a spore from the tecton.\n\tUsing: /eat-spore <insectId>";
+            }
+        });
+
+        //TODO: Leírás
         commands.put("/build-mushroom", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
@@ -655,6 +672,11 @@ public class CommandProccessor {
                         System.out.println("Line with ID " + id + " not found on tecton " + tectonId + ".");
                     }
                 }
+            }
+
+            @Override
+            public String toString() {
+                return "Builds a mushroom on the tecton.\n\tUsing: /build-mushroom <tectonId> -i <mushroomId>";
             }
         });
 
