@@ -146,6 +146,10 @@ public class TestTools {
         return sb.toString();
     }
 
+    public static String GetGameStatus(Controller controller) {
+        return "Hello";
+    }
+
     public static void writeLogToFile(String fileName, Controller controller) {
         String content = GetStatus(controller);
         try (FileWriter writer = new FileWriter(fileName)) {

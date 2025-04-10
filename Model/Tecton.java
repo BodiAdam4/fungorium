@@ -164,6 +164,7 @@ public class Tecton {
         changeListener.tectonChanged(ObjectChangeEvent.OBJECT_ADDED, t3);
         for (Tecton t : ng) {
             t3.setNeighbors(t);
+            t.setNeighbors(t3);
         }
     }
     /**

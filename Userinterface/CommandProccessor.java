@@ -545,6 +545,24 @@ public class CommandProccessor {
             }
         });
 
+        /**
+         * TODO:TECTON TÖRÉS
+         */
+        commands.put("/break-tecton", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String tectonId = args[0];
+                Tecton tecton = controller.getTectonById(tectonId);
+
+                
+                tecton.breakTecton();
+            }
+
+            @Override
+            public String toString() {
+                return "Breaks the tecton, removing all lines from it.\n\tUsing: /break-tecton <tectonId>";
+            }
+        });
+
 
         /**
          * /add-spore <tecton>
@@ -625,7 +643,7 @@ public class CommandProccessor {
             }
             @Override
             public String toString() {
-                return "Save command or log file to the given place. Requires a path to the file and an option -cmd or -log to save the command history or the log file.\n\tExample: /save <path> -cmd";
+                return "Save command or log file to the given place. Requires a path to the file and an option -cmd or -log to save the command history or the log file.\n\tUsing: /save <path> -cmd";
             }
         });
 
