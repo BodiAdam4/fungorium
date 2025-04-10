@@ -1,12 +1,14 @@
 package Userinterface;
 
 import Controller.Controller;
+import Controller.MushroomPicker;
 import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
 import Model.Spore;
 import Model.Tecton;
 import Model.TectonInfertile;
+import Model.TectonKeepAlive;
 import Model.TectonOnlyLine;
 import Model.TectonTime;
 import java.io.BufferedReader;
@@ -57,8 +59,7 @@ public class CommandProccessor {
                     newTecton = new TectonOnlyLine();
                 }
                 else if (type.equalsIgnoreCase("keepalive")){
-                    //newTecton = new ();
-                    //TODO: Tectonkeep alive elkészítése
+                    newTecton = new TectonKeepAlive();
                 }
                 else {
                     newTecton = new Tecton();
@@ -81,7 +82,7 @@ public class CommandProccessor {
             }
         });
 
-        
+        /* 
         commands.put("/list", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String id = getOption(options, "-i", "t"+controller.getAllTecton().size());
@@ -90,6 +91,78 @@ public class CommandProccessor {
                 String neighbors = getOption(options, "-n", "");
                 
                 System.out.println(TestTools.GetStatus(controller));
+            }
+        });
+        */
+
+        /**
+         * /list
+         * Leírás: A játék objektumainak kilistázása.
+         * Opciók: 
+         * -tecton : Ha csak a tektonokat szeretnénk kilistázni.
+         * -line : Ha csak a gombafonalakat szeretnénk kilistázni.
+         * -insect : Ha csak a rovarokat szeretnénk kilistázni.
+         * -mushroom : Ha csak a gombatesteket szeretnénk kilistázni.
+         * -s <tecton> : Ha egy adott tektonon lévő spórákat szeretnénk kilistázni, ehhez paraméterként át kell adni a tekton azonosítóját.
+        */
+
+        /*
+         * boolean logFile = getOption(options, "-log", "false").equalsIgnoreCase("true");
+            boolean commandFile = getOption(options, "-cmd", "false").equalsIgnoreCase("true");
+
+
+            System.out.println("Saving game to " + savePath);
+            System.out.println("Log file: " + logFile);
+            System.out.println("Command file: " + commandFile);
+
+            if (logFile) {
+                TestTools.writeLogToFile(savePath, controller);
+            }
+         */
+        commands.put("/list", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String tectonId = getOption(options, "-s", null);
+                boolean tectons = getOption(options, "-tecton", "false").equalsIgnoreCase("true");
+                boolean line = getOption(options, "-line", "false").equalsIgnoreCase("true");
+                boolean insect = getOption(options, "-insect", "false").equalsIgnoreCase("true");
+                boolean mushroom = getOption(options, "-mushroom", "false").equalsIgnoreCase("true");
+                //boolean tectons = getOption(options, "-tecton", "false").equalsIgnoreCase("true");
+
+                if (tectons) {
+                    for (Tecton tecton : controller.getAllTecton().values()) {
+                        String tectonIds= controller.getTectonId(tecton);
+                        System.out.println(TestTools.GetTectonStatus(controller, tectonIds));
+                    }
+                    
+                } else if (line) {
+                    for (Line linet : controller.getAllLine().values()) {
+                        String lineIds= controller.getLineId(linet);
+                        System.out.println(TestTools.GetLineStatus(controller, lineIds));
+                    }
+                } else if (insect) {
+                    for (Insect insectt : controller.getAllInsect().values()) {
+                        String insectIds= controller.getInsectId(insectt);
+                        System.out.println(TestTools.GetInsectStatus(controller, insectIds));
+                    }
+                } else if (mushroom) {
+                    for (Mushroom mush : controller.getAllMushroom().values()) {
+                        String mushroomIds= controller.getMushroomId(mush);
+                        System.out.println(TestTools.GetMushroomStatus(controller, mushroomIds));
+                    }
+                    //TODO: Spóra kiírását meg kell csinálni, mert ez a megoldás fals
+                }else if (args[0].equals("-s") && tectonId != null) {
+                    Tecton tecton = controller.getTectonById(tectonId);
+                    if (tecton != null) {
+                        for (Tecton tectont : controller.getAllTecton().values()) {
+                            TestTools.getSporesOnTecton(tectont);
+                            System.out.println("Spores on tecton processed successfully.");
+                        }
+                    } else {
+                        System.out.println("Tecton with ID " + tectonId + " not found.");
+                    }
+                }else {
+                    System.out.println(TestTools.GetStatus(controller));
+                }
             }
         });
 
@@ -122,6 +195,7 @@ public class CommandProccessor {
 
             }
         });
+        
 
         /**
          * /create-insect <tecton>
@@ -202,8 +276,39 @@ public class CommandProccessor {
                 }
 
                 insect.move(tecton);
-                System.out.println("Insect moved form " + controller.getTectonId(insect.getTecton()) + " to " + tectonId);
-                //TODO: valami miatt a rovar át tud menni olyan tectonra is, ami nincs összeköttetéssel a kiinduló tectonnal.
+            }
+        });
+
+
+        /**
+         * /set-neigbors <tectonFrom> <tectonToList>
+         * Leírás: 
+         * A paratéterként kapott "tectonFrom" tektonnak beállítja a szomszédait, azaz olyan tektonokat, 
+         * melyek közvetlenül mellette helyezkednek el. A második paraméterben egy lista adható meg, 
+         * hogy egyszerre több szomszédos tektont is be lehessen állítani. Ide ";"-vel elválasztva sorolhatjuk fel a szomszédokat.
+        */
+        commands.put("/set-neigbors", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String tectonId = args[0];
+                String[] neighbors = args[1].split(";");
+
+                Tecton tecton = controller.getTectonById(tectonId);
+                if (tecton == null) {
+                    System.out.println("Tecton with ID " + tectonId + " not found.");
+                    return;
+                } else {
+                    System.out.println("Tecton with ID " + tectonId + " found.");
+                }
+
+                for (String neighborId : neighbors) {
+                    Tecton neighbor = controller.getTectonById(neighborId);
+                    if (neighbor != null) {
+                        tecton.setNeighbors(neighbor);
+                        neighbor.setNeighbors(tecton);
+                    } else {
+                        System.out.println("Neighbor tecton with ID " + neighborId + " not found.");
+                    }
+                }
             }
         });
 
@@ -252,23 +357,37 @@ public class CommandProccessor {
          * Leírás: Gombafonal növesztése a két tekton között.
          * Paraméterként át kell adni a két tekton azonosítóját, amik között a gombafonalat szeretnénk növeszteni.
         */
-        //TODO: Ennek véres a torka
         commands.put("/grow-line", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-                String id = getOption(options, "-i", "m0");
-                String tectonId1 = args[0];
-                String tectonId2 = args[1];
+                int id = Integer.parseInt(getOption(options, "-i", "1"));
+                String sourceTectonId = args[0];
+                String destinationTectonId = args[1];
 
-                Tecton tecton1 = controller.getTectonById(tectonId1);
-                Tecton tecton2 = controller.getTectonById(tectonId2);
+                Tecton from = controller.getTectonById(sourceTectonId);
+                Tecton to = controller.getTectonById(destinationTectonId);
 
-                if (tecton1 == null || tecton2 == null) {
-                    System.out.println("One or both tectons not found.");
-                    return;
+                boolean running = controller.isGameRunning();
+                
+                if (running) {
+                    MushroomPicker mpicker = (MushroomPicker)(controller.getPlayerHandler().getActualPlayer());
+                    mpicker.growLine(from, to);
+                    
+                    
+                } else{
+
+                    if(from.hasBody(id)) {
+                        from.getMyMushroom().growLine(to);
+
+                    //Ha van a tektonon line, akkor a line növeszti a gombafonalat a Line osztály growLine() metódusával
+                    } else {
+                        for (Line line : from.getConnections()) {
+                            if (line.getId() == id) {
+                                line.growLine(from,to);
+                                return;
+                            }
+                        }
+                    }
                 }
-
-                Mushroom mushroom1 = controller.getMushroomById(id);
-                mushroom1.growLine(tecton2);
             }
         });
 
@@ -578,7 +697,4 @@ public class CommandProccessor {
 
     }
 
-    public void getInput(){
-
-    }
 }

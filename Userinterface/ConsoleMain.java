@@ -4,7 +4,12 @@ import Controller.Controller;
 import java.io.BufferedInputStream;
 import java.util.Scanner;
 
-public class Main {
+public class ConsoleMain {
+    /* - Privát attribútumok*/
+    private Controller controller;
+    private CommandProccessor cmd;
+
+    /* - Belépési pont (main)*/
     public static void main(String[] args) {
         // Create an instance of the CommandProcessor and start the command loop
         Controller controller = new Controller();

@@ -15,10 +15,12 @@ public class Controller {
     private HashMap<String, Line> allLine;
     private HashMap<String, Insect> allInsect;
     private HashMap<String, Tecton> allTecton;
-    private List<MushroomPicker> mushroomPickers;
-    private List<InsectPicker> insectPickers;
-    private Time time;
-    private int actualPlayerIdx;
+    private PlayerHandler playerHandler;
+    private boolean isGameRunning = false;
+
+    /* - Protected attribútumok*/
+    //TODO: Ez most protected lett, hogy a PlayerHandler osztály elérje, de lehet, hogy nem így kéne
+    protected int actualPlayerIdx;
 
     private ObjectChangeListener objectChangeListener;
 
@@ -32,8 +34,8 @@ public class Controller {
         this.allLine = new HashMap<>();
         this.allInsect = new HashMap<>();
         this.allTecton = new HashMap<>();
-        this.mushroomPickers = new ArrayList<>();
-        this.insectPickers = new ArrayList<>();
+        //this.mushroomPickers = new ArrayList<>();
+        //this.insectPickers = new ArrayList<>();
 
         //PlayerHandler playerHandler = new PlayerHandler(2, 2);
 
@@ -79,6 +81,15 @@ public class Controller {
 
 
     /* - Getter/Setter metódusok*/
+
+    /* - Propertyk*/
+    public boolean isGameRunning() {
+        return isGameRunning;
+    }
+
+    public void setGameRunning(boolean isGameRunning) {
+        this.isGameRunning = isGameRunning;
+    }
 
     /* - Mushroom */
     public HashMap<String, Mushroom> getAllMushroom() {
@@ -216,6 +227,10 @@ public class Controller {
             }
         }
         return "Null";
+    }
+
+    public PlayerHandler getPlayerHandler() {
+        return playerHandler;
     }
 
 }

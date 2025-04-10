@@ -155,4 +155,9 @@ public class TestTools {
             System.err.println("Hiba történt a fájl írása közben: " + e.getMessage());
         }
     }
+
+    public static void getSporesOnTecton(Tecton tectOn){
+        System.out.println("Spórák száma a tektonon: " + tectOn.getSporeContainer().getSporeCount());
+        //TODO: kijavítani a kiiratást
+    }
 }
