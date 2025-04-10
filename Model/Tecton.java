@@ -148,7 +148,7 @@ public class Tecton {
       * A függvény segítségével lekérdezhető, hogy a tektonon van-e gombatest 
       * @return Visszaadja, hogy van-e a tektonon gombatest.
       */
-    boolean hasBody(int mushroomId){
+    public boolean hasBody(int mushroomId){
         if (myMushroom != null) {
             return myMushroom.getMushroomId() == mushroomId;
         }

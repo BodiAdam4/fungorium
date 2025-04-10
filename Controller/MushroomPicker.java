@@ -1,6 +1,8 @@
 package Controller;
 import Model.Line;
 import Model.Mushroom;
+import Model.Tecton;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,5 +53,26 @@ public class MushroomPicker extends Player {
     public int calculateScore() {
         // TODO - implement MushroomPicker.calculateScore
         return 0;
+    }
+
+    //GrowLine metódus a gombafonal növesztésére
+    public boolean growLine(Tecton from, Tecton to){
+
+        if(from.hasBody(getPlayerId())) {
+            from.getMyMushroom().growLine(to);
+            return true;
+
+        //Ha van a tektonon line, akkor a line növeszti a gombafonalat a Line osztály growLine() metódusával
+        } else {
+            for (Line line : from.getConnections()) {
+                if (line.getId() == this.getPlayerId()) {
+                    line.growLine(from,to);
+                    return true;
+                }
+            }
+        }
+        //Ha egyik sem teljesül, akkor nem tudunk gombafonalat növeszteni
+        return false;
+        
     }
 }
