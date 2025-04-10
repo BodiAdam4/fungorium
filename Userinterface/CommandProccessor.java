@@ -6,6 +6,9 @@ import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
 import Model.Spore;
+import Model.SporeExhausting;
+import Model.SporeFast;
+import Model.SporeFrozen;
 import Model.Tecton;
 import Model.TectonInfertile;
 import Model.TectonKeepAlive;
@@ -560,31 +563,25 @@ public class CommandProccessor {
         //TODO: Ennek véres a torka
         commands.put("/add-spore", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-                String id = getOption(options, "-i", "1");
                 String tectonId = args[0];
+                int id = Integer.parseInt(getOption(options, "-i", "1"));
                 int sporeCount = Integer.parseInt(getOption(options, "-sp", "1"));
                 String type = getOption(options, "-t", "normal");
 
-                int valueIsType;
-                if (type.equalsIgnoreCase("normal")) {
-                    valueIsType = 1;
-                } else if (type.equalsIgnoreCase("frozen")) {
-                    valueIsType = 6;
+                Spore spore = null;
+
+                if (type.equalsIgnoreCase("frozen")) {
+                    spore = new SporeFrozen(id,2);
                 } else if (type.equalsIgnoreCase("fast")) {
-                    valueIsType = 7;
+                    spore = new SporeFast(id, 2);
                 } else if (type.equalsIgnoreCase("exhausting")) {
-                    valueIsType = 8;
+                    spore = new SporeExhausting(id, 2);
                 } else if (type.equalsIgnoreCase("duplicate")) {
-                    valueIsType = 9;
+                    //TODO: Duplikáló hatású spóra létrehozása
                 } else {
-                    if (Integer.parseInt(type) % 1 == 0) {
-                        valueIsType = Integer.parseInt(type);
-                        
-                    }else {
-                        System.out.println("Unknown type: " + type);
-                        return;
-                    }
+                    spore = new Spore(id, 2);
                 }
+
                 Tecton tecton = controller.getTectonById(tectonId);
                 if (tecton == null) {
                     System.out.println("Tecton with ID " + tectonId + " not found.");
@@ -593,14 +590,9 @@ public class CommandProccessor {
                     System.out.println("Tecton with ID " + tectonId + " found.");
                 }
 
-                Spore spore = new Spore(Integer.parseInt(id),valueIsType);
                 for (int i = 0; i < sporeCount; i++) {
-                    tecton.getSporeContainer().addSpores(spore); // Add spores to the spore container of the tecton
-                    Mushroom mushroom = controller.getMushroomById(id);
-                    mushroom.setSporeCount(mushroom.getSporeCount() - sporeCount); // Increase the spore count of the mushroom
+                    tecton.getSporeContainer().addSpores(spore);
                 }
-                //spore.setType(type); // Set the type based on the -t option
-                //spore.setType(type); // Set the type based on the -t option
             }
         });
 
@@ -630,6 +622,26 @@ public class CommandProccessor {
                         System.err.println("Hiba történt a fájl írása közben: " + e.getMessage());
                     }
                 }
+            }
+            @Override
+            public String toString() {
+                return "Save command or log file to the given place. Requires a path to the file and an option -cmd or -log to save the command history or the log file.\n\tExample: /save <path> -cmd";
+            }
+        });
+
+        
+        commands.put("/help", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                
+                for (String name : commands.keySet()) {
+                    System.out.println(name+" : \n\t" + commands.get(name).toString()+"\n");
+                }
+
+            }
+
+            @Override
+            public String toString() {
+                return "Lists all avaible commands.";
             }
         });
         

@@ -9,4 +9,8 @@ public abstract class Command {
     }
 
     public abstract void execute(String[] args, HashMap<String, String> options);
+
+    public String toString() {
+        return "This is a command class";
+    }
 }
