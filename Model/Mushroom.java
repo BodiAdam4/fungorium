@@ -131,12 +131,10 @@ public class Mushroom{
     public boolean throwSpores(Tecton to, int count){
         Random random = new Random();       //Ez a random szám lesz a spóra értéke (value)
 
-        int dist = 1;       //A tektonok távolsága
-
         boolean inRange = false;
 
         for  (Tecton t : this.myTecton.getNeighbors()){
-            if (level > 1 && t.getNeighbors().contains(to)){
+            if (level >= 1 && t.getNeighbors().contains(to)){
                 inRange = true;
             } 
             
