@@ -2,7 +2,6 @@ package Controller;
 import Model.Line;
 import Model.Mushroom;
 import Model.Tecton;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,8 +50,7 @@ public class MushroomPicker extends Player {
 
     @Override
     public int calculateScore() {
-        // TODO - implement MushroomPicker.calculateScore
-        return 0;
+        return getMushrooms().size();
     }
 
     //GrowLine metódus a gombafonal növesztésére
