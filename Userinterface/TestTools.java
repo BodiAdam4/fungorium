@@ -67,7 +67,8 @@ public class TestTools {
             }
 
             sb.append("\n");
-            sb.append("Winner: "+pHandler.getWinner()+"\n");
+            sb.append("Winner mushroom picker: "+pHandler.getWinner()+"\n");
+            sb.append("Winner insect picker: "+pHandler.getWinner()+"\n");
             
             sb.append("==========================\n");
 

@@ -392,6 +392,11 @@ public class CommandProccessor {
                     }
                 }
             }
+
+            @Override
+            public String toString() {
+                return "Grow-line between two tectons, if the game is not running, then";
+            }
         });
 
 
