@@ -25,7 +25,6 @@ import java.util.List;
 public class CommandProccessor {
     /* - Privát attribútumok*/
     private HashMap<String, Command> commands;
-    private Controller controller;
 
     private List<String> commandHistory;
 
@@ -34,7 +33,6 @@ public class CommandProccessor {
 
     //Konstruktor
     public CommandProccessor(Controller controller) {
-        this.controller = controller;
         this.commands = new HashMap<>();
         this.commandHistory = new ArrayList<>();
 
@@ -213,13 +211,14 @@ public class CommandProccessor {
          */
         commands.put("/create-insect", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
+                int insectId = Integer.parseInt(getOption(options, "-iid", "i"+controller.getAllInsect().size()));
                 String id = getOption(options, "-i", "i"+controller.getAllInsect().size());
                 String tectonId = args[0];
                 String effectType = getOption(options, "-e", "normal");
                 
 
                 Insect insect = new Insect();
-
+                insect.setInsectId(insectId);
                 Tecton tecton = controller.getTectonById(tectonId);
                 if (tecton == null) {
                     System.out.println("Tecton with ID " + tectonId + " not found.");
@@ -362,7 +361,7 @@ public class CommandProccessor {
         */
         commands.put("/grow-line", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-                int id = Integer.parseInt(getOption(options, "-i", "1"));
+                int id = Integer.parseInt(getOption(options, "-mid", "1"));
                 String sourceTectonId = args[0];
                 String destinationTectonId = args[1];
 
@@ -466,7 +465,7 @@ public class CommandProccessor {
         */
         commands.put("/create-mushroom", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-            String id = getOption(options, "-i", "1");
+            String id = getOption(options, "-mid", "1");
             String tectonId = args[0];
             int sporeCount = Integer.parseInt(getOption(options, "-sp", "5"));
 
@@ -527,7 +526,7 @@ public class CommandProccessor {
         */
         commands.put("/create-line", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-                String id = getOption(options, "-i", "1");
+                String id = getOption(options, "-mid", "1");
                 String tectonId1 = args[0];
                 String tectonId2 = args[1];
 
@@ -581,7 +580,7 @@ public class CommandProccessor {
         commands.put("/add-spore", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
-                int id = Integer.parseInt(getOption(options, "-i", "1"));
+                int id = Integer.parseInt(getOption(options, "-mid", "1"));
                 int sporeCount = Integer.parseInt(getOption(options, "-sp", "1"));
                 String type = getOption(options, "-t", "normal");
 
@@ -649,7 +648,7 @@ public class CommandProccessor {
         commands.put("/build-mushroom", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
-                int id = Integer.parseInt(getOption(options, "-i", "1"));
+                int id = Integer.parseInt(getOption(options, "-mid", "1"));
                 Tecton tecton = controller.getTectonById(tectonId);
 
                 if (controller.isGameRunning()) {
@@ -729,6 +728,20 @@ public class CommandProccessor {
             @Override
             public String toString() {
                 return "Lists all avaible commands.";
+            }
+        });
+        
+        commands.put("/start", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                int mCount = Integer.parseInt(getOption(options, "-m", "2"));
+                int iCount = Integer.parseInt(getOption(options, "-i", "2"));
+
+                controller.StartGame(mCount, iCount);
+            }
+
+            @Override
+            public String toString() {
+                return "Start game";
             }
         });
         

@@ -10,6 +10,8 @@ public class PlayerHandler {
     private List<MushroomPicker> mushroomPickers;
     private List<InsectPicker> insectPickers;
     private Controller controller;
+    private int actualPlayerIdx = 0;
+    
 
     private String askName(String msg){
         System.out.print(msg);
@@ -18,9 +20,11 @@ public class PlayerHandler {
         return scanner.nextLine();
     }
 
-    public PlayerHandler(int mushroomPickerCount, int insectPickerCount) {
+    public PlayerHandler(int mushroomPickerCount, int insectPickerCount, Controller ctrl) {
         this.mushroomPickers = new ArrayList<>();
         this.insectPickers = new ArrayList<>();
+        this.controller = ctrl;
+
         System.out.println("#### Player selection ####");
         for (int i = 0; i < mushroomPickerCount; i++) {
             String name = askName("Enter the name of mushroom picker #" + (i + 1) + ": ");
@@ -31,6 +35,8 @@ public class PlayerHandler {
             String name = askName("Enter the name of insect picker #" + (i + 1) + ": ");
             insectPickers.add(new InsectPicker(name, controller));
         }
+
+        controller.setGameRunning(true);
     }
 
     /**
@@ -59,9 +65,35 @@ public class PlayerHandler {
     }
 
     public Player getActualPlayer() {
-        return actualPlayerIsMushroomPicker() ? mushroomPickers.get(controller.actualPlayerIdx) : insectPickers.get(controller.actualPlayerIdx - mushroomPickers.size());
+        for (int i = 0; i<mushroomPickers.size(); i++) {
+            if (i == controller.actualPlayerIdx) {
+                return mushroomPickers.get(i);
+            }
+        }
+        for (int i = 0; i<insectPickers.size(); i++) {
+            if (mushroomPickers.size()-i == controller.actualPlayerIdx) {
+                return insectPickers.get(i);
+            }
+        }
+
+        return null; // Ha nem található játékos, akkor null-t ad vissza
     }
 
-    
+    public String getWinner() {
+        return "[Ird at meg nem mukodik, ha nem nyer akkor 'No winner yet']";
+    }
+
+    public List<Player> getAllPlayer() {
+        List<Player> allPlayers = new ArrayList<>();
+
+
+        for(Player player : mushroomPickers) {
+            allPlayers.add(player);
+        }
+        for(Player player : insectPickers) {
+            allPlayers.add(player);
+        }
+        return allPlayers;
+    }
     
 }

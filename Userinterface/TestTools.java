@@ -1,6 +1,8 @@
 package Userinterface;
 
 import Controller.Controller;
+import Controller.Player;
+import Controller.PlayerHandler;
 import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
@@ -49,6 +51,29 @@ public class TestTools {
             sb.append(GetMushroomStatus(controller, mId));
             sb.append("\n");
         }
+
+
+        if (controller.isGameRunning()) {
+            sb.append("======= Game Status ======\n");
+            PlayerHandler pHandler = controller.getPlayerHandler();
+            sb.append("Actual player: ").append(pHandler.getActualPlayer().getDisplayName()).append("\n");
+            List<Player> allPlayer = controller.getPlayerHandler().getAllPlayer();
+            sb.append("Players in order: ");
+            for(int i = 0; i<allPlayer.size(); i++) {
+                Player player = allPlayer.get(i);
+                String username = player.getDisplayName();
+                int score = player.calculateScore();
+                sb.append("\n\t"+username+" (score: "+score+")");
+            }
+
+            sb.append("\n");
+            sb.append("Winner: "+pHandler.getWinner()+"\n");
+            
+            sb.append("==========================\n");
+
+            return sb.toString();
+        }
+
 
         return sb.toString();
     }

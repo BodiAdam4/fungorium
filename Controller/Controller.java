@@ -4,10 +4,7 @@ import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
 import Model.Tecton;
-import java.sql.Time;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Controller {
     /* - Privát attribútumok*/
@@ -36,8 +33,6 @@ public class Controller {
         this.allTecton = new HashMap<>();
         //this.mushroomPickers = new ArrayList<>();
         //this.insectPickers = new ArrayList<>();
-
-        //PlayerHandler playerHandler = new PlayerHandler(2, 2);
 
         objectChangeListener = new ObjectChangeListener() {
             @Override
@@ -79,6 +74,9 @@ public class Controller {
 
     }
 
+    public void StartGame(int mushroomPickerCount, int insectPickerCount) {
+        playerHandler = new PlayerHandler(mushroomPickerCount, insectPickerCount, this);
+    }
 
     /* - Getter/Setter metódusok*/
 
@@ -232,5 +230,6 @@ public class Controller {
     public PlayerHandler getPlayerHandler() {
         return playerHandler;
     }
+
 
 }

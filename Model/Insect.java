@@ -29,6 +29,10 @@ public class Insect {
         return insectId;
     }
 
+    public void setInsectId(int insectId) {
+        this.insectId = insectId;
+    }
+
     /**
      * Beállítja a rovar sebességét.
      *
