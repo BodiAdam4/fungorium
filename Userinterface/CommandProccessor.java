@@ -211,8 +211,9 @@ public class CommandProccessor {
          */
         commands.put("/create-insect", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-                int insectId = Integer.parseInt(getOption(options, "-iid", "i"+controller.getAllInsect().size()));
-                String id = getOption(options, "-i", "i"+controller.getAllInsect().size());
+                
+                String id = getOption(options, "-i", "t"+controller.getAllTecton().size());
+                int insectId = Integer.parseInt(getOption(options, "-iid", "1"));
                 String tectonId = args[0];
                 String effectType = getOption(options, "-e", "normal");
                 
@@ -465,7 +466,8 @@ public class CommandProccessor {
         */
         commands.put("/create-mushroom", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-            String id = getOption(options, "-mid", "1");
+            String mushroomId = getOption(options, "-mid", "1");
+            String id = getOption(options, "-i", "m"+controller.getAllMushroom().size());
             String tectonId = args[0];
             int sporeCount = Integer.parseInt(getOption(options, "-sp", "5"));
 
@@ -477,9 +479,9 @@ public class CommandProccessor {
                 System.out.println("Tecton with ID " + tectonId + " found.");
             }
 
-            Mushroom mushroom = new Mushroom(Integer.parseInt(id), tecton);
+            Mushroom mushroom = new Mushroom(Integer.parseInt(mushroomId), tecton);
             mushroom.setSporeCount(sporeCount); // Set the spore count based on the -sp option
-            controller.addMushroom("m" + controller.getAllMushroom().size(), mushroom);
+            controller.addMushroom(id, mushroom);
             tecton.setMyMushroom(mushroom);
             }
         });
@@ -526,7 +528,8 @@ public class CommandProccessor {
         */
         commands.put("/create-line", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-                String id = getOption(options, "-mid", "1");
+                String id = getOption(options, "-i", "l"+controller.getAllLine().size());
+                String mushroomId = getOption(options, "-mid", "1");
                 String tectonId1 = args[0];
                 String tectonId2 = args[1];
 
@@ -539,7 +542,7 @@ public class CommandProccessor {
                 }
 
                 // Create the line and add it to both tectons
-                Line line = new Line(tecton1, tecton2, Integer.parseInt(id));
+                Line line = new Line(tecton1, tecton2, Integer.parseInt(mushroomId));
                 controller.addLine(id,line);
             }
         });
