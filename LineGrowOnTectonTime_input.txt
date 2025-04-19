@@ -1,0 +1,5 @@
+/create-tecton -i t1
+/create-tecton -i t2 -t time -n t1
+/create-mushroom t1 -i m1 -mid 1
+/grow-line t1 t2
+/skip 2

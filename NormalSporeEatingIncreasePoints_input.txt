@@ -1,0 +1,5 @@
+/create-tecton -i t1
+/set-random 2
+/add-spore t1 -sp 1
+/create-insect t1 -i i1 -mid 1
+/eat-spore i1

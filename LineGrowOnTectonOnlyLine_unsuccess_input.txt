@@ -1,0 +1,7 @@
+/create-tecton -i t1
+/create-tecton -i t2 -t onlyline -n t1
+/create-tecton -i t3 -n t2
+/create-mushroom t1 -i m1 -mid 1
+/create-mushroom t3 -i  m2 -mid 1
+/grow-line t1 t2
+/grow-line t3 t2

@@ -1,0 +1,7 @@
+/start -m 2 -i 2
+p1
+p2
+p3
+p4
+/next
+/end
