@@ -754,11 +754,7 @@ public class CommandProccessor {
         });
         
 
-        /*
-        commands.put("/save", new SaveCommand(controller));
-        commands.put("/compare", new CompareCommand(controller));
-        commands.put("/help", new HelpCommand());
-        */
+        //TODO: Make the "/compare" command with one parameter, and with two parameters
 
     }
 

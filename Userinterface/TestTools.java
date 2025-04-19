@@ -190,4 +190,14 @@ public class TestTools {
         System.out.println("Spórák száma a tektonon: " + tectOn.getSporeContainer().getSporeCount());
         //TODO: kijavítani a kiiratást
     }
+
+    public static void compare(String filename){
+
+        //TODO: implement the compare function with the given filename
+    }
+
+    public static void compare(String exp, String out){
+
+        //TODO: implement the compare function with the given exp- and out files
+    }
 }
