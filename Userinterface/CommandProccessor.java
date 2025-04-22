@@ -6,6 +6,8 @@ import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
 import Model.Spore;
+import Model.SporeContainer;
+import Model.SporeDuplicate;
 import Model.SporeExhausting;
 import Model.SporeFast;
 import Model.SporeFrozen;
@@ -80,12 +82,11 @@ public class CommandProccessor {
                     }
                 }
 
-                //TODO: Spóraszám beállítása
                 // Lekérjük az adott tecton sporeContainer-jét és hozzáadjuk a spórákat
                 if (sporeCount > 0) {
+                    Spore[] sporesToAdd = SporeContainer.generateSpores(sporeCount, 1);
                     for (int i = 0; i < sporeCount; i++) {
-                        int randomSporeValue = RandTools.random(10);
-                        newTecton.getSporeContainer().addSpores(new Spore(1,randomSporeValue));
+                        newTecton.getSporeContainer().addSpores(sporesToAdd[i]);
                     }
                 }
 
@@ -617,21 +618,8 @@ public class CommandProccessor {
                 int sporeCount = Integer.parseInt(getOption(options, "-sp", "1"));
                 String type = getOption(options, "-t", "normal");
 
-                Spore spore = null;
-
-                if (type.equalsIgnoreCase("frozen")) {
-                    spore = new SporeFrozen(id,2);
-                } else if (type.equalsIgnoreCase("fast")) {
-                    spore = new SporeFast(id, 2);
-                } else if (type.equalsIgnoreCase("slow")) {
-                    spore = new SporeSlow(id, 2);
-                }else if (type.equalsIgnoreCase("exhausting")) {
-                    spore = new SporeExhausting(id, 2);
-                } else if (type.equalsIgnoreCase("duplicate")) {
-                    //TODO: Duplikáló hatású spóra létrehozása
-                } else {
-                    spore = new Spore(id, 2);
-                }
+                
+                
 
                 Tecton tecton = controller.getTectonById(tectonId);
                 if (tecton == null) {
@@ -641,7 +629,23 @@ public class CommandProccessor {
                     System.out.println("Tecton with ID " + tectonId + " found.");
                 }
 
-                for (int i = 0; i < sporeCount; i++) {
+                Spore spore = null;
+                for (int i = 0; i<sporeCount; i++){
+                    if (type.equalsIgnoreCase("frozen")) {
+                        spore = new SporeFrozen(id,2);
+                    } else if (type.equalsIgnoreCase("fast")) {
+                        spore = new SporeFast(id, 2);
+                    } else if (type.equalsIgnoreCase("slow")) {
+                        spore = new SporeSlow(id, 2);
+                    }else if (type.equalsIgnoreCase("exhausting")) {
+                        spore = new SporeExhausting(id, 2);
+                    } else if (type.equalsIgnoreCase("duplicate")) {
+                        spore = new SporeDuplicate(id, 2);
+                    } else {
+                        spore = new Spore(id, 2);
+                    }
+
+                    
                     tecton.getSporeContainer().addSpores(spore);
                 }
             }
@@ -674,7 +678,7 @@ public class CommandProccessor {
                 Mushroom mushroom = controller.getMushroomById(mushroomId);
                 Tecton tecton = controller.getTectonById(tectonId);
 
-                mushroom.throwSpores(tecton, 1);
+                mushroom.throwSpores(tecton);
             }
 
             @Override

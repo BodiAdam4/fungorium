@@ -136,7 +136,7 @@ public class Mushroom{
      * @param count
      * @return false, ha a tekton nem szomszédos, true, ha sikeres a spóra dobás
      */
-    public boolean throwSpores(Tecton to, int count){
+    public boolean throwSpores(Tecton to){
 
         boolean inRange = false;
 
@@ -149,10 +149,11 @@ public class Mushroom{
                 inRange = true;
             }
         }
+
         if (inRange){
-            Spore spore = new Spore(this.id, RandTools.random(1,10));
+            Spore spore = SporeContainer.generateSpores(1, id)[0];
             to.getSporeContainer().addSpores(spore);
-            this.sporeCount -= count; 
+            this.sporeCount--; 
 
             if (this.sporeCount <= 2) {
                 this.level = 2;

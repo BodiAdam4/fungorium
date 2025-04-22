@@ -1,4 +1,5 @@
 package Model;
+import Userinterface.RandTools;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,5 +103,25 @@ public class SporeContainer
         }
         
         return count;
+    }
+
+
+    public static Spore[] generateSpores(int count, int id) {
+        Spore[] spores = new Spore[count];
+
+        for (int i = 0; i < count; i++) {
+            int effekt = RandTools.random(10);
+            int value = RandTools.random(1, 10);
+            switch (effekt) {
+                case 0 -> spores[i] = new SporeDuplicate(id, value);
+                case 1 -> spores[i] = new SporeSlow(id, value);
+                case 2 -> spores[i] = new SporeFast(id, value);
+                case 3 -> spores[i] = new SporeExhausting(id, value);
+                case 4 -> spores[i] = new SporeFrozen(id, value);
+                default -> spores[i] = new Spore(id, value);
+            }
+        }
+
+        return spores;
     }
 }
