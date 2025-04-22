@@ -7,6 +7,10 @@ import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
 import Model.Tecton;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -191,13 +195,60 @@ public class TestTools {
         //TODO: kijavítani a kiiratást
     }
 
-    public static void compare(String filename){
-
-        //TODO: implement the compare function with the given filename
+    public static void compare(String filename, Controller controller){
+        boolean success = true;
+        String content = GetStatus(controller);
+        String cLines[] = content.split("\n");
+        long l = 0;
+        try{
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            l = reader.lines().count();
+            reader.close();
+        } catch (IOException e) { e.printStackTrace(); success = false; }
+        try {
+            BufferedReader reader2 = new BufferedReader(new FileReader(filename));
+            String line;
+            try {
+                for(int i = 0; i < l - 2; i++) {
+                    line = reader2.readLine();
+                    if(!line.equals(cLines[i])) {
+                        System.out.println("A fájlban lévő sor nem egyezik a generált sorral: " + line);
+                        System.out.println("A generált sor: " + cLines[i]);
+                        success = false;
+                    }
+                }
+                reader2.close();
+            } catch (IOException e) { e.printStackTrace(); success = false; }
+        } catch (FileNotFoundException e) { e.printStackTrace(); success = false; }
+        if(success) {
+            System.out.println("A fájl tartalma megegyezik a generált tartalommal.");
+        }
     }
 
     public static void compare(String exp, String out){
-
-        //TODO: implement the compare function with the given exp- and out files
+        boolean success = true;
+        try {
+            BufferedReader reader1 = new BufferedReader(new FileReader(exp));
+            BufferedReader reader2 = new BufferedReader(new FileReader(out));
+            String line1, line2;
+            try {
+                while ((line1 = reader1.readLine()) != null && (line2 = reader2.readLine()) != null) {
+                    if (!line1.equals(line2)) {
+                        System.out.println("A fájlban lévő sor nem egyezik a generált sorral: " + line1);
+                        System.out.println("A generált sor: " + line2);
+                        success = false;
+                    }
+                }
+                if (reader1.lines().count() != reader2.lines().count()) {
+                    System.out.println("A fájlok különböző hosszúságúak.");
+                    success = false;
+                }
+                reader1.close();
+                reader2.close();
+            } catch (IOException e) { e.printStackTrace(); success = false; }
+        } catch (FileNotFoundException e) { e.printStackTrace(); success = false; }
+        if(success) {
+            System.out.println("A fájl tartalma megegyezik a generált tartalommal.");
+        }
     }
 }
