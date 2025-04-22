@@ -1,8 +1,8 @@
 package Model;
 import Listeners.ObjectChangeListener;
 import Listeners.ObjectChangeListener.ObjectChangeEvent;
+import Userinterface.RandTools;
 import java.util.List;
-import java.util.Random;
 
 /**
  * A Mushroom osztály valósítja meg a gombatesteket a játékban. 
@@ -129,7 +129,6 @@ public class Mushroom{
      * @return false, ha a tekton nem szomszédos, true, ha sikeres a spóra dobás
      */
     public boolean throwSpores(Tecton to, int count){
-        Random random = new Random();       //Ez a random szám lesz a spóra értéke (value)
 
         boolean inRange = false;
 
@@ -142,9 +141,8 @@ public class Mushroom{
                 inRange = true;
             }
         }
-
         if (inRange){
-            Spore spore = new Spore(this.id, random.nextInt(10));
+            Spore spore = new Spore(this.id, RandTools.random(10));
             to.getSporeContainer().addSpores(spore);
             this.sporeCount -= count; 
 
