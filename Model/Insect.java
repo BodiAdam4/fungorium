@@ -13,11 +13,20 @@ public class Insect {
     private boolean canMove; //Mozgásképes-e a rovar
     private Tecton currentTecton; // A tekton amin a rovar éppen van.
 
-
+    /**
+     * Visszaadja, hogy hány spórát evett meg a rovar.
+     * @return Elfogyasztott spórák száma.
+     */
     public int getSporeCount() {
         return sporeCount;
     }
 
+    /**
+     * beállítja, az elfogyasztott spórák számát, csak a duplicate függvény miatt kell.
+     */
+    private void setSporeCount(int sporeCount) {
+        this.sporeCount = sporeCount;
+    }
 
 
     /**
@@ -106,15 +115,6 @@ public class Insect {
     }
 
     /**
-     * Létrehoz egy rovart a megadott tulajdonságokkal.
-     *
-     * @param speed a rovar sebessége
-     * @param sporeCount a rovar által birtokolt spórák száma
-     * @param canCut képes-e vágni a rovar
-     * @param canMove képes-e mozogni a rovar
-     */
-
-    /**
      * Létrehoz egy rovart alapértelmezett értékekkel.
      */
     public Insect() {
@@ -123,6 +123,30 @@ public class Insect {
         sporeCount = 0;
         canCut = true;
         canMove = true;
+    }
+    /**
+     * Létrehoz egy rovart a megadott tulajdonságokkal.
+     * @param insectId A rovar azonosítója
+     * @param speed a rovar sebessége
+     * @param sporeCount a rovar által birtokolt spórák száma
+     * @param canCut képes-e vágni a rovar
+     * @param canMove képes-e mozogni a rovar
+     * @param currentTecton Melyik tektonon van a rovar
+     */
+    public Insect(int insectId, int speed, int sporeCount, boolean canCut, boolean canMove, Tecton currentTecton ){
+        this.insectId = insectId;
+        this.speed = speed;
+        this.sporeCount = sporeCount;
+        this.canCut = canCut;
+        this.canMove = canMove;
+        this.currentTecton = currentTecton;
+    }
+    /**
+     * Másoló konstruktor
+     * @param anotherInsect A másolandó rovar
+     */
+    public Insect(Insect anotherInsect){
+        this(anotherInsect.insectId, anotherInsect.speed, anotherInsect.sporeCount, anotherInsect.canCut, anotherInsect.canMove, anotherInsect.currentTecton);
     }
 
     /**
@@ -174,5 +198,16 @@ public class Insect {
     public void resetEffect() {
         canMove = true;
         canCut = true;
+    }
+
+    /**
+     * Leklónoz egy rovart, a rovar összes tulajdonsága megegyezik az eredetiével, kivéve a sporeCountot.
+     * @param anotherInsect A klónozandó rovar
+     * @return A klónozott rovar.
+     */
+    public Insect duplicate(){
+        Insect clone = new Insect(this);
+        clone.setSporeCount(0);
+        return clone;
     }
 }
