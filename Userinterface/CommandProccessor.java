@@ -9,6 +9,7 @@ import Model.Spore;
 import Model.SporeExhausting;
 import Model.SporeFast;
 import Model.SporeFrozen;
+import Model.SporeSlow;
 import Model.Tecton;
 import Model.TectonInfertile;
 import Model.TectonKeepAlive;
@@ -649,7 +650,9 @@ public class CommandProccessor {
                     spore = new SporeFrozen(id,2);
                 } else if (type.equalsIgnoreCase("fast")) {
                     spore = new SporeFast(id, 2);
-                } else if (type.equalsIgnoreCase("exhausting")) {
+                } else if (type.equalsIgnoreCase("slow")) {
+                    spore = new SporeSlow(id, 2);
+                }else if (type.equalsIgnoreCase("exhausting")) {
                     spore = new SporeExhausting(id, 2);
                 } else if (type.equalsIgnoreCase("duplicate")) {
                     //TODO: Duplikáló hatású spóra létrehozása
