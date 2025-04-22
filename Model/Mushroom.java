@@ -1,8 +1,8 @@
 package Model;
 import Listeners.ObjectChangeListener;
 import Listeners.ObjectChangeListener.ObjectChangeEvent;
+import Userinterface.RandTools;
 import java.util.List;
-import java.util.Random;
 
 /**
  * A Mushroom osztály valósítja meg a gombatesteket a játékban. 
@@ -111,10 +111,18 @@ public class Mushroom{
         List<Tecton> neighborlist = this.myTecton.getNeighbors();
         
         if (neighborlist.contains(to)){
-            Line line = new Line(this.myTecton, to, this.id);
-            changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, line);
+            Timer.addOneTimeSchedule(new Schedule() {
+                @Override
+                public void onTime() {
+                    Line line = new Line(myTecton, to, id);
+                    changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, line); //Eseménykezelő értesítése
+                    System.out.println("Line successfully grown");
+                }
+            }, 1);
+            System.out.println("Line grow started");
             return true;
         } else{
+            System.out.println("Cannot grow line to this tecton, it is not a neighbor");
             return false;
         }
     }
@@ -129,7 +137,6 @@ public class Mushroom{
      * @return false, ha a tekton nem szomszédos, true, ha sikeres a spóra dobás
      */
     public boolean throwSpores(Tecton to, int count){
-        Random random = new Random();       //Ez a random szám lesz a spóra értéke (value)
 
         boolean inRange = false;
 
@@ -142,9 +149,8 @@ public class Mushroom{
                 inRange = true;
             }
         }
-
         if (inRange){
-            Spore spore = new Spore(this.id, random.nextInt(10));
+            Spore spore = new Spore(this.id, RandTools.random(10));
             to.getSporeContainer().addSpores(spore);
             this.sporeCount -= count; 
 

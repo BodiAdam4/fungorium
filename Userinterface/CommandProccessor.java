@@ -15,6 +15,7 @@ import Model.TectonInfertile;
 import Model.TectonKeepAlive;
 import Model.TectonOnlyLine;
 import Model.TectonTime;
+import Model.Timer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -711,6 +712,19 @@ public class CommandProccessor {
         });
 
         //TODO: Leírás
+        commands.put("/set-random", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                int fixRandom = Integer.parseInt(args[0]);
+                RandTools.setFixRandom(fixRandom);
+            }
+
+            @Override
+            public String toString() {
+                return "Set fix number that the random number ganerator will give. It's used for testing.\n\tUsing: /set-random <fix random number>";
+            }
+        });
+
+        //TODO: Leírás
         commands.put("/build-mushroom", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
@@ -766,9 +780,9 @@ public class CommandProccessor {
                                         .orElse("");
                     try (FileWriter writer = new FileWriter(savePath)) {
                         writer.write(content);
-                        System.out.println("Sikeresen kiírva a fájlba: " + savePath);
+                        System.out.println("Successfully save to " + savePath);
                     } catch (IOException e) {
-                        System.err.println("Hiba történt a fájl írása közben: " + e.getMessage());
+                        System.err.println("Failed to write in file: " + e.getMessage());
                     }
                 }
             }
@@ -794,6 +808,21 @@ public class CommandProccessor {
             @Override
             public String toString() {
                 return "Lists all avaible commands.\n\tUsing: /help";
+            }
+        });
+        
+        commands.put("/skip", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                int time = Integer.parseInt(args[0]);
+
+                for(int i = 0; i < time; i++) {
+                    Timer.forwardTime();
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "Skip time\n\tUsing: /skip <time>";
             }
         });
         

@@ -131,10 +131,18 @@ public class Tecton {
     boolean addMushroom(int id){
         boolean sporeCountOK = sporeContainer.getSporeCount(id) >= 3;
         if (sporeCountOK) {
-            myMushroom = new Mushroom(id, this);
-            changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_ADDED, myMushroom);
-            System.out.println("Mushroom built successfully");
+            Tecton t = this;
+            Timer.addOneTimeSchedule(new Schedule() {
+                @Override
+                public void onTime() {
+                    myMushroom = new Mushroom(id, t);
+                    changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_ADDED, myMushroom);
+                    System.out.println("Mushroom successfully grown");
+                }
+            }, 2);
+            
             sporeContainer.popSpores(id, 3);
+            System.out.println("Mushroom started to grow");
             return true;
         }
         else {

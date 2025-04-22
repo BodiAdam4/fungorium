@@ -1,0 +1,22 @@
+Model.Tecton: t1
+	myMushroom: Null
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t2
+	insects: i1
+
+Model.Tecton: t2
+	myMushroom: Null
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t1
+	insects: NUll
+
+Model.Insect: i1
+	insectId: 1
+	speed: 2
+	sporeCount: 2
+	canCut: true
+	canMove: false
+	actualTecton: t1
+

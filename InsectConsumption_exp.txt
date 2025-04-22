@@ -1,0 +1,19 @@
+Model.Tecton: t1
+	myMushroom: Null
+	connections: l1
+	sporeContainer: 1
+	neighbors: t2
+	insects: NUll
+
+Model.Tecton: t2
+	myMushroom: Null
+	connections: l1
+	sporeContainer: 0
+	neighbors: t1
+	insects: NUll
+
+Model.Line: l1
+	ttl: -1
+	mushroomId: 1
+	ends: t1;t2
+
