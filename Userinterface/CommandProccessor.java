@@ -120,6 +120,17 @@ public class CommandProccessor {
                 TestTools.writeLogToFile(savePath, controller);
             }
          */
+         /**
+         * /list Kilistázza a játékban található összes objektumot
+         * Opciók: 
+         *-tecton : Ha csak a tektonokat szeretnénk kilistázni.
+         *-line : Ha csak a gombafonalakat szeretnénk kilistázni.
+         *-insect : Ha csak a rovarokat szeretnénk kilistázni.
+         *-mushroom : Ha csak a gombatesteket szeretnénk kilistázni.
+         *-s <tecton> : Ha egy adott tektonon lévő spórákat szeretnénk kilistázni, ehhez paraméterként át kell adni a tekton azonosítóját.
+
+         * Leírás: Játék betöltése mentett állapotból. Paraméterként el kell adni a mentést tartalmazó parancsfájl elérési útját. Sorra végrehajtódnak az itt tárolt parancsok.
+        */
         commands.put("/list", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = getOption(options, "-s", null);
@@ -165,6 +176,9 @@ public class CommandProccessor {
                     System.out.println(TestTools.GetStatus(controller));
                 }
             }
+            public String toString() {
+                return "Lists all the object in the game.\n\tUsing: /list";
+            }
         });
 
 
@@ -194,6 +208,9 @@ public class CommandProccessor {
                     // TODO: handle exception
                 }
 
+            }
+            public String toString() {
+                return "Loads a game from a previous save.\n\tUsing: /load <file-path>";
             }
         });
         
@@ -246,7 +263,9 @@ public class CommandProccessor {
 
                 controller.addInsect(id, insect);
                 tecton.addInsect(insect);
-
+            }
+            public String toString() {
+                return "Creates an insect on a specified tecton with optional effects (slow, frozen, fast, exhausting) and id.\n\tUsing: /create-insect <TectonID> <insectID> <effect>";
             }
         });
 
@@ -280,6 +299,10 @@ public class CommandProccessor {
 
                 insect.move(tecton);
             }
+            @Override
+            public String toString() {
+                return "Moves an Insect from a tecton to another if a line exists between the tectons.\n\tUsing: /move <insectID> <TectonID>";
+            }
         });
 
 
@@ -312,6 +335,10 @@ public class CommandProccessor {
                         System.out.println("Neighbor tecton with ID " + neighborId + " not found.");
                     }
                 }
+            }
+            @Override
+            public String toString() {
+                return "Sets neighbors for the specified tecton.\n\tUsing: /set-neigbors <tectonFrom> <tectonTo1;tectonTo2;...tectonToN>";
             }
         });
 
@@ -676,7 +703,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Throwes a spore from the given mushroom to the given tecton. \n\tUsing: /throw-spore <mushroom> <tecton>";
+                return "Throws a spore from the given mushroom to the given tecton. \n\tUsing: /throw-spore <mushroom> <tecton>";
             }
         });
 
