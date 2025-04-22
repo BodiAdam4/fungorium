@@ -14,6 +14,7 @@ import Model.TectonInfertile;
 import Model.TectonKeepAlive;
 import Model.TectonOnlyLine;
 import Model.TectonTime;
+import Model.Timer;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -804,6 +805,21 @@ public class CommandProccessor {
             @Override
             public String toString() {
                 return "Lists all avaible commands.\n\tUsing: /help";
+            }
+        });
+        
+        commands.put("/skip", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                int time = Integer.parseInt(args[0]);
+
+                for(int i = 0; i < time; i++) {
+                    Timer.forwardTime();
+                }
+            }
+
+            @Override
+            public String toString() {
+                return "Skip time\n\tUsing: /skip <time>";
             }
         });
         
