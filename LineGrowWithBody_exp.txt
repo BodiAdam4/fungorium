@@ -1,7 +1,7 @@
 Model.Tecton: t1
-	myMushroom: Null
+	myMushroom: m1
 	connections: l1
-	sporeContainer: 1
+	sporeContainer: 0
 	neighbors: t2
 	insects: NUll
 
@@ -16,4 +16,10 @@ Model.Line: l1
 	ttl: -1
 	mushroomId: 1
 	ends: t1;t2
+
+Model.Mushroom: m1
+	sporeCount: 5
+	mushroomId: 1
+	level: 1
+	myTecton: t1
 
