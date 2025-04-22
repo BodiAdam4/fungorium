@@ -810,7 +810,17 @@ public class CommandProccessor {
         
 
         //TODO: Make the "/compare" command with one parameter, and with two parameters
-
+        commands.put("/compare", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                String filePath = args[0];
+                String filePath2 = getOption(options, "-f", null);
+                if(filePath2 == null) {
+                    TestTools.compare(filePath, controller);
+                }else {
+                    TestTools.compare(filePath, filePath2);
+                }
+            }
+        });
     }
 
 
