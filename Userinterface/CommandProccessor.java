@@ -350,6 +350,10 @@ public class CommandProccessor {
                     System.out.println("Insect cannot cut the line due to exhausting effect.");
                 }
             }
+            @Override
+            public String toString() {
+                return "Cuts line on the tecton that the given insect is on. You also have to specify which line you want to be cut.\n\tUsing: /cut-line <insect> <line>";
+            }
         });
 
         //TODO: /eat-spore <insect> <spore>
@@ -395,7 +399,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Grow-line between two tectons, if the game is not running, then";
+                return "Grows line between two given tectons. \n\tUsing: /grow-line <source_tecton> <destination_tecton>";
             }
         });
 
@@ -434,6 +438,10 @@ public class CommandProccessor {
                 } else {
                     System.out.println("Unknown effect type: " + effectType);
                 }
+            }
+            @Override
+            public String toString() {
+                return "Add a specific effect to a given insect. You can select from the following list: {slow, frozen, fast, exhausting, duplicate} \n\tUsing: /add-effect <insect> <effect>";
             }
         });
 
