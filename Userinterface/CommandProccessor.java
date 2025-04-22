@@ -735,7 +735,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Lists all avaible commands.";
+                return "Lists all avaible commands.\n\tUsing: /help";
             }
         });
         
@@ -749,7 +749,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Start game";
+                return "Start game with 2 MushroomPicker and 2 InsectPicker and 10 round. Also have the option to change the number of mushroom or insectpicker, the number of the rounds and whether you want a map to be generated or not\n\tUsing: /start -m <mushroomPickerCount> -i <insectPickerCount -k <roundCount> -nomap";
             }
         });
         
