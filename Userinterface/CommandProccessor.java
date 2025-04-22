@@ -81,6 +81,15 @@ public class CommandProccessor {
                 }
 
                 //TODO: Spóraszám beállítása
+                // Lekérjük az adott tecton sporeContainer-jét és hozzáadjuk a spórákat
+                if (sporeCount > 0) {
+                    for (int i = 0; i < sporeCount; i++) {
+                        int randomSporeValue = RandTools.random(10);
+                        newTecton.getSporeContainer().addSpores(new Spore(i,randomSporeValue));
+                    }
+                }
+
+
                 controller.addTecton(id, newTecton);
             }
         });
