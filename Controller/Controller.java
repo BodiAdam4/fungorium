@@ -3,7 +3,9 @@ import Listeners.ObjectChangeListener;
 import Model.Insect;
 import Model.Line;
 import Model.Mushroom;
+import Model.Schedule;
 import Model.Tecton;
+import Model.Timer;
 import java.util.HashMap;
 
 public class Controller {
@@ -72,6 +74,22 @@ public class Controller {
             }
         };
 
+
+        Timer.addRepeatSchedule(new Schedule() {
+            @Override
+            public void onTime() {
+                for (String id : allLine.keySet()) {
+                    Line line = allLine.get(id);
+                    if (line.ttl != -1) {
+                        line.ttl--;
+                        if (line.ttl == 0) {
+                            line.Destroy();
+                            System.out.println("Line destroyed: " + id);
+                        }
+                    }
+                }
+            }
+        }, 1);
     }
 
     public void StartGame(int mushroomPickerCount, int insectPickerCount) {

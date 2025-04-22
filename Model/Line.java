@@ -10,7 +10,7 @@ import Listeners.ObjectChangeListener.ObjectChangeEvent;
 public class Line 
 {
     int mushroomId;
-    int ttl = -1;
+    public int ttl = -1;
     Tecton[] ends;
 
     public ObjectChangeListener changeListener;

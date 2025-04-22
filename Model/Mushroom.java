@@ -141,7 +141,7 @@ public class Mushroom{
         boolean inRange = false;
 
         for  (Tecton t : this.myTecton.getNeighbors()){
-            if (level >= 1 && t.getNeighbors().contains(to)){
+            if (level >= 2 && t.getNeighbors().contains(to)){
                 inRange = true;
             } 
             
@@ -150,14 +150,20 @@ public class Mushroom{
             }
         }
         if (inRange){
-            Spore spore = new Spore(this.id, RandTools.random(10));
+            Spore spore = new Spore(this.id, RandTools.random(1,10));
             to.getSporeContainer().addSpores(spore);
             this.sporeCount -= count; 
+
+            if (this.sporeCount <= 2) {
+                this.level = 2;
+            }
 
             if (this.sporeCount == 0) {
                 destroy();
             }
+
             System.out.println("Spore succesfully thrown to with value: " + spore.getValue());
+
             return true;
         }
 

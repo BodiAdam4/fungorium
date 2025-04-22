@@ -9,7 +9,7 @@ public class Timer {
 
     /* - Publikus attribútumok*/
 
-    
+
     /* - Konstruktorok*/
 
 
@@ -28,24 +28,24 @@ public class Timer {
 
     public static void forwardTime() {
         for (Schedule schedule : oneTimeSchedules.keySet()) {
-            int time = oneTimeSchedules.get(schedule);
+            int time = oneTimeSchedules.get(schedule)-1;
             if (time == 0) {
                 schedule.onTime();
                 oneTimeSchedules.remove(schedule);
             } else {
-                oneTimeSchedules.put(schedule, time - 1);
+                oneTimeSchedules.put(schedule, time);
             }
         }
 
         for (Schedule schedule : repeatSchedules.keySet()) {
-            int time = repeatSchedules.get(schedule)[0];
+            int time = repeatSchedules.get(schedule)[0]-1;
             int defaultTime = repeatSchedules.get(schedule)[1];
 
             if (time == 0) {
                 schedule.onTime();
                 repeatSchedules.put(schedule, new Integer[]{defaultTime, defaultTime});
             } else {
-                repeatSchedules.put(schedule, new Integer[]{time - 1, defaultTime});
+                repeatSchedules.put(schedule, new Integer[]{time, defaultTime});
             }
         }
     }
