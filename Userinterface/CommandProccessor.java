@@ -618,6 +618,10 @@ public class CommandProccessor {
                     tecton.getSporeContainer().addSpores(spore);
                 }
             }
+            @Override
+            public String toString() {
+                return "Adds a spore to the given tecton. Also have the option, to choose how many spores you want to add, with what mushroomId aswell. You can also choose the type of the spore from the following list:{slow, frozen, fast, exhausting, duplicate}\n\tUsing: /add-spore <tecton> -sp <sporeCount> -mid <mushroomId> -t <type>";
+            }
         });
 
         //TODO: Leírás
@@ -648,7 +652,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Eats a spore from the tecton.\n\tUsing: /eat-spore <insectId>";
+                return "Throwes a spore from the given mushroom to the given tecton. \n\tUsing: /throw-spore <mushroom> <tecton>";
             }
         });
 
@@ -683,7 +687,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Builds a mushroom on the tecton.\n\tUsing: /build-mushroom <tectonId> -i <mushroomId>";
+                return "Builds a mushroom on the tecton.\n\tUsing: /build-mushroom <tectonId> -mid <mushroomId>";
             }
         });
 
