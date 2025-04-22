@@ -458,6 +458,10 @@ public class CommandProccessor {
                 insect.setCanMove(true);
                 insect.setSpeed(2);
             }
+            @Override
+            public String toString() {
+                return "Remove any acting effect froma given insect.\n\tUsing: /reset-effect <insect>";
+            }
         });
 
 
@@ -488,6 +492,10 @@ public class CommandProccessor {
             mushroom.setSporeCount(sporeCount); // Set the spore count based on the -sp option
             controller.addMushroom(id, mushroom);
             tecton.setMyMushroom(mushroom);
+            }
+            @Override
+            public String toString() {
+                return "You can create a mushroom on a given tecton. Also you have the option to set the mushroomId and how many spore you want within the mushroom. Without given value, the mushroom has 5 spores.\n\tUsing: /create-mushroom <tecton> -mid <mushroomId> -sp <sporeCount>";
             }
         });
 
@@ -521,6 +529,10 @@ public class CommandProccessor {
 
                 mushroom.setLevel(level);
             }
+            @Override
+            public String toString() {
+                return "You can set the age of a given mushroom. The age must be between 0 and 3.(Inclusive)\n\tUsing: /setlevel-mushroom <mushroom> <age>";
+            }
         });
 
 
@@ -550,12 +562,16 @@ public class CommandProccessor {
                 Line line = new Line(tecton1, tecton2, Integer.parseInt(mushroomId));
                 controller.addLine(id,line);
             }
+            @Override
+            public String toString() {
+                return "Creates a line between two given tecton. Also you have to option to give the mushroomId for the line.\n\tUsing: /create-line <tecton1> <tecton2> -mid <msuhroomId>";
+            }
         });
 
         /**
          * TODO:TECTON TÖRÉS
          */
-        commands.put("/break-tecton", new Command() {
+        commands.put("/tecton-break", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
                 Tecton tecton = controller.getTectonById(tectonId);
@@ -566,7 +582,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Breaks the tecton, removing all lines from it.\n\tUsing: /break-tecton <tectonId>";
+                return "Breaks the tecton, removing all lines from it.\n\tUsing: /tecton-break <tectonId>";
             }
         });
 
