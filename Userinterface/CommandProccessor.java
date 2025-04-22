@@ -85,7 +85,7 @@ public class CommandProccessor {
                 if (sporeCount > 0) {
                     for (int i = 0; i < sporeCount; i++) {
                         int randomSporeValue = RandTools.random(10);
-                        newTecton.getSporeContainer().addSpores(new Spore(i,randomSporeValue));
+                        newTecton.getSporeContainer().addSpores(new Spore(1,randomSporeValue));
                     }
                 }
 
@@ -94,43 +94,6 @@ public class CommandProccessor {
             }
         });
 
-        /* 
-        commands.put("/list", new Command() {
-            public void execute(String[] args, HashMap<String, String> options) {
-                String id = getOption(options, "-i", "t"+controller.getAllTecton().size());
-                int sporeCount = Integer.parseInt(getOption(options, "-sp", "0"));
-                String type = getOption(options, "-t", "tecton");
-                String neighbors = getOption(options, "-n", "");
-                
-                System.out.println(TestTools.GetStatus(controller));
-            }
-        });
-        */
-
-        /**
-         * /list
-         * Leírás: A játék objektumainak kilistázása.
-         * Opciók: 
-         * -tecton : Ha csak a tektonokat szeretnénk kilistázni.
-         * -line : Ha csak a gombafonalakat szeretnénk kilistázni.
-         * -insect : Ha csak a rovarokat szeretnénk kilistázni.
-         * -mushroom : Ha csak a gombatesteket szeretnénk kilistázni.
-         * -s <tecton> : Ha egy adott tektonon lévő spórákat szeretnénk kilistázni, ehhez paraméterként át kell adni a tekton azonosítóját.
-        */
-
-        /*
-         * boolean logFile = getOption(options, "-log", "false").equalsIgnoreCase("true");
-            boolean commandFile = getOption(options, "-cmd", "false").equalsIgnoreCase("true");
-
-
-            System.out.println("Saving game to " + savePath);
-            System.out.println("Log file: " + logFile);
-            System.out.println("Command file: " + commandFile);
-
-            if (logFile) {
-                TestTools.writeLogToFile(savePath, controller);
-            }
-         */
          /**
          * /list Kilistázza a játékban található összes objektumot
          * Opciók: 
