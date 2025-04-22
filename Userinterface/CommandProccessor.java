@@ -819,7 +819,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Lists all avaible commands.\n\tUsing: /help";
+                return "Skip time\n\tUsing: /skip <time>";
             }
         });
         
