@@ -7,7 +7,7 @@ Model.Tecton: t1
 
 Model.Insect: i1
 	insectId: 1
-	speed: 2
+	speed: 1
 	sporeCount: 2
 	canCut: true
 	canMove: true
