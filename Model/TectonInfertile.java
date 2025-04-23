@@ -16,7 +16,7 @@ public class TectonInfertile extends Tecton{
      * @param id A hozzáadandó gombatest id-je.
      * @return Mindig false
      */
-    boolean addMushroom(int id){
+    public boolean addMushroom(int id){
         Logger.Log("You can't grow mushroom on this tecton!");
         return false;
     }

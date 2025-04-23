@@ -17,7 +17,7 @@ public class TectonOnlyLine extends Tecton{
      * @param line A hozzáadandó gombafonal
      * @return Visszatér egy boolean-el, hogy sikerült-e hozzáadni a fonalat.
      */
-    boolean addLine(Line line){
+    public boolean addLine(Line line){
 
         if ((!this.connections.isEmpty() && this.connections.get(0).getId() == line.getId()) || this.connections.isEmpty()) {
             connections.add(line);

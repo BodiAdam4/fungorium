@@ -14,7 +14,7 @@ public class TectonKeepAlive extends Tecton {
      * @return Visszatér egy boolean-el annak függvényében, hogy sikerült-e a fonalat hozzáadni.
      */
     @Override
-    boolean addLine(Line line) {
+    public boolean addLine(Line line) {
         connections.add(line);
         return true;
     }

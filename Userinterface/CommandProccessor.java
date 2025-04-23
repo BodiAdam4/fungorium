@@ -1113,7 +1113,14 @@ public class CommandProccessor {
         String[] plainArgs = command.substring(command.indexOf(" ")+1, optionFieldIndex).split(" ");
 
         if (commands.containsKey(baseCommand)) {
-            commands.get(baseCommand).execute(plainArgs, options);
+
+            if(commands.get(baseCommand).getOption(options, "-help", "false").equalsIgnoreCase("true")) {
+                System.out.println("\t"+commands.get(baseCommand).toString());
+            }
+            else {
+                commands.get(baseCommand).execute(plainArgs, options);
+            }
+
             if (!baseCommand.equalsIgnoreCase("/save")){
                 commandHistory.add(command);
             }
