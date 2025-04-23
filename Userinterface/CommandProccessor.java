@@ -32,6 +32,9 @@ public class CommandProccessor {
 
     private List<String> commandHistory;
 
+    private List<String> mushroomPickerCommands;
+    private List<String> insectPickerCommands;
+
     /* - Publikus attribútumok*/
     /* - Konstruktorok*/
 
@@ -39,6 +42,17 @@ public class CommandProccessor {
     public CommandProccessor(Controller controller) {
         this.commands = new HashMap<>();
         this.commandHistory = new ArrayList<>();
+
+        this.mushroomPickerCommands = new ArrayList<>();
+        mushroomPickerCommands.add("/build-mushroom");
+        mushroomPickerCommands.add("/eat-insect");
+        mushroomPickerCommands.add("/grow-line");
+        mushroomPickerCommands.add("/throw-spore");
+
+        this.insectPickerCommands = new ArrayList<>();
+        insectPickerCommands.add("/cut-line");
+        insectPickerCommands.add("/eat-spore");
+        insectPickerCommands.add("/move");
 
         commands.put("/create-tecton", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -813,14 +827,48 @@ public class CommandProccessor {
         
         commands.put("/help", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
-                System.out.println("Available commands: ");
-                System.out.println("=========================================");
-                List<String> sorted = new ArrayList<>(commands.keySet());
-                sorted.sort((k1, k2) -> k1.compareTo(k2));
-                for (String name : sorted) {
-                    System.out.println(name+" : \n\t" + commands.get(name).toString()+"\n");
+
+                boolean admin = getOption(options, "-admin", "false").equalsIgnoreCase("true");
+                boolean insect = getOption(options, "-insect", "false").equalsIgnoreCase("true");
+                boolean mushroom = getOption(options, "-mushroom", "false").equalsIgnoreCase("true");
+
+                if (!mushroom && !insect && !admin) {
+                    mushroom = insect = admin = true;
                 }
-                System.out.println("=========================================");
+
+                System.out.println("Available commands: ");
+                
+                List<String> sorted = new ArrayList<>(commands.keySet());
+
+                if (admin) {
+                    System.out.println("=======Administrator commands=========");
+                    sorted.sort((k1, k2) -> k1.compareTo(k2));
+                    for (String name : sorted) {
+                        if(!insectPickerCommands.contains(name) && !mushroomPickerCommands.contains(name)) {
+                            System.out.println(name+" : \n\t" + commands.get(name).toString()+"\n");
+                        }
+                    }
+                }
+                
+                if (mushroom) {
+                    System.out.println("\n========MushroomPicker commands=========");
+                    for (String name : sorted) {
+                        if(mushroomPickerCommands.contains(name)) {
+                            System.out.println(name+" : \n\t" + commands.get(name).toString()+"\n");
+                        }
+                    }
+                }
+                
+                if (insect) {
+                    System.out.println("\n========InsectPicker commands=========");
+                    for (String name : sorted) {
+                        if(insectPickerCommands.contains(name)) {
+                            System.out.println(name+" : \n\t" + commands.get(name).toString()+"\n");
+                        }
+                    }
+                }
+                
+                System.out.println("==================================");
             }
 
             @Override
@@ -894,7 +942,6 @@ public class CommandProccessor {
         });
 
 
-        //TODO: /eat-insect implementálása
         //TODO: checkConnections
         //TODO: Player dolgok
     }
