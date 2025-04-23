@@ -1,7 +1,7 @@
 Model.TectonInfertile: t1
 	myMushroom: Null
 	connections: l1
-	sporeContainer: 0
+	sporeContainer: 2
 	neighbors: t2
 	insects: NUll
 
