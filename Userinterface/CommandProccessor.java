@@ -533,9 +533,14 @@ public class CommandProccessor {
                 insect.setCanMove(true);
                 insect.setSpeed(2);
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Remove any acting effect froma given insect.\n\tUsing: /reset-effect <insect>";
+                return "Description: Removes all effects from the given insect.\n" +
+                       "\tUsing: /reset-effect <insect>\n" +
+                       "\t<insect> : The ID of the insect whose effects will be removed.";
             }
         });
 
