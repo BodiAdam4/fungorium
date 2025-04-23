@@ -14,14 +14,14 @@ public class TectonInfertile extends Tecton{
 
 
     /** - Egyéb metódusok*/
-    
+
     /**
      * Mivel ezen a típusú tektonon nem tud gombatest nőni, ezért mindig false értékkel tér vissza, ezzel meggátolva a növesztést.
      * @param id A hozzáadandó gombatest id-je.
      * @return Mindig false
      */
     public boolean addMushroom(int id){
-        Logger.Log("You can't grow mushroom on this tecton!");
+        System.out.println("You can't grow mushroom on this tecton!");
         return false;
     }
 

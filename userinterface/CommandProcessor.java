@@ -182,7 +182,6 @@ public class CommandProcessor {
                         String mushroomIds= controller.getMushroomId(mush);
                         System.out.println(TestTools.GetMushroomStatus(controller, mushroomIds));
                     }
-                    //TODO: Spóra kiírását meg kell csinálni, mert ez a megoldás fals
                 }else if (args[0].equals("-s") && tectonId != null) {
                     Tecton tecton = controller.getTectonById(tectonId);
                     if (tecton != null) {
@@ -235,7 +234,7 @@ public class CommandProcessor {
                     reader.close();
                     
                 } catch (Exception e) {
-                    // TODO: handle exception
+
                 }
 
                 for(String line : lines) {
@@ -1292,9 +1291,14 @@ public class CommandProcessor {
 
 
         //TODO: checkConnections
-        //TODO: Player dolgok
+        //TODO: Player leszármazott osztályainak metódusai
 
         //TODO: /next parancs implementálása
+        /*
+        commands.put("/next", new Command() {
+            //public void execute(String[] args, HashMap<String, String> options);
+        });
+        */
     }
 
 

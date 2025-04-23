@@ -10,10 +10,10 @@ import java.util.List;
  */
 public class Line 
 {
-    //TODO: láthatóság!!!!!!!!!!!
-    int mushroomId;
+    /* - Privát attribútumok*/
+    private int mushroomId;
+    private Tecton[] ends;
     public int ttl = -1;
-    Tecton[] ends;
 
     public ObjectChangeListener changeListener;
 

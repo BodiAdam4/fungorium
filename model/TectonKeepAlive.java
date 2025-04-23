@@ -5,7 +5,7 @@ package model;
 public class TectonKeepAlive extends Tecton {
 
     /* - Privát attribútumok*/
-    
+
     //Konstruktor
     public TectonKeepAlive() {
         super();
@@ -21,21 +21,4 @@ public class TectonKeepAlive extends Tecton {
         connections.add(line);
         return true;
     }
-
-
-    //TODO: ezt átnézni, mert csak rögtönzött megoldás
-    /**
-     * Gombafonál eltávolítása a tektonról, de a fonal életben marad.
-     * @param line A hozzáadandó gombafonal
-     * @return Visszatér egy boolean-el annak függvényében, hogy sikerült-e a fonalat eltávolítani.
-     */
-    public boolean removeLineKeepAlive(Line line) {
-        if (connections.contains(line)) {
-            connections.remove(line);
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
 }

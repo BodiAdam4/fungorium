@@ -1,7 +1,0 @@
-/create-tecton -i t1
-/create-tecton -i t2
-/create-tecton -i t3
-/create-insect t1 -e slow
-/create-mushroom t1
-/create-line t1 t2
-/list

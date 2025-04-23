@@ -45,8 +45,7 @@ public class Tecton {
 
     private List<Tecton> neighbors = new ArrayList<>();     //A tektononnal szomszédos tektonok listája.
 
-    //TODO: Láthatóság!!!!!!!!!!!
-    List<Insect> insects = new ArrayList<>();       //A tektonon tartózkodó rovarok listája.
+    private List<Insect> insects = new ArrayList<>();       //A tektonon tartózkodó rovarok listája.
 
     public ObjectChangeListener changeListener;
 
@@ -187,7 +186,7 @@ public class Tecton {
     public void addInsect(Insect insect) {
         insects.add(insect);
     }
-    
+
 
     /**
      * A tektonról leveszi az átadott rovart.

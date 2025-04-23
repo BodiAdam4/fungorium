@@ -192,7 +192,6 @@ public class TestTools {
 
     public static void getSporesOnTecton(Tecton tectOn){
         System.out.println("Spórák száma a tektonon: " + tectOn.getSporeContainer().getSporeCount());
-        //TODO: kijavítani a kiiratást
     }
 
     public static void compare(String filename, Controller controller){

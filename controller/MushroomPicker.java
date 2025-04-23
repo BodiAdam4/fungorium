@@ -16,13 +16,12 @@ public class MushroomPicker extends Player {
     //Konstruktor
     public MushroomPicker(String displayName, Controller controller) {
         super(displayName, controller);
-        // TODO - implement MushroomPicker.MushroomPicker
     }
 
 
     /* - Getter/Setter metódusok*/
     public List<Mushroom> getMushrooms() {
-        //TODO: get the whole mushroom list and search for it's own mushrooms
+        //Get the whole mushroom list and search for it's own mushrooms
         HashMap<String, Mushroom> allMushroom = controller.getAllMushroom();
         List<Mushroom> myMushroomList = new ArrayList<>();
         for (Mushroom mushroom : allMushroom.values()) {
@@ -35,7 +34,7 @@ public class MushroomPicker extends Player {
 
 
     public List<Line> getLines() {
-        //TODO: get the whole line list and search for it's own lines
+        //Get the whole line list and search for it's own lines
         HashMap<String, Line> allLine = controller.getAllLine();
         List<Line> myLineList = new ArrayList<>();
         for (Line line : allLine.values()) {
@@ -52,8 +51,10 @@ public class MushroomPicker extends Player {
     @Override
     public int calculateScore() {
         return getMushrooms().size();
+        //TODO: implement this method
     }
 
+    
     //GrowLine metódus a gombafonal növesztésére
     public boolean growLine(Tecton from, Tecton to){
 
@@ -72,6 +73,9 @@ public class MushroomPicker extends Player {
         }
         //Ha egyik sem teljesül, akkor nem tudunk gombafonalat növeszteni
         return false;
-        
     }
+
+    //TODO: growBody
+    //TODO: throwSpore
+    //TODO: eatInsect
 }
