@@ -129,14 +129,16 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Creates a new tecton (game tile).\n" +
-                       "\tUsing: /create-tecton [options]\n" +
-                       "\tOptions:\n" +
-                       "\t-i <id>: Set the ID of the new tecton.\n" +
-                       "\t-sp <spore count>: Set the initial spore count on the tecton.\n" +
-                       "\t-t <type>: Set the type of the tecton.\n" +
-                       "\tAvailable types: {time, infertile, onlyline, keepalive}\n" +
-                       "\t-n <tecton1;tecton2;...>: Set neighboring tectons by listing their IDs, separated by semicolons.";
+                return """
+                       Description: Creates a new tecton (game tile).
+                       \tUsing: /create-tecton [options]
+                       \tOptions:
+                       \t-i <id>: Set the ID of the new tecton.
+                       \t-sp <spore count>: Set the initial spore count on the tecton.
+                       \t-t <type>: Set the type of the tecton.
+                       \tAvailable types: {time, infertile, onlyline, keepalive}
+                       \t-n <tecton1;tecton2;...>: Set neighboring tectons by listing their IDs, separated by semicolons.
+                       """;
             }
         });
 
