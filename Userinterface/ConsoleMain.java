@@ -13,7 +13,7 @@ public class ConsoleMain {
     public static void main(String[] args) {
         // Create an instance of the CommandProcessor and start the command loop
         Controller controller = new Controller();
-        CommandProccesor cmd = new CommandProcessor(controller);
+        CommandProcessor cmd = new CommandProcessor(controller);
 
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
 
