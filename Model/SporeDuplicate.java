@@ -16,6 +16,6 @@ public class SporeDuplicate extends Spore{
         Insect insect = new Insect();
         insect.setInsectId(i.getInsectId());
         insect.setTecton(i.getTecton());
-        insect.changeListener.insectChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, insect);
+        i.changeListener.insectChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, insect);
     }
 }

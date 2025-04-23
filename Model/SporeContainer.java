@@ -32,6 +32,20 @@ public class SporeContainer
         return true;
     }
 
+    /**
+     * Spóratömb hozzáadása a listához.
+     * @param spore A hozzáadandó spóra
+     * @return A hozzáadás sikerességét tartalmazó logikai érték
+     */
+    public boolean addSpores(Spore[] spores) {
+
+        for (int i = 0; i<spores.length; i++) {
+            this.spores.add(spores[i]);
+        }
+
+        return true;
+    }
+
 
     /**
      * Spóra kivétele a listából. Az utolsó spórát törli a listából és visszaadja
