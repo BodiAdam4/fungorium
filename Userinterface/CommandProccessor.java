@@ -872,25 +872,9 @@ public class CommandProccessor {
 
 
         //TODO: /eat-insect implementálása
-        //TODO: rovar duplikálás
         //TODO: checkConnections
         //TODO: Player dolgok
     }
-
-
-    /* - Getter/Setter metódusok*/
-    /* - Egyéb metódusok*/
-
-    /*
-    public void inputCommand(String inputcommand){
-        String[] command = inputcommand.split(" ");
-        if (commands.containsKey(command[0])) {
-            commands.get(command[0]).execute(command);
-        } else {
-            System.out.println("Unknown command: " + command[0]);
-        }
-    }
-    */
 
     public void ExecuteCommand(String command) {
         String baseCommand = command.split(" ")[0];
