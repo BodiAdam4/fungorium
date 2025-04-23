@@ -1245,7 +1245,7 @@ public class CommandProcessor {
 
                             insect.getTecton().getSporeContainer().addSpores(SporeContainer.generateSpores(3, mid));
                             insect.getTecton().addMushroom(mid);
-                            insect.delete();
+                            insect.destroy();
                             
                             return;
                         }
