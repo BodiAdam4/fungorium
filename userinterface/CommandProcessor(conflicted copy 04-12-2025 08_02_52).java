@@ -1024,7 +1024,7 @@ public class CommandProcessor {
                         \tUsing: /build-mushroom <TectonID>
                         \tOptions:
                         \t\t-mid <mushroomId>: Mushroom identifier. Specifies which mushroom body will perform the line growth. This integer value also determines which player owns the object (e.g., 1 means Player 1).
-                        \tThe tecton must contain a line with this identifier and two spores belonging to the player who wants to grow mushroom body.
+                        \t\tThe tecton must contain a line with this identifier and two spores belonging to the player who wants to grow mushroom body.
                         """;
             }
         });
