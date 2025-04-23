@@ -202,14 +202,16 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Lists game objects.\n" +
-                       "\tUsing: /list [options]\n" +
-                       "\tOptions:\n" +
-                       "\t\t-tecton: Lists only tectons.\n" +
-                       "\t\t-line: Lists only mushroom lines.\n" +
-                       "\t\t-insect: Lists only insects.\n" +
-                       "\t\t-mushroom: Lists only mushrooms.\n" +
-                       "\t\t-s <tecton>: Lists spores on the given tecton.";
+                return """
+                       Description: Lists game objects.
+                       \tUsing: /list [options]
+                       \tOptions:
+                       \t\t-tecton: Lists only tectons.
+                       \t\t-line: Lists only mushroom lines.
+                       \t\t-insect: Lists only insects.
+                       \t\t-mushroom: Lists only mushrooms.
+                       \t\t-s <tecton>: Lists spores on the given tecton.
+                       """;
             }
         });
 
@@ -553,13 +555,15 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Adds an effect to the specified insect.\n" +
-                       "\tUsing: /add-effect <insect> <effect>\n" +
-                       "\tEffect types:\n" +
-                       "\t\tslow: The insect moves slower.\n" +
-                       "\t\tfrozen: The insect cannot move.\n" +
-                       "\t\tfast: The insect moves faster.\n" +
-                       "\t\texhausting: The insect cannot cut lines.";
+                return """
+                       Description: Adds an effect to the specified insect.
+                       \tUsing: /add-effect <insect> <effect>
+                       \tEffect types:
+                       \t\tslow: The insect moves slower.
+                       \t\tfrozen: The insect cannot move.
+                       \t\tfast: The insect moves faster.
+                       \t\texhausting: The insect cannot cut lines.
+                       """;
             }
         });
 
@@ -589,9 +593,11 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Removes all effects from the given insect.\n" +
-                       "\tUsing: /reset-effect <insect>\n" +
-                       "\t<insect>: The ID of the insect whose effects will be removed.";
+                return """
+                       Description: Removes all effects from the given insect.
+                       \tUsing: /reset-effect <insect>
+                       \t<insect>: The ID of the insect whose effects will be removed.
+                       """;
             }
         });
 
@@ -634,12 +640,14 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Creates a mushroom body on the specified tecton.\n" +
-                       "\tUsing: /create-mushroom <TectonID>\n" +
-                       "\tOptions:\n" +
-                       "\t\t-i <identifier>: Controller identifier.\n" +
-                       "\t\t-mid <mushroomId>: Mushroom ID. An integer that defines which player the object belongs to (e.g., 1 means Player 1).\n" +
-                       "\t\t-sp <spore count>: Number of spores the mushroom should start with. (Defaults to 5.)";
+                return """
+                        Description: Creates a mushroom body on the specified tecton.
+                        \tUsing: /create-mushroom <TectonID>
+                        \tOptions:
+                        \t\t-i <identifier>: Controller identifier.
+                        \t\t-mid <mushroomId>: Mushroom ID. An integer that defines which player the object belongs to (e.g., 1 means Player 1).
+                        \t\t-sp <spore count>: Number of spores the mushroom should start with. (Defaults to 5.)
+                """;
             }
         });
 
@@ -678,11 +686,13 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Sets the age of the specified mushroom body.\n" +
-                       "\tUsing: /setlevel-mushroom <mushroom> <age>\n" +
-                       "\tParameters:\n" +
-                       "\t\t<mushroom>: ID of the mushroom body.\n" +
-                       "\t\t<age>: Age of the mushroom body (0-3).";
+                return """
+                       Description: Sets the age of the specified mushroom body.
+                       \tUsing: /setlevel-mushroom <mushroom> <age>
+                       \tParameters:
+                       \t\t<mushroom>: ID of the mushroom body.
+                       \t\t<age>: Age of the mushroom body (0-3).
+                       """;
             }
         });
 
@@ -726,12 +736,14 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Creates a mushroom line between two tectons.\n" +
-                       "\tUsing: /create-line <TectonID1> <TectonID2>\n" +
-                       "\tOptions:\n" +
-                       "\t\t-i <identifier>: Controller identifier. This is a string value used to refer to the line in the Controller.\n" +
-                       "\t\t-mid <mushroomId>: Mushroom identifier. Specifies which mushroom body performed the line creation. " +
-                       "This integer determines to which player the object belongs (e.g., 1 means Player 1).";
+                return """
+                       Description: Creates a mushroom line between two tectons.
+                       \tUsing: /create-line <TectonID1> <TectonID2>
+                       \tOptions:
+                       \t\t-i <identifier>: Controller identifier. This is a string value used to refer to the line in the Controller.
+                       \t\t-mid <mushroomId>: Mushroom identifier. Specifies which mushroom body performed the line creation. 
+                       \t\tThis integer determines to which player the object belongs (e.g., 1 means Player 1).
+                       """;
             }
         });
 
@@ -818,13 +830,15 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Adds spores to the specified tecton.\n" +
-                       "\tUsing: /add-spore <TectonID>\n" +
-                       "\tOptions:\n" +
-                       "\t\t-sp <sporeCount>: Specifies how many spores to add to the given tecton.\n" +
-                       "\t\t-i <identifier>: Controller identifier.\n" +
-                       "\t\t-mid <mushroomId>: Mushroom identifier. Indicates which mushroom body released the spores. This integer value also defines the owning player (e.g., 1 means Player 1).\n" +
-                       "\t\t-t <type>: Effect type of the spore. Accepted values are: {slow, frozen, fast, exhausting, duplicate}";
+                return """
+                       Description: Adds spores to the specified tecton.
+                       \tUsing: /add-spore <TectonID>
+                       \tOptions:
+                       \t\t-sp <sporeCount>: Specifies how many spores to add to the given tecton.
+                       \t\t-i <identifier>: Controller identifier.
+                       \t\t-mid <mushroomId>: Mushroom identifier. Indicates which mushroom body released the spores. This integer value also defines the owning player (e.g., 1 means Player 1).
+                       \t\t-t <type>: Effect type of the spore. Accepted values are: {slow, frozen, fast, exhausting, duplicate}
+                       """;
             }
         });
 
@@ -896,10 +910,12 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Sets a manual value for the random number generator to override randomness.\n" +
-                       "\tUsage: /set-random <value>\n" +
-                       "\tParameters:\n" +
-                       "\t<value>: Integer value that replaces the next random number the system would generate.";
+                return """
+                       Description: Sets a manual value for the random number generator to override randomness.
+                       \tUsage: /set-random <value>
+                       \tParameters:
+                       \t<value>: Integer value that replaces the next random number the system would generate.
+                       """;
             }
         });
 
@@ -1050,12 +1066,14 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Saves the current state of the game objects  to the specified path. " +
-                       "Two types of files can be saved: a command file (to restore state) and a log file (program outputs).\n" +
-                       "\tUsing: /save <path_to_save>\n" +
-                       "\tOptions:\n" +
-                       "\t\t-log: Save the output log of commands.\n" +
-                       "\t\t-cmd: Save the issued commands.";
+                return """
+                       Description: Saves the current state of the game objects to the specified path. 
+                       Two types of files can be saved: a command file (to restore state) and a log file (program outputs).
+                       \tUsing: /save <path_to_save>
+                       \tOptions:
+                       \t\t-log: Save the output log of commands.
+                       \t\t-cmd: Save the issued commands.
+                       """;
             }
         });
 
@@ -1117,12 +1135,14 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Lists available commands.\n" +
-                       "\tUsing: /help\n" +
-                       "\tOptions:\n" +
-                       "\t\t-admin: Lists only administrator commands.\n" +
-                       "\t\t-insect: Lists only insectpicker commands.\n" +
-                       "\t\t-mushroom: Lists only mushroompicker commands.";
+                return """
+                       Description: Lists available commands.
+                       \tUsing: /help
+                       \tOptions:
+                       \t\t-admin: Lists only administrator commands.
+                       \t\t-insect: Lists only insectpicker commands.
+                       \t\t-mushroom: Lists only mushroompicker commands.
+                       """;
             }
         });
         
@@ -1173,13 +1193,15 @@ public class CommandProcessor {
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Description: Starts the game with the given initial parameters.\n" +
-                       "\tUsing: /start\n" +
-                       "\tOptions:\n" +
-                       "\t\t-m <number>: Sets the number of mushroompickers.\n" +
-                       "\t\t-i <number>: Sets the number of insectpickers.\n" +
-                       "\t\t-k <number>: Sets the number of game rounds.\n" +
-                       "\t\t-nomap: Prevents the game map from resetting to the default state if it was already built before starting.";
+                return """
+                       Description: Starts the game with the given initial parameters.
+                       \tUsing: /start
+                       \tOptions:
+                       \t\t-m <number>: Sets the number of mushroompickers.
+                       \t\t-i <number>: Sets the number of insectpickers.
+                       \t\t-k <number>: Sets the number of game rounds.
+                       \t\t-nomap: Prevents the game map from resetting to the default state if it was already built before starting.
+                       """;
             }
         });
         
