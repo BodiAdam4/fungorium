@@ -1,4 +1,10 @@
 /create-tecton -i t1
 /create-tecton -i t2 -n t1
+/create-mushroom t1 -mid 1
+/throw-spore m0 t2
+/throw-spore m0 t2
+/throw-spore m0 t2
+/throw-spore m0 t2
+/throw-spore m0 t2
 /create-line t1 t2 -i l1 -mid 1
 /skip 5
