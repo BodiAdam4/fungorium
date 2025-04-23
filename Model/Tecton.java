@@ -112,7 +112,7 @@ public class Tecton {
      * @param line A hozzáadandó fonal.
      * @return A visszatérési érték a csatlakoztatás sikerességéről küld visszajelzést.
      */
-    boolean addLine(Line line){
+    public boolean addLine(Line line){
         connections.add(line);
         return true;
     }
@@ -120,7 +120,7 @@ public class Tecton {
      * Gombafonal leválasztása a tektonról.
      * @param toRemove A leválasztandó fonal.
      */
-    void removeLine(Line toRemove){
+    public void removeLine(Line toRemove){
         connections.remove(toRemove);
     }
     /**
@@ -128,7 +128,7 @@ public class Tecton {
      * @param id A hozzá adandó gombatest id - je.
      * @return Ha effekt vagy egyéb indok miatt nem tud ott gomba létesülni, akkor false értéket ad vissza.
      */
-    boolean addMushroom(int id){
+    public boolean addMushroom(int id){
         boolean sporeCountOK = sporeContainer.getSporeCount(id) >= 3;
         if (sporeCountOK) {
             Tecton t = this;

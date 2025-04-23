@@ -869,6 +869,27 @@ public class CommandProccessor {
                 }
             }
         });
+        
+        commands.put("/eat-insect", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                Insect insect = controller.getInsectById(args[0]);
+                int mid = Integer.parseInt(getOption(options, "-mid", "1"));
+                
+                if (insect == null) {
+                    System.out.println("Insect with ID " + args[0] + " not found.");
+                    return;
+                } else {
+                    for (int i = 0; i<insect.getTecton().getConnections().size(); i++){
+                        if (insect.getTecton().getConnections().get(i).getId() == mid) {
+                            insect.getTecton().addMushroom(mid);
+                            insect.delete();
+                            
+                            return;
+                        }
+                    }
+                }
+            }
+        });
 
 
         //TODO: /eat-insect implementálása

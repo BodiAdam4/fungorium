@@ -13,7 +13,7 @@ public class TectonTime extends Tecton{
      * @param line A hozzáadandó gombafonal
      * @return Visszatér egy boolean-el annak függvényében, hogy sikerült-e a fonalat hozzáadni.
      */
-    boolean addLine(Line line){
+    public boolean addLine(Line line){
         connections.add(line);
         line.ttl = 3;
         return true;

@@ -1,6 +1,7 @@
 package Model;
 
 import Listeners.ObjectChangeListener;
+import Listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
  * Egy rovart reprezentál különböző tulajdonságokkal, például sebesség,
@@ -195,5 +196,10 @@ public class Insect {
     public void resetEffect() {
         canMove = true;
         canCut = true;
+    }
+
+    public void delete(){
+        currentTecton.removeInsect(this);
+        changeListener.insectChanged(ObjectChangeEvent.OBJECT_REMOVED, this);
     }
 }
