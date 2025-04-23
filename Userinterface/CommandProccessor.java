@@ -1095,6 +1095,13 @@ public class CommandProccessor {
             }
         });
         
+
+        /**
+         * Leírás: Ha az insect “freezing” effekt hatása alatt áll, akkor a gombász a parancs kiadásával, 
+         * az adott rovart megadva paraméterül “elfogyaszthatja” a rovart és gombatestet tud növeszteni 
+         * így a tektonon, melyen a rovar tartózkodott. Második paraméterül meg kell adni a vonalat, 
+         * amely “megeszi” az adott rovart.
+        */
         commands.put("/eat-insect", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 Insect insect = controller.getInsectById(args[0]);
@@ -1115,6 +1122,15 @@ public class CommandProccessor {
                         }
                     }
                 }
+            }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
+            public String toString() {
+                return "Description: A mushroom line consumes a frozen insect to grow a mushroom body on the tecton it occupies.\n" +
+                       "\tUsing: /eat-insect <InsectID> <LineID>\n" +
+                       "\tNote: The insect must be under the 'freezing' effect. The specified line will be used to consume the insect.";
             }
         });
 
