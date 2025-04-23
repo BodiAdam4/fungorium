@@ -120,7 +120,7 @@ public class CommandProccessor {
                         newTecton.getSporeContainer().addSpores(sporesToAdd[i]);
                     }
                 }
-                
+
                 controller.addTecton(id, newTecton);
             }
 
@@ -416,13 +416,16 @@ public class CommandProccessor {
                     System.out.println("Insect with ID " + insectId + " found.");
                 }
 
+
                 Line line = controller.getLineById(lineId);
+
                 if (line == null) {
                     System.out.println("Line with ID " + lineId + " not found.");
                     return;
                 } else {
                     System.out.println("Line with ID " + lineId + " found.");
                 }
+
 
                 if (insect.getCanCut()) {
                     line.Destroy();
@@ -431,9 +434,17 @@ public class CommandProccessor {
                     System.out.println("Insect cannot cut the line due to exhausting effect.");
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Cuts line on the tecton that the given insect is on. You also have to specify which line you want to be cut.\n\tUsing: /cut-line <insect> <line>";
+                return "Description: Cuts a mushroom line on the tecton where the specified insect is located.\n" +
+                       "\tUsing: /cut-line <insect> <line>\n" +
+                       "\tParameters:\n" +
+                       "\t\t<insect>: ID of the insect performing the cut.\n" +
+                       "\t\t<line>: ID of the mushroom line to be cut.\n" +
+                       "\tNote: If the insect is under the 'exhausting' effect, it cannot cut the line.";
             }
         });
 
@@ -800,7 +811,10 @@ public class CommandProccessor {
             }
         });
 
-        //TODO: Leírás
+
+        /**
+         * Leírás: Az paraméterként kapott rovar elfogyaszt egy gombaspórát az adott tektonon lévő spórák közül.
+        */
         commands.put("/eat-spore", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String insectId = args[0];
@@ -809,13 +823,23 @@ public class CommandProccessor {
                 insect.eatSpores(1);
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Eats a spore from the tecton.\n\tUsing: /eat-spore <insectId>";
+                return "Description: The specified insect consumes one mushroom spore from the tecton it is currently on.\n" +
+                       "\tUsing: /eat-spore <insect>\n" +
+                       "\tParameters:\n" +
+                       "\t\t<insect> : ID of the insect that will consume the spore.";
             }
         });
 
-        //TODO: Leírás
+
+        /**
+         * Leírás:  Gombaspóra dobása a paraméterként átadott tektontonazonosítóval rendelkezó tektonra történik 
+         * az átadott gombatesttől. A tektonnak szomszédosnak kell lenni a gombász 
+         * egyik gombatestjének tektonjával, és a gombának rendelekeznie kell gombaspórákkal.
+        */
         commands.put("/throw-spore", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String mushroomId = args[0];
@@ -826,26 +850,49 @@ public class CommandProccessor {
                 mushroom.throwSpores(tecton);
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Throws a spore from the given mushroom to the given tecton. \n\tUsing: /throw-spore <mushroom> <tecton>";
+                return "Description: Throws a mushroom spore from the given mushroom to the specified tecton.\n" +
+                       "\tUsage: /throw-spore <mushroom> <tecton>\n" +
+                       "\tParameters:\n" +
+                       "\t\t<mushroom> : ID of the mushroom that throws the spore.\n" +
+                       "\t\t<tecton> : ID of the target tecton to receive the spore.\n" +
+                       "\tConditions:\n" +
+                       "\t\t- The target tecton must be adjacent to the tecton the mushroom is on.\n" +
+                       "\t\t- The mushroom must have available spores.";
             }
         });
 
-        //TODO: Leírás
+
+        /**
+         * Leírás: Megadható manuálisan a random-generátor által előállított számérték. Hivatott helyettesíteni a randomszám-generálást.
+        */
         commands.put("/set-random", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 int fixRandom = Integer.parseInt(args[0]);
                 RandTools.setFixRandom(fixRandom);
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Set fix number that the random number ganerator will give. It's used for testing.\n\tUsing: /set-random <fix random number>";
+                return "Description: Sets a manual value for the random number generator to override randomness.\n" +
+                       "\tUsage: /set-random <value>\n" +
+                       "\tParameters:\n" +
+                       "\t<value> : Integer value that replaces the next random number the system would generate.";
             }
         });
 
-        //TODO: Leírás
+
+        /**
+         * Leírás: Létrehoz egy mátrixot a tektononkból és autómatikusan a szomszédosságokat létrehozza. 
+         * Paraméterként át kell adni, hogy hány sort és hány oszlopot szeretnénk.
+         * Opciók:
+         * -unbind : Nem állítja be a szomszédosságokat.
+        */
         commands.put("/matrix-tecton", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 int rowCount = Integer.parseInt(args[0]);
@@ -862,6 +909,7 @@ public class CommandProccessor {
                         controller.addTecton(tectonId, tecton);
                     }
                 }
+
 
                 for (int i = 0; i < rowCount && !unbind; i++) {
                     for (int j = 0; j < colCount; j++) {
@@ -883,11 +931,18 @@ public class CommandProccessor {
                 System.out.println("Tecton matrix created with " + rowCount + " rows and " + colCount + " columns.");
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Create a 2D matrix of tectons.\n\tUsing: /matrix-tecton <rowCount> <colCount>\n\tOptions: -unbind : Don't create neighbors between the tectons.";
+                return "Description: Creates a tecton matrix with specified rows and columns.\n" +
+                       "\tUsage: /matrix-tecton <rows> <columns>\n" +
+                       "\tOptions:\n" +
+                       "\t\t-unbind: If specified, the tectons will not be bound to each other.\n" +
+                       "\tNote: The tectons are created in a 'grid', and the neighbors are set automatically unless -unbind is used.";
             }
         });
+
 
         /**
          * Leírás: Gombatest növesztése egy paraméterként átadott tektontonazonosítóval rendelkezó tektonra.
@@ -1174,6 +1229,13 @@ public class CommandProccessor {
         //TODO: Player dolgok
     }
 
+    
+    /**
+     * Egy parancsot hajt végre, amelyet a felhasználó adott meg.
+     * A parancsot és az opcionális argumentumokat feldolgozza, majd a megfelelő műveletet végrehajtja.
+     *
+     * @param command A végrehajtandó parancs szöveges formában. Tartalmazhat opciókat és argumentumokat.
+     */
     public void ExecuteCommand(String command) {
         String baseCommand = command.split(" ")[0];
         int optionFieldIndex = command.indexOf(" -");
