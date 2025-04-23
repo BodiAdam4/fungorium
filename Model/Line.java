@@ -2,6 +2,7 @@ package Model;
 
 import Listeners.ObjectChangeListener;
 import Listeners.ObjectChangeListener.ObjectChangeEvent;
+import java.util.List;
 
 /**
  * A Line osztály valósítja meg a gombafonalakat a játékban.
@@ -59,9 +60,24 @@ public class Line
      * 
      * @return true, ha a gombafajnak van teste, false ha nincs
      */
-    public boolean checkConnections()
+    public boolean checkConnections(List<Line> checkList, Tecton last)
     {
-        //TODO: implement this method
+        checkList.add(this);
+
+        if (ends[0].hasBody(mushroomId) || ends[1].hasBody(mushroomId)) {
+            return true;
+        }
+
+        for (Tecton tecton : ends) {
+            if (tecton != last) {
+                for (Line line : tecton.getConnections()){
+                    if (!checkList.contains(line) && line.checkConnections(checkList, tecton)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
         return false;
     }
 
@@ -73,7 +89,7 @@ public class Line
      * Értesíti a fonalakat a gombatest hiányáról.
      * (Ez a függvény a vezérlővel lesz erősebb kapcsolatban)
      */
-    public void notifyNeighbors()
+    public void notifyNeighbors(boolean alive)
     {
 
     }

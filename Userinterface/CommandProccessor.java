@@ -1001,6 +1001,18 @@ public class CommandProccessor {
             }
         });
         
+        commands.put("/checkcon", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                Line time = controller.getLineById(args[0]);
+
+                if (time.checkConnections(new ArrayList<Line>(), null)) {
+                    System.out.println("The line is connected to mushroom.");
+                } else {
+                    System.out.println("The line is not connected to mushroom.");
+                }
+            }
+        });
+        
 
         /**
          * Leírás: Játék indítása a megadott kezdeti paraméterekkel. alapértelmezetten, kapcsolók nélkül kiadta 
