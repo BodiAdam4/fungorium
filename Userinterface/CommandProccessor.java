@@ -873,7 +873,7 @@ public class CommandProccessor {
 
             @Override
             public String toString() {
-                return "Lists all avaible commands.\n\tUsing: /help";
+                return "Lists all avaible commands.\n\tUsing: /help\n\tOptions:\n\t\t-admin : List all administrator commands\n\t\t-mushroom : List all mushroomPicker commands\n\t\t-insect : List all insectPicker commands";
             }
         });
         
