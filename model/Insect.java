@@ -129,26 +129,7 @@ public class Insect {
         canCut = true;
         canMove = true;
     }
-
-    //TODO: Ez most komolyan szűkséges nekünk?
-    /**
-     * Létrehoz egy rovart a megadott tulajdonságokkal.
-     * @param insectId A rovar azonosítója
-     * @param speed a rovar sebessége
-     * @param sporeCount a rovar által birtokolt spórák száma
-     * @param canCut képes-e vágni a rovar
-     * @param canMove képes-e mozogni a rovar
-     * @param currentTecton Melyik tektonon van a rovar
-     */
-    public Insect(int insectId, int speed, int sporeCount, boolean canCut, boolean canMove, Tecton currentTecton ){
-        this.insectId = insectId;
-        this.speed = speed;
-        this.sporeCount = sporeCount;
-        this.canCut = canCut;
-        this.canMove = canMove;
-        this.currentTecton = currentTecton;
-    }
-
+    
 
     /**
      * A rovart egy új helyre mozgatja.
@@ -161,10 +142,11 @@ public class Insect {
             to.addInsect(this);
             currentTecton.removeInsect(this);
             currentTecton = to;
-            Logger.Log("Insect moved to tecton");
+            System.out.println("Insect moved to tecton");
+
         }
         else{
-            Logger.Log("No line between the tectons");
+            System.out.println("No line between the tectons");
         }
         return true;
     }

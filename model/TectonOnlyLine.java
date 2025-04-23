@@ -10,7 +10,7 @@ public class TectonOnlyLine extends Tecton{
         super();
     }
 
-    
+
     /**
      * Gombafonál csatlakoztatása a tektonhoz, viszont ellenőrzi, 
      * hogy már létezik kapcsolata bármilyen gombafonallal.
@@ -26,7 +26,7 @@ public class TectonOnlyLine extends Tecton{
             return true;
         }
         else {
-            Logger.Log("You can't add lines with different id!");
+            System.out.println("You can't add lines with different id!");
             return false;
         }
     }

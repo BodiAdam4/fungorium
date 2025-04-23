@@ -13,14 +13,13 @@ public class InsectPicker extends Player {
     //Konstruktor
     public InsectPicker(String displayName, Controller controller) {
         super(displayName, controller);
-        // TODO - implement InsectPicker.InsectPicker
     }
 
     
     /* - Getter/Setter metódusok*/
 
     public List<Insect> getInsect() {
-        //TODO: get the whole insect list and search for it's own insects
+        //Get the whole insect list and search for it's own insects
         HashMap<String, Insect> allInsect = controller.getAllInsect();
         List<Insect> myinsectList = new ArrayList<>();
         for (Insect insect : allInsect.values()) {
@@ -43,4 +42,10 @@ public class InsectPicker extends Player {
         }
         return score;
     }
+
+
+    //TODO: implement other methods
+    //TODO: move
+    //TODO: cutLine
+    //TODO: eatSpore
 }

@@ -39,6 +39,8 @@ public class PlayerHandler {
         controller.setGameRunning(true);
     }
 
+
+    //TODO: check the nextPlayer method
     /**
      * NextPlayer():
      * Lépteti a soron következő játékosindexet és lekezeli az új körök kezdetét, amiről szól a Controller osztálynak is.
@@ -53,7 +55,6 @@ public class PlayerHandler {
         }
     }
     */
-    //TODO: implementáljuk a startTurn() metódust a MushroomPicker és InsectPicker osztályokban, hogy a játékosok tudjanak lépni
 
 
     /**
