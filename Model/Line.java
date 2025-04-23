@@ -9,11 +9,13 @@ import Listeners.ObjectChangeListener.ObjectChangeEvent;
  */
 public class Line 
 {
+    //TODO: láthatóság!!!!!!!!!!!
     int mushroomId;
     public int ttl = -1;
     Tecton[] ends;
 
     public ObjectChangeListener changeListener;
+
 
     /**
      * Line konstruktor.
@@ -46,6 +48,9 @@ public class Line
         ends[1] = t2;
     }
 
+
+    /** - Getter/Setter metódusok*/
+
     public int getId() {
         return mushroomId;
     }
@@ -54,6 +59,14 @@ public class Line
         return ttl;
     }
 
+    public Tecton[] getEnds() {
+        return ends;
+    }
+
+
+    /** - Egyéb metódusok*/
+
+    
     /**
      * Megnézi a vele összekötött vonalakon keresztül, hogy a gombafajnak van-e teste.
      * 
@@ -65,9 +78,6 @@ public class Line
         return false;
     }
 
-    public Tecton[] getEnds() {
-        return ends;
-    }
 
     /**
      * Értesíti a fonalakat a gombatest hiányáról.
@@ -75,8 +85,9 @@ public class Line
      */
     public void notifyNeighbors()
     {
-
+        //TODO: implement this method
     }
+
 
     /**
      * Növeszt egy gombát valamelyik Tectonjára
@@ -89,6 +100,7 @@ public class Line
         to.addMushroom(mushroomId);
         return true;
     }
+
 
     /**
      * Növeszt egy fonalat a két Tecton között.
@@ -103,6 +115,7 @@ public class Line
         changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, nl);
         return true;
     }
+
 
     /**
      * Megsemmisíti a fonalat.

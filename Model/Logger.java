@@ -30,6 +30,7 @@ class Logger {
         return objectList.get(obj);
     }
 
+
     /**
      * Konstruktorok elején meghívandó függvény. Ezzel lehet az objektumot regisztrálni a konstruktorból.
      * FONTOS: Minden olyan objektum konstruktora elején jelenjen meg, amiket szertnénk később látni a konzolon és 
@@ -67,6 +68,7 @@ class Logger {
         FunctionStart(classObject, "Constructor", parameters);
     }
 
+
     /**
      * A függvény elején meghívandó. Ezzel lesz megjelenítve a függvényhívás.
      * Itt nem lehet megadni paramétereket, szóval csak paraméter nélküli függvényekre hívható meg.
@@ -100,6 +102,7 @@ class Logger {
         
         indentation++;
     }
+
 
     /**
      * A függvény elején meghívandó. Ezzel lesz megjelenítve a függvényhívás.
@@ -164,6 +167,7 @@ class Logger {
         indentation++;
     }
 
+
     /**
      * A függvények végén ezzel lehet jelezni, hogy a függvény véget ért.
      * FONTOS: Legyen ott minden olyan függvény végén, ahol meghívtuk az elején a {@code FunctionStart()}
@@ -227,6 +231,7 @@ class Logger {
         return scanner.nextLine();
     }
 
+    
     /**
      * Ha egy objektum megsemmisül akkor ezt a függvényt kell meghívni, hogy
      * tudassa a logger osztállyal, hogy ő többet nem lesz.

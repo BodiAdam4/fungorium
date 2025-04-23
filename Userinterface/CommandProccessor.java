@@ -203,7 +203,7 @@ public class CommandProccessor {
                        "\tUsing: /list [options]\n" +
                        "\tOptions:\n" +
                        "\t\t-tecton: Lists only tectons.\n" +
-                       "\t\t-line: Lists only fungal threads.\n" +
+                       "\t\t-line: Lists only mushroom lines.\n" +
                        "\t\t-insect: Lists only insects.\n" +
                        "\t\t-mushroom: Lists only mushrooms.\n" +
                        "\t\t-s <tecton>: Lists spores on the given tecton.";
@@ -588,7 +588,7 @@ public class CommandProccessor {
             public String toString() {
                 return "Description: Removes all effects from the given insect.\n" +
                        "\tUsing: /reset-effect <insect>\n" +
-                       "\t<insect> : The ID of the insect whose effects will be removed.";
+                       "\t<insect>: The ID of the insect whose effects will be removed.";
             }
         });
 
@@ -844,7 +844,7 @@ public class CommandProccessor {
                 return "Description: The specified insect consumes one mushroom spore from the tecton it is currently on.\n" +
                        "\tUsing: /eat-spore <insect>\n" +
                        "\tParameters:\n" +
-                       "\t\t<insect> : ID of the insect that will consume the spore.";
+                       "\t\t<insect>: ID of the insect that will consume the spore.";
             }
         });
 
@@ -871,8 +871,8 @@ public class CommandProccessor {
                 return "Description: Throws a mushroom spore from the given mushroom to the specified tecton.\n" +
                        "\tUsage: /throw-spore <mushroom> <tecton>\n" +
                        "\tParameters:\n" +
-                       "\t\t<mushroom> : ID of the mushroom that throws the spore.\n" +
-                       "\t\t<tecton> : ID of the target tecton to receive the spore.\n" +
+                       "\t\t<mushroom>: ID of the mushroom that throws the spore.\n" +
+                       "\t\t<tecton>: ID of the target tecton to receive the spore.\n" +
                        "\tConditions:\n" +
                        "\t\t- The target tecton must be adjacent to the tecton the mushroom is on.\n" +
                        "\t\t- The mushroom must have available spores.";
@@ -896,7 +896,7 @@ public class CommandProccessor {
                 return "Description: Sets a manual value for the random number generator to override randomness.\n" +
                        "\tUsage: /set-random <value>\n" +
                        "\tParameters:\n" +
-                       "\t<value> : Integer value that replaces the next random number the system would generate.";
+                       "\t<value>: Integer value that replaces the next random number the system would generate.";
             }
         });
 
@@ -1051,8 +1051,8 @@ public class CommandProccessor {
                        "Two types of files can be saved: a command file (to restore state) and a log file (program outputs).\n" +
                        "\tUsing: /save <path_to_save>\n" +
                        "\tOptions:\n" +
-                       "\t\t-log : Save the output log of commands.\n" +
-                       "\t\t-cmd : Save the issued commands.";
+                       "\t\t-log: Save the output log of commands.\n" +
+                       "\t\t-cmd: Save the issued commands.";
             }
         });
 

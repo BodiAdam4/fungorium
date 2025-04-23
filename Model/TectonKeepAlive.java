@@ -3,6 +3,9 @@ package Model;
  * A Tecton osztály leszármazottja, mely rendelkezik egy olyan különleges hatással, hogy életben tartja azokat a fonalakat, amelyek nincsenek közvetve vagy közvetlenül gombatesthez kötve.
  */
 public class TectonKeepAlive extends Tecton {
+
+    /* - Privát attribútumok*/
+    
     //Konstruktor
     public TectonKeepAlive() {
         super();
@@ -18,6 +21,7 @@ public class TectonKeepAlive extends Tecton {
         connections.add(line);
         return true;
     }
+
 
     //TODO: ezt átnézni, mert csak rögtönzött megoldás
     /**
