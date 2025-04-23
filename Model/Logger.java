@@ -1,4 +1,4 @@
-package Model;
+package model;
 import java.io.BufferedInputStream;
 import java.util.HashMap;
 import java.util.Map;

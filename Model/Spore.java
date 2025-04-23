@@ -1,4 +1,4 @@
-package Model;
+package model;
 /**
  * A játékban lévő spórákat valósítja meg.
  * Tartalmazza a tápértéket és a gombához tartozó azonosítót.

@@ -1,4 +1,4 @@
-package Model;
+package model;
 /**
  * A Tecton osztály leszármazottja, mely rendelkezik egy olyan különleges hatással, hogy életben tartja azokat a fonalakat, amelyek nincsenek közvetve vagy közvetlenül gombatesthez kötve.
  */

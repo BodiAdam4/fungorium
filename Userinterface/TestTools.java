@@ -1,12 +1,12 @@
 package userinterface;
 
-import Controller.Controller;
-import Controller.Player;
-import Controller.PlayerHandler;
-import Model.Insect;
-import Model.Line;
-import Model.Mushroom;
-import Model.Tecton;
+import controller.Controller;
+import controller.Player;
+import controller.PlayerHandler;
+import model.Insect;
+import model.Line;
+import model.Mushroom;
+import model.Tecton;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

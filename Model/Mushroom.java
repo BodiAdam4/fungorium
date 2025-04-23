@@ -1,7 +1,8 @@
-package Model;
-import Listeners.ObjectChangeListener;
-import Listeners.ObjectChangeListener.ObjectChangeEvent;
-import Userinterface.RandTools;
+package model;
+import userinterface.RandTools;
+import listeners.ObjectChangeListener;
+import listeners.ObjectChangeListener.ObjectChangeEvent;
+
 import java.util.List;
 
 /**

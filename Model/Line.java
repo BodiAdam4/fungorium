@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Listeners.ObjectChangeListener;
-import Listeners.ObjectChangeListener.ObjectChangeEvent;
+import listeners.ObjectChangeListener;
+import listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
  * A Line osztály valósítja meg a gombafonalakat a játékban.

@@ -1,8 +1,9 @@
 package userinterface;
 
-import Controller.Controller;
 import java.io.BufferedInputStream;
 import java.util.Scanner;
+
+import controller.Controller;
 
 public class ConsoleMain {
 

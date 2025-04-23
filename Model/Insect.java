@@ -1,7 +1,7 @@
-package Model;
+package model;
 
-import Listeners.ObjectChangeListener;
-import Listeners.ObjectChangeListener.ObjectChangeEvent;
+import listeners.ObjectChangeListener;
+import listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
  * Egy rovart reprezentál különböző tulajdonságokkal, például sebesség,

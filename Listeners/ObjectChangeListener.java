@@ -1,9 +1,9 @@
-package Listeners;
+package listeners;
 
-import Model.Insect;
-import Model.Line;
-import Model.Mushroom;
-import Model.Tecton;
+import model.Insect;
+import model.Line;
+import model.Mushroom;
+import model.Tecton;
 
 public interface ObjectChangeListener {
     

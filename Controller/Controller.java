@@ -1,11 +1,12 @@
-package Controller;
-import Listeners.ObjectChangeListener;
-import Model.Insect;
-import Model.Line;
-import Model.Mushroom;
-import Model.Schedule;
-import Model.Tecton;
-import Model.Timer;
+package controller;
+import listeners.ObjectChangeListener;
+import model.Insect;
+import model.Line;
+import model.Mushroom;
+import model.Schedule;
+import model.Tecton;
+import model.Timer;
+
 import java.util.HashMap;
 
 public class Controller {

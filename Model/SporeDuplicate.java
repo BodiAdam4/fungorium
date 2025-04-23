@@ -1,6 +1,6 @@
-package Model;
+package model;
 
-import Listeners.ObjectChangeListener;
+import listeners.ObjectChangeListener;
 
 public class SporeDuplicate extends Spore{
     /**

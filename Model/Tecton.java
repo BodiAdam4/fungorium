@@ -1,8 +1,9 @@
-package Model;
-import Listeners.ObjectChangeListener;
-import Listeners.ObjectChangeListener.ObjectChangeEvent;
+package model;
 import java.util.ArrayList;
 import java.util.List;
+
+import listeners.ObjectChangeListener;
+import listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /** 
  * A játékban lévő tektonokat valósítja meg.

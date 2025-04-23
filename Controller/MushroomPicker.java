@@ -1,10 +1,11 @@
-package Controller;
-import Model.Line;
-import Model.Mushroom;
-import Model.Tecton;
+package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import model.Line;
+import model.Mushroom;
+import model.Tecton;
 
 public class MushroomPicker extends Player {
     /* - Privát attribútumok*/
