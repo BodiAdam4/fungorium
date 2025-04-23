@@ -37,6 +37,7 @@ public class Spore
         return id;
     }
 
+    
     /**
      * Spóra megevése után meghívódó függvény.
      * @param i A rovar, aki megeszi a spórát.

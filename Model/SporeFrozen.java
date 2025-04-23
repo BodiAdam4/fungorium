@@ -16,6 +16,7 @@ public class SporeFrozen extends Spore
         super(id, value);
     }
 
+    
     /**
      * Spóra megevése után meghívódó függvény.
      * Az adott rovar megkapja a spóra tápértékét.

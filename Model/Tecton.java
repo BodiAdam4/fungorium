@@ -42,15 +42,10 @@ public class Tecton {
      */
     private SporeContainer sporeContainer;
 
-    /**
-     * A tektononnal szomszédos tektonok listája.
-     */
-    private List<Tecton> neighbors = new ArrayList<>();
+    private List<Tecton> neighbors = new ArrayList<>();     //A tektononnal szomszédos tektonok listája.
 
-    /**
-     * A tektonon tartózkodó rovarok listája.
-     */
-    List<Insect> insects = new ArrayList<>();
+    //TODO: Láthatóság!!!!!!!!!!!
+    List<Insect> insects = new ArrayList<>();       //A tektonon tartózkodó rovarok listája.
 
     public ObjectChangeListener changeListener;
 
@@ -67,7 +62,7 @@ public class Tecton {
     
     
     
-    //Getterek és setterek
+    /** - Getter/Setter metódusok*/
     public Mushroom getMyMushroom() {
         return this.myMushroom;
     }
@@ -106,7 +101,8 @@ public class Tecton {
 
 
 
-    //Függvények
+    /** - Egyéb metódusok*/
+
     /**
      * Gombafonál csatlakoztatása a tektonhoz. 
      * @param line A hozzáadandó fonal.
@@ -116,6 +112,8 @@ public class Tecton {
         connections.add(line);
         return true;
     }
+
+
     /**
      * Gombafonal leválasztása a tektonról.
      * @param toRemove A leválasztandó fonal.
@@ -123,6 +121,8 @@ public class Tecton {
     public void removeLine(Line toRemove){
         connections.remove(toRemove);
     }
+
+
     /**
      * Gombatest növesztése a tektonon. 
      * @param id A hozzá adandó gombatest id - je.
@@ -163,6 +163,8 @@ public class Tecton {
         return false;
         
     }
+
+    
     /**
      * A tekton két tektonra törése
      */
@@ -175,6 +177,8 @@ public class Tecton {
             t.setNeighbors(t3);
         }
     }
+
+
     /**
      * A tektonra rárakja az átadott rovart.
      * @param insect A rárakandó rovar.
@@ -182,6 +186,7 @@ public class Tecton {
     public void addInsect(Insect insect) {
         insects.add(insect);
     }
+    
 
     /**
      * A tektonról leveszi az átadott rovart.

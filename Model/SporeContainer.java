@@ -32,6 +32,7 @@ public class SporeContainer
         return true;
     }
 
+
     /**
      * Spóratömb hozzáadása a listához.
      * @param spore A hozzáadandó spóra
@@ -120,6 +121,12 @@ public class SporeContainer
     }
 
 
+    /**
+     * Statikus segédfüggvény a spórák generálásához.
+     * @param count A generálandó spórák száma.
+     * @param id Azonosító.
+     * @return A generált spórákat tartalmazó tömb.
+    */
     public static Spore[] generateSpores(int count, int id) {
         Spore[] spores = new Spore[count];
 

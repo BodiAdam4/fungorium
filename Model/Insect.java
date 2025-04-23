@@ -9,12 +9,12 @@ import Listeners.ObjectChangeListener.ObjectChangeEvent;
  */
 public class Insect {
 
-    private int insectId; //A rovar azonosítója
-    private int speed; //A rovar sebessége
-    private int sporeCount; //A rovar által elfogyasztott spórák száma
-    private boolean canCut; //Tud-e éppen vágni a rovar
-    private boolean canMove; //Mozgásképes-e a rovar
-    private Tecton currentTecton; // A tekton amin a rovar éppen van.
+    private int insectId;           //A rovar azonosítója
+    private int speed;              //A rovar sebessége
+    private int sporeCount;         //A rovar által elfogyasztott spórák száma
+    private boolean canCut;         //Tud-e éppen vágni a rovar
+    private boolean canMove;        //Mozgásképes-e a rovar
+    private Tecton currentTecton;   //A tekton amin a rovar éppen van.
 
     public ObjectChangeListener changeListener; //A rovarhoz tartozó eseménykezelők listája
 
@@ -26,13 +26,13 @@ public class Insect {
         return sporeCount;
     }
 
+
     /**
      * beállítja, az elfogyasztott spórák számát, csak a duplicate függvény miatt kell.
      */
     private void setSporeCount(int sporeCount) {
         this.sporeCount = sporeCount;
     }
-
 
     /**
      * Lekéri a rovar azaonosítóját.
@@ -129,6 +129,8 @@ public class Insect {
         canCut = true;
         canMove = true;
     }
+
+    //TODO: Ez most komolyan szűkséges nekünk?
     /**
      * Létrehoz egy rovart a megadott tulajdonságokkal.
      * @param insectId A rovar azonosítója
@@ -146,6 +148,7 @@ public class Insect {
         this.canMove = canMove;
         this.currentTecton = currentTecton;
     }
+
 
     /**
      * A rovart egy új helyre mozgatja.
@@ -166,6 +169,7 @@ public class Insect {
         return true;
     }
 
+
     /**
      * Csökkenti a spórák számát a megadott mennyiséggel.
      *
@@ -179,6 +183,7 @@ public class Insect {
         }
     }
 
+
     /**
      * Megpróbál elvágni egy fonalat.
      *
@@ -190,6 +195,7 @@ public class Insect {
         return true;
     }
 
+
     /**
      * Visszaállítja a rovar hatásait alapállapotba.
      */
@@ -197,7 +203,9 @@ public class Insect {
         canMove = true;
         canCut = true;
     }
+    
 
+    //TODO: Eddig ezeket destroy-nak hívtuk...
     public void delete(){
         currentTecton.removeInsect(this);
         changeListener.insectChanged(ObjectChangeEvent.OBJECT_REMOVED, this);

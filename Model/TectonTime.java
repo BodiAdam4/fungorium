@@ -8,6 +8,8 @@ public class TectonTime extends Tecton{
     public TectonTime(){
         super();
     }
+
+    
     /**
      * Gombafonál csatlakoztatása a tektonhoz.
      * @param line A hozzáadandó gombafonal

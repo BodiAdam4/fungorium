@@ -12,6 +12,8 @@ public class SporeDuplicate extends Spore{
     public SporeDuplicate(int id, int value) {
         super(id, value);
     }
+
+    @Override
     public void addEffect(Insect i) {
         Insect insect = new Insect();
         insect.setInsectId(i.getInsectId());

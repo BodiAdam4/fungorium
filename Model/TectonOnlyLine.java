@@ -9,6 +9,8 @@ public class TectonOnlyLine extends Tecton{
     public TectonOnlyLine(){
         super();
     }
+
+    
     /**
      * Gombafonál csatlakoztatása a tektonhoz, viszont ellenőrzi, 
      * hogy már létezik kapcsolata bármilyen gombafonallal.

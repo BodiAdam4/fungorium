@@ -16,6 +16,7 @@ public class SporeFast extends Spore
         super(id, value);
     }
 
+    
     /**
      * Spóra megevése után meghívódó függvény.
      * Növeli a rovar sebességét.

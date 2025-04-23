@@ -16,6 +16,7 @@ public class SporeExhausting extends Spore
         super(id, value);
     }
 
+    
     /**
      * Spóra megevése után meghívódó függvény.
      * Beállítja, hogy a rovar ne tudjon fonalat vágni
