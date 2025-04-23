@@ -1,13 +1,8 @@
 package model;
 
-<<<<<<< HEAD:Model/Line.java
-import Listeners.ObjectChangeListener;
-import Listeners.ObjectChangeListener.ObjectChangeEvent;
-import java.util.List;
-=======
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
->>>>>>> 07bab4a19397ba9a2655e3ad42b55813d1ef82e9:model/Line.java
+import java.util.List;
 
 /**
  * A Line osztály valósítja meg a gombafonalakat a játékban.
