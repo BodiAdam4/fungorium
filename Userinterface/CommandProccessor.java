@@ -343,9 +343,16 @@ public class CommandProccessor {
 
                 insect.move(tecton);
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Moves an Insect from a tecton to another if a line exists between the tectons.\n\tUsing: /move <insectID> <TectonID>";
+                return "Description: Moves the specified insect to a new tecton.\n" +
+                       "\tUsing: /move <insect> <tecton>\n" +
+                       "\tParameters:\n" +
+                       "\t\t<insect>: ID of the insect to be moved.\n" +
+                       "\t\t<tecton>: ID of the tecton to which the insect will be moved.";
             }
         });
 
@@ -663,9 +670,16 @@ public class CommandProccessor {
 
                 mushroom.setLevel(level);
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "You can set the age of a given mushroom. The age must be between 0 and 3.(Inclusive)\n\tUsing: /setlevel-mushroom <mushroom> <age>";
+                return "Description: Sets the age of the specified mushroom body.\n" +
+                       "\tUsing: /setlevel-mushroom <mushroom> <age>\n" +
+                       "\tParameters:\n" +
+                       "\t\t<mushroom>: ID of the mushroom body.\n" +
+                       "\t\t<age>: Age of the mushroom body (0-3).";
             }
         });
 
@@ -1227,9 +1241,11 @@ public class CommandProccessor {
 
         //TODO: checkConnections
         //TODO: Player dolgok
+
+        //TODO: /next parancs implementálása
     }
 
-    
+
     /**
      * Egy parancsot hajt végre, amelyet a felhasználó adott meg.
      * A parancsot és az opcionális argumentumokat feldolgozza, majd a megfelelő műveletet végrehajtja.
