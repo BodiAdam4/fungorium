@@ -219,6 +219,7 @@ public class CommandProccessor {
                     insect.setTecton(tecton);
                 }
 
+
                 if (effectType.equalsIgnoreCase("slow")) {
                     insect.setSpeed(1);
                 } else if (effectType.equalsIgnoreCase("frozen")) {
@@ -237,8 +238,16 @@ public class CommandProccessor {
                 controller.addInsect(id, insect);
                 tecton.addInsect(insect);
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             public String toString() {
-                return "Creates an insect on a specified tecton with optional effects (slow, frozen, fast, exhausting) and id.\n\tUsing: /create-insect <TectonID> <insectID> <effect>";
+                return "Description: Creates an insect on the specified tecton.\n" +
+                        "\tUsing: /create-insect <TectonID>\n" +
+                        "\tOptions:\n" +
+                        "\t\t-iid <insectId>: Specifies the insect's identifier. This integer determines to which player the object belongs (e.g., 1 means Player 1).\n" +
+                        "\t\t-i <identifier>: Controller identifier.\n" +
+                        "\t\t-e <effect type>: Defines the effect type for the insect. Accepted values are: {slow, frozen, fast, exhausting}";
             }
         });
 
@@ -280,16 +289,17 @@ public class CommandProccessor {
 
 
         /**
-         * /set-neigbors <tectonFrom> <tectonToList>
-         * Leírás: 
-         * A paratéterként kapott "tectonFrom" tektonnak beállítja a szomszédait, azaz olyan tektonokat, 
-         * melyek közvetlenül mellette helyezkednek el. A második paraméterben egy lista adható meg, 
-         * hogy egyszerre több szomszédos tektont is be lehessen állítani. Ide ";"-vel elválasztva sorolhatjuk fel a szomszédokat.
+         * Leírás: A paratéterként kapott "tectonFrom" tektonnak beállítja a szomszédait, 
+         * azaz olyan tektonokat, amelyek közvetlenül mellette helyezkednek el. 
+         * A második paraméterben egy lista adható meg, hogy egyszerre több szomszédos tektont is be lehessen állítani. 
+         * Ide ";"-vel elválasztva sorolhatjuk fel a szomszédokat. Amennyiben csak egy darab szomszédot szeretnénk megadni, 
+         * a pontosvessző elhagyandó.
         */
         commands.put("/set-neigbors", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
                 String[] neighbors = args[1].split(";");
+
 
                 Tecton tecton = controller.getTectonById(tectonId);
                 if (tecton == null) {
@@ -299,8 +309,10 @@ public class CommandProccessor {
                     System.out.println("Tecton with ID " + tectonId + " found.");
                 }
 
+
                 for (String neighborId : neighbors) {
                     Tecton neighbor = controller.getTectonById(neighborId);
+
                     if (neighbor != null) {
                         tecton.setNeighbors(neighbor);
                         neighbor.setNeighbors(tecton);
@@ -309,9 +321,16 @@ public class CommandProccessor {
                     }
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Sets neighbors for the specified tecton.\n\tUsing: /set-neigbors <tectonFrom> <tectonTo1;tectonTo2;...tectonToN>";
+                return "Description: Sets the neighbors of the specified tecton.\n" +
+                       "\tUsing: /set-neighbors <TectonFrom> <TectonTo1;TectonTo2;...;TectonToN>\n" +
+                       "\tOptions: None.\n" +
+                       "\tNote: The second parameter is a semicolon-separated list of tecton IDs. " +
+                       "These will be assigned as direct neighbors of <TectonFrom>. If only one neighbor is specified, the semicolon can be omitted.";
             }
         });
 
@@ -356,13 +375,15 @@ public class CommandProccessor {
             }
         });
 
-        //TODO: /eat-spore <insect> <spore>
-
 
         /**
-         * /grow-line <source_tecton> <destination_tecton>
-         * Leírás: Gombafonal növesztése a két tekton között.
-         * Paraméterként át kell adni a két tekton azonosítóját, amik között a gombafonalat szeretnénk növeszteni.
+         * Leírás: Gombafonal növesztése két tekton közt. Ehhez szükséges, 
+         * hogy az egyik tektonon legyen már a gombászhoz tartozó gombafonal. 
+         * Paraméterként meg kell adni a forrás- és a céltektont.
+         * Opciók:
+         * -mid <mushroomId>: Gombaazonosító. Ennek segítségével adható meg, hogy melyik gombatest fogja 
+         *  a fonálnövesztést végrehajtani. Megadja, hogy az adott objektum melyik játékoshoz tartozik. 
+         *  Értéke egy int-típusú érték, amely, ha például 1, akkor az adott objektum az 1-es játékoshoz fog tartozni.
         */
         commands.put("/grow-line", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -375,10 +396,10 @@ public class CommandProccessor {
 
                 boolean running = controller.isGameRunning();
                 
+
                 if (running) {
                     MushroomPicker mpicker = (MushroomPicker)(controller.getPlayerHandler().getActualPlayer());
                     mpicker.growLine(from, to);
-                    
                     
                 } else{
 
@@ -397,21 +418,25 @@ public class CommandProccessor {
                 }
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Grows line between two given tectons. \n\tUsing: /grow-line <source_tecton> <destination_tecton>";
+                return "Description: Grows a line between two tectons.\n" +
+                       "\tUsing: /grow-line <SourceTecton> <DestinationTecton>\n" +
+                       "\tOptions:\n" +
+                       "\t\t-mid <mushroomId>: Specifies which mushroom body executes the line-growth. This integer determines the owner player (e.g., 1 means Player 1).\n" +
+                       "\tNote: One of the tectons must already have a line belonging to the specified mushroom.";
             }
         });
 
 
         /**
-         * /add-effect <insect> <effect>
          * Leírás: A effekt adása a kiválasztott rovarnak. Paraméterként át kell adni a rovar azonosítóját, amelynek az effektet szeretnénk adni, és az effekt típusát.
          * slow: A rovar lassabban tud mozogni.
          * frozen: A rovar nem tud mozogni.
          * fast: A rovar gyorsabban tud mozogni.
          * exhausting: A rovar nem tud fonalat vágni.
-         * //TODO: duplicate : Duplikáló hatással lesz a spóra a rovarra. Látrejön egy új rovar, mely független az előzőtől, és ugyan ahoz a rovarászhoz fog tartozni, azaz a playerId-ja megyegyezik azzal a rovarral, aki megette ezt a spórát
         */
         commands.put("/add-effect", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -426,6 +451,7 @@ public class CommandProccessor {
                     System.out.println("Insect with ID " + insectId + " found.");
                 }
 
+
                 if (effectType.equalsIgnoreCase("slow")) {
                     insect.setSpeed(1);
                 } else if (effectType.equalsIgnoreCase("frozen")) {
@@ -439,9 +465,18 @@ public class CommandProccessor {
                     System.out.println("Unknown effect type: " + effectType);
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Add a specific effect to a given insect. You can select from the following list: {slow, frozen, fast, exhausting, duplicate} \n\tUsing: /add-effect <insect> <effect>";
+                return "Description: Adds an effect to the specified insect.\n" +
+                       "\tUsing: /add-effect <insect> <effect>\n" +
+                       "\tEffect types:\n" +
+                       "\t\tslow: The insect moves slower.\n" +
+                       "\t\tfrozen: The insect cannot move.\n" +
+                       "\t\tfast: The insect moves faster.\n" +
+                       "\t\texhausting: The insect cannot cut lines.";
             }
         });
 
@@ -475,10 +510,14 @@ public class CommandProccessor {
 
 
         /**
-         * /create-mushroom <tecton>
-         * Leírás: Gombatest létrehozása egy adtott tektonon. Ehhez nem szükséges semmilyen előfeltétel megléte, ami a gombatest növesztéséhez kell. Paraméterként át kell adni a a tekton azonosítóját, amin a gombatest lesz.
+         * Leírás: Gombatest létrehozása egy adtott tektonon. Ehhez nem szükséges semmilyen előfeltétel megléte, 
+         * ami a gombatest növesztéséhez kell. Paraméterként át kell adni a a tekton azonosítóját, amin a gombatest lesz.
          * Opciók: 
-         * -i <azonosító> : Gombaazonosító megadása, alapértelmezetten 1-es azonosítóval jön létre.
+         * -i <azonosító> : Megadja, hogy a Controllerben milyen néven lehet az adott objektumra hivatkozni. 
+         *  Ez egy String-típusú érték kell, hogy legyen!
+         * -mid <mushroomId>: Gombaazonosító. Ennek segítségével adható meg, hogy az újonnan létrehozott gombatest 
+         *  milyen azonosítóval fog létrejönni. Megadja, hogy az adott objektum melyik játékoshoz tartozik. 
+         *  Értéke egy int-típusú érték, amely, ha például 1, akkor az adott objektum az 1-es játékoshoz fog tartozni.
          * -sp <spóra szám> : Hány spórával szeretnénk létrehozni a gombatestet. Alapértelmezetten 5 spórával rendelkezik.
         */
         commands.put("/create-mushroom", new Command() {
@@ -496,14 +535,23 @@ public class CommandProccessor {
                 System.out.println("Tecton with ID " + tectonId + " found.");
             }
 
+
             Mushroom mushroom = new Mushroom(Integer.parseInt(mushroomId), tecton);
             mushroom.setSporeCount(sporeCount); // Set the spore count based on the -sp option
             controller.addMushroom(id, mushroom);
             tecton.setMyMushroom(mushroom);
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "You can create a mushroom on a given tecton. Also you have the option to set the mushroomId and how many spore you want within the mushroom. Without given value, the mushroom has 5 spores.\n\tUsing: /create-mushroom <tecton> -mid <mushroomId> -sp <sporeCount>";
+                return "Description: Creates a mushroom body on the specified tecton.\n" +
+                       "\tUsing: /create-mushroom <TectonID>\n" +
+                       "\tOptions:\n" +
+                       "\t\t-i <identifier>: Controller identifier.\n" +
+                       "\t\t-mid <mushroomId>: Mushroom ID. An integer that defines which player the object belongs to (e.g., 1 means Player 1).\n" +
+                       "\t\t-sp <spore count>: Number of spores the mushroom should start with. (Defaults to 5.)";
             }
         });
 
@@ -546,10 +594,15 @@ public class CommandProccessor {
 
 
         /**
-         * /create-line <tecton1> <tecton2>
-         * Leírás: Gombafonal létrehozása két tekton között. Ehhez nem szükséges semmilyen előfeltétel megléte, ami a gombafonál növesztéséhez kell. Paraméterként át kell adni a két tekton azonosítóját, amik közé a fonal fog kerülni.
+         * Leírás: Gombafonal létrehozása két tekton között. Ehhez nem szükséges semmilyen előfeltétel megléte, 
+         * ami a gombafonál növesztéséhez kell. Paraméterként át kell adni a két tekton azonosítóját, 
+         * amik közé a fonal fog kerülni.
          * Opciók: 
-         * -i <azonosító> : A gombafonal gombaazonosítójának megadásához.
+         * -i <azonosító> :Megadja, hogy a Controllerben milyen néven lehet az adott objektumra hivatkozni. 
+         *  Ez egy String-típusú érték kell, hogy legyen!
+         * -mid <mushroomId>: Gombaazonosító. Ennek segítségével adható meg, hogy melyik gombatest hajtotta végre 
+         *  a fonalnövesztést. Megadja, hogy az adott objektum melyik játékoshoz tartozik. Értéke egy int-típusú érték, 
+         *  amely, ha például 1, akkor az adott objektum az 1-es játékoshoz fog tartozni.
         */
         commands.put("/create-line", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -558,39 +611,59 @@ public class CommandProccessor {
                 String tectonId1 = args[0];
                 String tectonId2 = args[1];
 
+
                 Tecton tecton1 = controller.getTectonById(tectonId1);
                 Tecton tecton2 = controller.getTectonById(tectonId2);
+
 
                 if (tecton1 == null || tecton2 == null) {
                     System.out.println("One or both tectons not found.");
                     return;
                 }
 
-                // Create the line and add it to both tectons
+
+                //Create the line and add it to both tectons
                 Line line = new Line(tecton1, tecton2, Integer.parseInt(mushroomId));
                 controller.addLine(id,line);
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Creates a line between two given tecton. Also you have to option to give the mushroomId for the line.\n\tUsing: /create-line <tecton1> <tecton2> -mid <msuhroomId>";
+                return "Description: Creates a mushroom line between two tectons.\n" +
+                       "\tUsing: /create-line <TectonID1> <TectonID2>\n" +
+                       "\tOptions:\n" +
+                       "\t\t-i <identifier>: Controller identifier. This is a string value used to refer to the line in the Controller.\n" +
+                       "\t\t-mid <mushroomId>: Mushroom identifier. Specifies which mushroom body performed the line creation. " +
+                       "This integer determines to which player the object belongs (e.g., 1 means Player 1).";
             }
         });
 
+
         /**
-         * TODO:TECTON TÖRÉS
+         * Leírás: A paraméterként kapott tekton el fog törni. Ekkor az eredeti tekton felületén a gombatest 
+         * megmarad, azonban a gombafonalak elvesznek a tectonról. Az újonnan létrejött tekton pedig szomszédos 
+         * lesz azon tektonokkal, amelyekkel az eredeti is szomszédos volt, illetve magával 
+         * az eredeti tektonnal is szomszédos lesz.
          */
         commands.put("/tecton-break", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
                 Tecton tecton = controller.getTectonById(tectonId);
 
-                
                 tecton.breakTecton();
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Breaks the tecton, removing all lines from it.\n\tUsing: /tecton-break <tectonId>";
+                return "Description: Breaks the specified tecton.\n" +
+                       "\tUsing: /tecton-break <TectonID>\n" +
+                       "\tOptions: None.\n" +
+                       "\tNote: The mushroom body remains on the original tecton, but all lines are lost. " +
+                       "The new tecton will become a neighbor to all tectons that were neighbors of the original, and it will also be adjacent to the original tecton.";
             }
         });
 
@@ -616,8 +689,6 @@ public class CommandProccessor {
                 int sporeCount = Integer.parseInt(getOption(options, "-sp", "1"));
                 String type = getOption(options, "-t", "normal");
 
-                
-                
 
                 Tecton tecton = controller.getTectonById(tectonId);
                 if (tecton == null) {
@@ -626,6 +697,7 @@ public class CommandProccessor {
                 } else {
                     System.out.println("Tecton with ID " + tectonId + " found.");
                 }
+
 
                 Spore spore = null;
                 for (int i = 0; i<sporeCount; i++){
@@ -643,13 +715,21 @@ public class CommandProccessor {
                         spore = new Spore(id, 2);
                     }
 
-                    
                     tecton.getSporeContainer().addSpores(spore);
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Adds a spore to the given tecton. Also have the option, to choose how many spores you want to add, with what mushroomId aswell. You can also choose the type of the spore from the following list:{slow, frozen, fast, exhausting, duplicate}\n\tUsing: /add-spore <tecton> -sp <sporeCount> -mid <mushroomId> -t <type>";
+                return "Description: Adds spores to the specified tecton.\n" +
+                       "\tUsing: /add-spore <TectonID>\n" +
+                       "\tOptions:\n" +
+                       "\t\t-sp <sporeCount>: Specifies how many spores to add to the given tecton.\n" +
+                       "\t\t-i <identifier>: Controller identifier.\n" +
+                       "\t\t-mid <mushroomId>: Mushroom identifier. Indicates which mushroom body released the spores. This integer value also defines the owning player (e.g., 1 means Player 1).\n" +
+                       "\t\t-t <type>: Effect type of the spore. Accepted values are: {slow, frozen, fast, exhausting, duplicate}";
             }
         });
 
@@ -742,12 +822,21 @@ public class CommandProccessor {
             }
         });
 
-        //TODO: Leírás
+        /**
+         * Leírás: Gombatest növesztése egy paraméterként átadott tektontonazonosítóval rendelkezó tektonra.
+         * A tektonnak rendelkeznie kell a gombatest azonosítójával ellátott gombafonallal, és kettő darab a 
+         * gombászhoz tartozó gombaspóra.
+         * Opciók:
+         * -mid <mushroomId>: Gombaazonosító. Ennek segítségével adható meg, hogy melyik gombatest fogja a fonálnövesztést 
+         * végrehajtani. Megadja, hogy az adott objektum melyik játékoshoz tartozik. Értéke egy int-típusú érték, 
+         * amely, ha például 1, akkor az adott objektum az 1-es játékoshoz fog tartozni.
+        */
         commands.put("/build-mushroom", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
                 int id = Integer.parseInt(getOption(options, "-mid", "1"));
                 Tecton tecton = controller.getTectonById(tectonId);
+
 
                 if (controller.isGameRunning()) {
                     MushroomPicker mpicker = (MushroomPicker)(controller.getPlayerHandler().getActualPlayer());
@@ -771,9 +860,15 @@ public class CommandProccessor {
                 }
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Builds a mushroom on the tecton.\n\tUsing: /build-mushroom <tectonId> -mid <mushroomId>";
+                return "Description: Grows a mushroom body on the specified tecton.\n" +
+                    "\tUsing: /build-mushroom <TectonID>\n" +
+                    "\tOptions:\n" +
+                    "\t\t-mid <mushroomId>: Mushroom identifier. Specifies which mushroom body will perform the line growth. This integer value also determines which player owns the object (e.g., 1 means Player 1). " +
+                    "The tecton must contain a line with this identifier and two spores belonging to the player who wants to grow mushroom body.";
             }
         });
 
@@ -811,6 +906,13 @@ public class CommandProccessor {
         });
 
         
+        /**
+         * Leírás: Parancsok listázása.
+         * Opciók:
+         * -admin : Csak az adminisztrátori parancsokat listázza ki.
+         * -insect : Csak az rovarász parancsokat listázza ki.
+         * -mushroom : Csak a gombász parancsokat listázza ki
+        */
         commands.put("/help", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 System.out.println("Available commands: ");
@@ -823,9 +925,16 @@ public class CommandProccessor {
                 System.out.println("=========================================");
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Lists all avaible commands.\n\tUsing: /help";
+                return "Description: Lists available commands.\n" +
+                       "\tUsing: /help\n" +
+                       "\tOptions:\n" +
+                       "\t\t-admin: Lists only administrator commands.\n" +
+                       "\t\t-insect: Lists only insectpicker commands.\n" +
+                       "\t\t-mushroom: Lists only mushroompicker commands.";
             }
         });
         
@@ -844,6 +953,19 @@ public class CommandProccessor {
             }
         });
         
+
+        /**
+         * Leírás: Játék indítása a megadott kezdeti paraméterekkel. alapértelmezetten, kapcsolók nélkül kiadta 
+         * a játék kezdetben létrehoz két rovarász és két gombászt, valamint beállít 10 kört. 
+         * A kapcsolók megadásával ez finomhangolható a következő módon:
+         * Opciók:
+         * -m <számérték>: Gombászok számának egyéni beállítása.
+         * -i <számérték>: Rovarászok számának egyéni beállítása.
+         * -k <számérték>: Körök számának egyéni beállítása.
+         * -nomap: Amennyiben a tesztelő a játék kezdete előtt felépített egy játékpályát, 
+         *  amelyen teszteket hajtott végre, úgy ez az opció lehetővé teszi, hogy a /start kiadásakor (az opciót használva) 
+         *  ne álljon vissza a játékpálya a kiinduló állapotára.
+        */
         commands.put("/start", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 int mCount = Integer.parseInt(getOption(options, "-m", "2"));
@@ -852,12 +974,27 @@ public class CommandProccessor {
                 controller.StartGame(mCount, iCount);
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Start game with 2 MushroomPicker and 2 InsectPicker and 10 round. Also have the option to change the number of mushroom or insectpicker, the number of the rounds and whether you want a map to be generated or not\n\tUsing: /start -m <mushroomPickerCount> -i <insectPickerCount -k <roundCount> -nomap";
+                return "Description: Starts the game with the given initial parameters.\n" +
+                       "\tUsing: /start\n" +
+                       "\tOptions:\n" +
+                       "\t\t-m <number>: Sets the number of mushroompickers.\n" +
+                       "\t\t-i <number>: Sets the number of insectpickers.\n" +
+                       "\t\t-k <number>: Sets the number of game rounds.\n" +
+                       "\t\t-nomap: Prevents the game map from resetting to the default state if it was already built before starting.";
             }
         });
         
+
+        /**
+         * Leírás: Az aktuális állapot összehasonlítása egy régebben elmentett log fájlban lévő állapottal.
+         * Opciók:
+         * -f <elérési út> : Ha nem a program aktuális állapotát szeretnénk összehasonlítani, 
+         *  hanem kettő már elmentett log fájlt akkor ezzel az opcióval meg lehet adni a másik fájlnak az elérési útját.
+        */
         commands.put("/compare", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String filePath = args[0];
@@ -868,30 +1005,38 @@ public class CommandProccessor {
                     TestTools.compare(filePath, filePath2);
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
+            public String toString() {
+                return "Description: Compares the current state with a previously saved log file.\n" +
+                       "\tUsing: /compare <referenceFile>\n" +
+                       "\tOptions:\n" +
+                       "\t\t-f <filePath>: Specifies the path to a other log file if the comparison should be between two saved states rather than the current one.";
+            }
         });
+
+
 
 
         //TODO: /eat-insect implementálása
         //TODO: rovar duplikálás
         //TODO: checkConnections
         //TODO: Player dolgok
+        //TODO: a "/help" parancs megoldása, hogy admin, insectpicker és mushroompicker parancsokat külön-külön listázza ki
     }
 
 
-    /* - Getter/Setter metódusok*/
+
     /* - Egyéb metódusok*/
 
-    /*
-    public void inputCommand(String inputcommand){
-        String[] command = inputcommand.split(" ");
-        if (commands.containsKey(command[0])) {
-            commands.get(command[0]).execute(command);
-        } else {
-            System.out.println("Unknown command: " + command[0]);
-        }
-    }
+    /**
+     * Végrehajt egy parancsot, amelyet a felhasználó adott meg.
+     * 
+     * @param command A végrehajtandó parancs szöveges formában, amely tartalmazhat
+     *                opciókat és argumentumokat is.
     */
-
     public void ExecuteCommand(String command) {
         String baseCommand = command.split(" ")[0];
         int optionFieldIndex = command.indexOf(" -");
