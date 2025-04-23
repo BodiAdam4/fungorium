@@ -3,3 +3,4 @@
 /create-tecton -i t3 -n t2
 /create-line t1 t2 -i l1 -mid 1
 /grow-line t2 t3
+/skip 2

@@ -2,3 +2,4 @@
 /create-tecton -i t2 -t onlyline -n t1
 /create-mushroom t1 -i m1 mid 1
 /grow-line t1 t2
+/skip 2

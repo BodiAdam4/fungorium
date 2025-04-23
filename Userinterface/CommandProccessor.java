@@ -858,8 +858,6 @@ public class CommandProccessor {
             }
         });
         
-
-        //TODO: Make the "/compare" command with one parameter, and with two parameters
         commands.put("/compare", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String filePath = args[0];
