@@ -6,3 +6,4 @@
 /create-insect t1 -i i1 -iid 1
 /eat-spore i1
 /eat-insect i1
+/skip 2
