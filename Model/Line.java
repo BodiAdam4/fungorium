@@ -91,7 +91,7 @@ public class Line
     }
 
     /**
-     * Növeszt egy vonalat a két Tecton között.
+     * Növeszt egy fonalat a két Tecton között.
      *
      * @param to1 Az első Tecton
      * @param to2 A második Tecton

@@ -180,10 +180,10 @@ public class Insect {
     }
 
     /**
-     * Megpróbál elvágni egy vonalat.
+     * Megpróbál elvágni egy fonalat.
      *
-     * @param line az elvágandó vonal
-     * @return igaz, ha a vonalat sikeresen elvágta, egyébként hamis
+     * @param line az elvágandó fonal
+     * @return igaz, ha a fonalat sikeresen elvágta, egyébként hamis
      */
     public boolean cutLine(Line line) {
         line.Destroy();
