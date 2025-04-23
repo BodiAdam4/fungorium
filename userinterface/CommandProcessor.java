@@ -1222,6 +1222,17 @@ public class CommandProcessor {
                     TestTools.compare(filePath, filePath2);
                 }
             }
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
+            public String toString() {
+                return """
+                       Description: Compares the current state of the game with a previously saved state.
+                       \tUsing: /compare <file_path>
+                       \tOptions:
+                       \t\t-f <file_path>: If we want to compare two previously saved states instead of the current state.
+                       """;
+            }
         });
         
 
