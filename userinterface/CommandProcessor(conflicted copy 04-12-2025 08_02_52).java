@@ -182,6 +182,7 @@ public class CommandProcessor {
                         String mushroomIds= controller.getMushroomId(mush);
                         System.out.println(TestTools.GetMushroomStatus(controller, mushroomIds));
                     }
+                    //TODO: Spóra kiírását meg kell csinálni, mert ez a megoldás fals
                 }else if (args[0].equals("-s") && tectonId != null) {
                     Tecton tecton = controller.getTectonById(tectonId);
                     if (tecton != null) {
@@ -234,7 +235,7 @@ public class CommandProcessor {
                     reader.close();
                     
                 } catch (Exception e) {
-
+                    // TODO: handle exception
                 }
 
                 for(String line : lines) {
@@ -1023,7 +1024,7 @@ public class CommandProcessor {
                         \tUsing: /build-mushroom <TectonID>
                         \tOptions:
                         \t\t-mid <mushroomId>: Mushroom identifier. Specifies which mushroom body will perform the line growth. This integer value also determines which player owns the object (e.g., 1 means Player 1).
-                        \tThe tecton must contain a line with this identifier and two spores belonging to the player who wants to grow mushroom body.
+                        \t\tThe tecton must contain a line with this identifier and two spores belonging to the player who wants to grow mushroom body.
                         """;
             }
         });
@@ -1169,18 +1170,6 @@ public class CommandProcessor {
             }
         });
         
-        commands.put("/checkcon", new Command() {
-            public void execute(String[] args, HashMap<String, String> options) {
-                Line time = controller.getLineById(args[0]);
-
-                if (time.checkConnections(new ArrayList<Line>(), null)) {
-                    System.out.println("The line is connected to mushroom.");
-                } else {
-                    System.out.println("The line is not connected to mushroom.");
-                }
-            }
-        });
-        
 
         /**
          * Leírás: Játék indítása a megadott kezdeti paraméterekkel. alapértelmezetten, kapcsolók nélkül kiadta 
@@ -1235,17 +1224,6 @@ public class CommandProcessor {
                     TestTools.compare(filePath, filePath2);
                 }
             }
-
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
-            @Override
-            public String toString() {
-                return """
-                       Description: Compares the current state of the game with a previously saved state.
-                       \tUsing: /compare <file_path>
-                       \tOptions:
-                       \t\t-f <file_path>: If we want to compare two previously saved states instead of the current state.
-                       """;
-            }
         });
         
 
@@ -1269,7 +1247,7 @@ public class CommandProcessor {
 
                             insect.getTecton().getSporeContainer().addSpores(SporeContainer.generateSpores(3, mid));
                             insect.getTecton().addMushroom(mid);
-                            insect.destroy();
+                            insect.delete();
                             
                             return;
                         }
@@ -1291,14 +1269,9 @@ public class CommandProcessor {
 
 
         //TODO: checkConnections
-        //TODO: Player leszármazott osztályainak metódusai
+        //TODO: Player dolgok
 
         //TODO: /next parancs implementálása
-        /*
-        commands.put("/next", new Command() {
-            //public void execute(String[] args, HashMap<String, String> options);
-        });
-        */
     }
 
 
