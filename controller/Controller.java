@@ -19,7 +19,6 @@ public class Controller {
     private boolean isGameRunning = false;
 
     /* - Protected attribútumok*/
-    //TODO: Ez most protected lett, hogy a PlayerHandler osztály elérje, de lehet, hogy nem így kéne
     protected int actualPlayerIdx;
 
     private ObjectChangeListener objectChangeListener;
