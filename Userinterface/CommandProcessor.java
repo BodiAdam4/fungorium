@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CommandProccessor {
+public class CommandProcessor {
     /* - Privát attribútumok*/
     private HashMap<String, Command> commands;
 
@@ -39,7 +39,7 @@ public class CommandProccessor {
     /* - Konstruktorok*/
 
     //Konstruktor
-    public CommandProccessor(Controller controller) {
+    public CommandProcessor(Controller controller) {
         this.commands = new HashMap<>();
         this.commandHistory = new ArrayList<>();
 

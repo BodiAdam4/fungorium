@@ -7,13 +7,13 @@ import java.util.Scanner;
 public class ConsoleMain {
     /* - Privát attribútumok*/
     private Controller controller;
-    private CommandProccessor cmd;
+    private CommandProcessor cmd;
 
     /* - Belépési pont (main)*/
     public static void main(String[] args) {
         // Create an instance of the CommandProcessor and start the command loop
         Controller controller = new Controller();
-        CommandProccessor cmd = new CommandProccessor(controller);
+        CommandProccesor cmd = new CommandProcessor(controller);
 
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
 
