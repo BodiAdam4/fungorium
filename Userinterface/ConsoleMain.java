@@ -1,13 +1,10 @@
-package Userinterface;
+package userinterface;
 
 import Controller.Controller;
 import java.io.BufferedInputStream;
 import java.util.Scanner;
 
 public class ConsoleMain {
-    /* - Privát attribútumok*/
-    private Controller controller;
-    private CommandProcessor cmd;
 
     /* - Belépési pont (main)*/
     public static void main(String[] args) {
@@ -17,8 +14,9 @@ public class ConsoleMain {
 
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
 
-        while(true) {
+        while(scanner.hasNextLine()) {
             cmd.ExecuteCommand(scanner.nextLine());
         }
+        scanner.close();
     }
 }
