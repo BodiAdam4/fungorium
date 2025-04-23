@@ -54,6 +54,20 @@ public class CommandProccessor {
         insectPickerCommands.add("/eat-spore");
         insectPickerCommands.add("/move");
 
+
+        /**
+         * Leírás: Tekton létrehozása.
+         * Opciók:
+         * -i <azonosító> : Ha a tektont adott azonosítóval szeretnénk létrehozni.
+         * -sp <spóraszám> : Ha a tektont már spórákkal akarjuk létrehozni.
+         * -t <típus> : Ha különleges típusú tektont szeretnénk létrehozni.
+         *      time : Ezen a tektonon egy idő után elhalnak a gombafonalak
+         *      infertile : Ezen a tektonon nem képes gombatest nőni.
+         *      onlyline : Ezen a tektonon csupán egyfajta gombafonál nőlhet.
+         *      keepalive : Ezen a tektonon akkor is életben maradnak a fonalak, ha azok már nincsenek kapcsolatban gombatesttel.
+         * -n <tecton1>;<tecton2>;...<tectonX> : Ha a létrehozott tektonhoz be szeretnénk állítani a szomszédokat, 
+         *  a kapcsoló után fel kell sorolni pontosvesszővel (;) elválasztva a már létező szomszédos tektonok azonosítóit.
+        */
         commands.put("/create-tecton", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String id = getOption(options, "-i", "t"+controller.getAllTecton().size());
@@ -67,6 +81,7 @@ public class CommandProccessor {
                     neighbors = neighborList.split(";");
 
                 Tecton newTecton = null;
+
 
                 if (type.equalsIgnoreCase("time")){
                     newTecton = new TectonTime();
@@ -84,6 +99,7 @@ public class CommandProccessor {
                     newTecton = new Tecton();
                 }
 
+
                 if (neighbors.length > 0) {
                     for (String tectonId : neighbors) {
                         Tecton neighbor = controller.getTectonById(tectonId);
@@ -96,6 +112,7 @@ public class CommandProccessor {
                     }
                 }
 
+
                 // Lekérjük az adott tecton sporeContainer-jét és hozzáadjuk a spórákat
                 if (sporeCount > 0) {
                     Spore[] sporesToAdd = SporeContainer.generateSpores(sporeCount, 1);
@@ -103,9 +120,22 @@ public class CommandProccessor {
                         newTecton.getSporeContainer().addSpores(sporesToAdd[i]);
                     }
                 }
-
-
+                
                 controller.addTecton(id, newTecton);
+            }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
+            public String toString() {
+                return "Description: Creates a new tecton (game tile).\n" +
+                       "\tUsing: /create-tecton [options]\n" +
+                       "\tOptions:\n" +
+                       "\t-i <id>: Set the ID of the new tecton.\n" +
+                       "\t-sp <spore count>: Set the initial spore count on the tecton.\n" +
+                       "\t-t <type>: Set the type of the tecton.\n" +
+                       "\tAvailable types: {time, infertile, onlyline, keepalive}\n" +
+                       "\t-n <tecton1;tecton2;...>: Set neighboring tectons by listing their IDs, separated by semicolons.";
             }
         });
 
