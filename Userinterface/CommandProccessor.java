@@ -109,16 +109,16 @@ public class CommandProccessor {
             }
         });
 
+        
          /**
-         * /list Kilistázza a játékban található összes objektumot
-         * Opciók: 
-         *-tecton : Ha csak a tektonokat szeretnénk kilistázni.
-         *-line : Ha csak a gombafonalakat szeretnénk kilistázni.
-         *-insect : Ha csak a rovarokat szeretnénk kilistázni.
-         *-mushroom : Ha csak a gombatesteket szeretnénk kilistázni.
-         *-s <tecton> : Ha egy adott tektonon lévő spórákat szeretnénk kilistázni, ehhez paraméterként át kell adni a tekton azonosítóját.
-
          * Leírás: Játék betöltése mentett állapotból. Paraméterként el kell adni a mentést tartalmazó parancsfájl elérési útját. Sorra végrehajtódnak az itt tárolt parancsok.
+         * Opciók: 
+         * -tecton : Ha csak a tektonokat szeretnénk kilistázni.
+         * -line : Ha csak a gombafonalakat szeretnénk kilistázni.
+         * -insect : Ha csak a rovarokat szeretnénk kilistázni.
+         * -mushroom : Ha csak a gombatesteket szeretnénk kilistázni.
+         * -s <tecton> : Ha egy adott tektonon lévő spórákat szeretnénk kilistázni, 
+         * ehhez paraméterként át kell adni a tekton azonosítóját.
         */
         commands.put("/list", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -134,7 +134,6 @@ public class CommandProccessor {
                         String tectonIds= controller.getTectonId(tecton);
                         System.out.println(TestTools.GetTectonStatus(controller, tectonIds));
                     }
-                    
                 } else if (line) {
                     for (Line linet : controller.getAllLine().values()) {
                         String lineIds= controller.getLineId(linet);
@@ -165,15 +164,28 @@ public class CommandProccessor {
                     System.out.println(TestTools.GetStatus(controller));
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
             public String toString() {
-                return "Lists all the object in the game.\n\tUsing: /list";
+                return "Description: Lists game objects.\n" +
+                       "\tUsing: /list [options]\n" +
+                       "\tOptions:\n" +
+                       "\t\t-tecton: Lists only tectons.\n" +
+                       "\t\t-line: Lists only fungal threads.\n" +
+                       "\t\t-insect: Lists only insects.\n" +
+                       "\t\t-mushroom: Lists only mushrooms.\n" +
+                       "\t\t-s <tecton>: Lists spores on the given tecton.";
             }
         });
 
 
         /**
          * /load <elérési út>
-         * Leírás: Játék betöltése mentett állapotból. Paraméterként el kell adni a mentést tartalmazó parancsfájl elérési útját. Sorra végrehajtódnak az itt tárolt parancsok.
+         * Leírás: Játék betöltése mentett állapotból. 
+         * Paraméterként el kell adni a mentést tartalmazó parancsfájl elérési útját. 
+         * Sorra végrehajtódnak az itt tárolt parancsok.
         */
         commands.put("/load", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -196,8 +208,14 @@ public class CommandProccessor {
                     ExecuteCommand(line);
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
             public String toString() {
-                return "Loads a game from a previous save.\n\tUsing: /load <file-path>";
+                return "Description: Loads the game object's states from a previously saved state.\n" +
+                       "\tUsing: /load <path_to_saved_command_file>\n" +
+                       "\tNote: The specified path must point to a valid saved command file.";
             }
         });
         
@@ -887,6 +905,12 @@ public class CommandProccessor {
         });
 
 
+        /**
+         * Leírás: A játék állapotának mentése a paraméterként átadott helyre. Kétféle fájlt lehet vele elmenteni, egy “parancsfájlt” amit betöltve vissza lehet állítani a játék állapotát, és egy “log fájlt” ami pedig a program kimeneteit tartalmazza.
+         * Opciók:
+         * -log : Ha a parancsok kimeneteit szeretnénk menteni.
+         * -cmd : Ha a kiadott parancsokat szeretnénk menteni.
+        */
         commands.put("/save", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String savePath = args[0];
@@ -897,6 +921,7 @@ public class CommandProccessor {
                 System.out.println("Saving game to " + savePath);
                 System.out.println("Log file: " + logFile);
                 System.out.println("Command file: " + commandFile);
+
 
                 if (logFile) {
                     TestTools.writeLogToFile(savePath, controller);
@@ -913,9 +938,17 @@ public class CommandProccessor {
                     }
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Save command or log file to the given place. Requires a path to the file and an option -cmd or -log to save the command history or the log file.\n\tUsing: /save <path> -cmd";
+                return "Description: Saves the current state of the game objects  to the specified path. " +
+                       "Two types of files can be saved: a command file (to restore state) and a log file (program outputs).\n" +
+                       "\tUsing: /save <path_to_save>\n" +
+                       "\tOptions:\n" +
+                       "\t\t-log : Save the output log of commands.\n" +
+                       "\t\t-cmd : Save the issued commands.";
             }
         });
 
@@ -986,6 +1019,10 @@ public class CommandProccessor {
             }
         });
         
+
+        /**
+         * Leírás: Az idő előrehajtása. A paraméterként átadott számú körrel előrébb hajtja az időt.
+        */
         commands.put("/skip", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 int time = Integer.parseInt(args[0]);
@@ -995,9 +1032,12 @@ public class CommandProccessor {
                 }
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Skip time\n\tUsing: /skip <time>";
+                return "Description: Fast-forwards the game by the specified number of rounds.\n" +
+                       "\tUsing: /skip <number_of_rounds>";
             }
         });
         
