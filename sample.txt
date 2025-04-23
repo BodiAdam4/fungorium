@@ -1,4 +1,18 @@
 /create-tecton -i t1
 /create-tecton -i t2 -n t1
 /create-tecton -i t3 -n t2
-/create-mushroom t1 -i m1
+/create-mushroom t1 -i m1 -mid 1
+/setlevel-mushroom m1 2
+/throw-spore m1 t3
+/create-line -help
+/create-line t2 t3 -mid 1
+/create-line t1 t2 -mid 1
+/create-tecton -i t10 -n t2
+/create-tecton -i t11 -n t10
+/create-tecton -i t12 -n t10
+/create-tecton -i t13 -n t12;t11
+/create-line t2 t10
+/create-line t11 t10
+/create-line t12 t10
+/create-line t13 t12
+/create-line t13 t11

@@ -205,8 +205,7 @@ public class Insect {
     }
     
 
-    //TODO: Eddig ezeket destroy-nak hívtuk...
-    public void delete(){
+    public void destroy(){
         currentTecton.removeInsect(this);
         changeListener.insectChanged(ObjectChangeEvent.OBJECT_REMOVED, this);
     }

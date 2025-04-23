@@ -1170,6 +1170,18 @@ public class CommandProcessor {
             }
         });
         
+        commands.put("/checkcon", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                Line time = controller.getLineById(args[0]);
+
+                if (time.checkConnections(new ArrayList<Line>(), null)) {
+                    System.out.println("The line is connected to mushroom.");
+                } else {
+                    System.out.println("The line is not connected to mushroom.");
+                }
+            }
+        });
+        
 
         /**
          * Leírás: Játék indítása a megadott kezdeti paraméterekkel. alapértelmezetten, kapcsolók nélkül kiadta 
@@ -1224,6 +1236,17 @@ public class CommandProcessor {
                     TestTools.compare(filePath, filePath2);
                 }
             }
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
+            public String toString() {
+                return """
+                       Description: Compares the current state of the game with a previously saved state.
+                       \tUsing: /compare <file_path>
+                       \tOptions:
+                       \t\t-f <file_path>: If we want to compare two previously saved states instead of the current state.
+                       """;
+            }
         });
         
 
@@ -1247,7 +1270,7 @@ public class CommandProcessor {
 
                             insect.getTecton().getSporeContainer().addSpores(SporeContainer.generateSpores(3, mid));
                             insect.getTecton().addMushroom(mid);
-                            insect.delete();
+                            insect.destroy();
                             
                             return;
                         }

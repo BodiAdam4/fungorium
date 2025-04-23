@@ -35,7 +35,6 @@ public class Player {
     /* - Egyéb metódusok*/
 
     public int calculateScore() {
-        // TODO - implement Player.calculateScore
         return 0;
     }
 }
