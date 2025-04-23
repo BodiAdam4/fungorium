@@ -887,6 +887,12 @@ public class CommandProccessor {
         });
 
 
+        /**
+         * Leírás: A játék állapotának mentése a paraméterként átadott helyre. Kétféle fájlt lehet vele elmenteni, egy “parancsfájlt” amit betöltve vissza lehet állítani a játék állapotát, és egy “log fájlt” ami pedig a program kimeneteit tartalmazza.
+         * Opciók:
+         * -log : Ha a parancsok kimeneteit szeretnénk menteni.
+         * -cmd : Ha a kiadott parancsokat szeretnénk menteni.
+        */
         commands.put("/save", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String savePath = args[0];
@@ -897,6 +903,7 @@ public class CommandProccessor {
                 System.out.println("Saving game to " + savePath);
                 System.out.println("Log file: " + logFile);
                 System.out.println("Command file: " + commandFile);
+
 
                 if (logFile) {
                     TestTools.writeLogToFile(savePath, controller);
@@ -913,9 +920,17 @@ public class CommandProccessor {
                     }
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Save command or log file to the given place. Requires a path to the file and an option -cmd or -log to save the command history or the log file.\n\tUsing: /save <path> -cmd";
+                return "Description: Saves the current state of the game objects  to the specified path. " +
+                       "Two types of files can be saved: a command file (to restore state) and a log file (program outputs).\n" +
+                       "\tUsing: /save <path_to_save>\n" +
+                       "\tOptions:\n" +
+                       "\t\t-log : Save the output log of commands.\n" +
+                       "\t\t-cmd : Save the issued commands.";
             }
         });
 
@@ -986,6 +1001,10 @@ public class CommandProccessor {
             }
         });
         
+
+        /**
+         * Leírás: Az idő előrehajtása. A paraméterként átadott számú körrel előrébb hajtja az időt.
+        */
         commands.put("/skip", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 int time = Integer.parseInt(args[0]);
@@ -995,9 +1014,12 @@ public class CommandProccessor {
                 }
             }
 
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
             public String toString() {
-                return "Skip time\n\tUsing: /skip <time>";
+                return "Description: Fast-forwards the game by the specified number of rounds.\n" +
+                       "\tUsing: /skip <number_of_rounds>";
             }
         });
         
