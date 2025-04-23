@@ -1,4 +1,4 @@
-package Userinterface;
+package userinterface;
 
 public class RandTools {
     private static int fixRandom;

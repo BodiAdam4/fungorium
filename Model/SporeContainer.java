@@ -1,7 +1,8 @@
 package Model;
-import Userinterface.RandTools;
 import java.util.ArrayList;
 import java.util.List;
+
+import userinterface.RandTools;
 
 /**
  * A gombaspórák tárolására és kezelésére alkalmas osztály.
