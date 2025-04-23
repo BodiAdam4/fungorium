@@ -1,5 +1,7 @@
 package Model;
 
+import Listeners.ObjectChangeListener;
+
 /**
  * Egy rovart reprezentál különböző tulajdonságokkal, például sebesség,
  * spóraszám, valamint a vágás és mozgás képessége.
@@ -12,6 +14,8 @@ public class Insect {
     private boolean canCut; //Tud-e éppen vágni a rovar
     private boolean canMove; //Mozgásképes-e a rovar
     private Tecton currentTecton; // A tekton amin a rovar éppen van.
+
+    public ObjectChangeListener changeListener; //A rovarhoz tartozó eseménykezelők listája
 
     /**
      * Visszaadja, hogy hány spórát evett meg a rovar.
@@ -141,13 +145,6 @@ public class Insect {
         this.canMove = canMove;
         this.currentTecton = currentTecton;
     }
-    /**
-     * Másoló konstruktor
-     * @param anotherInsect A másolandó rovar
-     */
-    public Insect(Insect anotherInsect){
-        this(anotherInsect.insectId, anotherInsect.speed, anotherInsect.sporeCount, anotherInsect.canCut, anotherInsect.canMove, anotherInsect.currentTecton);
-    }
 
     /**
      * A rovart egy új helyre mozgatja.
@@ -198,16 +195,5 @@ public class Insect {
     public void resetEffect() {
         canMove = true;
         canCut = true;
-    }
-
-    /**
-     * Leklónoz egy rovart, a rovar összes tulajdonsága megegyezik az eredetiével, kivéve a sporeCountot.
-     * @param anotherInsect A klónozandó rovar
-     * @return A klónozott rovar.
-     */
-    public Insect duplicate(){
-        Insect clone = new Insect(this);
-        clone.setSporeCount(0);
-        return clone;
     }
 }

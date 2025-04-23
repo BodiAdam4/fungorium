@@ -15,7 +15,7 @@ public class TectonTime extends Tecton{
      */
     boolean addLine(Line line){
         connections.add(line);
-        //TODO:Időzítő hozzáadása
+        line.ttl = 3;
         return true;
     }
 }

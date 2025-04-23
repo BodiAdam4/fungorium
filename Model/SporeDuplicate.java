@@ -1,5 +1,7 @@
 package Model;
 
+import Listeners.ObjectChangeListener;
+
 public class SporeDuplicate extends Spore{
     /**
      * Konstruktor
@@ -7,11 +9,13 @@ public class SporeDuplicate extends Spore{
      * @param id A gombafaj azonosítója
      * @param value A spóra tápértéke
      */
-    public SporeDuplicate(int id, int value)
-    {
+    public SporeDuplicate(int id, int value) {
         super(id, value);
     }
     public void addEffect(Insect i) {
-        i.duplicate();
+        Insect insect = new Insect();
+        insect.setInsectId(i.getInsectId());
+        insect.setTecton(i.getTecton());
+        insect.changeListener.insectChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, insect);
     }
 }

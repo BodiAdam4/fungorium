@@ -188,6 +188,7 @@ public class Controller {
             System.out.println("Insect with this ID already exists.");
             return;
         }
+        insect.changeListener = objectChangeListener;
         allInsect.put(id, insect);
     }
 

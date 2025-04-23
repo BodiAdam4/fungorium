@@ -164,18 +164,12 @@ public class CommandProccessor {
         commands.put("/load", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String filePath = args[0];
-                try (
-                BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-                } catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+                List<String> lines = new ArrayList<>();
                 try {
                     BufferedReader reader = new BufferedReader(new FileReader(filePath));
                     String line;
                     while ((line = reader.readLine()) != null) {
-
-                        ExecuteCommand(line);
+                        lines.add(line);
                     }
                     reader.close();
                     
@@ -183,6 +177,10 @@ public class CommandProccessor {
                     // TODO: handle exception
                 }
 
+                for(String line : lines) {
+                    System.out.println(line);
+                    ExecuteCommand(line);
+                }
             }
             public String toString() {
                 return "Loads a game from a previous save.\n\tUsing: /load <file-path>";
@@ -701,6 +699,50 @@ public class CommandProccessor {
         });
 
         //TODO: Leírás
+        commands.put("/matrix-tecton", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                int rowCount = Integer.parseInt(args[0]);
+                int colCount = Integer.parseInt(args[1]);
+
+                boolean unbind = getOption(options, "-unbind", "false").equalsIgnoreCase("true");
+
+                Tecton[][] tectonMatrix = new Tecton[rowCount][colCount];
+                for (int i = 0; i < rowCount; i++) {
+                    for (int j = 0; j < colCount; j++) {
+                        String tectonId = "t" + i + "_" + j;
+                        Tecton tecton = new Tecton();
+                        tectonMatrix[i][j] = tecton;
+                        controller.addTecton(tectonId, tecton);
+                    }
+                }
+
+                for (int i = 0; i < rowCount && !unbind; i++) {
+                    for (int j = 0; j < colCount; j++) {
+                        if (i < rowCount - 1) {
+                            tectonMatrix[i][j].setNeighbors(tectonMatrix[i + 1][j]);
+                        }
+                        if (i > 0) {
+                            tectonMatrix[i][j].setNeighbors(tectonMatrix[i - 1][j]);
+                        }
+                        if (j < colCount - 1) {
+                            tectonMatrix[i][j].setNeighbors(tectonMatrix[i][j + 1]);
+                        }
+                        if (j > 0) {
+                            tectonMatrix[i][j].setNeighbors(tectonMatrix[i][j - 1]);
+                        }
+                    }
+                }
+
+                System.out.println("Tecton matrix created with " + rowCount + " rows and " + colCount + " columns.");
+            }
+
+            @Override
+            public String toString() {
+                return "Create a 2D matrix of tectons.\n\tUsing: /matrix-tecton <rowCount> <colCount>\n\tOptions: -unbind : Don't create neighbors between the tectons.";
+            }
+        });
+
+        //TODO: Leírás
         commands.put("/build-mushroom", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String tectonId = args[0];
@@ -829,6 +871,12 @@ public class CommandProccessor {
                 }
             }
         });
+
+
+        //TODO: /eat-insect implementálása
+        //TODO: rovar duplikálás
+        //TODO: checkConnections
+        //TODO: Player dolgok
     }
 
 
