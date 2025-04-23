@@ -109,16 +109,16 @@ public class CommandProccessor {
             }
         });
 
+        
          /**
-         * /list Kilistázza a játékban található összes objektumot
-         * Opciók: 
-         *-tecton : Ha csak a tektonokat szeretnénk kilistázni.
-         *-line : Ha csak a gombafonalakat szeretnénk kilistázni.
-         *-insect : Ha csak a rovarokat szeretnénk kilistázni.
-         *-mushroom : Ha csak a gombatesteket szeretnénk kilistázni.
-         *-s <tecton> : Ha egy adott tektonon lévő spórákat szeretnénk kilistázni, ehhez paraméterként át kell adni a tekton azonosítóját.
-
          * Leírás: Játék betöltése mentett állapotból. Paraméterként el kell adni a mentést tartalmazó parancsfájl elérési útját. Sorra végrehajtódnak az itt tárolt parancsok.
+         * Opciók: 
+         * -tecton : Ha csak a tektonokat szeretnénk kilistázni.
+         * -line : Ha csak a gombafonalakat szeretnénk kilistázni.
+         * -insect : Ha csak a rovarokat szeretnénk kilistázni.
+         * -mushroom : Ha csak a gombatesteket szeretnénk kilistázni.
+         * -s <tecton> : Ha egy adott tektonon lévő spórákat szeretnénk kilistázni, 
+         * ehhez paraméterként át kell adni a tekton azonosítóját.
         */
         commands.put("/list", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -134,7 +134,6 @@ public class CommandProccessor {
                         String tectonIds= controller.getTectonId(tecton);
                         System.out.println(TestTools.GetTectonStatus(controller, tectonIds));
                     }
-                    
                 } else if (line) {
                     for (Line linet : controller.getAllLine().values()) {
                         String lineIds= controller.getLineId(linet);
@@ -165,15 +164,28 @@ public class CommandProccessor {
                     System.out.println(TestTools.GetStatus(controller));
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
             public String toString() {
-                return "Lists all the object in the game.\n\tUsing: /list";
+                return "Description: Lists game objects.\n" +
+                       "\tUsing: /list [options]\n" +
+                       "\tOptions:\n" +
+                       "\t\t-tecton: Lists only tectons.\n" +
+                       "\t\t-line: Lists only fungal threads.\n" +
+                       "\t\t-insect: Lists only insects.\n" +
+                       "\t\t-mushroom: Lists only mushrooms.\n" +
+                       "\t\t-s <tecton>: Lists spores on the given tecton.";
             }
         });
 
 
         /**
          * /load <elérési út>
-         * Leírás: Játék betöltése mentett állapotból. Paraméterként el kell adni a mentést tartalmazó parancsfájl elérési útját. Sorra végrehajtódnak az itt tárolt parancsok.
+         * Leírás: Játék betöltése mentett állapotból. 
+         * Paraméterként el kell adni a mentést tartalmazó parancsfájl elérési útját. 
+         * Sorra végrehajtódnak az itt tárolt parancsok.
         */
         commands.put("/load", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
@@ -196,8 +208,14 @@ public class CommandProccessor {
                     ExecuteCommand(line);
                 }
             }
+
+
+            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            @Override
             public String toString() {
-                return "Loads a game from a previous save.\n\tUsing: /load <file-path>";
+                return "Description: Loads the game object's states from a previously saved state.\n" +
+                       "\tUsing: /load <path_to_saved_command_file>\n" +
+                       "\tNote: The specified path must point to a valid saved command file.";
             }
         });
         
