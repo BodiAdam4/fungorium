@@ -75,10 +75,33 @@ public class MushroomPicker extends Player {
         return false;
     }
 
-    //TODO: growBody
-    //public boolean growBody(Tecton tecton){
-      //  return true;
-    //}
+    /**
+     * Megpróbáljuk kinöveszteni a gombatestet a megadott tektonon.
+     *
+     * @param tecton a Tecton, ahol a gombatestet növeszteni szeretnénk
+     * @return igaz, ha a növesztés sikeres volt, különben hamis      
+     * */
+    public boolean growBody(Tecton tecton) {
+        
+        List<Line> connections = tecton.getConnections();
+
+        // Ellenőrizzük, hogy van-e a játékoshoz tartozó fonal a tektonon
+        for (Line line : connections) {
+            if (line.getId() == this.getPlayerId()) {
+                // Megpróbáljuk növeszteni a gombatestet
+                if (line.growMushroom(tecton)) {
+                    System.out.println("Sikeres gombatest-növesztés a " + tecton + " tektonon!");
+                    return true;
+                } else {
+                    System.out.println("Nem sikerült gombatestet növeszteni!");
+                    return false;
+                }
+            }
+        }
+        System.out.println("Nincs a játékoshoz tartozó gombafonal ezen a tektonon!");
+        return false;
+    }
+
     //TODO: throwSpore
     //TODO: eatInsect
 }
