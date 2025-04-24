@@ -49,9 +49,9 @@ public class InsectPicker extends Player {
      * Megpróbálja elvágni a megadott fonalat egy adott rovarral.
      * Csak akkor történik meg a vágás, ha a rovar a rovarászhoz tartozik.
      *
-     * @param toCut a {@link Line} Az elvágandó fonál
-     * @param insect a {@link Insect}, a rovar
-     * @return {@code true}, ha a vágás sikeres volt, különben {@code false}
+     * @param toCut Az elvágandó fonál
+     * @param insect A rovar
+     * @return igaz, ha a vágás sikeres volt, különben hamis
     */
     public boolean cutLine(Line toCut, Insect insect){
         if(getInsect().contains(insect)){
@@ -64,8 +64,8 @@ public class InsectPicker extends Player {
      * Egy rovar megpróbál megenni egy spórát.
      * Csak akkor hajtódik végre, ha az adott insect a rovarászhoz tartozik.
      *
-     * @param insect az {@link Insect}, amely megpróbál spórát enni
-     * @return {@code true}, ha sikerült egy spórát megenni, különben {@code false}
+     * @param insect az a rovar, amely megpróbál spórát enni
+     * @return igaz, ha sikerült egy spórát megenni, különben hamis
     */
     public boolean eatSpore(Insect insect){
         int spores = insect.getTecton().getSporeContainer().getSporeCount();
@@ -76,6 +76,12 @@ public class InsectPicker extends Player {
     }
     
      
+    /**
+     * Megpróbálja mozgatni a rovart egy másik Tectonra.
+     * @param to A cél Tecton
+     * @param insect A rovar, amelyet mozgatni szeretnénk
+     * @return igaz, ha a mozgás sikeres volt, különben hamis
+     */
     public boolean move(Tecton to, Insect insect){
         if(insect.getInsectId() == this.getPlayerId()){
             return insect.move(to);
@@ -83,8 +89,4 @@ public class InsectPicker extends Player {
         return false;
     }
 
-    //TODO: implement other methods
-    //TODO: move
-    //TODO: cutLine
-    //TODO: eatSpore
 }
