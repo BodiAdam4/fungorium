@@ -19,9 +19,6 @@ public class Controller {
     private PlayerHandler playerHandler;
     private boolean isGameRunning = false;
 
-    /* - Protected attribútumok*/
-    protected int actualPlayerIdx;
-
     private ObjectChangeListener objectChangeListener;
 
     /* - Publikus attribútumok*/

@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import model.Timer;
 
 public class PlayerHandler {
     /* - Privát attribútumok*/
@@ -40,21 +41,19 @@ public class PlayerHandler {
     }
 
 
-    //TODO: check the nextPlayer method
     /**
-     * NextPlayer():
      * Lépteti a soron következő játékosindexet és lekezeli az új körök kezdetét, amiről szól a Controller osztálynak is.
     */
-    /* 
     public void nextPlayer() {
-        controller.actualPlayerIdx = (controller.actualPlayerIdx + 1) % (mushroomPickers.size() + insectPickers.size());
-        if(controller.actualPlayerIdx < mushroomPickers.size()){
-            mushroomPickers.get(controller.actualPlayerIdx).startTurn();
-        } else {
-            insectPickers.get(controller.actualPlayerIdx - mushroomPickers.size()).startTurn();
+        actualPlayerIdx++;
+
+        if (actualPlayerIdx >= mushroomPickers.size() + insectPickers.size()) {
+            actualPlayerIdx = 0;
+            Timer.forwardTime();
         }
+
     }
-    */
+    
 
 
     /**
@@ -62,26 +61,36 @@ public class PlayerHandler {
      * @return
      */
     public boolean actualPlayerIsMushroomPicker() {
-        return controller.actualPlayerIdx < mushroomPickers.size();
+        return actualPlayerIdx < mushroomPickers.size();
     }
 
     public Player getActualPlayer() {
-        for (int i = 0; i<mushroomPickers.size(); i++) {
-            if (i == controller.actualPlayerIdx) {
-                return mushroomPickers.get(i);
-            }
+        if (actualPlayerIdx < mushroomPickers.size()){
+            return mushroomPickers.get(actualPlayerIdx);
         }
-        for (int i = 0; i<insectPickers.size(); i++) {
-            if (mushroomPickers.size()-i == controller.actualPlayerIdx) {
-                return insectPickers.get(i);
-            }
+        else {
+            return insectPickers.get(actualPlayerIdx - mushroomPickers.size());
         }
-
-        return null; // Ha nem található játékos, akkor null-t ad vissza
     }
 
     public String getWinner() {
-        return "[Ird at meg nem mukodik, ha nem nyer akkor 'No winner yet']";
+        MushroomPicker winnerMushroom = mushroomPickers.get(0);
+
+        for (MushroomPicker player : mushroomPickers) {
+            if (player.calculateScore() > winnerMushroom.calculateScore()) {
+                winnerMushroom = player;
+            }
+        }
+
+        InsectPicker winnerInsect = insectPickers.get(0);
+        for (InsectPicker player : insectPickers) {
+            if (player.calculateScore() > winnerInsect.calculateScore()) {
+                winnerInsect = player;
+            }
+        }
+
+        return "Winner mushroompicker: "+winnerMushroom.getDisplayName() + " with score: " + winnerMushroom.calculateScore() + "\n" +
+                "Winner insectpicker: "+winnerInsect.getDisplayName() + " with score: " + winnerInsect.calculateScore();
     }
 
     public List<Player> getAllPlayer() {

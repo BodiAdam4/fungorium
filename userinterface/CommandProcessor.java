@@ -1247,6 +1247,18 @@ public class CommandProcessor {
             }
         });
         
+        
+        commands.put("/next", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                controller.getPlayerHandler().nextPlayer();
+            }
+            
+            @Override
+            public String toString() {
+                return "Calls the next player. If all the players called, it forwards time and starts a new rount.";
+            }
+        });
+        
 
         /**
          * Leírás: Ha az insect “freezing” effekt hatása alatt áll, akkor a gombász a parancs kiadásával, 
