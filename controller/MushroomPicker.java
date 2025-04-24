@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import model.Insect;
 import model.Line;
 import model.Mushroom;
 import model.Tecton;
@@ -102,6 +103,31 @@ public class MushroomPicker extends Player {
         return false;
     }
 
-    //TODO: throwSpore
-    //TODO: eatInsect
+
+    /**
+     * Megpróbálunk elfogyasztani egy fagyasztott állapotban lévő rovart.
+     *
+     * @param insect az Insect, amelyet el szeretnénk fogyasztani
+     * @return igaz, ha a rovar sikeresen elfogyasztva, különben hamis
+     */
+    public boolean eatInsect(Insect insect) {
+        //Ellenőrizzük, hogy a rovar fagyasztott állapotban van-e
+        if (insect.getCanMove()) {
+            System.out.println("A rovar nem fagyasztott állapotban van!");
+            return false;
+        }
+
+        for (Line line : insect.getTecton().getConnections()) {
+            if (line.getId() == this.getPlayerId()) {
+                boolean success = line.eatInsect(insect);
+                if (line.eatInsect(insect)) {
+                    System.out.println("Rovar sikeresen elfogyasztva!");
+                    return true;
+                }
+            }
+        }
+
+        System.out.println("Nincs fonal amivel elfogyasztható a rovar!");
+        return false;
+    }
 }
