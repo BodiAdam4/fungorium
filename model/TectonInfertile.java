@@ -46,6 +46,8 @@ public class TectonInfertile extends Tecton{
     public void breakTecton(){
         List<Tecton> ng = getNeighbors();
         TectonInfertile t3 = new TectonInfertile();
+        t3.setNeighbors(this);
+        this.setNeighbors(t3);
         changeListener.tectonChanged(ObjectChangeEvent.OBJECT_ADDED, t3);
         for (Tecton t : ng) {
             t3.setNeighbors(t);

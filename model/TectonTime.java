@@ -33,6 +33,8 @@ public class TectonTime extends Tecton{
     public void breakTecton(){
         List<Tecton> ng = getNeighbors();
         TectonTime t3 = new TectonTime();
+        t3.setNeighbors(this);
+        this.setNeighbors(t3);
         changeListener.tectonChanged(ObjectChangeEvent.OBJECT_ADDED, t3);
         for (Tecton t : ng) {
             t3.setNeighbors(t);

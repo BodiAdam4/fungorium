@@ -96,7 +96,8 @@ public class Tecton {
     }
 
     public void setNeighbors(Tecton neighbor) {
-        neighbors.add(neighbor);
+        if(!neighbors.contains(neighbor))
+            neighbors.add(neighbor);
     }
 
 
@@ -171,7 +172,10 @@ public class Tecton {
     public void breakTecton(){
         List<Tecton> ng = getNeighbors();
         Tecton t3 = new Tecton();
+        t3.setNeighbors(this);
+        this.setNeighbors(t3);
         changeListener.tectonChanged(ObjectChangeEvent.OBJECT_ADDED, t3);
+
         for (Tecton t : ng) {
             t3.setNeighbors(t);
             t.setNeighbors(t3);
