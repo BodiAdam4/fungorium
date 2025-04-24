@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import model.Insect;
+import model.Line;
 
 public class InsectPicker extends Player {
     /* - Privát attribútumok*/
@@ -43,9 +44,13 @@ public class InsectPicker extends Player {
         return score;
     }
 
+    public boolean cutLine(Line toCut, Insect insect){
+        if(getInsect().contains(insect)){
+            return insect.cutLine(toCut);
+        }
+        return false;
+    }
 
-    //TODO: implement other methods
-    //TODO: move
-    //TODO: cutLine
-    //TODO: eatSpore
+    
+    
 }
