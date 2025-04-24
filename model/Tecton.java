@@ -176,6 +176,10 @@ public class Tecton {
             t3.setNeighbors(t);
             t.setNeighbors(t3);
         }
+        int size = connections.size();
+        for (int i = 0; i < size; i++) {
+            connections.get(0).Destroy();
+        }
     }
 
 
