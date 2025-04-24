@@ -1,4 +1,9 @@
 package model;
+
+import java.util.List;
+
+import listeners.ObjectChangeListener.ObjectChangeEvent;
+
 /**
  * A Tecton osztály leszármazottja, mely rendelkezik egy olyan különleges hatással, ami miatt csak a kapcsolódott gombafonalak egy idő után megszűnnek
  */
@@ -19,5 +24,23 @@ public class TectonTime extends Tecton{
         connections.add(line);
         line.ttl = 3;
         return true;
+    }
+
+    
+    /**
+     * A tekton két tektonra törése
+     */
+    public void breakTecton(){
+        List<Tecton> ng = getNeighbors();
+        TectonTime t3 = new TectonTime();
+        changeListener.tectonChanged(ObjectChangeEvent.OBJECT_ADDED, t3);
+        for (Tecton t : ng) {
+            t3.setNeighbors(t);
+            t.setNeighbors(t3);
+        }
+        int size = connections.size();
+        for (int i = 0; i < size; i++) {
+            connections.get(0).Destroy();
+        }
     }
 }

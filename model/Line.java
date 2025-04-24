@@ -153,6 +153,20 @@ public class Line
         return true;
     }
 
+    /**
+     * Megpróbálja megenni fonál a megadott rovart.
+     * @param insect
+     * @return igaz, ha a fonál megevett egy rovart, különben hamis
+     */
+    public boolean eatInsect(Insect insect) {
+            Spore[] newSpores = SporeContainer.generateSpores(3, this.mushroomId);
+            this.ends[0].getSporeContainer().addSpores(newSpores);
+            this.ends[0].addMushroom(this.mushroomId);
+            insect.destroy();
+            System.out.println("Rovar elfogyasztva és gombatest nőtt!");
+            return true;
+    }
+
 
     /**
      * Megsemmisíti a fonalat.

@@ -157,6 +157,7 @@ public class Insect {
      *
      * @param count az elfogyasztandó spórák száma
      */
+    //TODO: Nincs ellenőrzés, hogy a count nem nagyobb mint a spórák száma
     public void eatSpores(int count) {
         Spore[] selected = currentTecton.getSporeContainer().popSpores(count);
         for(int i = 0; i < count; i++){
