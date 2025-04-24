@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import model.Insect;
+import model.Tecton;
 
 public class InsectPicker extends Player {
     /* - Privát attribútumok*/
@@ -45,7 +46,13 @@ public class InsectPicker extends Player {
 
 
     //TODO: implement other methods
-    //TODO: move
+    
+    public boolean move(Tecton to, Insect insect){
+        if(insect.getInsectId() == this.getPlayerId()){
+            return insect.move(to);
+        }
+        return false;
+    }
     //TODO: cutLine
     //TODO: eatSpore
 }
