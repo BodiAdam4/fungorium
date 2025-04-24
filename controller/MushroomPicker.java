@@ -103,6 +103,29 @@ public class MushroomPicker extends Player {
         return false;
     }
 
+    /**
+     * A metódus lehetővé teszi a spóra dobását a paraméterként kapott tektonra.
+     * Ellenőrzi, hogy melyik gombatest képes gombaspórát dobni a tektonra, ha talál egy olyan gombatestet,
+     * mely képes spórát dobni a kiszemelt tektonra, akkor meghívja az adott gombatest throwSpores függvényét.
+     * @param Tectonto
+     * @return false, ha nem sikerült spórát dobni, true ha sikerült.
+     */
+    public boolean ThrowSpore(Tecton tectonTo){
+        for(Mushroom m : getMushrooms()){
+            for  (Tecton t : m.getMyTecton().getNeighbors()){
+                if (m.getLevel() >= 2 && t.getNeighbors().contains(tectonTo)){
+                    m.throwSpores(tectonTo);
+                    return true;
+                } 
+                
+                if (t == tectonTo){
+                    m.throwSpores(tectonTo);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     /**
      * Megpróbálunk elfogyasztani egy fagyasztott állapotban lévő rovart.
@@ -130,4 +153,6 @@ public class MushroomPicker extends Player {
         System.out.println("Nincs fonal amivel elfogyasztható a rovar!");
         return false;
     }
+
+    
 }
