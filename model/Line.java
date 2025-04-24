@@ -1,8 +1,10 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
-import java.util.List;
 
 /**
  * A Line osztály valósítja meg a gombafonalakat a játékban.
@@ -90,7 +92,6 @@ public class Line
                 }
             }
         }
-        
         return false;
     }
 
@@ -99,9 +100,29 @@ public class Line
      * Értesíti a fonalakat a gombatest hiányáról.
      * (Ez a függvény a vezérlővel lesz erősebb kapcsolatban)
      */
-    public void notifyNeighbors(boolean alive)
-    {
-        //TODO: implement this method
+    public void notifyNeighbors(boolean alive, List<Line> checkList, Tecton last) {
+
+        if (alive && ttl != -1) {
+            ttl = -1;
+        }
+        else if (!alive && ttl == -1) {
+            ttl = 3;
+        }
+
+        List<Line> connections = new ArrayList<>();
+
+        for (Tecton tecton : ends) {
+            if (tecton != last) {
+                connections.addAll(tecton.getConnections());
+            }
+        }
+
+        for (Line line : connections) {
+            if (!checkList.contains(line)) {
+                checkList.add(line);
+                line.notifyNeighbors(alive, checkList, ends[0]);
+            }
+        }
     }
 
 
@@ -140,5 +161,16 @@ public class Line
         ends[0].removeLine(this);
         ends[1].removeLine(this);
         changeListener.lineChanged(ObjectChangeEvent.OBJECT_REMOVED, this);
+
+        for (int i = 0; i<2; i++) {
+            Optional<Line> line1 = ends[i].getConnections().stream()
+            .filter(line -> line.mushroomId == mushroomId)
+            .findFirst();
+
+            if (line1.isPresent()) {
+                boolean connected = line1.get().checkConnections(new ArrayList<>(), null);
+                line1.get().notifyNeighbors(connected, new ArrayList<>(), null);
+            }
+        }
     }
 }
