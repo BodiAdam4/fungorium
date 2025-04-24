@@ -16,7 +16,7 @@ model.TectonTime: t3
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
-	neighbors: t1; t2; t3
+	neighbors: t2; t1
 	insects: NUll
 
 model.Mushroom: m0

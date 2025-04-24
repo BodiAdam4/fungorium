@@ -42,13 +42,13 @@ public class TectonOnlyLine extends Tecton{
     public void breakTecton(){
         List<Tecton> ng = getNeighbors();
         TectonOnlyLine t3 = new TectonOnlyLine();
-        t3.setNeighbors(this);
-        this.setNeighbors(t3);
         changeListener.tectonChanged(ObjectChangeEvent.OBJECT_ADDED, t3);
         for (Tecton t : ng) {
             t3.setNeighbors(t);
             t.setNeighbors(t3);
         }
+        t3.setNeighbors(this);
+        this.setNeighbors(t3);
         int size = connections.size();
         for (int i = 0; i < size; i++) {
             connections.get(0).Destroy();
