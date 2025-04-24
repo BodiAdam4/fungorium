@@ -51,6 +51,12 @@ public class InsectPicker extends Player {
         return false;
     }
 
-    
+    public boolean eatSpore(Insect insect){
+        int spores = insect.getTecton().getSporeContainer().getSporeCount();
+        if(getInsect().contains(insect)){
+            insect.eatSpores(1);
+        }
+        return spores - insect.getTecton().getSporeContainer().getSporeCount() == 1;
+    }
     
 }
