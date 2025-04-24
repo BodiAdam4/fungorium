@@ -49,6 +49,9 @@ public class Line
         ends = new Tecton[2];
         ends[0] = t1;
         ends[1] = t2;
+
+        boolean connected = checkConnections(new ArrayList<>(), null);
+        notifyNeighbors(connected, new ArrayList<>(), null);
     }
 
 
@@ -177,13 +180,13 @@ public class Line
         changeListener.lineChanged(ObjectChangeEvent.OBJECT_REMOVED, this);
 
         for (int i = 0; i<2; i++) {
-            Optional<Line> line1 = ends[i].getConnections().stream()
+            Optional<Line> found = ends[i].getConnections().stream()
             .filter(line -> line.mushroomId == mushroomId)
             .findFirst();
 
-            if (line1.isPresent()) {
-                boolean connected = line1.get().checkConnections(new ArrayList<>(), null);
-                line1.get().notifyNeighbors(connected, new ArrayList<>(), null);
+            if (found.isPresent()) {
+                boolean connected = found.get().checkConnections(new ArrayList<>(), null);
+                found.get().notifyNeighbors(connected, new ArrayList<>(), null);
             }
         }
     }

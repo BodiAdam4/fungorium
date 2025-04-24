@@ -16,3 +16,9 @@
 /create-line t12 t10
 /create-line t13 t12
 /create-line t13 t11
+/throw-spore m1 t3
+/throw-spore m1 t3
+/throw-spore m1 t3
+/throw-spore m1 t3
+/skip 2
+/create-mushroom t2 -mid 1

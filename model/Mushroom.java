@@ -3,7 +3,9 @@ import userinterface.RandTools;
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A Mushroom osztály valósítja meg a gombatesteket a játékban. 
@@ -44,6 +46,7 @@ public class Mushroom{
     public Mushroom(int id, Tecton myTecton){
         this.id = id;
         this.myTecton = myTecton;
+        NotifyLines(false);
     }
 
 
@@ -51,6 +54,28 @@ public class Mushroom{
     public Mushroom(Tecton myTecton){
         this.id = 1;
         this.myTecton = myTecton;
+        NotifyLines(false);
+    }
+
+    /**
+     * A gombatest tektonjához tartozó gombafonalak értesítése. Akkor adunk igaz paramétert neki, ha szükséges, hogy megnézzük
+     * a gombatestel való összeköttetést, ez akkor szükséges, ha a gombatest megsemmisül és meg kell nézni, hogy létezik-e még valahol gomba.
+     * Ha a gombatest létrehozásánál hívjuk, akkor tudjuk hogy van gombatestel összeköttetés mert az új gombatest az, és hamis paramétert adunk neki.
+     * @param check Ha igaz, akkor nem ellenőrzi, hogy van-e összeköttetés és automatikusan feltételezi, hogy van.
+     */
+    public void NotifyLines(boolean check) {
+        Optional<Line> found = myTecton.getConnections().stream()
+        .filter(line -> line.getId() == id)
+        .findFirst();
+
+        if (found.isPresent()) {
+            boolean connected = true;
+            if (check) {
+                connected = found.get().checkConnections(new ArrayList<>(), null);
+            }
+            System.out.println("Connected: " + connected);
+            found.get().notifyNeighbors(connected, new ArrayList<>(), null);
+        }
     }
 
 
@@ -182,6 +207,8 @@ public class Mushroom{
     public void destroy(){
         this.myTecton.setMyMushroom(null);      //A tektonon lévő gombatest nullázása
         changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_REMOVED, this); //A gombatest eltávolítása a tektonról
+
+        NotifyLines(true);
     }
     
 }

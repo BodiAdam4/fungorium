@@ -2,6 +2,13 @@ package userinterface;
 
 import controller.Controller;
 import controller.MushroomPicker;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import model.Insect;
 import model.Line;
 import model.Mushroom;
@@ -18,14 +25,6 @@ import model.TectonKeepAlive;
 import model.TectonOnlyLine;
 import model.TectonTime;
 import model.Timer;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public class CommandProcessor {
     /* - Privát attribútumok*/
@@ -268,7 +267,7 @@ public class CommandProcessor {
         commands.put("/create-insect", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 
-                String id = getOption(options, "-i", "t"+controller.getAllTecton().size());
+                String id = getOption(options, "-i", "i"+controller.getAllInsect().size());
                 int insectId = Integer.parseInt(getOption(options, "-iid", "1"));
                 String tectonId = args[0];
                 String effectType = getOption(options, "-e", "normal");
