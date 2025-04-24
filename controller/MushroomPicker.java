@@ -76,6 +76,9 @@ public class MushroomPicker extends Player {
     }
 
     //TODO: growBody
+    //public boolean growBody(Tecton tecton){
+      //  return true;
+    //}
     //TODO: throwSpore
     //TODO: eatInsect
 }
