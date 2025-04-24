@@ -44,6 +44,14 @@ public class InsectPicker extends Player {
         return score;
     }
 
+    /**
+     * Megpróbálja elvágni a megadott fonalat egy adott rovarral.
+     * Csak akkor történik meg a vágás, ha a rovar a rovarászhoz tartozik.
+     *
+     * @param toCut a {@link Line} Az elvágandó fonál
+     * @param insect a {@link Insect}, a rovar
+     * @return {@code true}, ha a vágás sikeres volt, különben {@code false}
+    */
     public boolean cutLine(Line toCut, Insect insect){
         if(getInsect().contains(insect)){
             return insect.cutLine(toCut);
@@ -51,6 +59,13 @@ public class InsectPicker extends Player {
         return false;
     }
 
+    /**
+     * Egy rovar megpróbál megenni egy spórát.
+     * Csak akkor hajtódik végre, ha az adott insect a rovarászhoz tartozik.
+     *
+     * @param insect az {@link Insect}, amely megpróbál spórát enni
+     * @return {@code true}, ha sikerült egy spórát megenni, különben {@code false}
+    */
     public boolean eatSpore(Insect insect){
         int spores = insect.getTecton().getSporeContainer().getSporeCount();
         if(getInsect().contains(insect)){
