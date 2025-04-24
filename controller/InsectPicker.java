@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import model.Insect;
 import model.Tecton;
+import model.Line;
 
 public class InsectPicker extends Player {
     /* - Privát attribútumok*/
