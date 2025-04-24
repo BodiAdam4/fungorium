@@ -1,4 +1,7 @@
 package controller;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import listeners.ObjectChangeListener;
 import model.Insect;
 import model.Line;
@@ -6,8 +9,6 @@ import model.Mushroom;
 import model.Schedule;
 import model.Tecton;
 import model.Timer;
-
-import java.util.HashMap;
 
 public class Controller {
     /* - Privát attribútumok*/
@@ -78,15 +79,21 @@ public class Controller {
         Timer.addRepeatSchedule(new Schedule() {
             @Override
             public void onTime() {
+                List<Line> deadLines = new ArrayList<>();
+                
                 for (String id : allLine.keySet()) {
                     Line line = allLine.get(id);
                     if (line.ttl != -1) {
                         line.ttl--;
                         if (line.ttl == 0) {
-                            line.Destroy();
+                            deadLines.add(line);
                             System.out.println("Line destroyed: " + id);
                         }
                     }
+                }
+
+                for (Line line : deadLines) {
+                    line.Destroy();
                 }
             }
         }, 1);
