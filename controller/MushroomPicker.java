@@ -91,7 +91,7 @@ public class MushroomPicker extends Player {
             if (line.getId() == this.getPlayerId()) {
                 // Megpróbáljuk növeszteni a gombatestet
                 if (line.growMushroom(tecton)) {
-                    System.out.println("Sikeres gombatest-növesztés a " + tecton + " tektonon!");
+                    System.out.println("Sikeres gombatest-növesztés a tektonon!");
                     return true;
                 } else {
                     System.out.println("Nem sikerült gombatestet növeszteni!");
