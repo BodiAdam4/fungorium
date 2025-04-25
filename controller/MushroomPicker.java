@@ -2,7 +2,6 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import model.Insect;
 import model.Line;
 import model.Mushroom;
@@ -10,7 +9,7 @@ import model.Tecton;
 
 public class MushroomPicker extends Player {
     /* - Privát attribútumok*/
-
+    private int score = 0;
     /* - Publikus attribútumok*/
     /* - Konstruktorok*/
 
@@ -51,11 +50,13 @@ public class MushroomPicker extends Player {
 
     @Override
     public int calculateScore() {
-        return getMushrooms().size();
-        //TODO: implement this method
+        return score;
     }
 
-    
+    public void increaseScore() {
+        this.score++;
+    }
+
     //GrowLine metódus a gombafonal növesztésére
     public boolean growLine(Tecton from, Tecton to){
 
