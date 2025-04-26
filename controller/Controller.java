@@ -286,5 +286,13 @@ public class Controller {
         return playerHandler;
     }
 
-
+    public void HardReset() {
+        allMushroom.clear();
+        allLine.clear();
+        allInsect.clear();
+        allTecton.clear();
+        playerHandler = null;
+        isGameRunning = false;
+        round = 0;
+    }
 }

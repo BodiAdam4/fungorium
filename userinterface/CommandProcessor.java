@@ -1339,6 +1339,18 @@ public class CommandProcessor {
             }
         });
         
+        commands.put("/reset", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                controller.HardReset();
+                System.out.println("Game session has been reset.");
+            }
+            
+            @Override
+            public String toString() {
+                return "Resets the game session to its initial state.";
+            }
+        });
+        
 
         /**
          * Leírás: Ha az insect “freezing” effekt hatása alatt áll, akkor a gombász a parancs kiadásával, 
