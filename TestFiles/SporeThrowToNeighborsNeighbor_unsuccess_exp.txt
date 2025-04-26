@@ -1,25 +1,25 @@
-Model.Tecton: t1
+model.Tecton: t1
 	myMushroom: m1
 	connections: NULL
 	sporeContainer: 0
 	neighbors: t2
 	insects: NUll
 
-Model.Tecton: t2
+model.Tecton: t2
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
 	neighbors: t1; t3
 	insects: NUll
 
-Model.Tecton: t3
+model.Tecton: t3
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
 	neighbors: t2
 	insects: NUll
 
-Model.Mushroom: m1
+model.Mushroom: m1
 	sporeCount: 5
 	mushroomId: 1
 	level: 1
