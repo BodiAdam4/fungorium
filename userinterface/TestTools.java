@@ -319,8 +319,14 @@ public class TestTools {
             System.out.println("-------------------------");
         }
 
-        System.out.println("Success rate: "+pairs.size()+"/"+success.size());
+        System.out.println("\n\nChecked test:\n");
+        for (String name : pairs.keySet()) {
+            System.out.println(name+"->"+(failed.contains(name) ? "failed":"passed"));
+        }
+        
+        System.out.println("\n\n\n");
 
+        System.out.println("Success rate: "+pairs.size()+"/"+success.size());
         for(String fail : failed) {
             System.out.println("Failed test: " + fail);
         }

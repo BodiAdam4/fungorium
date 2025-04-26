@@ -9,6 +9,7 @@ import model.Mushroom;
 import model.Schedule;
 import model.Tecton;
 import model.Timer;
+import userinterface.RandTools;
 
 public class Controller {
     /* - Privát attribútumok*/
@@ -332,5 +333,7 @@ public class Controller {
                 }
             }
         }, 2);
+
+        RandTools.resetFix();
     }
 }
