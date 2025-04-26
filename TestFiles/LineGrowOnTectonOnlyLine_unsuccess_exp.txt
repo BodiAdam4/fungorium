@@ -13,7 +13,7 @@ model.TectonOnlyLine: t2
 	insects: NUll
 
 model.Tecton: t3
-	myMushroom: Null
+	myMushroom: m2
 	connections: NULL
 	sporeContainer: 0
 	neighbors: t2
