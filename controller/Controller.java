@@ -190,10 +190,13 @@ public class Controller {
         Timer.forwardTime();
         System.out.println("Round " + (round+1) + " started.");
         if (round == maxRound) {
-            System.out.println("Game over!");
-            System.out.println(playerHandler.getWinner());
-            return;
+            endGame();
         }
+    }
+
+    public void endGame() {
+        System.out.println("Game ended!");
+        System.out.println(playerHandler.getWinner());
     }
 
     public String getLineId(Line line) {

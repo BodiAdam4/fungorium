@@ -1304,6 +1304,21 @@ public class CommandProcessor {
             }
         });
         
+        commands.put("/end", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                if (controller.isGameRunning()) {
+                    controller.endGame();
+                } else {
+                    System.out.println("Game is not running.");
+                }
+            }
+            
+            @Override
+            public String toString() {
+                return "Immediately ends the game session.";
+            }
+        });
+        
 
         /**
          * Leírás: Ha az insect “freezing” effekt hatása alatt áll, akkor a gombász a parancs kiadásával, 

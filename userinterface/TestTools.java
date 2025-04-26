@@ -3,11 +3,6 @@ package userinterface;
 import controller.Controller;
 import controller.Player;
 import controller.PlayerHandler;
-import model.Insect;
-import model.Line;
-import model.Mushroom;
-import model.Tecton;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -15,6 +10,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import model.Insect;
+import model.Line;
+import model.Mushroom;
+import model.Tecton;
 
 public class TestTools {
     
@@ -71,8 +70,7 @@ public class TestTools {
             }
 
             sb.append("\n");
-            sb.append("Winner mushroom picker: "+pHandler.getWinner()+"\n");
-            sb.append("Winner insect picker: "+pHandler.getWinner()+"\n");
+            sb.append(pHandler.getWinner()+"\n");
             
             sb.append("==========================\n");
 
