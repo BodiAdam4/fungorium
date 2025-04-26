@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
@@ -24,6 +23,12 @@ public class TectonKeepAlive extends Tecton {
     @Override
     public boolean addLine(Line line) {
         connections.add(line);
+        return true;
+    }
+
+
+    @Override
+    public boolean hasBody(int mushroomId){
         return true;
     }
 
