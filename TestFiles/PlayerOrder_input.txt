@@ -1,2 +1,2 @@
-/start -m 2 -i 2 -noname
+/start -m 2 -i 2 -nomap -noname
 /next

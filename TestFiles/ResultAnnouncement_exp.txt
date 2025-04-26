@@ -102,5 +102,5 @@ Players in order:
 	InsectPicker #1 (score: 0)
 	InsectPicker #2 (score: 3)
 Winner mushroompicker: MushroomPicker #1 with score: 1
-Winner insectpicker: InsectPicker #2 with score: 3
+Winner insectpicker: InsectPicker #2 with score: 1
 ==========================
