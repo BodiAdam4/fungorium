@@ -18,6 +18,11 @@ public class Timer {
 
     /* - Egyéb metódusok*/
 
+    public static void ResetTimer() {
+        oneTimeSchedules.clear();
+        repeatSchedules.clear();
+    }
+
     /**
      * Adder függvény, mely felvesz egy időzítést az "egyszer használatos" időzítések közé.
     */

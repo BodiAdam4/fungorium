@@ -22,6 +22,12 @@ public class TectonTime extends Tecton{
     public boolean addLine(Line line){
         connections.add(line);
         line.ttl = 3;
+        Timer.addOneTimeSchedule(new Schedule() {
+            @Override
+            public void onTime() {
+                line.Destroy();
+            }
+        }, 3);
         return true;
     }
 

@@ -295,5 +295,6 @@ public class Controller {
         playerHandler = null;
         isGameRunning = false;
         round = 0;
+        Timer.ResetTimer();
     }
 }
