@@ -313,7 +313,7 @@ public class TestTools {
             if (compare("TestFiles/"+pairs.get(name), control)) {
                 success.add(name);
             }
-            else {
+            else if (!failed.contains(name)){
                 failed.add(name);
             }
             System.out.println("-------------------------");
