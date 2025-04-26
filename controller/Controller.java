@@ -18,6 +18,7 @@ public class Controller {
     private HashMap<String, Tecton> allTecton;
     private PlayerHandler playerHandler;
     private boolean isGameRunning = false;
+    private int round = 0;
 
     private ObjectChangeListener objectChangeListener;
 
@@ -170,6 +171,10 @@ public class Controller {
         return allLine.get(id);
     }
 
+    public void nextRound() {
+        round++;
+        //TODO: endgame logika
+    }
 
     public String getLineId(Line line) {
         for (String id : allLine.keySet()) {

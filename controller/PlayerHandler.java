@@ -50,6 +50,7 @@ public class PlayerHandler {
         if (actualPlayerIdx >= mushroomPickers.size() + insectPickers.size()) {
             actualPlayerIdx = 0;
             Timer.forwardTime();
+            controller.nextRound();
         }
 
     }
