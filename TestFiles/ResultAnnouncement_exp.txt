@@ -1,13 +1,13 @@
 model.Tecton: t0_0
 	myMushroom: m1
-	connections: l1
+	connections: NULL
 	sporeContainer: 0
 	neighbors: t1_0; t0_1
 	insects: NUll
 
 model.Tecton: t0_1
 	myMushroom: Null
-	connections: l1
+	connections: NULL
 	sporeContainer: 0
 	neighbors: t1_1; t0_2; t0_0
 	insects: i1
@@ -61,11 +61,6 @@ model.Tecton: t2_2
 	neighbors: t1_2; t2_1
 	insects: NUll
 
-model.Line: l1
-	ttl: -1
-	mushroomId: 0
-	ends: t0_0;t0_1
-
 model.Insect: i1
 	insectId: 0
 	speed: 2
@@ -77,19 +72,19 @@ model.Insect: i1
 model.Insect: i2
 	insectId: 1
 	speed: 2
-	sporeCount: 3
+	sporeCount: 0
 	canCut: true
 	canMove: true
 	actualTecton: t2_1
 
 model.Mushroom: m1
-	sporeCount: 2
+	sporeCount: 5
 	mushroomId: 0
-	level: 2
+	level: 1
 	myTecton: t0_0
 
 model.Mushroom: m2
-	sporeCount: 4
+	sporeCount: 5
 	mushroomId: 1
 	level: 1
 	myTecton: t2_2
@@ -97,10 +92,10 @@ model.Mushroom: m2
 ======= Game Status ======
 Actual player: MushroomPicker #1
 Players in order: 
-	MushroomPicker #1 (score: 1)
+	MushroomPicker #1 (score: 0)
 	MushroomPicker #2 (score: 0)
 	InsectPicker #1 (score: 0)
-	InsectPicker #2 (score: 3)
-Winner mushroompicker: MushroomPicker #1 with score: 1
-Winner insectpicker: InsectPicker #2 with score: 1
+	InsectPicker #2 (score: 0)
+Winner mushroompicker: MushroomPicker #1 with score: 0
+Winner insectpicker: InsectPicker #1 with score: 0
 ==========================
