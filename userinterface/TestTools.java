@@ -313,6 +313,9 @@ public class TestTools {
             if (compare("TestFiles/"+pairs.get(name), control)) {
                 success.add(name);
             }
+            else {
+                failed.add(name);
+            }
             System.out.println("-------------------------");
         }
 
