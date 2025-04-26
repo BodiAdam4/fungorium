@@ -157,15 +157,19 @@ public class Insect {
      *
      * @param count az elfogyasztandó spórák száma
      */
-    public void eatSpores(int count) {
+    //TODO: Nincs ellenőrzés, hogy a count nem nagyobb mint a spórák száma
+    public int eatSpores(int count) {
         if(count > currentTecton.getSporeContainer().getSporeCount()){
-            return;
+            return 0;
         }
         Spore[] selected = currentTecton.getSporeContainer().popSpores(count);
+        int nutrientCount = 0;
         for(int i = 0; i < count; i++){
             selected[i].addEffect(this);
             sporeCount += selected[i].getValue();
+            nutrientCount += selected[i].getValue();
         }
+        return nutrientCount;
     }
 
 
@@ -176,11 +180,8 @@ public class Insect {
      * @return igaz, ha a fonalat sikeresen elvágta, egyébként hamis
      */
     public boolean cutLine(Line line) {
-        if(canCut && currentTecton.getConnections().contains(line)){
-            line.Destroy();
-            return true;
-        }
-        return false;
+        line.Destroy();
+        return true;
     }
 
 
