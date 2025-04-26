@@ -20,12 +20,12 @@ model.Tecton: t3
 	insects: NUll
 
 model.Line: l1
-	ttl: -1
+	ttl: 1
 	mushroomId: 1
 	ends: t1;t2
 
 model.Line: l2
-	ttl: -1
+	ttl: 1
 	mushroomId: 1
 	ends: t2;t3
 
