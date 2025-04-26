@@ -1,11 +1,11 @@
-Model.Tecton: t1
+model.Tecton: t1
 	myMushroom: Null
 	connections: l0
 	sporeContainer: 0
 	neighbors: t2
 	insects: i1
 
-Model.Tecton: t2
+model.Tecton: t2
 	myMushroom: Null
 	connections: l0
 	sporeContainer: 0
@@ -17,7 +17,7 @@ model.Line: l0
         mushroomId: 1
         ends: t1;t2
 
-Model.Insect: i1
+model.Insect: i1
 	insectId: 1
 	speed: 2
 	sporeCount: 2
