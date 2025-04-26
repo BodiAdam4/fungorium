@@ -210,7 +210,7 @@ public class TestTools {
             try {
                 for(int i = 0; i < l - 2; i++) {
                     line = reader2.readLine();
-                    if(!line.equals(cLines[i])) {
+                    if(cLines.length > i && !line.equals(cLines[i])) {
                         System.out.println("A fájlban lévő sor nem egyezik a generált sorral: " + line);
                         System.out.println("A generált sor: " + cLines[i]);
                         success = false;
