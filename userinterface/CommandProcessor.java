@@ -1015,6 +1015,7 @@ public class CommandProcessor {
                        "\tUsage: /matrix-tecton <rows> <columns>\n" +
                        "\tOptions:\n" +
                        "\t\t-unbind: If specified, the tectons will not be bound to each other.\n" +
+                       "\t\t-random: The tectons generated with random types.\n" +
                        "\tNote: The tectons are created in a 'grid', and the neighbors are set automatically unless -unbind is used.";
             }
         });

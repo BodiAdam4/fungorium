@@ -15,8 +15,11 @@ public class Insect {
     private boolean canCut;         //Tud-e éppen vágni a rovar
     private boolean canMove;        //Mozgásképes-e a rovar
     private Tecton currentTecton;   //A tekton amin a rovar éppen van.
+    private boolean unusable = false;
 
     public ObjectChangeListener changeListener; //A rovarhoz tartozó eseménykezelők listája
+
+
 
     /**
      * Visszaadja, hogy hány spórát evett meg a rovar.
@@ -138,12 +141,36 @@ public class Insect {
      * @return igaz, ha a mozgás sikeres volt, egyébként hamis
      */
     public boolean move(Tecton to) {
-        if(to.getConnections().stream().anyMatch(line -> line.getEnds()[0] == currentTecton || line.getEnds()[1] == currentTecton)){
-            to.addInsect(this);
-            currentTecton.removeInsect(this);
-            currentTecton = to;
-            System.out.println("Insect moved to tecton");
+        if (unusable) {
+            System.out.println("Insect is currently moving");
+            return false;
+        }
 
+        if(to.getConnections().stream().anyMatch(line -> line.getEnds()[0] == currentTecton || line.getEnds()[1] == currentTecton)){
+            if(!canMove){
+                System.out.println("Insect cannot move");
+                return false;
+            }
+
+            if (speed == 1) {
+                unusable = true;
+                Timer.addOneTimeSchedule(new Schedule() {
+                    @Override
+                    public void onTime() {
+                        to.addInsect(Insect.this);
+                        currentTecton.removeInsect(Insect.this);
+                        currentTecton = to;
+                        System.out.println("Insect moved to tecton");
+                        unusable = false;
+                    }
+                }, 1);
+            }
+            else {
+                to.addInsect(this);
+                currentTecton.removeInsect(this);
+                currentTecton = to;
+                System.out.println("Insect moved to tecton");
+            }
         }
         else{
             System.out.println("No line between the tectons");
@@ -159,6 +186,11 @@ public class Insect {
      */
     //TODO: Nincs ellenőrzés, hogy a count nem nagyobb mint a spórák száma
     public int eatSpores(int count) {
+        if (unusable) {
+            System.out.println("Insect is currently moving");
+            return 0;
+        }
+
         if(count > currentTecton.getSporeContainer().getSporeCount()){
             return 0;
         }
@@ -180,6 +212,11 @@ public class Insect {
      * @return igaz, ha a fonalat sikeresen elvágta, egyébként hamis
      */
     public boolean cutLine(Line line) {
+        if (unusable) {
+            System.out.println("Insect is currently moving");
+            return false;
+        }
+
         if (!canCut) {
             System.out.println("Insect cannot cut line");
             return false;

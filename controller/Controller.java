@@ -19,6 +19,7 @@ public class Controller {
     private PlayerHandler playerHandler;
     private boolean isGameRunning = false;
     private int round = 0;
+    private int maxRound = 5;
 
     private ObjectChangeListener objectChangeListener;
 
@@ -186,7 +187,13 @@ public class Controller {
 
     public void nextRound() {
         round++;
-        //TODO: endgame logika
+        Timer.forwardTime();
+        System.out.println("Round " + (round+1) + " started.");
+        if (round == maxRound) {
+            System.out.println("Game over!");
+            System.out.println(playerHandler.getWinner());
+            return;
+        }
     }
 
     public String getLineId(Line line) {
