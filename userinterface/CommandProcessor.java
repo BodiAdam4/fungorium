@@ -1351,6 +1351,17 @@ public class CommandProcessor {
                 return "Resets the game session to its initial state.";
             }
         });
+        CommandProcessor cp = this;
+        commands.put("/test", new Command() {
+            public void execute(String[] args, HashMap<String, String> options) {
+                TestTools.RunAllTests(cp, controller);
+            }
+            
+            @Override
+            public String toString() {
+                return "Resets the game session to its initial state.";
+            }
+        });
         
 
         /**
