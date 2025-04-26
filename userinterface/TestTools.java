@@ -319,7 +319,7 @@ public class TestTools {
             System.out.println("-------------------------");
         }
 
-        System.out.println("Success rate: "+(failed.size()+success.size())+"/"+success.size());
+        System.out.println("Success rate: "+pairs.size()+"/"+success.size());
 
         for(String fail : failed) {
             System.out.println("Failed test: " + fail);
