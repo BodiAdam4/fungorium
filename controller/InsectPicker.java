@@ -38,10 +38,6 @@ public class InsectPicker extends Player {
 
     @Override
     public int calculateScore() {
-        int score = 0;
-        for (Insect insect : getInsect()) {
-            score += insect.getSporeCount();
-        }
         return score;
     }
 
