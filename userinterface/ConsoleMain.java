@@ -30,7 +30,7 @@ public class ConsoleMain {
             } catch (Exception e) {
                 System.out.println("Something went wrong :(\nInvalid command or invalid parameters.\n" +
                         "Please check the command and try again.\n" +
-                        "Type /help to see the game commands.");
+                        "Type /help to see the game commands."+e.getMessage());
             }
         }
         scanner.close();

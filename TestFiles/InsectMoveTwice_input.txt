@@ -1,0 +1,7 @@
+/start -noname
+/create-line t0_1 t1_1
+/next
+/next
+/next
+/move i1 t0_1
+/move i1 t1_1

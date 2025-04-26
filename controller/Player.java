@@ -38,4 +38,11 @@ public class Player {
     public int calculateScore() {
         return 0;
     }
+
+    /**
+     * A játékos által végrahajtott akciók megtörténését figyelő metódust nullázó függvény.
+     */
+    public void ResetInsectActions() {
+        return;
+    }
 }
