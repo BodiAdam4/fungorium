@@ -3,7 +3,7 @@ package controller;
 public class Player {
     /* - Privát attribútumok*/
     private int playerId;
-    private static int playerIdCounter = 0;
+    public static int playerIdCounter = 0;
     private String displayName;
 
 

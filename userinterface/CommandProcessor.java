@@ -236,7 +236,7 @@ public class CommandProcessor {
                 } catch (Exception e) {
 
                 }
-
+                controller.HardReset();
                 for(String line : lines) {
                     System.out.println(line);
                     ExecuteCommand(line);
@@ -1247,6 +1247,7 @@ public class CommandProcessor {
                 boolean noName = getOption(options, "-noname", "false").equalsIgnoreCase("true");
 
                 if (!noMap) {
+                    controller.HardReset();
                     int mSize = mCount > 5 ? mCount : 5;
                     ExecuteCommand("/matrix-tecton "+mSize+" "+mSize+" -random");
 

@@ -146,7 +146,24 @@ public class Insect {
             return false;
         }
 
-        if(to.getConnections().stream().anyMatch(line -> line.getEnds()[0] == currentTecton || line.getEnds()[1] == currentTecton)){
+        boolean inRange = false;
+        for (Line line : currentTecton.getConnections()){
+            if (line.getEnds()[0] == to || line.getEnds()[1] == to){
+                inRange = true;
+                break;
+            }
+            else if (speed == 3){
+                Tecton toSearch = line.getEnds()[0] == currentTecton ? line.getEnds()[1] : line.getEnds()[0];
+                for (Line next : toSearch.getConnections()){
+                    if (next.getEnds()[0] == to || next.getEnds()[1] == to){
+                        inRange = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if(inRange){
             if(!canMove){
                 System.out.println("Insect cannot move");
                 return false;
@@ -173,7 +190,8 @@ public class Insect {
             }
         }
         else{
-            System.out.println("No line between the tectons");
+            System.out.println("No line between the tectons or not in range");
+            return false;
         }
         return true;
     }
@@ -232,6 +250,7 @@ public class Insect {
     public void resetEffect() {
         canMove = true;
         canCut = true;
+        speed = 2;
     }
     
 
