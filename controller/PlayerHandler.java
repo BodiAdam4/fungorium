@@ -4,7 +4,6 @@ import java.io.BufferedInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import model.Timer;
 
 public class PlayerHandler {
     /* - Privát attribútumok*/
@@ -49,7 +48,6 @@ public class PlayerHandler {
 
         if (actualPlayerIdx >= mushroomPickers.size() + insectPickers.size()) {
             actualPlayerIdx = 0;
-            Timer.forwardTime();
             controller.nextRound();
         }
 
