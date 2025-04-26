@@ -4,13 +4,11 @@ import controller.Controller;
 import controller.Player;
 import controller.PlayerHandler;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import model.Insect;
 import model.Line;
@@ -253,82 +251,5 @@ public class TestTools {
         }
 
         return success;
-    }
-
-    public static HashMap<String, String> findInputExpPairs(String directoryPath) {
-        HashMap<String, String> pairs = new HashMap<>();
-        File directory = new File(directoryPath);
-
-        if (!directory.isDirectory()) {
-            System.out.println("A megadott útvonal nem mappa.");
-            return pairs;
-        }
-
-        File[] files = directory.listFiles();
-        if (files == null) {
-            System.out.println("Nem sikerült kilistázni a fájlokat.");
-            return pairs;
-        }
-
-        HashMap<String, String> inputs = new HashMap<>();
-        HashMap<String, String> exps = new HashMap<>();
-
-        // Fájlok szétválogatása
-        for (File file : files) {
-            String name = file.getName();
-            if (name.endsWith("_input.txt")) {
-                String baseName = name.substring(0, name.length() - "_input.txt".length());
-                inputs.put(baseName, name);
-            } else if (name.endsWith("_exp.txt")) {
-                String baseName = name.substring(0, name.length() - "_exp.txt".length());
-                exps.put(baseName, name);
-            }
-        }
-
-        // Párosítás
-        for (String baseName : inputs.keySet()) {
-            if (exps.containsKey(baseName)) {
-                pairs.put(inputs.get(baseName), exps.get(baseName));
-            }
-        }
-
-        return pairs;
-    }
-
-    public static void RunAllTests(CommandProcessor cp, Controller control) {
-        HashMap<String, String> pairs = findInputExpPairs("TestFiles/");
-        List<String> failed = new ArrayList<>();
-        List<String> success = new ArrayList<>();
-
-        for (String name : pairs.keySet()) {
-            System.out.println("-------------------------");
-            System.out.println("Running test for: " + name+"\nExpected: " + pairs.get(name));
-            try {
-                cp.ExecuteCommand("/load TestFiles/"+name);
-            } catch (Exception e) {
-                System.out.println("Error : " + name + "\n" + e.getMessage());
-                failed.add(name);
-            }
-            
-            if (compare("TestFiles/"+pairs.get(name), control)) {
-                success.add(name);
-            }
-            else if (!failed.contains(name)){
-                failed.add(name);
-            }
-            System.out.println("-------------------------");
-        }
-
-        System.out.println("\n\nChecked test:\n");
-        for (String name : pairs.keySet()) {
-            System.out.println(name+" -> "+(failed.contains(name) ? "failed":"passed"));
-        }
-        
-        System.out.println("\n\n\n");
-
-        System.out.println("Success rate: "+pairs.size()+"/"+success.size());
-        for(String fail : failed) {
-            System.out.println("Failed test: " + fail);
-        }
     }
 }
