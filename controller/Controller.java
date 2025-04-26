@@ -99,6 +99,15 @@ public class Controller {
                 }
             }
         }, 1);
+
+        Timer.addRepeatSchedule(new Schedule() {
+            @Override
+            public void onTime() {
+                for (String id : allInsect.keySet()) {
+                    allInsect.get(id).resetEffect();
+                }
+            }
+        }, 2);
     }
 
     public void StartGame(int mushroomPickerCount, int insectPickerCount) {
