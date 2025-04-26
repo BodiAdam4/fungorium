@@ -1,6 +1,7 @@
 package userinterface;
 
 import controller.Controller;
+import controller.InsectPicker;
 import controller.MushroomPicker;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -344,7 +345,13 @@ public class CommandProcessor {
                     System.out.println("Tecton with ID " + tectonId + " found.");
                 }
 
-                insect.move(tecton);
+                if(controller.isGameRunning()){
+                    InsectPicker ipicker = (InsectPicker)(controller.getPlayerHandler().getActualPlayer());
+                    ipicker.move(tecton, insect);
+                }else{
+                    insect.move(tecton);
+                }
+
             }
 
 
@@ -436,12 +443,16 @@ public class CommandProcessor {
                     System.out.println("Line with ID " + lineId + " found.");
                 }
 
-
-                if (insect.getCanCut()) {
-                    line.Destroy();
-                    System.out.println("Line cut successfully.");
-                } else {
-                    System.out.println("Insect cannot cut the line due to exhausting effect.");
+                if(controller.isGameRunning()){
+                    InsectPicker ipicker = (InsectPicker)(controller.getPlayerHandler().getActualPlayer());
+                    ipicker.cutLine(line, insect);
+                }else{
+                    if (insect.getCanCut()) {
+                        line.Destroy();
+                        System.out.println("Line cut successfully.");
+                    } else {
+                        System.out.println("Insect cannot cut the line due to exhausting effect.");
+                    }
                 }
             }
 
@@ -848,10 +859,13 @@ public class CommandProcessor {
             public void execute(String[] args, HashMap<String, String> options) {
                 String insectId = args[0];
                 Insect insect = controller.getInsectById(insectId);
-
-                insect.eatSpores(1);
+                if(controller.isGameRunning()){
+                    InsectPicker ipicker = (InsectPicker)(controller.getPlayerHandler().getActualPlayer());
+                    ipicker.eatSpore(insect);
+                }else{
+                    insect.eatSpores(1);
+                }
             }
-
 
             //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
             @Override
@@ -876,7 +890,12 @@ public class CommandProcessor {
                 Mushroom mushroom = controller.getMushroomById(mushroomId);
                 Tecton tecton = controller.getTectonById(tectonId);
 
-                mushroom.throwSpores(tecton);
+                if(controller.isGameRunning()){
+                    MushroomPicker mpicker = (MushroomPicker)(controller.getPlayerHandler().getActualPlayer());
+                    mpicker.ThrowSpore(tecton);
+                }else{
+                    mushroom.throwSpores(tecton);
+                }                
             }
 
 
@@ -1020,8 +1039,7 @@ public class CommandProcessor {
 
                 if (controller.isGameRunning()) {
                     MushroomPicker mpicker = (MushroomPicker)(controller.getPlayerHandler().getActualPlayer());
-                    //mpicker.buildMushroom(tecton);
-                    //TODO: Játékmenet alatti építés
+                    mpicker.growBody(tecton);
                 } else {
                     Line selected = null;
 
@@ -1302,16 +1320,22 @@ public class CommandProcessor {
                     System.out.println("Freezed insect with ID " + args[0] + " not found.");
                     return;
                 } else {
-                    for (int i = 0; i<insect.getTecton().getConnections().size(); i++){
-                        if (insect.getTecton().getConnections().get(i).getId() == mid) {
-
-                            insect.getTecton().getSporeContainer().addSpores(SporeContainer.generateSpores(3, mid));
-                            insect.getTecton().addMushroom(mid);
-                            insect.destroy();
-                            
-                            return;
-                        }
+                    if(controller.isGameRunning()) {
+                        MushroomPicker mpicker = (MushroomPicker)(controller.getPlayerHandler().getActualPlayer());
+                        mpicker.eatInsect(insect);
+                    } else {
+                        for (int i = 0; i<insect.getTecton().getConnections().size(); i++){
+                            if (insect.getTecton().getConnections().get(i).getId() == mid) {
+    
+                                insect.getTecton().getSporeContainer().addSpores(SporeContainer.generateSpores(3, mid));
+                                insect.getTecton().addMushroom(mid);
+                                insect.destroy();
+                                
+                                return;
+                            }
+                        }    
                     }
+                    
                 }
             }
 
