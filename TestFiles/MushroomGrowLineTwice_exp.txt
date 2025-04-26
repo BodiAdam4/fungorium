@@ -1,4 +1,4 @@
-model.TectonInfertile: t0_0
+model.Tecton: t0_0
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
@@ -19,7 +19,7 @@ model.Tecton: t0_2
 	neighbors: t1_2; t0_3; t0_1
 	insects: NUll
 
-model.TectonOnlyLine: t0_3
+model.Tecton: t0_3
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
@@ -47,14 +47,14 @@ model.Tecton: t1_1
 	neighbors: t2_1; t0_1; t1_2; t1_0
 	insects: i1
 
-model.TectonTime: t1_2
+model.Tecton: t1_2
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
 	neighbors: t2_2; t0_2; t1_3; t1_1
 	insects: NUll
 
-model.TectonInfertile: t1_3
+model.Tecton: t1_3
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
@@ -89,7 +89,7 @@ model.Tecton: t2_2
 	neighbors: t3_2; t1_2; t2_3; t2_1
 	insects: NUll
 
-model.TectonOnlyLine: t2_3
+model.Tecton: t2_3
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
@@ -117,7 +117,7 @@ model.Tecton: t3_1
 	neighbors: t4_1; t2_1; t3_2; t3_0
 	insects: NUll
 
-model.TectonOnlyLine: t3_2
+model.Tecton: t3_2
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
@@ -131,7 +131,7 @@ model.Tecton: t3_3
 	neighbors: t4_3; t2_3; t3_4; t3_2
 	insects: NUll
 
-model.TectonKeepAlive: t3_4
+model.Tecton: t3_4
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
@@ -152,7 +152,7 @@ model.Tecton: t4_1
 	neighbors: t3_1; t4_2; t4_0
 	insects: NUll
 
-model.TectonOnlyLine: t4_2
+model.Tecton: t4_2
 	myMushroom: Null
 	connections: NULL
 	sporeContainer: 0
