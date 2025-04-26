@@ -296,5 +296,41 @@ public class Controller {
         isGameRunning = false;
         round = 0;
         Timer.ResetTimer();
+
+        Timer.addRepeatSchedule(new Schedule() {
+            @Override
+            public void onTime() {
+                List<Line> deadLines = new ArrayList<>();
+                
+                for (String id : allLine.keySet()) {
+                    Line line = allLine.get(id);
+                    if (line.ttl != -1) {
+                        line.ttl--;
+                        if (line.ttl == 0) {
+                            deadLines.add(line);
+                            System.out.println("Line destroyed: " + id);
+                        }
+                    }
+                }
+
+                for (Line line : deadLines) {
+                    line.Destroy();
+                }
+
+                for (String id : allInsect.keySet()) {
+                    allInsect.get(id).resetEffect();
+                }
+            }
+        }, 1);
+
+        Timer.addRepeatSchedule(new Schedule() {
+            @Override
+            public void onTime() {
+                for (String id : allInsect.keySet()) {
+                    allInsect.get(id).resetEffect();
+                    System.out.println("Insect effect reset: " + id);
+                }
+            }
+        }, 2);
     }
 }

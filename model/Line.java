@@ -151,8 +151,27 @@ public class Line
      */
     public boolean growLine(Tecton to1, Tecton to2)
     {
-        Line nl = new Line(to1, to2, mushroomId);
-        changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, nl);
+        boolean neighbor = false;
+
+        for (Tecton t : to1.getNeighbors()) {
+            if (t == to2) {
+                neighbor = true;
+                break;
+            }
+        }
+
+        neighbor = (ends[0] == to1 || ends[1] == to1) || (ends[0] == to2 || ends[1] == to2);
+
+        if(!neighbor)
+            return false;
+
+        Timer.addOneTimeSchedule(new Schedule() {
+            @Override
+            public void onTime() {
+                Line nl = new Line(to1, to2, mushroomId);
+                changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, nl);
+            }
+        }, 1);
         return true;
     }
 
