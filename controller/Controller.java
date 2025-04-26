@@ -66,7 +66,6 @@ public class Controller {
             public void mushroomChanged(ObjectChangeEvent event, Mushroom mushroom) {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
                     addMushroom(("m"+(allMushroom.size()+1)), mushroom);
-                    ((MushroomPicker)playerHandler.getActualPlayer()).increaseScore();
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
                     allMushroom.remove(getMushroomId(mushroom));
                 }

@@ -11,6 +11,7 @@ public class Player {
     protected Controller controller;
 
     /* - Publikus attribútumok*/
+    protected int score = 0;
     /* - Konstruktorok*/
 
     //Konstruktor
