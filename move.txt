@@ -1,8 +1,0 @@
-/create-tecton -i t1
-/create-tecton -i t2 -n t1
-/create-tecton -i t3 -n t2
-/create-tecton -i t4 -n t3
-/create-line t1 t2
-/create-line t2 t3
-/create-line t3 t4
-/create-insect t1 -i i1 -e fast

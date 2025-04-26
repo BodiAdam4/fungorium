@@ -10,6 +10,12 @@ import model.Tecton;
 public class MushroomPicker extends Player {
     /* - Privát attribútumok*/
     private int score = 0;
+
+    
+    // A gombász által végrehajtható akciók figyelésére szolgáló lista, ha egy akció már megtörtént, akkor nem hajtható végre újra az új körig
+    // 0: growLine, 1: growBody, 2: throwSpores
+    private Boolean[] actions = new Boolean[]{false, false, false, false}; 
+
     /* - Publikus attribútumok*/
     /* - Konstruktorok*/
 
@@ -57,10 +63,27 @@ public class MushroomPicker extends Player {
         this.score++;
     }
 
+    /**
+     * Visszaállítja a gombász akcióit.
+     */
+    @Override
+    public void ResetInsectActions() {
+        actions[0] = false;
+        actions[1] = false;
+        actions[2] = false;
+        actions[3] = false;
+    }
+
     //GrowLine metódus a gombafonal növesztésére
     public boolean growLine(Tecton from, Tecton to){
+        if (actions[0]) {
+            System.out.println("Mushroom has already grown a line this turn!");
+            return false;
+        }
+
         if(from.hasBody(getPlayerId())) {
             from.getMyMushroom().growLine(to);
+            actions[0] = true;
             return true;
 
         //Ha van a tektonon line, akkor a line növeszti a gombafonalat a Line osztály growLine() metódusával
@@ -68,6 +91,7 @@ public class MushroomPicker extends Player {
             for (Line line : from.getConnections()) {
                 if (line.getId() == this.getPlayerId()) {
                     line.growLine(from,to);
+                    actions[0] = true;
                     return true;
                 }
             }
@@ -84,6 +108,11 @@ public class MushroomPicker extends Player {
      * */
     public boolean growBody(Tecton tecton) {
         
+        if (actions[1]) {
+            System.out.println("Mushroom has already grown in this turn!");
+            return false;
+        }
+
         List<Line> connections = tecton.getConnections();
 
         // Ellenőrizzük, hogy van-e a játékoshoz tartozó fonal a tektonon
@@ -93,6 +122,7 @@ public class MushroomPicker extends Player {
                 if (line.growMushroom(tecton)) {
                     System.out.println("Sikeres gombatest-növesztés a tektonon!");
                     score++;
+                    actions[1] = true;
                     return true;
                 } else {
                     System.out.println("Nem sikerült gombatestet növeszteni!");
@@ -112,15 +142,23 @@ public class MushroomPicker extends Player {
      * @return false, ha nem sikerült spórát dobni, true ha sikerült.
      */
     public boolean ThrowSpore(Tecton tectonTo){
+
+        if (actions[2]) {
+            System.out.println("Spores has already thrown in this turn!");
+            return false;
+        }
+
         for(Mushroom m : getMushrooms()){
             for  (Tecton t : m.getMyTecton().getNeighbors()){
                 if (m.getLevel() >= 2 && t.getNeighbors().contains(tectonTo)){
                     m.throwSpores(tectonTo);
+                    actions[2] = true;
                     return true;
                 } 
                 
                 if (t == tectonTo){
                     m.throwSpores(tectonTo);
+                    actions[2] = true;
                     return true;
                 }
             }
@@ -135,9 +173,14 @@ public class MushroomPicker extends Player {
      * @return igaz, ha a rovar sikeresen elfogyasztva, különben hamis
      */
     public boolean eatInsect(Insect insect) {
+        if (actions[3]) {
+            System.out.println("One insect has already eaten in this turn!");
+            return false;
+        }
+
         //Ellenőrizzük, hogy a rovar fagyasztott állapotban van-e
         if (insect.getCanMove()) {
-            System.out.println("A rovar nem fagyasztott állapotban van!");
+            System.out.println("The insect is not frozen!");
             return false;
         }
 
@@ -145,13 +188,14 @@ public class MushroomPicker extends Player {
             if (line.getId() == this.getPlayerId()) {
                 boolean success = line.eatInsect(insect);
                 if (line.eatInsect(insect)) {
-                    System.out.println("Rovar sikeresen elfogyasztva!");
+                    System.out.println("Insect eaten successfully!");
+                    actions[3] = true;
                     return true;
                 }
             }
         }
 
-        System.out.println("Nincs fonal amivel elfogyasztható a rovar!");
+        System.out.println("The insect is not on your line!");
         return false;
     }
 

@@ -60,6 +60,8 @@ public class PlayerHandler {
 
         if (actualPlayerIdx >= mushroomPickers.size() + insectPickers.size()) {
             actualPlayerIdx = 0;
+            insectPickers.forEach(InsectPicker::ResetInsectActions);
+            mushroomPickers.forEach(MushroomPicker::ResetInsectActions);
             controller.nextRound();
         }
 
