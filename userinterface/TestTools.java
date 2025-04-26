@@ -321,7 +321,7 @@ public class TestTools {
 
         System.out.println("\n\nChecked test:\n");
         for (String name : pairs.keySet()) {
-            System.out.println(name+"->"+(failed.contains(name) ? "failed":"passed"));
+            System.out.println(name+" -> "+(failed.contains(name) ? "failed":"passed"));
         }
         
         System.out.println("\n\n\n");

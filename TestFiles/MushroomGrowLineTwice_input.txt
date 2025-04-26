@@ -1,4 +1,9 @@
 /set-random 1
-/start -noname
+/matrix-tecton 5 5 -random
+/create-mushroom t0_1 -mid 0 -i m0
+/create-mushroom t1_1 -mid 1 -i m1
+/create-insect t0_1 -mid 0 -i i0
+/create-insect t1_1 -mid 1 -i i1
+/start -noname -nomap
 /grow-line t0_1 t1_1
 /grow-line t0_1 t0_2 
