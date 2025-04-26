@@ -3,11 +3,7 @@
 /create-mushroom t9 -i m2 -mid 2
 /create-insect t2 -i i1 -iid 1
 /create-insect t8 -i i2 -iid 2
-/start -i 2 -m 2 -nomap
-p1
-p2
-p3
-p4
+/start -i 2 -m 2 -nomap -noname
 /grow-line t1 t2
 /throw-spore m1 t2
 /next
