@@ -12,7 +12,7 @@ model.Tecton: t2
 	neighbors: t1
 	insects: NUll
 
-model.Line: l1
+model.Line: l
 	ttl: 3
 	mushroomId: 1
 	ends: t1;t2
