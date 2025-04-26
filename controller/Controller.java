@@ -93,6 +93,10 @@ public class Controller {
                 for (Line line : deadLines) {
                     line.Destroy();
                 }
+
+                for (String id : allInsect.keySet()) {
+                    allInsect.get(id).resetEffect();
+                }
             }
         }, 1);
     }
