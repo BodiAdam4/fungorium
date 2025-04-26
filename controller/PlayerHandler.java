@@ -31,7 +31,7 @@ public class PlayerHandler {
                 String name = askName("Enter the name of mushroom picker #" + (i + 1) + ": ");
                 mushroomPickers.add(new MushroomPicker(name, controller));
             }
-    
+            Player.playerIdCounter = 0;
             for (int i = 0; i < insectPickerCount; i++) {
                 String name = askName("Enter the name of insect picker #" + (i + 1) + ": ");
                 insectPickers.add(new InsectPicker(name, controller));
@@ -41,7 +41,7 @@ public class PlayerHandler {
             for (int i = 0; i < mushroomPickerCount; i++) {
                 mushroomPickers.add(new MushroomPicker("MushroomPicker #" + (i + 1), controller));
             }
-    
+            Player.playerIdCounter = 0;
             for (int i = 0; i < insectPickerCount; i++) {
                 insectPickers.add(new InsectPicker("InsectPicker #" + (i + 1), controller));
             }

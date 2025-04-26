@@ -106,6 +106,7 @@ public class Controller {
             public void onTime() {
                 for (String id : allInsect.keySet()) {
                     allInsect.get(id).resetEffect();
+                    System.out.println("Insect effect reset: " + id);
                 }
             }
         }, 2);
