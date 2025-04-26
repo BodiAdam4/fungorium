@@ -1242,8 +1242,27 @@ public class CommandProcessor {
             public void execute(String[] args, HashMap<String, String> options) {
                 int mCount = Integer.parseInt(getOption(options, "-m", "2"));
                 int iCount = Integer.parseInt(getOption(options, "-i", "2"));
+                int roundCount = Integer.parseInt(getOption(options, "-k", "10"));
+                boolean noMap = getOption(options, "-nomap", "false").equalsIgnoreCase("true");
+                boolean noName = getOption(options, "-noname", "false").equalsIgnoreCase("true");
 
-                controller.StartGame(mCount, iCount);
+                if (!noMap) {
+                    int mSize = mCount > 5 ? mCount : 5;
+                    ExecuteCommand("/matrix-tecton "+mSize+" "+mSize+" -random");
+
+                    for (int i = 0; i<mCount; i++){
+                        String tectonId = "t"+i+"_"+1;
+                        ExecuteCommand("/create-mushroom "+tectonId+" -mid "+i+" -i m"+i);
+                    }
+
+                    for (int i = 0; i<iCount; i++){
+                        String tectonId = "t"+i+"_"+1;
+                        ExecuteCommand("/create-insect "+tectonId+" -mid "+i+" -i i"+i);
+                    }
+                }
+
+                controller.StartGame(mCount, iCount, !noName);
+                controller.setMaxRound(roundCount);
             }
 
 
@@ -1258,6 +1277,7 @@ public class CommandProcessor {
                        \t\t-i <number>: Sets the number of insectpickers.
                        \t\t-k <number>: Sets the number of game rounds.
                        \t\t-nomap: Prevents the game map from resetting to the default state if it was already built before starting.
+                       \t\t-noname: Prevents the game from asking names. Automatically generates them.
                        """;
             }
         });

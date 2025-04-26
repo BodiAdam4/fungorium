@@ -20,21 +20,33 @@ public class PlayerHandler {
         return scanner.nextLine();
     }
 
-    public PlayerHandler(int mushroomPickerCount, int insectPickerCount, Controller ctrl) {
+    public PlayerHandler(int mushroomPickerCount, int insectPickerCount, Controller ctrl, boolean askName) {
         this.mushroomPickers = new ArrayList<>();
         this.insectPickers = new ArrayList<>();
         this.controller = ctrl;
 
-        System.out.println("#### Player selection ####");
-        for (int i = 0; i < mushroomPickerCount; i++) {
-            String name = askName("Enter the name of mushroom picker #" + (i + 1) + ": ");
-            mushroomPickers.add(new MushroomPicker(name, controller));
+        if (askName) {
+            System.out.println("#### Player selection ####");
+            for (int i = 0; i < mushroomPickerCount; i++) {
+                String name = askName("Enter the name of mushroom picker #" + (i + 1) + ": ");
+                mushroomPickers.add(new MushroomPicker(name, controller));
+            }
+    
+            for (int i = 0; i < insectPickerCount; i++) {
+                String name = askName("Enter the name of insect picker #" + (i + 1) + ": ");
+                insectPickers.add(new InsectPicker(name, controller));
+            }
         }
-
-        for (int i = 0; i < insectPickerCount; i++) {
-            String name = askName("Enter the name of insect picker #" + (i + 1) + ": ");
-            insectPickers.add(new InsectPicker(name, controller));
+        else {
+            for (int i = 0; i < mushroomPickerCount; i++) {
+                mushroomPickers.add(new MushroomPicker("MushroomPicker #" + (i + 1), controller));
+            }
+    
+            for (int i = 0; i < insectPickerCount; i++) {
+                insectPickers.add(new InsectPicker("InsectPicker #" + (i + 1), controller));
+            }
         }
+        
 
         controller.setGameRunning(true);
     }

@@ -111,8 +111,8 @@ public class Controller {
         }, 2);
     }
 
-    public void StartGame(int mushroomPickerCount, int insectPickerCount) {
-        playerHandler = new PlayerHandler(mushroomPickerCount, insectPickerCount, this);
+    public void StartGame(int mushroomPickerCount, int insectPickerCount, boolean askName) {
+        playerHandler = new PlayerHandler(mushroomPickerCount, insectPickerCount, this, askName);
     }
 
     /* - Getter/Setter metódusok*/
@@ -183,6 +183,10 @@ public class Controller {
         }
 
         return allLine.get(id);
+    }
+
+    public void setMaxRound(int maxRound) {
+        this.maxRound = maxRound;
     }
 
     public void nextRound() {
