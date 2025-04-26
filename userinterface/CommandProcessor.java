@@ -930,12 +930,38 @@ public class CommandProcessor {
                 int colCount = Integer.parseInt(args[1]);
 
                 boolean unbind = getOption(options, "-unbind", "false").equalsIgnoreCase("true");
+                boolean randomType = getOption(options, "-random", "false").equalsIgnoreCase("true");
+
+                
 
                 Tecton[][] tectonMatrix = new Tecton[rowCount][colCount];
                 for (int i = 0; i < rowCount; i++) {
                     for (int j = 0; j < colCount; j++) {
                         String tectonId = "t" + i + "_" + j;
-                        Tecton tecton = new Tecton();
+                        
+                        int type = RandTools.random(10);
+                        type = randomType ? type : 0;
+
+                        Tecton tecton;
+
+                        switch (type) {
+                            case 6:
+                                tecton = new TectonInfertile();
+                                break;
+                            case 7:
+                                tecton = new TectonKeepAlive();
+                                break;
+                            case 8:
+                                tecton = new TectonOnlyLine();
+                                break;
+                            case 9:
+                                tecton = new TectonTime();
+                                break;
+                            default:
+                                tecton = new Tecton();
+                                break;
+                        }
+
                         tectonMatrix[i][j] = tecton;
                         controller.addTecton(tectonId, tecton);
                     }
