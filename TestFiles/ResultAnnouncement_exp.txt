@@ -1,0 +1,106 @@
+model.Tecton: t0_0
+	myMushroom: m1
+	connections: l1
+	sporeContainer: 0
+	neighbors: t1_0; t0_1
+	insects: NUll
+
+model.Tecton: t0_1
+	myMushroom: Null
+	connections: l1
+	sporeContainer: 0
+	neighbors: t1_1; t0_2; t0_0
+	insects: i1
+
+model.Tecton: t0_2
+	myMushroom: Null
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t1_2; t0_1
+	insects: NUll
+
+model.Tecton: t1_0
+	myMushroom: Null
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t2_0; t0_0; t1_1
+	insects: NUll
+
+model.Tecton: t1_1
+	myMushroom: Null
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t2_1; t0_1; t1_2; t1_0
+	insects: NUll
+
+model.Tecton: t1_2
+	myMushroom: Null
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t2_2; t0_2; t1_1
+	insects: NUll
+
+model.Tecton: t2_0
+	myMushroom: Null
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t1_0; t2_1
+	insects: NUll
+
+model.Tecton: t2_1
+	myMushroom: Null
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t1_1; t2_2; t2_0
+	insects: i2
+
+model.Tecton: t2_2
+	myMushroom: m2
+	connections: NULL
+	sporeContainer: 0
+	neighbors: t1_2; t2_1
+	insects: NUll
+
+model.Line: l1
+	ttl: -1
+	mushroomId: 0
+	ends: t0_0;t0_1
+
+model.Insect: i1
+	insectId: 0
+	speed: 2
+	sporeCount: 0
+	canCut: true
+	canMove: true
+	actualTecton: t0_1
+
+model.Insect: i2
+	insectId: 1
+	speed: 2
+	sporeCount: 3
+	canCut: true
+	canMove: true
+	actualTecton: t2_1
+
+model.Mushroom: m1
+	sporeCount: 2
+	mushroomId: 0
+	level: 2
+	myTecton: t0_0
+
+model.Mushroom: m2
+	sporeCount: 4
+	mushroomId: 1
+	level: 1
+	myTecton: t2_2
+
+======= Game Status ======
+Actual player: MushroomPicker #1
+Players in order: 
+	MushroomPicker #1 (score: 1)
+	MushroomPicker #2 (score: 0)
+	InsectPicker #1 (score: 0)
+	InsectPicker #2 (score: 3)
+Winner mushroompicker: MushroomPicker #1 with score: 1
+Winner insectpicker: InsectPicker #2 with score: 3
+==========================
