@@ -202,7 +202,6 @@ public class Insect {
      *
      * @param count az elfogyasztandó spórák száma
      */
-    //TODO: Nincs ellenőrzés, hogy a count nem nagyobb mint a spórák száma
     public int eatSpores(int count) {
         if (unusable) {
             System.out.println("Insect is currently moving");
