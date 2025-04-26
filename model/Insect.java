@@ -180,6 +180,10 @@ public class Insect {
      * @return igaz, ha a fonalat sikeresen elvágta, egyébként hamis
      */
     public boolean cutLine(Line line) {
+        if (!canCut) {
+            System.out.println("Insect cannot cut line");
+            return false;
+        }
         line.Destroy();
         return true;
     }
