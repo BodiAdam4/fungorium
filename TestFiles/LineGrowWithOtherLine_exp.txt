@@ -1,30 +1,30 @@
-Model.Tecton: t1
+model.Tecton: t1
 	myMushroom: Null
 	connections: l1
 	sporeContainer: 0
 	neighbors: t2
 	insects: NUll
 
-Model.Tecton: t2
+model.Tecton: t2
 	myMushroom: Null
 	connections: l1; l2
 	sporeContainer: 0
 	neighbors: t1; t3
 	insects: NUll
 
-Model.Tecton: t3
+model.Tecton: t3
 	myMushroom: Null
 	connections: l2
 	sporeContainer: 0
 	neighbors: t2
 	insects: NUll
 
-Model.Line: l1
+model.Line: l1
 	ttl: -1
 	mushroomId: 1
 	ends: t1;t2
 
-Model.Line: l2
+model.Line: l2
 	ttl: -1
 	mushroomId: 1
 	ends: t2;t3
