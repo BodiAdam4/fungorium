@@ -1,3 +1,4 @@
+/set-random 1
 /start -noname
 /create-line t0_1 t1_1
 /next
