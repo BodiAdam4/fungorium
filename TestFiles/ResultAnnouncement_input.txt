@@ -1,8 +1,8 @@
 /matrix-tecton 3 3
-/create-mushroom t0_0 -i m1 -mid 1
-/create-mushroom t2_2 -i m2 -mid 2
-/create-insect t0_1 -i i1 -iid 1
-/create-insect t2_1 -i i2 -iid 2
+/create-mushroom t0_0 -i m1 -mid 0
+/create-mushroom t2_2 -i m2 -mid 1
+/create-insect t0_1 -i i1 -iid 0
+/create-insect t2_1 -i i2 -iid 1
 /start -i 2 -m 2 -nomap -noname
 /grow-line t0_0 t0_1
 /throw-spore m1 t0_1
@@ -17,7 +17,6 @@
 /next
 /next
 /next
-/skip 3
 /throw-spore m1 t0_1
 /build-mushroom t0_1
 /end

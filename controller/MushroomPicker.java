@@ -59,7 +59,6 @@ public class MushroomPicker extends Player {
 
     //GrowLine metódus a gombafonal növesztésére
     public boolean growLine(Tecton from, Tecton to){
-
         if(from.hasBody(getPlayerId())) {
             from.getMyMushroom().growLine(to);
             return true;
