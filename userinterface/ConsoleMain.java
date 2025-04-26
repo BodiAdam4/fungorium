@@ -16,11 +16,12 @@ public class ConsoleMain {
         Scanner scanner = new Scanner(new BufferedInputStream(System.in));
 
         while(scanner.hasNextLine()) {
-            if(scanner.nextLine().equals("/exit")) {
+            String input = scanner.nextLine();
+            if(input.equals("/exit")) {
                 System.out.println("Exiting the game.");
                 break;
             }
-            cmd.ExecuteCommand(scanner.nextLine());
+            cmd.ExecuteCommand(input);
         }
         scanner.close();
     }
