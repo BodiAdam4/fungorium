@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import listeners.JobListener;
+
+
 
 /**
  * A játék ablakát megvalósító osztály, tartalmazza a játék során megjelenő elemeket.
@@ -22,6 +25,14 @@ public class MainWindow extends JFrame implements JobListener{
     private JLabel notificationText;        //Az értesítéseknél megjelenő szöveg.
 
     /* - Konstruktor(ok)*/
+    public MainWindow(){
+
+        setTitle("Fungorium_by_oet_kis_malacz");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1000, 600);     //Ablakméret beállítása
+
+        menu = new MainMenu(); //A főmenü inicializálása
+    }
     
 
     /* - Getter/Setter metódusok*/
