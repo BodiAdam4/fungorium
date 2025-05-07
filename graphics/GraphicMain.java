@@ -1,5 +1,7 @@
 package graphics;
 
+import java.awt.Color;
+
 import com.sun.tools.javac.Main;
 import controller.Controller;
 import userinterface.CommandProcessor;
@@ -14,7 +16,6 @@ public class GraphicMain {
     public static void main(String[] args) {
         //controller = new Controller();
         MainWindow mainWindow = new MainWindow();
-        mainWindow.setSize(700, 600);
         mainWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE);
         mainWindow.revalidate();

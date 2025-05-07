@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
@@ -40,7 +41,7 @@ public class PlayerPanel extends JPanel {
 
     /* - Konstruktor(ok)*/
     public PlayerPanel(int playerNumber, MainMenu parent) {
-        
+
         this.playerNumber = playerNumber; //A játékos sorszámának beállítása
         this.parent = parent; //A szülő panel beállítása
 
@@ -60,11 +61,9 @@ public class PlayerPanel extends JPanel {
         //Fejléc beállítása játékossorszámozással és "X" gombbal
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setOpaque(false);
+        headerPanel.setMaximumSize(new Dimension(250, 35)); //Fejléc mérete
         //TODO: Méret helyes beállítása
-        headerPanel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(Color.WHITE, 1), // White border
-            BorderFactory.createEmptyBorder(1, 0, 1, 0)    // Narrower margin
-        ));
+        headerPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 
         //JLabel a fejléchez
         JLabel headerLabel = new JLabel("#" + playerNumber + ". Player");
@@ -87,17 +86,50 @@ public class PlayerPanel extends JPanel {
         //Hozzáadjuk a fejlécet a kontenthez
         contentPanel.add(headerPanel);
 
+        //JPanel a szeparátorhoz
+        JPanel separatorPanel = new JPanel();
+        separatorPanel.setOpaque(false);
+        //separatorPanel.setBackground(Color.RED); //Fekete háttér
+        separatorPanel.setPreferredSize(new Dimension(250, 30)); //Szeparátor mérete
+        separatorPanel.setMaximumSize(new Dimension(250, 30)); //Szeparátor mérete
+        contentPanel.add(separatorPanel); //Hozzáadjuk a szeparátort a kontenthez
+        
 
         //#######################################################################################################//
 
         //JTextfield a névhez
         nameBox = new JTextField("Enter your name here");
         nameBox.setForeground(Color.LIGHT_GRAY);
+        nameBox.setOpaque(false);
         nameBox.setPreferredSize(new Dimension(200, 25)); //A szövegdoboz mérete
         nameBox.setMaximumSize(new Dimension(Short.MAX_VALUE, 25));
         nameBox.setAlignmentX(CENTER_ALIGNMENT);
         nameBox.setFont(new Font("Arial", Font.ITALIC, 14));
-        //nameField.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0)); // Set margin height to 20
+        // Removing the top border of the text field
+        nameBox.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+        
+
+        // Add focus listener to handle placeholder text
+        nameBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            @Override
+            public void focusGained(java.awt.event.FocusEvent e) {
+            if (nameBox.getText().equals("Enter your name here")) {
+                nameBox.setText("");
+                nameBox.setForeground(Color.LIGHT_GRAY);
+                nameBox.setFont(new Font("Arial", Font.PLAIN, 14));
+            }
+            }
+
+            @Override
+            public void focusLost(java.awt.event.FocusEvent e) {
+            if (nameBox.getText().isEmpty()) {
+                nameBox.setText("Enter your name here");
+                nameBox.setForeground(Color.LIGHT_GRAY);
+                nameBox.setFont(new Font("Arial", Font.ITALIC, 14));
+            }
+            }
+        });
+        //nameBox.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0)); // Set margin height to 20
 
         //Hozzáadjuk a név mezőt a kontenthez
         contentPanel.add(nameBox);
@@ -114,7 +146,6 @@ public class PlayerPanel extends JPanel {
         //JLabel a színválasztóhoz
         JLabel colorLabel = new JLabel("Pick a color:");
         colorLabel.setForeground(Color.WHITE);
-        //TODO: balra kell igazítani a szöveget
         colorLabel.setAlignmentX(LEFT_ALIGNMENT);
         colorPanel.add(colorLabel);
         colorPanel.add(Box.createVerticalStrut(10));
