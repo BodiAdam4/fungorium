@@ -38,6 +38,8 @@ public class PlayerPanel extends JPanel {
     private int playerNumber;          //A játékos sorszáma, mely a fejlécben jelenik meg.
     private MainMenu parent;            //A szülő panel, mely a PlayerPanel-t tartalmazza. Ezen keresztül lehet eltávolítani a panelt a főmenüből.
 
+    private JLabel headerLabel;         //A fejléc szövege, mely a játékos sorszámát tartalmazza.
+
 
     /* - Konstruktor(ok)*/
     public PlayerPanel(int playerNumber, MainMenu parent) {
@@ -66,7 +68,7 @@ public class PlayerPanel extends JPanel {
         headerPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
 
         //JLabel a fejléchez
-        JLabel headerLabel = new JLabel("#" + playerNumber + ". Player");
+        headerLabel = new JLabel("#" + playerNumber + ". Player");
         headerLabel.setForeground(Color.WHITE);
         headerLabel.setFont(new Font("Arial", Font.BOLD, 14));
         headerPanel.add(headerLabel, BorderLayout.WEST);
@@ -77,10 +79,12 @@ public class PlayerPanel extends JPanel {
         closeButton.setForeground(Color.RED);
         closeButton.setBackground(Color.BLACK);
         //closeButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); //Fehér szegély
-        closeButton.setBorder(null); // No border
+        closeButton.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 0, Color.WHITE)); //Fehér szegély
+        //closeButton.setBorder(null); // No border
         closeButton.setFocusPainted(false);
         
-        //closeButton.addActionListener(e -> parent.removePlayerPanel(this)); //TODO: Ezt valahogy meg kell oldani, hogy a szülő eltávolítsa a panelt.
+        //JButton eseménykezelője
+        closeButton.addActionListener(e -> parent.removePlayerPanel(this));
         headerPanel.add(closeButton, BorderLayout.EAST);
 
         //Hozzáadjuk a fejlécet a kontenthez
@@ -357,5 +361,9 @@ public class PlayerPanel extends JPanel {
 
 
     /* - Egyéb metódusok*/
+    public void updatePlayerNumber(int newNumber) {
+        this.playerNumber = newNumber;
+        headerLabel.setText("#" + playerNumber + ". Player");
+    }
 
 }

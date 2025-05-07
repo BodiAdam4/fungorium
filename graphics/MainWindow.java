@@ -1,5 +1,6 @@
 package graphics;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.util.Map;
 import javax.swing.JFrame;
@@ -28,7 +29,7 @@ public class MainWindow extends JFrame implements JobListener{
         setTitle("Fungorium_by_oet_kis_malacz");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 600);     //Ablakméret beállítása
-        this.getContentPane().add(menu); //A főmenü inicializálása
+        this.add(menu); //A főmenü inicializálása
         this.revalidate();
         this.repaint();
     }

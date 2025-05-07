@@ -22,6 +22,9 @@ import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 
@@ -40,251 +43,47 @@ public class MainMenu extends JPanel {
 
 
     /* - Konstruktor(ok)*/
-    public MainMenu(){
-
-
-        //Jpanel a főablakhoz
+    public MainMenu() {
+        
+        //JPanel a főmenünek
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.BLACK);
-
-        //Jpanel a címhez és a készítőkhöz
-        JPanel titlePanel = new JPanel(new BorderLayout());
-        titlePanel.setBackground(Color.BLACK);
-        titlePanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 0, 40));
-
-        //JLabel a címhez
-        JLabel titleLabel = new JLabel("FUNGORIUM");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
-        titlePanel.add(titleLabel, BorderLayout.WEST);
-
-        //JLabel a készítőkhöz
-        JLabel authorLabel = new JLabel("by oet_kis_malacz");
-        authorLabel.setForeground(Color.GRAY);
-        authorLabel.setFont(new Font("Arial", Font.ITALIC, 16));
-        authorLabel.setBorder(BorderFactory.createEmptyBorder(14, 20, 0, 0));
-        titlePanel.add(authorLabel, BorderLayout.CENTER);
-
-        //###################################################################################################################
         
-        //JButton a játék indításához
-        JButton enterButton = new JButton("Enter the game");
-        enterButton.setForeground(Color.RED);
-        enterButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
-        enterButton.setBackground(Color.BLACK);
-        enterButton.setFocusPainted(false);
-        enterButton.setPreferredSize(new Dimension(150, 40));
-        titlePanel.add(enterButton, BorderLayout.EAST);
-
-        //Hozzáadás a főpanelhez
+        //JPanel a főcímnek, és a szerzők nevének
+        JPanel titlePanel = createTitlePanel();
         mainPanel.add(titlePanel, BorderLayout.NORTH);
 
-
-        //###################################################################################################################
-        
-        //JPanel a középső részhez
+        //JPanel a játékmenetbeállításoknak
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.setBackground(Color.BLACK);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
-
-
-        //JPanel a Beállításokhoz
-        JPanel settingsPanel = new JPanel();
-        settingsPanel.setLayout(new BoxLayout(settingsPanel, BoxLayout.Y_AXIS));
-        settingsPanel.setBackground(Color.BLACK);
-        settingsPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-
-        //JPanel a játék köreinek beállítására
-        JPanel turnsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        turnsPanel.setBackground(Color.BLACK);
-        JLabel turnsLabel = new JLabel("Game turns");
-        turnsLabel.setForeground(Color.WHITE);
-        turnsLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        turnsPanel.add(turnsLabel);
-
-        //JLabel a körök max.- és min. számának megadásához
-        JLabel rangeLabel1 = new JLabel(" (10 to 50)");
-        rangeLabel1.setForeground(Color.GRAY);
-        rangeLabel1.setFont(new Font("Arial", Font.ITALIC, 12));
-        turnsPanel.add(rangeLabel1);
-
-        //JLabel a ":" szöveghez
-        JLabel colonLabel = new JLabel(":");
-        colonLabel.setForeground(Color.WHITE);
-        colonLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        turnsPanel.add(colonLabel);
         
-        JPanel turnsSpinnerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));      //Középre igazítja a JSpinner-t
-        turnsSpinnerPanel.setBackground(Color.BLACK);
-
-        //JSpinner a körök számának megadásához
-        turnSpinner = new JSpinner(new SpinnerNumberModel(10, 10, 50, 1));
-        turnSpinner.setPreferredSize(new Dimension(40, 30));
-        turnSpinner.setFont(new Font("Arial", Font.PLAIN, 14));
-        turnSpinner.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        turnSpinner.setBackground(Color.BLACK);
-        turnSpinner.setForeground(Color.WHITE);
-
-        //Hozzáadás a panelhez
-        turnsSpinnerPanel.add(turnSpinner);
-        turnsPanel.add(turnsSpinnerPanel);
-
-        //JSpinner stílusa
-        for (Component component : turnSpinner.getComponents()) {
-            if (component instanceof JButton) {
-                component.setBackground(Color.BLACK);
-                component.setForeground(Color.WHITE);
-                ((JButton) component).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); //Kövérebb keret
-            }
-        }
-
-        //JSpinner szövegmezőjének stílusa
-        JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) turnSpinner.getEditor();
-        editor.getTextField().setBackground(Color.BLACK);
-        editor.getTextField().setForeground(Color.WHITE);
-        editor.getTextField().setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
-        //Hozzáadás a turnsPanelhez és a 'beállítások' panelhez
-        turnsPanel.add(turnSpinner);
-        settingsPanel.add(turnsPanel);
-
-        //###################################################################################################################
-        
-        //JPanel a játékosok számának beállítására
-        JPanel numbersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        numbersPanel.setBackground(Color.BLACK);
-        JLabel playersLabel = new JLabel("Player numbers");
-        playersLabel.setForeground(Color.WHITE);
-        playersLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        playersLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
-        numbersPanel.add(playersLabel);
-
-
-        //JLabel a játékosszám max.- és min. számának megadásához
-        JLabel rangeLabel2 = new JLabel(" (4 to 15)");
-        rangeLabel2.setForeground(Color.GRAY);
-        rangeLabel2.setFont(new Font("Arial", Font.ITALIC, 12));
-        rangeLabel2.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
-        numbersPanel.add(rangeLabel2);
-
-
-        //JLabel a ":" szöveghez
-        JLabel pontBehindLabel = new JLabel(":");
-        pontBehindLabel.setForeground(Color.WHITE);
-        pontBehindLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        pontBehindLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
-        numbersPanel.add(pontBehindLabel);
-        
-        JPanel playerSpinnerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));      //Középre igazítja a JSpinner-t
-        playerSpinnerPanel.setBackground(Color.BLACK);
-
-        //JSpinner a játékosok számának megadásához
-        playerSpinner = new JSpinner(new SpinnerNumberModel(5, 4, 15, 1));
-        playerSpinner.setPreferredSize(new Dimension(40, 30));
-        playerSpinner.setFont(new Font("Arial", Font.PLAIN, 14));
-        playerSpinner.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        playerSpinner.setBackground(Color.BLACK);
-        playerSpinner.setForeground(Color.WHITE);
-
-        //JSpinner stílusa
-        for (Component component : playerSpinner.getComponents()) {
-            if (component instanceof JButton) {
-            component.setBackground(Color.BLACK);
-            component.setForeground(Color.WHITE);
-            ((JButton) component).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); //Kövérebb keret
-            }
-        }
-
-        //JSpinner szövegmezőjének stílusa
-        JSpinner.DefaultEditor playerEditor = (JSpinner.DefaultEditor) playerSpinner.getEditor();
-        playerEditor.getTextField().setBackground(Color.BLACK);
-        playerEditor.getTextField().setForeground(Color.WHITE);
-        playerEditor.getTextField().setBorder(BorderFactory.createLineBorder(Color.GRAY));
-
-        //Hozzáadás a panelhez
-        playerSpinner.addChangeListener(e -> updatePlayerPanels());
-        playerSpinnerPanel.add(playerSpinner);
-        numbersPanel.add(playerSpinnerPanel);
-        numbersPanel.add(playerSpinner);
-        settingsPanel.add(numbersPanel);
-
-        //###################################################################################################################
-
-        //JSeparator a beállítások és a játékosok között
-        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-        separator.setForeground(Color.WHITE);
-        separator.setBackground(Color.BLACK);
-        //TODO: Rövidebbre kell venni a JSeparator-t, hogy ne érjen el a panel széléig
-        //separator.setPreferredSize(new Dimension(0, 2));
-        //separator.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-        settingsPanel.add(separator);
-
-        //###################################################################################################################
-
-        //JPanel a játékosok beállításaira
-        configPanel = createConfigPanel();
-        //Hozzáadás a mainPanelhez
-        settingsPanel.add(configPanel);
-
-        //settingspanel hozzáadása a contentPanelhez
+        //JPanel az egyéni beállításoknak
+        JPanel settingsPanel = createSettingsPanel();
         contentPanel.add(settingsPanel, BorderLayout.NORTH);
 
-        //Hozzáadjuk a főpanelhez
-        mainPanel.add(contentPanel, BorderLayout.CENTER);
-
-        
-        this.add(mainPanel);
-        setVisible(true);
-    }
-    
-
-    /* - Getter/Setter metódusok*/
-
-
-    /* - Egyéb metódusok*/
-
-    /* - A játékospaneleket tartalmazó configPanel létrehozására alkalmas függvény.*/
-    public JPanel createConfigPanel() {
-        configPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        //Jpanel a játékoskonténerhez: itt jelennek meg a PlayerPanel példányok
+        configPanel = new JPanel();
+        configPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
         configPanel.setBackground(Color.BLACK);
 
-        //JLabel a játékospanelekhez
-        JLabel configLabel = new JLabel("Configure the players:");
-        configLabel.setForeground(Color.WHITE);
-        configLabel.setFont(new Font("Arial", Font.PLAIN, 16));
-        configLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
-        //JLabel hozzáadása a configPanelhez
-        configPanel.add(configLabel);
-
-        
-
-        //###################################################################################################################
-        
-        //PlayerPanel-ek létrehozása és hozzáadása a configPanelhez
-        
-        //JPanel a PlayerPanelekhez
-        JPanel playersPanel = new JPanel();
-        playersPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        playersPanel.setBackground(Color.BLACK);
-
-        //PlayerPanel lista inicializálása
+        //Lista a játékos panelekről
         playerPanels = new ArrayList<>();
 
-        //Ha több játékos van, mint 5, akkor a játékosok számának megfelelően az első sor panel alá törjük a következő sorba
-        playersPanel.setLayout(new GridLayout(0, 5, 20, 20)); // 5 oszlop, dynamikus sorok
+        //Ha a playerPanel-ek száma meghaladja a 5-öt, akkor új sort kezdünk
+        configPanel.setLayout(new GridLayout(0, 5, 20, 20));    //5 oszlopos elrendezés, dinamikus sorokkal
 
-        //JScrollPane a gördíthetőséghez
-        JScrollPane scrollPane = new JScrollPane(playersPanel);
+        //JScrollPane a játékosok beállításainak görgetéséhez
+        JScrollPane scrollPane = new JScrollPane(configPanel);
         scrollPane.setBackground(Color.BLACK);
         scrollPane.getViewport().setBackground(Color.BLACK);
         scrollPane.setBorder(null);
 
-        //JScrollBar a gördítéshez
+        //Személyre szabjuk a görgetősávokat
         JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
         JScrollBar horizontalScrollBar = scrollPane.getHorizontalScrollBar();
 
-        //Vertikális görgetősáv stílusa
+        //Vertikális görgetősáv felülírása
         verticalScrollBar.setUI(new BasicScrollBarUI() {
             @Override
             protected void configureScrollBarColors() {
@@ -311,7 +110,7 @@ public class MainMenu extends JPanel {
             }
         });
 
-        //Horizontális görgetősáv stílusa
+        //Horizontális görgetősáv felülírása
         horizontalScrollBar.setUI(new BasicScrollBarUI() {
             @Override
             protected void configureScrollBarColors() {
@@ -338,42 +137,272 @@ public class MainMenu extends JPanel {
             }
         });
 
-        //Szűkebb görgetősáv
+        //Szűkítjük a görgetősávok méretét
         horizontalScrollBar.setPreferredSize(new Dimension(8, 8));
         verticalScrollBar.setPreferredSize(new Dimension(8, 8));
-        //Hozzáadás a panelhez
-        //contentPanel.add(scrollPane, BorderLayout.CENTER);
 
-        //Frissítjük a játékospaneleket
+        //Hozzáadjuk a görgetősávokat a panelhez
+        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        
+        //A playerPanel-ek frissítése a játékosok számának megváltoztatásakor
         updatePlayerPanels();
-        return configPanel;
+        
+        //Hozzáadjuk a beállításokat tartalmazó panelt a fő panelhez
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
+        
+        //Hozzáadjuk a fő panelt a JFrame-hez
+        this.add(mainPanel);
+        this.setVisible(true);
     }
+    
 
+    /**
+     * Elkészíti a főcímet és a szerző nevét tartalmazó panelt.
+     * @return A cím panel.
+     */
+    private JPanel createTitlePanel() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(Color.BLACK);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 40, 0, 40));
+        
+        //JLabel a főcímhez
+        JLabel titleLabel = new JLabel("FUNGORIUM");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+        panel.add(titleLabel, BorderLayout.WEST);
+        
+        //JLabel a szerzők nevéhez
+        JLabel authorLabel = new JLabel("by oet_kis_malacz");
+        authorLabel.setForeground(Color.GRAY);
+        authorLabel.setFont(new Font("Arial", Font.ITALIC, 16));
+        authorLabel.setBorder(BorderFactory.createEmptyBorder(14, 20, 0, 0));
+        panel.add(authorLabel, BorderLayout.CENTER);
+        
+        //JButton a játék elindításához
+        JButton enterButton = new JButton("Enter the game");
+        enterButton.setForeground(Color.RED);
+        enterButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3)); // Thicker border
+        enterButton.setBackground(Color.BLACK);
+        enterButton.setFocusPainted(false);
+        enterButton.setPreferredSize(new Dimension(150, 40)); // Set button size
+        panel.add(enterButton, BorderLayout.EAST);
+        
+        return panel;
+    }
+    
 
-    /* - A játékospanelek létrehozása és változás esetén frissítése.*/
-    public void updatePlayerPanels() {
+    /**
+     * Elkészíti a beállítások panelt, ahol a játékosok beállíthatják a játék körök számát és a játékosok számát.
+     * @return A settings panel.
+     */
+    private JPanel createSettingsPanel() {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBackground(Color.BLACK);
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+        
+        //JPanel a játék körök számának beállításához
+        JPanel turnsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        turnsPanel.setBackground(Color.BLACK);
+        JLabel turnsLabel = new JLabel("Game turns");
+        turnsLabel.setForeground(Color.WHITE);
+        turnsLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        turnsPanel.add(turnsLabel);
+
+        //JLabel a körök számának megadásához
+        JLabel rangeLabel1 = new JLabel(" (10 to 50)");
+        rangeLabel1.setForeground(Color.GRAY);
+        rangeLabel1.setFont(new Font("Arial", Font.ITALIC, 12));
+        turnsPanel.add(rangeLabel1);
+
+        //JLabel a ":" karakterhez
+        JLabel colonLabel = new JLabel(":");
+        colonLabel.setForeground(Color.WHITE);
+        colonLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        turnsPanel.add(colonLabel);
+        
+        JPanel turnsSpinnerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 0));      //Horizontális elrendezés, 20 pixel távolsággal
+        turnsSpinnerPanel.setBackground(Color.BLACK);
+
+        //JSpinner a körök számának megadásához
+        turnSpinner = new JSpinner(new SpinnerNumberModel(10, 10, 50, 1));
+        turnSpinner.setPreferredSize(new Dimension(40, 30));
+        turnSpinner.setFont(new Font("Arial", Font.PLAIN, 14));
+        turnSpinner.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        turnSpinner.setBackground(Color.BLACK);
+        turnSpinner.setForeground(Color.WHITE);
+
+        turnsSpinnerPanel.add(turnSpinner);
+        turnsPanel.add(turnsSpinnerPanel);
+
+        //JSpinner felületének testreszabása
+        for (Component component : turnSpinner.getComponents()) {
+            if (component instanceof JButton) {
+                component.setBackground(Color.BLACK);
+                component.setForeground(Color.WHITE);
+                ((JButton) component).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); // Thicker border
+            }
+        }
+
+        //JSpinner szövegmezőjének testreszabása
+        JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) turnSpinner.getEditor();
+        editor.getTextField().setBackground(Color.BLACK);
+        editor.getTextField().setForeground(Color.WHITE);
+        editor.getTextField().setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        turnsPanel.add(turnSpinner);
+        panel.add(turnsPanel);
+        
+        //##########################################################################################################################################
+
+        //JPanel a játékosok számának beállításához
+        JPanel numbersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        numbersPanel.setBackground(Color.BLACK);
+        JLabel playersLabel = new JLabel("Player numbers");
+        playersLabel.setForeground(Color.WHITE);
+        playersLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        playersLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
+        numbersPanel.add(playersLabel);
+
+        //JLabel a játékosok számának megadásához
+        JLabel rangeLabel2 = new JLabel(" (4 to 15)");
+        rangeLabel2.setForeground(Color.GRAY);
+        rangeLabel2.setFont(new Font("Arial", Font.ITALIC, 12));
+        rangeLabel2.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
+        numbersPanel.add(rangeLabel2);
+
+        //JLabel a ":" karakterhez
+        JLabel pontBehindLabel = new JLabel(":");
+        pontBehindLabel.setForeground(Color.WHITE);
+        pontBehindLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        pontBehindLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
+        numbersPanel.add(pontBehindLabel);
+        
+
+        JPanel playerSpinnerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0)); // Add some horizontal spacing
+        playerSpinnerPanel.setBackground(Color.BLACK);
+
+        //JSpinner a játékosok számának megadásához
+        playerSpinner = new JSpinner(new SpinnerNumberModel(5, 4, 15, 1));
+        playerSpinner.setPreferredSize(new Dimension(40, 30));
+        playerSpinner.setFont(new Font("Arial", Font.PLAIN, 14));
+        playerSpinner.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+        playerSpinner.setBackground(Color.BLACK);
+        playerSpinner.setForeground(Color.WHITE);
+
+        //JSpinner felületének testreszabása
+        for (Component component : playerSpinner.getComponents()) {
+            if (component instanceof JButton) {
+            component.setBackground(Color.BLACK);
+            component.setForeground(Color.WHITE);
+            ((JButton) component).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); // Thicker border
+            }
+        }
+
+        //JSpinner szövegmezőjének testreszabása
+        JSpinner.DefaultEditor playerEditor = (JSpinner.DefaultEditor) playerSpinner.getEditor();
+        playerEditor.getTextField().setBackground(Color.BLACK);
+        playerEditor.getTextField().setForeground(Color.WHITE);
+        playerEditor.getTextField().setBorder(BorderFactory.createLineBorder(Color.GRAY));
+
+        
+        //JSpinner eseménykezelője, ha megváltozik a játékosok száma, akkor frissíti a játékos paneleket
+        playerSpinner.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("Játékosok száma: " + playerSpinner.getValue());
+                if (((Integer)playerSpinner.getValue()) < 4) {
+                    playerSpinner.setValue(4);
+                    repaint();
+                }else if (((Integer)playerSpinner.getValue()) > 16) {
+                    playerSpinner.setValue(16);
+                    repaint();
+                }
+                
+                updatePlayerPanels();
+            }
+        });
+        playerSpinnerPanel.add(playerSpinner);
+        numbersPanel.add(playerSpinnerPanel);
+        numbersPanel.add(playerSpinner);
+        panel.add(numbersPanel);
+        
+        //JSeparator a beállítások és a játékosok közé
+        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+        separator.setForeground(Color.WHITE);
+        separator.setBackground(Color.BLACK);
+        //TODO: Rövidebbre állítani a JSeparator-t, hogy ne érjen el a panel széléig
+
+        panel.add(separator);
+        
+        //JPanel a játékosok konfigurálásához
+        JPanel configPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        configPanel.setBackground(Color.BLACK);
+
+        //JLabel a játékosok konfigurálásához
+        JLabel configLabel = new JLabel("Configure the players:");
+        configLabel.setForeground(Color.WHITE);
+        configLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        configLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
+        configPanel.add(configLabel);
+        panel.add(configPanel);
+        
+        return panel;
+    }
+    
+
+    /**
+     * Frissíti a játékos paneleket a játékosok számának megváltoztatásakor.
+     */
+    private void updatePlayerPanels() {
         int playerCount = (Integer) playerSpinner.getValue();
         
-        // Add panels if needed
+        //Panel hozzáadása, ha szükséges
         while (playerPanels.size() < playerCount) {
             PlayerPanel panel = new PlayerPanel(playerPanels.size() + 1, this);
             playerPanels.add(panel);
             configPanel.add(panel);
         }
         
-        // Remove panels if needed
+        //Panel eltávolítása, ha szükséges
         while (playerPanels.size() > playerCount) {
             PlayerPanel panel = playerPanels.remove(playerPanels.size() - 1);
             configPanel.remove(panel);
         }
         
+        //Játékospanel-ek újrarajzolása
         configPanel.revalidate();
         configPanel.repaint();
+    }
+    
+
+    /**
+     * A játékos panel eltávolítása a listából.
+     * @param panel A törlendő játékos panel.
+     */
+    public void removePlayerPanel(PlayerPanel panel) {
+
+        
+        //Eltávolítjuk a panelt a listából és a konténerből
+        playerPanels.remove(panel);
+        configPanel.remove(panel);
+        
+        //Frissítjük a játékosok számát a spinneren
+        playerSpinner.setValue(playerPanels.size());
+        
+        //Újraszámozzuk a játékos paneleket
+        for (int i = 0; i < playerPanels.size(); i++) {
+            playerPanels.get(i).updatePlayerNumber(i + 1);
+        }
+        
+        //Újrarajzoljuk a játékospanel-eket
+        configPanel.revalidate();
+        configPanel.repaint();
+        
+        
     }
 
 
     /* - A játék indítását elvégző függvény.*/
     public void startGame() {}
-
-
 }
