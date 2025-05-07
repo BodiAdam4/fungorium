@@ -3,6 +3,7 @@ package graphics;
 import java.awt.Color;
 import java.util.Map;
 
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -10,7 +11,7 @@ import javax.swing.JPanel;
 /**
  * A játék ablakát megvalósító osztály, tartalmazza a játék során megjelenő elemeket.
 */
-public class MainWindow implements JobListener{
+public class MainWindow extends JFrame implements JobListener{
 
     /* - Privát attribútumok*/
 
