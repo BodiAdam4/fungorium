@@ -1,5 +1,10 @@
 package model;
 
+import java.util.List;
+
+import listeners.InsectListener;
+import listeners.JobListener;
+import listeners.MushroomListener;
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
@@ -19,7 +24,24 @@ public class Insect {
 
     public ObjectChangeListener changeListener; //A rovarhoz tartozó eseménykezelők listája
 
+    /* - Listenerlisták*/
+    private List<InsectListener> InsectListeners;
+    private List<JobListener> jobListeners;
 
+    /**
+     * Egy Insect-eseményfigyelő beállítása.
+    */
+    public void addInsectListener(InsectListener listener) {
+        this.InsectListeners.add(listener);
+    }
+
+
+    /**
+     * Műveletek eseményfigyelőjének beállítása.
+    */
+    public void addJobListener(JobListener listener) {
+        this.jobListeners.add(listener);
+    }
 
     /**
      * Visszaadja, hogy hány spórát evett meg a rovar.
