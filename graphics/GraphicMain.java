@@ -12,10 +12,12 @@ public class GraphicMain {
     private MainWindow mainWindow;
 
     public static void main(String[] args) {
-        controller = new Controller();
+        //controller = new Controller();
         MainWindow mainWindow = new MainWindow();
         mainWindow.setSize(700, 600);
         mainWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE);
+        mainWindow.revalidate();
+        mainWindow.repaint();
     }
 }

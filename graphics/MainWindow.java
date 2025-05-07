@@ -24,12 +24,12 @@ public class MainWindow extends JFrame implements JobListener{
 
     /* - Konstruktor(ok)*/
     public MainWindow(){
-
+        this.menu = new MainMenu(); //A főmenü inicializálása
         setTitle("Fungorium_by_oet_kis_malacz");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1000, 600);     //Ablakméret beállítása
 
-        menu = new MainMenu(); //A főmenü inicializálása
+        this.getContentPane().add(menu); //A főmenü inicializálása
     }
     
 

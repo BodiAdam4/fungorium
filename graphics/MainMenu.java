@@ -223,18 +223,41 @@ public class MainMenu extends JPanel {
         //###################################################################################################################
 
         //JPanel a játékosok beállításaira
-        JPanel configPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        configPanel = createConfigPanel();
+        //Hozzáadás a mainPanelhez
+        settingsPanel.add(configPanel);
+
+        //settingspanel hozzáadása a contentPanelhez
+        contentPanel.add(settingsPanel, BorderLayout.NORTH);
+
+        //Hozzáadjuk a főpanelhez
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
+
+        
+        this.add(mainPanel);
+        setVisible(true);
+    }
+    
+
+    /* - Getter/Setter metódusok*/
+
+
+    /* - Egyéb metódusok*/
+
+    /* - A játékospaneleket tartalmazó configPanel létrehozására alkalmas függvény.*/
+    public JPanel createConfigPanel() {
+        configPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         configPanel.setBackground(Color.BLACK);
+
+        //JLabel a játékospanelekhez
         JLabel configLabel = new JLabel("Configure the players:");
         configLabel.setForeground(Color.WHITE);
         configLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         configLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
-        //Hozzáadás a configPanelhez és a 'beállítások' panelhez
+        //JLabel hozzáadása a configPanelhez
         configPanel.add(configLabel);
-        settingsPanel.add(configPanel);
 
-        //Hozzáadás a főpanelhez
-        contentPanel.add(settingsPanel, BorderLayout.NORTH);
+        
 
         //###################################################################################################################
         
@@ -319,49 +342,34 @@ public class MainMenu extends JPanel {
         horizontalScrollBar.setPreferredSize(new Dimension(8, 8));
         verticalScrollBar.setPreferredSize(new Dimension(8, 8));
         //Hozzáadás a panelhez
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        //contentPanel.add(scrollPane, BorderLayout.CENTER);
 
         //Frissítjük a játékospaneleket
-        int playerCount = (Integer) playerSpinner.getValue();
-
-        //Panelek hozzáadása, ha szűkséges
-        while (playerPanels.size() < playerCount) {
-            //TODO: A konstruktor javítása
-            PlayerPanel panel = new PlayerPanel(playerPanels.size() + 1, this);
-            playerPanels.add(panel);
-            playersPanel.add(panel);
-        }
-
-        //Panelek eltávolítása, ha szükséges
-        while (playerPanels.size() > playerCount) {
-            PlayerPanel panel = playerPanels.remove(playerPanels.size() - 1);
-            playersPanel.remove(panel);
-        }
-
-        //Újrarajzolás
-        playersPanel.revalidate();
-        playersPanel.repaint();
-
-        //Hozzáadjuk a főpanelhez
-        mainPanel.add(contentPanel, BorderLayout.CENTER);
-
-        
-        this.add(mainPanel);
-        setVisible(true);
+        updatePlayerPanels();
+        return configPanel;
     }
-    
-
-    /* - Getter/Setter metódusok*/
-
-
-    /* - Egyéb metódusok*/
-
-    /* - A játékospaneleket tartalmazó configPanel létrehozására alkalmas függvény.*/
-    public JPanel createConfigPanel() {return null;}
 
 
     /* - A játékospanelek létrehozása és változás esetén frissítése.*/
-    public void updatePlayerPanels() {}
+    public void updatePlayerPanels() {
+        int playerCount = (Integer) playerSpinner.getValue();
+        
+        // Add panels if needed
+        while (playerPanels.size() < playerCount) {
+            PlayerPanel panel = new PlayerPanel(playerPanels.size() + 1, this);
+            playerPanels.add(panel);
+            configPanel.add(panel);
+        }
+        
+        // Remove panels if needed
+        while (playerPanels.size() > playerCount) {
+            PlayerPanel panel = playerPanels.remove(playerPanels.size() - 1);
+            configPanel.remove(panel);
+        }
+        
+        configPanel.revalidate();
+        configPanel.repaint();
+    }
 
 
     /* - A játék indítását elvégző függvény.*/

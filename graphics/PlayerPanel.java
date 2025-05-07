@@ -34,11 +34,15 @@ public class PlayerPanel extends JPanel {
     private JTextField nameBox;         //A játékos nevének beviteléhez szükséges szövegdoboz.
     private Color color;                //A játékos színe, mely a későbbiekben segít megkülönböztetni a különböző objektumok tulajdonosait.
     private JRadioButton insectRadio;   //Egy rádiógomb, mellyel eldönthető, hogy a játékos rovarász vagy gombász szeretne lenni.
-
+    private int playerNumber;          //A játékos sorszáma, mely a fejlécben jelenik meg.
+    private MainMenu parent;            //A szülő panel, mely a PlayerPanel-t tartalmazza. Ezen keresztül lehet eltávolítani a panelt a főmenüből.
 
 
     /* - Konstruktor(ok)*/
-    public PlayerPanel(){
+    public PlayerPanel(int playerNumber, MainMenu parent) {
+        
+        this.playerNumber = playerNumber; //A játékos sorszámának beállítása
+        this.parent = parent; //A szülő panel beállítása
 
         //A panel stílusának beállítása
         this.setOpaque(false);
@@ -63,7 +67,7 @@ public class PlayerPanel extends JPanel {
         ));
 
         //JLabel a fejléchez
-        JLabel headerLabel = new JLabel("#" + playerNumber + ". Player"); //TODO: Játékos sorszámozás
+        JLabel headerLabel = new JLabel("#" + playerNumber + ". Player");
         headerLabel.setForeground(Color.WHITE);
         headerLabel.setFont(new Font("Arial", Font.BOLD, 14));
         headerPanel.add(headerLabel, BorderLayout.WEST);
