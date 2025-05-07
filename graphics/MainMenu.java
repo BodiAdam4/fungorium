@@ -6,7 +6,9 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -14,10 +16,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 
 
 /**
@@ -232,8 +237,117 @@ public class MainMenu extends JPanel {
         contentPanel.add(settingsPanel, BorderLayout.NORTH);
 
         //###################################################################################################################
+        
         //PlayerPanel-ek létrehozása és hozzáadása a configPanelhez
-        //TODO: Itt folytasd
+        
+        //JPanel a PlayerPanelekhez
+        JPanel playersPanel = new JPanel();
+        playersPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+        playersPanel.setBackground(Color.BLACK);
+
+        //PlayerPanel lista inicializálása
+        playerPanels = new ArrayList<>();
+
+        //Ha több játékos van, mint 5, akkor a játékosok számának megfelelően az első sor panel alá törjük a következő sorba
+        playersPanel.setLayout(new GridLayout(0, 5, 20, 20)); // 5 oszlop, dynamikus sorok
+
+        //JScrollPane a gördíthetőséghez
+        JScrollPane scrollPane = new JScrollPane(playersPanel);
+        scrollPane.setBackground(Color.BLACK);
+        scrollPane.getViewport().setBackground(Color.BLACK);
+        scrollPane.setBorder(null);
+
+        //JScrollBar a gördítéshez
+        JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+        JScrollBar horizontalScrollBar = scrollPane.getHorizontalScrollBar();
+
+        //Vertikális görgetősáv stílusa
+        verticalScrollBar.setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+            this.thumbColor = Color.WHITE;
+            this.trackColor = Color.DARK_GRAY;
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+            return createEmptyButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+            return createEmptyButton();
+            }
+
+            private JButton createEmptyButton() {
+            JButton button = new JButton();
+            button.setPreferredSize(new Dimension(0, 0));
+            button.setMinimumSize(new Dimension(0, 0));
+            button.setMaximumSize(new Dimension(0, 0));
+            return button;
+            }
+        });
+
+        //Horizontális görgetősáv stílusa
+        horizontalScrollBar.setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+            this.thumbColor = Color.WHITE;
+            this.trackColor = Color.DARK_GRAY;
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+            return createEmptyButton();
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+            return createEmptyButton();
+            }
+
+            private JButton createEmptyButton() {
+            JButton button = new JButton();
+            button.setPreferredSize(new Dimension(0, 0));
+            button.setMinimumSize(new Dimension(0, 0));
+            button.setMaximumSize(new Dimension(0, 0));
+            return button;
+            }
+        });
+
+        //Szűkebb görgetősáv
+        horizontalScrollBar.setPreferredSize(new Dimension(8, 8));
+        verticalScrollBar.setPreferredSize(new Dimension(8, 8));
+        //Hozzáadás a panelhez
+        contentPanel.add(scrollPane, BorderLayout.CENTER);
+
+        //Frissítjük a játékospaneleket
+        int playerCount = (Integer) playerSpinner.getValue();
+
+        //Panelek hozzáadása, ha szűkséges
+        while (playerPanels.size() < playerCount) {
+            //TODO: A konstruktor javítása
+            PlayerPanel panel = new PlayerPanel(playerPanels.size() + 1, this);
+            playerPanels.add(panel);
+            playersPanel.add(panel);
+        }
+
+        //Panelek eltávolítása, ha szükséges
+        while (playerPanels.size() > playerCount) {
+            PlayerPanel panel = playerPanels.remove(playerPanels.size() - 1);
+            playersPanel.remove(panel);
+        }
+
+        //Újrarajzolás
+        playersPanel.revalidate();
+        playersPanel.repaint();
+
+        //Hozzáadjuk a főpanelhez
+        mainPanel.add(contentPanel, BorderLayout.CENTER);
+
+        
+        this.add(mainPanel);
+        setVisible(true);
     }
     
 
