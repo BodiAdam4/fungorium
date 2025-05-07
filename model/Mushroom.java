@@ -1,5 +1,6 @@
 package model;
-import userinterface.RandTools;
+import listeners.MushroomListener;
+import listeners.JobListenert;
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
@@ -33,6 +34,12 @@ public class Mushroom{
     private int id;
     private int level = 1;          //Kezdetben a gomba 1-es szintű
     private Tecton myTecton;
+
+    /* - Listenerlisták*/
+    private List<MushroomListener> mushroomListeners;
+    private List<JobListener> jobListeners;
+
+
 
 
     public ObjectChangeListener changeListener; //A gombatesthez tartozó eseménykezelők listája
@@ -119,6 +126,26 @@ public class Mushroom{
     public void setLevel(int level){
         this.level = level;
     }
+
+
+    /* - Adder metódusok*/
+
+
+    /**
+     * Egy gombatest-eseményfigyelő beállítása.
+    */
+    public void addMushroomListener(MushroomListener listener) {
+        this.mushroomListeners.add(listener);
+    }
+
+
+    /**
+     * Műveletek eseményfigyelőjének beállítása.
+    */
+    public void addJobListener(JobListener listener) {
+        this.jobListeners.add(listener);
+    }
+
 
 
     /* - Egyéb metódusok*/
