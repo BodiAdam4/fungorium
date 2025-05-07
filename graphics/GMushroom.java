@@ -1,4 +1,4 @@
-package graphicObjects;
+package graphics;
 
 import listeners.MushroomListener;
 import model.Spore;

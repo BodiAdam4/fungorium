@@ -1,4 +1,4 @@
-package graphicObjects;
+package graphics;
 
 
 import javax.swing.JPanel;
@@ -10,7 +10,7 @@ import java.awt.Color;
  * Egy-egy játékos beállítását lehetővé tevő UI elem. Ezen helyezkedik el a név beviteli mezeje, 
  * illetve itt lehet kiválasztani a játékos színét és kasztját is.
 */
-public class PlayerPanel {
+public class PlayerPanel extends JPanel {
     
     /* - Privát attribútumok*/
     private JTextField nameBox;         //A játékos nevének beviteléhez szükséges szövegdoboz.
@@ -20,6 +20,7 @@ public class PlayerPanel {
 
 
     /* - Konstruktor(ok)*/
+
 
     /* - Getter/Setter metódusok*/
 
