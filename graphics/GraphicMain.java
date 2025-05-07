@@ -14,5 +14,8 @@ public class GraphicMain {
     public static void main(String[] args) {
         controller = new Controller();
         MainWindow mainWindow = new MainWindow();
+        mainWindow.setSize(700, 600);
+        mainWindow.setVisible(true);
+        mainWindow.setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE);
     }
 }
