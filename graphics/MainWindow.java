@@ -2,11 +2,9 @@ package graphics;
 
 import java.awt.Color;
 import java.util.Map;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import listeners.JobListener;
 
 
@@ -20,7 +18,7 @@ public class MainWindow extends JFrame implements JobListener{
 
     private Map map;                        //A játék térképét megjelenítő JPanel leszármazott osztály példánya.
     private MainMenu menu;                  //A játék kezdetén megjelenő, a beállításokat tartalmazó panel.
-    private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel.
+    //private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
     private JPanel notificationBar;         //Az értesítéseknél felugró panel.
     private JLabel notificationText;        //Az értesítéseknél megjelenő szöveg.
 

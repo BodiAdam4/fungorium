@@ -33,7 +33,7 @@ public class MainMenu extends JPanel {
     
     /* - Privát attribútumok*/
     private List<PlayerPanel> playerPanels;         //A játékosok beállításához szükséges panelek listája. Minden játékoshoz egy panel tartozik.
-    private GraphicController gController;          //A grafikus felületet irányító objektum.
+    //private GraphicController gController;          //A grafikus felületet irányító objektum. //TODO: Ha meglesz a GraphicController, akkor ezt kell implementálni
     private JSpinner playerSpinner;                 //A játékosszám megadásához szükséges szám bevitelére alkalmas bemeneti mező.
     private JSpinner turnSpinner;                   //A körök számának megadásához szükséges szám bevitelére alkalmas bemeneti mező.
     private JPanel configPanel;                     //A játékospaneleket tartalmazó JPanel típusú grafikus panel.
@@ -357,7 +357,7 @@ public class MainMenu extends JPanel {
     /* - Egyéb metódusok*/
 
     /* - A játékospaneleket tartalmazó configPanel létrehozására alkalmas függvény.*/
-    public JPanel createConfigPanel() {}
+    public JPanel createConfigPanel() {return null;}
 
 
     /* - A játékospanelek létrehozása és változás esetén frissítése.*/
