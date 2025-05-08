@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import listeners.JobListener;
 import listeners.LineListener;
 
 import listeners.ObjectChangeListener;
@@ -19,7 +20,7 @@ public class Line
     private int mushroomId;
     private Tecton[] ends;
     private List<LineListener> lineListeners;
-    //private List<JobListener> jobListeners;
+    private List<JobListener> jobListeners;
     public int ttl = -1;
 
     public ObjectChangeListener changeListener;
@@ -77,11 +78,10 @@ public class Line
     public List<LineListener> getLineListeners(){
         return lineListeners;
     }
-/* 
+
     public List<JobListener> getJobListeners(){
         return jobListeners;
     }
-*/
 
     /** - Egyéb metódusok*/
 
@@ -236,8 +236,8 @@ public class Line
     /**
      * Hozzáad egy JobListenert a jobListeners-hez
      * @param listener a listener, amit a listához adunk
-     
+     */
     public void addJobListerner(JobListener listener){
         jobListeners.add(listener);
-    }*/
+    }
 }
