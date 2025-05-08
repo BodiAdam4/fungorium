@@ -3,7 +3,6 @@ package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -33,13 +32,14 @@ public class MainWindow extends JFrame implements JobListener{
         this.setSize(1000, 600);     //Ablakméret beállítása
         this.setBackground(Color.BLACK);
         
+        /*
         this.menu = new MainMenu(); //A főmenü inicializálása
         this.add(menu, BorderLayout.CENTER); //A főmenü inicializálása
         menu.revalidate();
         menu.repaint(); //A főmenü újrarajzolása
-        
+        */
 
-        /*
+        
         //JPanel az állapotsávnak
         JPanel statusBar = new JPanel(); //A státusz sáv inicializálása
         statusBar.setLayout(new BorderLayout()); //A státusz sáv elrendezése
@@ -59,27 +59,29 @@ public class MainWindow extends JFrame implements JobListener{
         this.add(mainContentPanel, BorderLayout.CENTER); //A fő tartalom panel hozzáadása a főablakhoz
 
         //JPanel a map-nak
-        JPanel mapPanel = new JPanel(); //A térkép panel inicializálása
-        mapPanel.setLayout(new BorderLayout()); //A térkép panel elrendezése
+        JPanel mapPanel = new Image("graphics\\images\\bg.jpg"); //A térkép panel inicializálása
+        mapPanel.setLayout(null); //A térkép panel elrendezése
         mainContentPanel.setBackground(null); //A fő tartalom panel háttérszínének beállítása
         mainContentPanel.setOpaque(false);
         mapPanel.setPreferredSize(new Dimension(this.getWidth(), this.getHeight())); //A térkép panel méretének beállítása
         mapPanel.setMaximumSize(new Dimension(this.getWidth(), this.getHeight()));
+
+        map = new Map(); //A térkép inicializálása
+        mapPanel.add(map); //A térkép hozzáadása a térkép panelhez
+
         mainContentPanel.add(mapPanel, BorderLayout.CENTER); //A térkép panel hozzáadása a fő tartalom panelhez
 
         //JPanel a controlPanel-nek
         JPanel controlPanel = new JPanel(); //A vezérlő panel inicializálása
         controlPanel.setLayout(new BorderLayout()); //A vezérlő panel elrendezése
         controlPanel.setBackground(Color.DARK_GRAY); //A vezérlő panel háttérszínének beállítása
-        controlPanel.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()));
-        controlPanel.setMaximumSize(new Dimension(this.getWidth()/3, this.getHeight()));
+        controlPanel.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()));
+        controlPanel.setMaximumSize(new Dimension(this.getWidth()/4, this.getHeight()));
         mainContentPanel.add(controlPanel, BorderLayout.EAST); //A vezérlő panel hozzáadása a fő tartalom panelhez
 
 
         //TODO: Ezt majd el kell innen pakolni
-        this.map = new Map(); //A térkép inicializálása
-        mapPanel.add(map); //A főmenü inicializálása
-        */
+        
         this.revalidate();
         this.repaint();
     }

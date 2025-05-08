@@ -2,17 +2,13 @@ package graphics;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
+import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.sound.sampled.Line;
 import javax.swing.JPanel;
-public class Map extends JPanel implements MouseListener {
+public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     
     /* - Privát attribútumok*/
@@ -27,7 +23,10 @@ public class Map extends JPanel implements MouseListener {
 
     /* - Konstuktor(ok)*/
     public Map() {
-        addMouseListener(this);
+        this.addMouseListener(this); //MouseListener hozzáadása a térképhez, hogy érzékelje a kattintásokat.
+        this.addMouseMotionListener(this);
+        this.setBounds(-5000, -5000, 10000, 10000); //A térkép pozíciója és mérete
+        this.setOpaque(false);
     }
 
     /* - Getter/Setter metódusok*/
@@ -97,10 +96,10 @@ public class Map extends JPanel implements MouseListener {
 
         int width = getWidth();                     //A panel szélessége
         int height = getHeight();                   //A panel magassága
-        int cellSize = 150;                         //Cellák méretezése
+        int cellSize = 100;                         //Cellák méretezése
 
         //A háttérszín legyen fekete
-        g.setColor(Color.BLACK);
+        g.setColor(new Color(0, 0, 0, 0));
         g.fillRect(0, 0, width, height);
 
         int cols = width / cellSize;                //Az oszlopok számának meghatározása
@@ -135,6 +134,9 @@ public class Map extends JPanel implements MouseListener {
         
     }
 
+    private boolean isDragging = false;
+    private Point mousePosition;
+    private Point windowPosition;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -152,12 +154,11 @@ public class Map extends JPanel implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        // Handle mouse press event
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // Handle mouse release event
+        isDragging = false;
     }
 
     @Override
@@ -168,6 +169,28 @@ public class Map extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {
         // Handle mouse exit event
+    }
+
+    
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        if (isDragging == false) {
+            mousePosition = e.getPoint();
+            windowPosition = this.getLocation();
+            isDragging = true;
+        }
+
+        System.out.println("Dragging from: " + e.getPoint().x + ", " + e.getPoint().y);
+        int newX = windowPosition.x + e.getX() -mousePosition.x;
+        int newY = windowPosition.y + e.getY() -mousePosition.y; 
+        
+        this.setLocation(newX , newY);
+    
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
     }
 
 }
