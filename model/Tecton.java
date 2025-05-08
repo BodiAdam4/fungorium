@@ -111,7 +111,7 @@ public class Tecton {
      * Egy tekton-eseményfigyelő beállítása
      * @param listener A tekton eseményfigyelője
      */
-    void addTectonListener(TectonListener listener){
+    public void addTectonListener(TectonListener listener){
         this.tectonListeners.add(listener);
     }
 
