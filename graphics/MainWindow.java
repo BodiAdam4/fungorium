@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.HashMap;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,7 +16,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.OverlayLayout;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import listeners.JobListener;
@@ -50,13 +54,109 @@ public class MainWindow extends JFrame implements JobListener{
         menu.repaint(); //A főmenü újrarajzolása
         */
 
-        
+        //TODO: TÖRÖLNI!!
+        //#############################################
+        HashMap<String, Integer> players = new HashMap<>();
+        players.put("MushroomPicker_1", 17);
+        players.put("MushroomPicker_2", 19);
+        players.put("InsectPicker_1", 8);
+        players.put("InsectPicker_2", 5);
+        players.put("InsectPicker_3", 12);
+        players.put("InsectPicker_4", 3);
+        players.put("InsectPicker_5", 6);
+        players.put("InsectPicker_6", 4);
+        players.put("InsectPicker_7", 2);
+        //#############################################
+
+
         //JPanel az állapotsávnak
         JPanel statusBar = new JPanel(); //A státusz sáv inicializálása
-        statusBar.setLayout(new BorderLayout()); //A státusz sáv elrendezése
+        statusBar.setLayout(new BoxLayout(statusBar, BoxLayout.X_AXIS)); //A státusz sáv elrendezése
         statusBar.setBackground(Color.decode("#38778a")); //A státusz sáv háttérszínének beállítása
         statusBar.setPreferredSize(new Dimension(this.getWidth(), 50));
         //statusBar.setMaximumSize(new Dimension(this.getWidth(), 50));
+
+        // Görgethető panel létrehozása
+        JPanel scrollablePanel = new JPanel();
+        scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.X_AXIS));
+        //scrollablePanel.setOpaque(false);
+        scrollablePanel.setBackground(Color.decode("#38778a")); //A görgethető panel háttérszínének beállítása
+
+        //Dinamikus elemek felvétele a státusz sávra
+        int playerCount = players.size();
+        int i = 0;
+
+        for (String player : players.keySet()) {
+            Integer score = players.get(player);
+
+            // Játékospanel
+            JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 15));
+            playerPanel.setOpaque(false);
+
+            JLabel label = new JLabel(player + ": ");
+            label.setForeground(Color.WHITE);
+            label.setFont(label.getFont().deriveFont(Font.BOLD, 18));
+
+            JLabel scoreLabel = new JLabel(score.toString());
+            scoreLabel.setForeground(Color.RED);
+            scoreLabel.setFont(scoreLabel.getFont().deriveFont(Font.BOLD, 18));
+
+            playerPanel.add(label);
+            playerPanel.add(scoreLabel);
+            scrollablePanel.add(playerPanel);
+
+            // Elválasztó
+            if (i < playerCount - 1) {
+            JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+            separator.setPreferredSize(new Dimension(3, 40));
+            separator.setForeground(Color.WHITE);
+            scrollablePanel.add(separator);
+            }
+            i++;
+        }
+
+        //Görgetősáv hozzáadása egyedi stílussal
+        javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(scrollablePanel) {
+            @Override
+            public void updateUI() {
+            super.updateUI();
+            // Egyedi görgetősáv stílus
+            javax.swing.JScrollBar hScrollBar = getHorizontalScrollBar();
+            hScrollBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+                @Override
+                protected void configureScrollBarColors() {
+                this.thumbColor = Color.GRAY; // Görgetősáv színe
+                this.trackColor = Color.decode("#38778a"); // Háttér színe
+                }
+
+                @Override
+                protected javax.swing.JButton createDecreaseButton(int orientation) {
+                return createZeroButton(); // Gombok eltávolítása
+                }
+
+                @Override
+                protected javax.swing.JButton createIncreaseButton(int orientation) {
+                return createZeroButton(); // Gombok eltávolítása
+                }
+
+                private javax.swing.JButton createZeroButton() {
+                javax.swing.JButton button = new javax.swing.JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+                }
+            });
+            hScrollBar.setPreferredSize(new Dimension(5, 0)); // Görgetősáv szélessége
+            }
+        };
+        scrollPane.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setBorder(null);
+        scrollPane.setPreferredSize(new Dimension(this.getWidth(), 50));
+        scrollPane.setToolTipText("Scroll to see all players"); //Tooltip hozzáadása a görgetősávhoz
+        statusBar.add(scrollPane);
+
         this.add(statusBar, BorderLayout.NORTH); //A státusz sáv hozzáadása a főablakhoz
 
         //JPanel amely a map-ot és a a controlPanel-t tartalmazza
