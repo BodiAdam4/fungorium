@@ -43,14 +43,16 @@ public class PlayerPanel extends JPanel {
 
     /* - Konstruktor(ok)*/
     public PlayerPanel(int playerNumber, MainMenu parent) {
-
+        
         this.playerNumber = playerNumber; //A játékos sorszámának beállítása
         this.parent = parent; //A szülő panel beállítása
 
         //A panel stílusának beállítása
         this.setOpaque(false);
         this.setBackground(new Color(0, 0, 0, 0));
-        this.setPreferredSize(new Dimension(250, 300));
+        this.setPreferredSize(new Dimension(300, 500));
+        this.setMaximumSize(new Dimension(300, 500));
+        this.setMinimumSize(new Dimension(300, 500));
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
 
@@ -63,8 +65,7 @@ public class PlayerPanel extends JPanel {
         //Fejléc beállítása játékossorszámozással és "X" gombbal
         JPanel headerPanel = new JPanel(new BorderLayout());
         headerPanel.setOpaque(false);
-        headerPanel.setMaximumSize(new Dimension(250, 35)); //Fejléc mérete
-        //TODO: Méret helyes beállítása
+        headerPanel.setMaximumSize(new Dimension(300, 35)); //Fejléc mérete
         headerPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
 
         //JLabel a fejléchez
@@ -76,7 +77,9 @@ public class PlayerPanel extends JPanel {
         //JButton a fejléchez "X"-el
         JButton closeButton = new JButton(" X ");
         closeButton.setFont(new Font("Arial", Font.BOLD, 20));
-        closeButton.setPreferredSize(new Dimension(30, 20)); //Szűkítjük a gombot
+        closeButton.setPreferredSize(new Dimension(30, 20));
+        closeButton.setMaximumSize(new Dimension(30, 20));
+        closeButton.setMinimumSize(new Dimension(30, 20));
         closeButton.setForeground(Color.RED);
         closeButton.setBackground(Color.BLACK);
         //closeButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); //Fehér szegély
@@ -95,8 +98,8 @@ public class PlayerPanel extends JPanel {
         JPanel separatorPanel = new JPanel();
         separatorPanel.setOpaque(false);
         //separatorPanel.setBackground(Color.RED); //Fekete háttér
-        separatorPanel.setPreferredSize(new Dimension(250, 30)); //Szeparátor mérete
-        separatorPanel.setMaximumSize(new Dimension(250, 30)); //Szeparátor mérete
+        separatorPanel.setPreferredSize(new Dimension(300, 30)); //Szeparátor mérete
+        separatorPanel.setMaximumSize(new Dimension(300, 30)); //Szeparátor mérete
         contentPanel.add(separatorPanel); //Hozzáadjuk a szeparátort a kontenthez
         
 
@@ -106,7 +109,7 @@ public class PlayerPanel extends JPanel {
         nameBox = new JTextField("Enter your name here");
         nameBox.setForeground(Color.LIGHT_GRAY);
         nameBox.setOpaque(false);
-        nameBox.setPreferredSize(new Dimension(200, 25)); //A szövegdoboz mérete
+        nameBox.setPreferredSize(new Dimension(300, 25)); //A szövegdoboz mérete
         nameBox.setMaximumSize(new Dimension(Short.MAX_VALUE, 25));
         nameBox.setAlignmentX(CENTER_ALIGNMENT);
         nameBox.setFont(new Font("Arial", Font.ITALIC, 14));
@@ -203,6 +206,8 @@ public class PlayerPanel extends JPanel {
                     }
                     // Highlight selected color
                     colorSquare.setBorder(BorderFactory.createLineBorder(Color.RED, 4));
+                    PlayerPanel.this.color = colorSquare.getBackground(); // Set the selected color
+                    //System.out.println("Selected color: " + colorSquare.getBackground().toString()); // Debug output
                 }
             });
             
@@ -353,6 +358,10 @@ public class PlayerPanel extends JPanel {
     public Color getColor(){
         return color;
         //TODO: Lehetséges, hogy a színt nem így kellene visszaadni.
+        //A színt a színválasztó négyzetek színéből kellene visszaadni, nem pedig egy külön attribútumból.
+        //A színválasztó négyzetek színét a mouseClicked eseménykezelőben állítjuk be.
+        //Ezért a színválasztó négyzetek színét kellene visszaadni.
+        
     }
 
 

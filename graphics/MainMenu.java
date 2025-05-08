@@ -65,7 +65,11 @@ public class MainMenu extends JPanel {
         //Jpanel a játékoskonténerhez: itt jelennek meg a PlayerPanel példányok
         configPanel = new JPanel();
         configPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        configPanel.setBackground(Color.BLACK);
+        //configPanel.setPreferredSize(new Dimension(300, 500)); //A panel méretének beállítása
+        //configPanel.setMaximumSize(new Dimension(300, 500)); //A panel méretének beállítása
+        //configPanel.setMinimumSize(new Dimension(300, 500)); //A panel méretének beállítása
+        configPanel.setBackground(null);
+        configPanel.setOpaque(false); //A panel háttérszínének beállítása
 
         //Lista a játékos panelekről
         playerPanels = new ArrayList<>();
@@ -179,7 +183,7 @@ public class MainMenu extends JPanel {
         authorLabel.setBorder(BorderFactory.createEmptyBorder(14, 20, 0, 0));
         panel.add(authorLabel, BorderLayout.CENTER);
         
-        //JButton a játék elindításához
+        // JButton a játék elindításához
         JButton enterButton = new JButton("Enter the game");
         enterButton.setForeground(Color.RED);
         enterButton.setFont(new Font("Arial", Font.BOLD, 25));
@@ -187,6 +191,13 @@ public class MainMenu extends JPanel {
         enterButton.setBackground(Color.BLACK);
         enterButton.setFocusPainted(false);
         enterButton.setPreferredSize(new Dimension(190, 40)); // Set button size
+        enterButton.addActionListener(e -> {
+            playerPanels.forEach(playerPanel -> {
+                System.out.println("Player color: " + playerPanel.getColor() + "player name: " + playerPanel.getName());
+            });
+            System.out.println("Enter the game button clicked!");
+            //startGame(); // Add mouse click event
+        });
         panel.add(enterButton, BorderLayout.EAST);
         
         return panel;
