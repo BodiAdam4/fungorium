@@ -9,13 +9,18 @@ import model.Line;
  * Az osztály a modellbeli gombatestek megjelenítéséért felelős. 
  * A játék során az osztály példányait a GTecton példányok fogják tartalmazni.
 */
-public class GMushroom implements MushroomListener{
+public class GMushroom extends Image implements MushroomListener{
     
     /* - Publikus attribútumok*/
     public String id;                   //A gombatesthez tartozó azonosító, amely alapján meg lehet találni a kontrollerben.
     public String playerId;             //Annak a játékosnak az azonosítója akihez a gombatest tartozik.
 
     /* - Konstruktor(ok)*/
+    public GMushroom(String id, String playerId) {
+        super("graphics/images/mushroom.png"); //A gombatest képe
+        this.id = id;
+        this.playerId = playerId;
+    }
 
 
     /* - Getter/Setter metódusok*/

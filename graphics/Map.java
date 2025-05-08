@@ -4,13 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.sound.sampled.Line;
 import javax.swing.JPanel;
+public class Map extends JPanel implements MouseListener {
 
-public class Map extends JPanel {
     
     /* - Privát attribútumok*/
     //private HashMap<Point, GTecton> tectons;            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
@@ -18,10 +21,13 @@ public class Map extends JPanel {
     //private List<GLine> lines;                          //A térképen elhelyezkedő grafikus gombafonalak listája.
     //private GraphicController graphicController;        //A grafikus vezérlést megvalósító objektum.
 
+    //TODO: ezt eltávolítani!!
+    private HashMap<Point, GMushroom> mushrooms;        //A térképen elhelyezkedő grafikus gombatestek. Kulcsként a gombatest griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
+
 
     /* - Konstuktor(ok)*/
     public Map() {
-
+        addMouseListener(this);
     }
 
     /* - Getter/Setter metódusok*/
@@ -49,7 +55,14 @@ public class Map extends JPanel {
 
 
     /* - Gombatest hozzáadása a térképhez. Paraméterként elvárja a hozzáadandó grafikus gombatest példányt.*/
-    public void addMushroom(GMushroom gmushroom) {}
+    public void addMushroom(GMushroom gmushroom) {
+        if (mushrooms == null) {
+            mushrooms = new HashMap<>();
+        }
+        Point p = new Point(0, 0); //TODO: ezt majd át kell írni, hogy a gombatest pozícióját is figyelembe vegye.
+        mushrooms.put(p, gmushroom);
+        this.add(gmushroom); //Hozzáadja a grafikus gombatestet a térképhez.
+    }
 
 
     /* - Gombatest eltávolítása a térképről. Szükséges megadni a gombatest kontrollerbeli azonosítóját.*/
@@ -111,17 +124,50 @@ public class Map extends JPanel {
         for (Line line : handler.getLines()) {
             line.draw(g2);
         }
-
-        //Draw island images
         
-        for (Map.Entry<Point, BufferedImage> entry : handler.getImageCells().entrySet()) {
+        //Draw mushroom images in the grid cells
+        for (java.util.Map.Entry<Point, GMushroom> entry : mushrooms.entrySet()) {
             Point p = entry.getKey();
-            BufferedImage img = entry.getValue();
-            int x = p.x * cellSize;
-            int y = p.y * cellSize;
-            g.drawImage(img, x, y, null);
+            GMushroom mushroom = new GMushroom("12","s1");
+            addMushroom(mushroom);
         }
         */
+        
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        // Handle mouse click event
+        int col = e.getX() / 150;
+        int row = e.getY() / 150;
+        Point cell = new Point(col, row);
+        //cell.addMushroom(new GMushroom()); //TODO: ezt majd át kell írni, hogy a gombatest pozícióját is figyelembe vegye.
+        System.out.println("Cell clicked: " + cell.x + ", " + cell.y);
+        //GMushroom m = new GMushroom("12","s1");
+        //addMushroom(m);
+        this.repaint();
+        this.revalidate();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // Handle mouse press event
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // Handle mouse release event
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // Handle mouse enter event
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // Handle mouse exit event
     }
 
 }
