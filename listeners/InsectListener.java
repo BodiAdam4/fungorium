@@ -15,7 +15,7 @@ public interface InsectListener {
     public void moveFinished(Tecton to);
 
     /* - Azon metódus, amely akkor hívódik meg ha egy rovar elfogyaszt egy spórát */
-    public void sporeEaten();
+    public void sporeEaten(String effect);
 
     /* - Azon metódus, amely akkor hívódik meg ha egy spóra hatása lejár egy rovaron */
     public void effectReseted();
