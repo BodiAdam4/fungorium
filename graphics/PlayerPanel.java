@@ -50,9 +50,9 @@ public class PlayerPanel extends JPanel {
         //A panel stílusának beállítása
         this.setOpaque(false);
         this.setBackground(new Color(0, 0, 0, 0));
-        this.setPreferredSize(new Dimension(300, 500));
-        this.setMaximumSize(new Dimension(300, 500));
-        this.setMinimumSize(new Dimension(300, 500));
+        this.setPreferredSize(new Dimension(300, 300));
+        this.setMaximumSize(new Dimension(300, 300));
+        this.setMinimumSize(new Dimension(300, 300));
         this.setLayout(new BorderLayout());
         this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
 
