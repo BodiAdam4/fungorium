@@ -170,12 +170,34 @@ public class Mushroom{
                     Line line = new Line(myTecton, to, id);
                     changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, line); //Eseménykezelő értesítése
                     System.out.println("Line successfully grown");
+
+                    //A listener értesítése a gombafonal növesztéséről
+                    for (MushroomListener listener : mushroomListeners) {
+                        listener.lineGrew(line);
+                    }
+
+                    //Joblistener értesítése a gombafonal növesztéséről
+                    for (JobListener listener : jobListeners) {
+                        listener.jobSuccessfull("Line successfully grown");
+                    }
                 }
             }, 1);
             System.out.println("Line grow started");
+
+            //Joblistener értesítése a gombafonal növesztéséről
+            for (JobListener listener : jobListeners) {
+                listener.jobSuccessfull("Line grow started");
+            }
+
             return true;
         } else{
             System.out.println("Cannot grow line to this tecton, it is not a neighbor");
+
+            //Joblistener értesítése a gombafonal növesztéséről
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Cannot grow line to this tecton, it is not a neighbor");
+            }
+
             return false;
         }
     }
@@ -218,10 +240,26 @@ public class Mushroom{
 
             System.out.println("Spore succesfully thrown to with value: " + spore.getValue());
 
+            //A listener értesítése a spóra dobásáról
+            for (MushroomListener listener : mushroomListeners) {
+                listener.sporeThrowed(spore);
+            }
+
+            //Joblistener értesítése a spóra dobásáról
+            for (JobListener listener : jobListeners) {
+                listener.jobSuccessfull("Spore successfully thrown to tecton with value: " + spore.getValue());
+            }
+
             return true;
         }
 
         System.out.println("Tecton is not in range");
+
+        //Joblistener értesítése a spóra dobásáról
+        for (JobListener listener : jobListeners) {
+            listener.jobFailed("Tecton is not in range");
+        }
+
         return false;
     }
     
@@ -236,6 +274,12 @@ public class Mushroom{
         changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_REMOVED, this); //A gombatest eltávolítása a tektonról
 
         NotifyLines(true);
+
+        //Listenerek értesítése a gombatest eltávolításáról
+        for (MushroomListener listener : mushroomListeners) {
+            listener.mushroomDestroyed();
+        }
+
     }
     
 }

@@ -34,12 +34,13 @@ public class GMushroom extends Image implements MushroomListener{
     }
 
 
-    //MushroomListenert megvalósító metódusok
+    /* - MushroomListenert megvalósító metódusok*/
 
 
     /* - Gombafonál növesztésekor lefutó függvény, paraméterként átadja a kinövesztett gombafonalat.*/
     public void lineGrew(Line line) {
         //TODO: implementálni kell a gombafonal növesztéséért a grafikus felületen.
+        
     }
 
 
