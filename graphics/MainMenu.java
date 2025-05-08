@@ -65,17 +65,20 @@ public class MainMenu extends JPanel {
         //Jpanel a játékoskonténerhez: itt jelennek meg a PlayerPanel példányok
         configPanel = new JPanel();
         configPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-        //configPanel.setPreferredSize(new Dimension(300, 500)); //A panel méretének beállítása
-        //configPanel.setMaximumSize(new Dimension(300, 500)); //A panel méretének beállítása
-        //configPanel.setMinimumSize(new Dimension(300, 500)); //A panel méretének beállítása
+        //configPanel.setPreferredSize(new Dimension(300, 300)); //A panel méretének beállítása
+        //configPanel.setMaximumSize(new Dimension(300, 300)); //A panel méretének beállítása
+        //configPanel.setMinimumSize(new Dimension(300, 300)); //A panel méretének beállítása
         configPanel.setBackground(null);
         configPanel.setOpaque(false); //A panel háttérszínének beállítása
+        contentPanel.revalidate();
+        contentPanel.repaint(); //A panel újrarajzolása
 
         //Lista a játékos panelekről
         playerPanels = new ArrayList<>();
 
         //Ha a playerPanel-ek száma meghaladja a 5-öt, akkor új sort kezdünk
-        configPanel.setLayout(new GridLayout(0, 5, 30, 30));    //5 oszlopos elrendezés, dinamikus sorokkal
+        //configPanel.setLayout(new GridLayout(0, 5, 30, 30));    //5 oszlopos elrendezés, dinamikus sorokkal
+        configPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 30));
 
         //JScrollPane a játékosok beállításainak görgetéséhez
         JScrollPane scrollPane = new JScrollPane(configPanel);
@@ -190,7 +193,7 @@ public class MainMenu extends JPanel {
         enterButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3)); // Thicker border
         enterButton.setBackground(Color.BLACK);
         enterButton.setFocusPainted(false);
-        enterButton.setPreferredSize(new Dimension(190, 40)); // Set button size
+        enterButton.setPreferredSize(new Dimension(200, 40)); // Set button size
         enterButton.addActionListener(e -> {
             playerPanels.forEach(playerPanel -> {
                 System.out.println("Player color: " + playerPanel.getColor() + "player name: " + playerPanel.getName());
@@ -216,7 +219,10 @@ public class MainMenu extends JPanel {
         
         //JPanel a játék körök számának beállításához
         JPanel turnsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        turnsPanel.setBackground(Color.BLACK);
+        turnsPanel.setBackground(null);
+        turnsPanel.setOpaque(false); //A panel háttérszínének beállítása
+
+        //JLabel a játék körök számának beállításához
         JLabel turnsLabel = new JLabel("Game turns");
         turnsLabel.setForeground(Color.WHITE);
         turnsLabel.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -271,7 +277,10 @@ public class MainMenu extends JPanel {
 
         //JPanel a játékosok számának beállításához
         JPanel numbersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        numbersPanel.setBackground(Color.BLACK);
+        numbersPanel.setBackground(null);
+        numbersPanel.setOpaque(false); //A panel háttérszínének beállítása
+
+        //JLabel a játékosok számának beállításához
         JLabel playersLabel = new JLabel("Player numbers");
         playersLabel.setForeground(Color.WHITE);
         playersLabel.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -356,9 +365,11 @@ public class MainMenu extends JPanel {
 
         //JPanel for separating
         JPanel separatorPanel = new JPanel(new BorderLayout());
-        separatorPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 3)); // Set a fixed width
-        separatorPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 3)); // Set a fixed width
+        separatorPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 3));
+        separatorPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 3));
         separatorPanel.setBorder(null);
+        separatorPanel.setBackground(null);
+        separatorPanel.setOpaque(false);
         panel.add(separatorPanel);
         
 
