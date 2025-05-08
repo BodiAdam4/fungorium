@@ -1,10 +1,13 @@
 package graphics;
 
+import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import listeners.InsectListener;
 import model.Tecton;
+import model.Line;
 
 public class GInsect extends Image implements InsectListener{
 
@@ -22,7 +25,7 @@ public class GInsect extends Image implements InsectListener{
     }
 
     public void move(JPanel to){
-        //TODO
+        place = to;
     }
 
     public void destroy() {
@@ -32,19 +35,28 @@ public class GInsect extends Image implements InsectListener{
     //InsectListenert implementáló metódusok
 
     public void moveStarted(Tecton from, Tecton to) {
-        //TODO
+        for(Line l : from.getConnections()){
+            Tecton[] ends = l.getEnds();
+            if(ends[0] == from && ends[1] == to || ends[0] == to && ends[1] == from){
+                
+            }
+        }
     }
+    
     public void moveFinished(Tecton to) {
-        //TODO
+        
     }
+
     public void sporeEaten(String effect) {
-        //TODO
+        infoTag.setText(effect);
     }
+
     public void effectReseted() {
-        //TODO
+        infoTag.setText("");
     }
+
     public void insectDestroyed() {
-        //TODO
+        this.destroy();
     }
 
 
