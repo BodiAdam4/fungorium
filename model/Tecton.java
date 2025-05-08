@@ -4,6 +4,7 @@ import java.util.List;
 
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
+import listeners.TectonListener;
 
 /** 
  * A játékban lévő tektonokat valósítja meg.
@@ -47,9 +48,11 @@ public class Tecton {
 
     private List<Insect> insects = new ArrayList<>();       //A tektonon tartózkodó rovarok listája.
 
+    private List<TectonListener> tectonListeners = new ArrayList<>();  //A tektonhoz tartozó eseménykezelők listája
+    
     public ObjectChangeListener changeListener;
 
-
+    
     
     /**
      * Tecton konstruktor.
@@ -105,6 +108,28 @@ public class Tecton {
     /** - Egyéb metódusok*/
 
     /**
+     * Egy tekton-eseményfigyelő beállítása
+     * @param listener A tekton eseményfigyelője
+     */
+    public void addTectonListener(TectonListener listener){
+        this.tectonListeners.add(listener);
+    }
+
+
+    /**
+     * A tektonon lévő gombatest eltávolítása.
+     */
+    public void removeMushroom(){
+        if (myMushroom != null) {
+            myMushroom = null;
+            System.out.println("Mushroom removed");
+            for (TectonListener tl : tectonListeners) {
+                tl.mushroomRemoved();
+            }
+        }
+    }
+
+    /**
      * Gombafonál csatlakoztatása a tektonhoz. 
      * @param line A hozzáadandó fonal.
      * @return A visszatérési érték a csatlakoztatás sikerességéről küld visszajelzést.
@@ -138,6 +163,9 @@ public class Tecton {
                 public void onTime() {
                     myMushroom = new Mushroom(id, t);
                     changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_ADDED, myMushroom);
+                    for (TectonListener tl : tectonListeners) {
+                        tl.mushroomAdded(myMushroom);
+                    }
                     System.out.println("Mushroom successfully grown");
                 }
             }, 2);
@@ -150,6 +178,7 @@ public class Tecton {
             System.out.println("Mushroom failed to build");
             return false;
         }
+        
     }
 
     

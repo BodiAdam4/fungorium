@@ -270,7 +270,7 @@ public class Mushroom{
      * hogy más gombatesttel kapcsolatban vannak-e, és ha nem akkor elindul bennük az elhalás.
      */
     public void destroy(){
-        this.myTecton.setMyMushroom(null);      //A tektonon lévő gombatest nullázása
+        this.myTecton.removeMushroom();      //A tektonon lévő gombatest nullázása
         changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_REMOVED, this); //A gombatest eltávolítása a tektonról
 
         NotifyLines(true);

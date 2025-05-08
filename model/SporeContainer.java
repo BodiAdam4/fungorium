@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import userinterface.RandTools;
+import listeners.SporeContainerListener;
 
 /**
  * A gombaspórák tárolására és kezelésére alkalmas osztály.
@@ -12,12 +13,23 @@ public class SporeContainer
     /* Privát attribútumok */
     private List<Spore> spores;
 
+    private List<SporeContainerListener> sporeContainerListeners = new ArrayList<>(); //A spóratárolóhoz tartozó eseménykezelők listája
+
 
     /**
      * Paraméter nélküli kontstruktor. (A String name paraméter csupán tesztelés céljából van bent)
      */
     public SporeContainer() {
         spores = new ArrayList<>();
+    }
+    
+
+    /**
+     * Egy spóratároló -eseményfigyelő beállítása.
+     * @param listener  A beállítandó eseményfigyelő
+     */
+    public void addSporeContainerListener(SporeContainerListener listener) {
+        sporeContainerListeners.add(listener);
     }
 
 
@@ -29,7 +41,9 @@ public class SporeContainer
     public boolean addSpores(Spore spore) {
 
         spores.add(spore);
-
+        for (SporeContainerListener listener : sporeContainerListeners) {
+            listener.sporeAdded(this.spores.size());
+        }
         return true;
     }
 
@@ -44,7 +58,9 @@ public class SporeContainer
         for (int i = 0; i<spores.length; i++) {
             this.spores.add(spores[i]);
         }
-
+        for (SporeContainerListener listener : sporeContainerListeners) {
+            listener.sporeAdded(this.spores.size());
+        }
         return true;
     }
 
@@ -65,7 +81,9 @@ public class SporeContainer
         for (int i = 0; i<count; i++) {
             spores.remove(selected[i]);
         }
-
+        for (SporeContainerListener listener : sporeContainerListeners) {
+            listener.sporeRemoved(this.spores.size());
+        }
         return selected;
     }
 
@@ -90,6 +108,10 @@ public class SporeContainer
             spores.remove(selected[i]);
         }
 
+        for (SporeContainerListener listener : sporeContainerListeners) {
+            listener.sporeRemoved(this.spores.size());
+        }
+        
         return selected;
     }
 
