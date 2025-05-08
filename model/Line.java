@@ -228,7 +228,7 @@ public class Line
      * Hozzáad egy LineListenert a lineListeners-hez
      * @param listener a listener, amit a listához adunk
      */
-    public void addLineListerner(LineListener listener){
+    public void addLineListener(LineListener listener){
         lineListeners.add(listener);
     }
 
