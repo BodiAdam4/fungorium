@@ -27,14 +27,19 @@ public class MainWindow extends JFrame implements JobListener{
 
     /* - Konstruktor(ok)*/
     public MainWindow(){
-        this.menu = new MainMenu(); //A főmenü inicializálása
+        
         this.setTitle("Fungorium_by_oet_kis_malacz");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 600);     //Ablakméret beállítása
         this.setBackground(Color.BLACK);
-        //this.add(menu); //A főmenü inicializálása
+        /*
+        this.menu = new MainMenu(); //A főmenü inicializálása
+        this.add(menu, BorderLayout.CENTER); //A főmenü inicializálása
+        menu.revalidate();
+        menu.repaint(); //A főmenü újrarajzolása
+        */
 
-
+        
         //JPanel az állapotsávnak
         JPanel statusBar = new JPanel(); //A státusz sáv inicializálása
         statusBar.setLayout(new BorderLayout()); //A státusz sáv elrendezése
@@ -74,6 +79,7 @@ public class MainWindow extends JFrame implements JobListener{
         //TODO: Ezt majd el kell innen pakolni
         this.map = new Map(); //A térkép inicializálása
         mapPanel.add(map); //A főmenü inicializálása
+        
         this.revalidate();
         this.repaint();
     }

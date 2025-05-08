@@ -52,7 +52,7 @@ public class PlayerPanel extends JPanel {
         this.setBackground(new Color(0, 0, 0, 0));
         this.setPreferredSize(new Dimension(250, 300));
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+        this.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
 
         //JPanel a kontenthez
         JPanel contentPanel = new JPanel();
@@ -65,21 +65,22 @@ public class PlayerPanel extends JPanel {
         headerPanel.setOpaque(false);
         headerPanel.setMaximumSize(new Dimension(250, 35)); //Fejléc mérete
         //TODO: Méret helyes beállítása
-        headerPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+        headerPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
 
         //JLabel a fejléchez
         headerLabel = new JLabel("#" + playerNumber + ". Player");
         headerLabel.setForeground(Color.WHITE);
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        headerLabel.setFont(new Font("Arial", Font.BOLD, 24));
         headerPanel.add(headerLabel, BorderLayout.WEST);
 
         //JButton a fejléchez "X"-el
-        JButton closeButton = new JButton("X");
-        closeButton.setPreferredSize(new Dimension(20, 20)); //Szűkítjük a gombot
+        JButton closeButton = new JButton(" X ");
+        closeButton.setFont(new Font("Arial", Font.BOLD, 20));
+        closeButton.setPreferredSize(new Dimension(30, 20)); //Szűkítjük a gombot
         closeButton.setForeground(Color.RED);
         closeButton.setBackground(Color.BLACK);
         //closeButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); //Fehér szegély
-        closeButton.setBorder(BorderFactory.createMatteBorder(0, 2, 0, 0, Color.WHITE)); //Fehér szegély
+        closeButton.setBorder(BorderFactory.createMatteBorder(0, 3, 0, 0, Color.WHITE)); //Fehér szegély
         //closeButton.setBorder(null); // No border
         closeButton.setFocusPainted(false);
         
@@ -110,7 +111,7 @@ public class PlayerPanel extends JPanel {
         nameBox.setAlignmentX(CENTER_ALIGNMENT);
         nameBox.setFont(new Font("Arial", Font.ITALIC, 14));
         // Removing the top border of the text field
-        nameBox.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+        nameBox.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
         
 
         // Add focus listener to handle placeholder text
@@ -119,8 +120,8 @@ public class PlayerPanel extends JPanel {
             public void focusGained(java.awt.event.FocusEvent e) {
             if (nameBox.getText().equals("Enter your name here")) {
                 nameBox.setText("");
-                nameBox.setForeground(Color.LIGHT_GRAY);
-                nameBox.setFont(new Font("Arial", Font.PLAIN, 14));
+                nameBox.setForeground(Color.WHITE);
+                nameBox.setFont(new Font("Arial", Font.BOLD, 14));
             }
             }
 
@@ -294,11 +295,12 @@ public class PlayerPanel extends JPanel {
         castPanel.setAlignmentX(CENTER_ALIGNMENT);
 
         //JLabel a kasztválasztóhoz
+        JPanel castLabelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
+        castLabelPanel.setOpaque(false);
         JLabel castLabel = new JLabel("Chose your cast:");
         castLabel.setForeground(Color.WHITE);
-        castLabel.setAlignmentX(LEFT_ALIGNMENT);
-        castPanel.add(castLabel);
-        castPanel.add(Box.createVerticalStrut(10));
+        castLabelPanel.add(castLabel);
+        castPanel.add(castLabelPanel);
 
         //ButtonGroup a kasztválasztáshoz
         ButtonGroup castGroup = new ButtonGroup();

@@ -44,7 +44,7 @@ public class MainMenu extends JPanel {
 
     /* - Konstruktor(ok)*/
     public MainMenu() {
-        
+        this.setLayout(new BorderLayout()); //A főmenü elrendezése
         //JPanel a főmenünek
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.BLACK);
@@ -71,7 +71,7 @@ public class MainMenu extends JPanel {
         playerPanels = new ArrayList<>();
 
         //Ha a playerPanel-ek száma meghaladja a 5-öt, akkor új sort kezdünk
-        configPanel.setLayout(new GridLayout(0, 5, 20, 20));    //5 oszlopos elrendezés, dinamikus sorokkal
+        configPanel.setLayout(new GridLayout(0, 5, 30, 30));    //5 oszlopos elrendezés, dinamikus sorokkal
 
         //JScrollPane a játékosok beállításainak görgetéséhez
         JScrollPane scrollPane = new JScrollPane(configPanel);
@@ -167,9 +167,9 @@ public class MainMenu extends JPanel {
         
         //JLabel a főcímhez
         JLabel titleLabel = new JLabel("FUNGORIUM");
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 42));
         titleLabel.setForeground(Color.WHITE);
-        titleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.WHITE));
+        titleLabel.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
         panel.add(titleLabel, BorderLayout.WEST);
         
         //JLabel a szerzők nevéhez
@@ -182,10 +182,11 @@ public class MainMenu extends JPanel {
         //JButton a játék elindításához
         JButton enterButton = new JButton("Enter the game");
         enterButton.setForeground(Color.RED);
+        enterButton.setFont(new Font("Arial", Font.BOLD, 25));
         enterButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3)); // Thicker border
         enterButton.setBackground(Color.BLACK);
         enterButton.setFocusPainted(false);
-        enterButton.setPreferredSize(new Dimension(150, 40)); // Set button size
+        enterButton.setPreferredSize(new Dimension(190, 40)); // Set button size
         panel.add(enterButton, BorderLayout.EAST);
         
         return panel;
@@ -249,6 +250,8 @@ public class MainMenu extends JPanel {
         JSpinner.DefaultEditor editor = (JSpinner.DefaultEditor) turnSpinner.getEditor();
         editor.getTextField().setBackground(Color.BLACK);
         editor.getTextField().setForeground(Color.WHITE);
+        editor.getTextField().setEditable(false);
+        editor.getTextField().setFocusable(false);
         editor.getTextField().setBorder(BorderFactory.createLineBorder(Color.GRAY));
         turnsPanel.add(turnSpinner);
         panel.add(turnsPanel);
@@ -265,7 +268,7 @@ public class MainMenu extends JPanel {
         numbersPanel.add(playersLabel);
 
         //JLabel a játékosok számának megadásához
-        JLabel rangeLabel2 = new JLabel(" (4 to 15)");
+        JLabel rangeLabel2 = new JLabel(" (4 to 16)");
         rangeLabel2.setForeground(Color.GRAY);
         rangeLabel2.setFont(new Font("Arial", Font.ITALIC, 12));
         rangeLabel2.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
@@ -281,9 +284,10 @@ public class MainMenu extends JPanel {
 
         JPanel playerSpinnerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0)); // Add some horizontal spacing
         playerSpinnerPanel.setBackground(Color.BLACK);
+        
 
         //JSpinner a játékosok számának megadásához
-        playerSpinner = new JSpinner(new SpinnerNumberModel(5, 4, 15, 1));
+        playerSpinner = new JSpinner(new SpinnerNumberModel(5, 4, 16, 1));
         playerSpinner.setPreferredSize(new Dimension(40, 30));
         playerSpinner.setFont(new Font("Arial", Font.PLAIN, 14));
         playerSpinner.setBorder(BorderFactory.createLineBorder(Color.WHITE));
@@ -295,7 +299,7 @@ public class MainMenu extends JPanel {
             if (component instanceof JButton) {
             component.setBackground(Color.BLACK);
             component.setForeground(Color.WHITE);
-            ((JButton) component).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); // Thicker border
+            ((JButton) component).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); //kövérebb szegély
             }
         }
 
@@ -303,9 +307,10 @@ public class MainMenu extends JPanel {
         JSpinner.DefaultEditor playerEditor = (JSpinner.DefaultEditor) playerSpinner.getEditor();
         playerEditor.getTextField().setBackground(Color.BLACK);
         playerEditor.getTextField().setForeground(Color.WHITE);
+        playerEditor.getTextField().setEditable(false);
+        playerEditor.getTextField().setFocusable(false);
         playerEditor.getTextField().setBorder(BorderFactory.createLineBorder(Color.GRAY));
 
-        
         //JSpinner eseménykezelője, ha megváltozik a játékosok száma, akkor frissíti a játékos paneleket
         playerSpinner.addChangeListener(new ChangeListener() {
             @Override
@@ -314,8 +319,8 @@ public class MainMenu extends JPanel {
                 if (((Integer)playerSpinner.getValue()) < 4) {
                     playerSpinner.setValue(4);
                     repaint();
-                }else if (((Integer)playerSpinner.getValue()) > 16) {
-                    playerSpinner.setValue(16);
+                }else if (((Integer)playerSpinner.getValue()) > 17) {
+                    playerSpinner.setValue(17);
                     repaint();
                 }
                 
@@ -328,13 +333,39 @@ public class MainMenu extends JPanel {
         panel.add(numbersPanel);
         
         //JSeparator a beállítások és a játékosok közé
+        /*
         JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
         separator.setForeground(Color.WHITE);
-        separator.setBackground(Color.BLACK);
-        //TODO: Rövidebbre állítani a JSeparator-t, hogy ne érjen el a panel széléig
+        separator.setBackground(Color.WHITE);
+        separator.setPreferredSize(new Dimension(panel.getWidth() - 200, 10)); // Rövidebb és 3px vastag
+        //separator.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3)); // 3px vastagság beállítása
 
         panel.add(separator);
+        */
+
+        //JPanel for separating
+        JPanel separatorPanel = new JPanel(new BorderLayout());
+        separatorPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 3)); // Set a fixed width
+        separatorPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 3)); // Set a fixed width
+        separatorPanel.setBorder(null);
+        panel.add(separatorPanel);
         
+
+        JPanel rightSidePanel = new JPanel();
+        rightSidePanel.setBackground(Color.BLACK);
+        rightSidePanel.setPreferredSize(new Dimension(650, separatorPanel.getHeight()));
+        rightSidePanel.setMaximumSize(new Dimension(650, separatorPanel.getHeight()));
+        separatorPanel.add(rightSidePanel, BorderLayout.EAST);
+
+        JPanel leftSidePanel = new JPanel();
+        leftSidePanel.setBackground(Color.WHITE);
+        leftSidePanel.setPreferredSize(new Dimension(300, separatorPanel.getHeight()));
+        leftSidePanel.setMaximumSize(new Dimension(300, separatorPanel.getHeight()));
+        separatorPanel.add(leftSidePanel, BorderLayout.CENTER);
+
+        panel.revalidate();
+        panel.repaint();
+
         //JPanel a játékosok konfigurálásához
         JPanel configPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         configPanel.setBackground(Color.BLACK);
