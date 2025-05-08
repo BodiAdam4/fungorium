@@ -31,6 +31,7 @@ public class GMushroom extends Image implements MushroomListener{
     /* - A grafikus gombatest megsemmisítésére alkalmas függvény.*/
     public void destroy() {
         //TODO: implementálni kell a gombatest megsemmisítését a grafikus felületen.
+        
     }
 
 
@@ -40,7 +41,7 @@ public class GMushroom extends Image implements MushroomListener{
     /* - Gombafonál növesztésekor lefutó függvény, paraméterként átadja a kinövesztett gombafonalat.*/
     public void lineGrew(Line line) {
         //TODO: implementálni kell a gombafonal növesztéséért a grafikus felületen.
-        
+
     }
 
 
@@ -53,6 +54,7 @@ public class GMushroom extends Image implements MushroomListener{
     /* - A gombatest elpusztulásakor lefutó metódus.*/
     public void mushroomDestroyed() {
         //TODO: implementálni kell a gombatest elpusztulását a grafikus felületen.
+        this.destroy(); //A gombatest megsemmisítése a grafikus felületen.
     }
 
 }

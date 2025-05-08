@@ -1,10 +1,6 @@
 package graphics;
 
-import java.awt.Color;
-
-import com.sun.tools.javac.Main;
 import controller.Controller;
-import userinterface.CommandProcessor;
 
 public class GraphicMain {
 

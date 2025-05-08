@@ -9,7 +9,7 @@ import model.Tecton;
 public interface InsectListener {
 
     /* - Azon metódus, amely akkor hívodik meg ha egy rovar elkezd mozogni.*/
-    public void moveStarted(Tecton to);
+    public void moveStarted(Tecton from, Tecton to);
 
     /* - Azon metódus, amely akkor hívódik meg ha egy rovar befejezte a mozgását */
     public void moveFinished(Tecton to);
