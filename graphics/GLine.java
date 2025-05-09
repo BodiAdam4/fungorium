@@ -1,7 +1,8 @@
 package graphics;
 
 import java.util.List;
-
+import java.awt.image.*;
+import java.awt.Graphics;
 import javax.swing.JPanel;
 
 import listeners.LineListener;
@@ -10,16 +11,15 @@ import model.Insect;
 /**
  * Az osztály a modellbeli gombafonal megjelenítéséért felelős. 
  * A játék során az osztály példányait a Map példánya fogja tartalmazni.
-*/
-public class GLine extends JPanel implements LineListener   //Image?
+ */
+public class GLine extends JPanel implements LineListener
 {
     /* - Publikus attribútumok*/
     public String id;                   //A gombatesthez tartozó azonosító, amely alapján meg lehet találni a kontrollerben.
-    //nem kéne? public String playerId;             //Annak a játékosnak az azonosítója akihez a gombatest tartozik.
 
     /* - Privát attribútumok*/
-    //private BufferedImage line;
-    //private BufferedImage endcap;
+    private BufferedImage line;
+    private BufferedImage endcap;
     private List<GTecton> ends;
 
     /* - Konstruktor(ok)*/
@@ -61,7 +61,7 @@ public class GLine extends JPanel implements LineListener   //Image?
     }
 
 
-    //protected void paintComponent(Graphics g){}
+    protected void paintComponent(Graphics g){}
 
 
     /* - LineListenert megvalósító metódusok */
