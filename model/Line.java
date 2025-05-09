@@ -120,9 +120,13 @@ public class Line
 
         if (alive && ttl != -1) {
             ttl = -1;
+            for(LineListener ll : lineListeners)
+                ll.phaseChange(1);
         }
         else if (!alive && ttl == -1) {
             ttl = 3;
+            for(LineListener ll : lineListeners)
+                ll.phaseChange(2);
         }
 
         List<Line> connections = new ArrayList<>();
@@ -198,6 +202,8 @@ public class Line
             this.ends[0].getSporeContainer().addSpores(newSpores);
             this.ends[0].addMushroom(this.mushroomId);
             insect.destroy();
+            for(LineListener ll : lineListeners)
+                ll.insectEaten(insect);
             System.out.println("Rovar elfogyasztva és gombatest nőtt!");
             return true;
     }
@@ -221,6 +227,9 @@ public class Line
                 found.get().notifyNeighbors(connected, new ArrayList<>(), null);
             }
         }
+
+        for(LineListener ll : lineListeners)
+            ll.lineDestroyed();
     }
 
 
