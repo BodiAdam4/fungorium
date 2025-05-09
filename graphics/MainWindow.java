@@ -18,6 +18,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
@@ -134,17 +135,17 @@ public class MainWindow extends JFrame implements JobListener{
                 }
 
                 @Override
-                protected javax.swing.JButton createDecreaseButton(int orientation) {
+                protected JButton createDecreaseButton(int orientation) {
                 return createZeroButton(); // Gombok eltávolítása
                 }
 
                 @Override
-                protected javax.swing.JButton createIncreaseButton(int orientation) {
+                protected JButton createIncreaseButton(int orientation) {
                 return createZeroButton(); // Gombok eltávolítása
                 }
 
-                private javax.swing.JButton createZeroButton() {
-                javax.swing.JButton button = new javax.swing.JButton();
+                private JButton createZeroButton() {
+                JButton button = new JButton();
                 button.setPreferredSize(new Dimension(0, 0));
                 button.setMinimumSize(new Dimension(0, 0));
                 button.setMaximumSize(new Dimension(0, 0));
@@ -154,8 +155,8 @@ public class MainWindow extends JFrame implements JobListener{
             hScrollBar.setPreferredSize(new Dimension(5, 0)); // Görgetősáv szélessége
             }
         };
-        scrollPane.setHorizontalScrollBarPolicy(javax.swing.JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setVerticalScrollBarPolicy(javax.swing.JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         scrollPane.setBorder(null);
         scrollPane.setPreferredSize(new Dimension(this.getWidth(), 50));
         scrollPane.setToolTipText("Scroll to see all players"); //Tooltip hozzáadása a görgetősávhoz
