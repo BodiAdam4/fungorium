@@ -7,14 +7,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.swing.JPanel;
+
+/**
+ * Map osztály
+ * Tárolja a grafikus elemeket.
+ * Megjelenítésért felelős.
+ */
 public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     
     /* - Privát attribútumok*/
-    //private HashMap<Point, GTecton> tectons;            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
-    //private List<GInsect> insects;                      //A térképen lévő rovarok grafikus objektumainak listája.
-    //private List<GLine> lines;                          //A térképen elhelyezkedő grafikus gombafonalak listája.
+    private HashMap<Point, GTecton> tectons;            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
+    private List<GInsect> insects;                      //A térképen lévő rovarok grafikus objektumainak listája.
+    private List<GLine> lines;                          //A térképen elhelyezkedő grafikus gombafonalak listája.
     //private GraphicController graphicController;        //A grafikus vezérlést megvalósító objektum.
 
     //TODO: ezt eltávolítani!!
@@ -80,7 +88,11 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     //public void addLine(GLine line) {}
 
 
-    /* - Gombafonal eltávolítása a térképről. Az eltávolításhoz meg kell adni az eltávolítandó fonál kontrollerbeli azonosítóját.*/
+    /**
+     * Gombafonal eltávolítása a térképről. 
+     * Az eltávolításhoz meg kell adni az eltávolítandó fonál kontrollerbeli azonosítóját.
+     * @param id az eltávolítandó gombafonal azonosítója
+     */
     public void removeLine(String id) {}
 
 
