@@ -30,6 +30,9 @@ public class GTecton extends Image implements TectonListener {
 
     /* - Getter/Setter metódusok*/
 
+    public Map getMap(){
+        return map;
+    }
 
     /* - Egyéb metódusok*/
     
