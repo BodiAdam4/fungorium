@@ -52,13 +52,13 @@ public class MainWindow extends JFrame implements JobListener{
         this.setSize(1000, 600);     //Ablakméret beállítása
         this.setBackground(Color.BLACK);
         
-        /*
+        /* 
         this.menu = new MainMenu(); //A főmenü inicializálása
         this.add(menu, BorderLayout.CENTER); //A főmenü inicializálása
         menu.revalidate();
         menu.repaint(); //A főmenü újrarajzolása
         */
-
+        
         //TODO: TÖRÖLNI!!
         //#############################################
         HashMap<String, Integer> players = new HashMap<>();
@@ -218,7 +218,7 @@ public class MainWindow extends JFrame implements JobListener{
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS)); //Az eredményhirdetés panel elrendezése
         resultPanel.setBounds(0, 0, 700, 500); //Az eredményhirdetés panel méretének beállítása
         //TODO: itt lehet beállítnai a láthatóságát, hogy kezdetben ne legyen látható
-        resultPanel.setVisible(false); // Kezdetben látható
+        resultPanel.setVisible(true); // Kezdetben látható
         layeredPane.add(resultPanel, JLayeredPane.PALETTE_LAYER); //Az eredményhirdetés panel hozzáadása a rétegelt panelhez
 
         // Görgethető eredmény panel (ScrollPane)
@@ -257,6 +257,7 @@ public class MainWindow extends JFrame implements JobListener{
         mushroomResults.setBackground(Color.DARK_GRAY);
         mushroomResults.setForeground(Color.WHITE);
         mushroomResults.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mushroomResults.setFocusable(false);
         resultContent.add(Box.createRigidArea(new Dimension(0, 5)));
         resultContent.add(mushroomResults);
 
@@ -281,6 +282,7 @@ public class MainWindow extends JFrame implements JobListener{
         insectResults.setBackground(Color.DARK_GRAY);
         insectResults.setForeground(Color.WHITE);
         insectResults.setAlignmentX(Component.LEFT_ALIGNMENT);
+        insectResults.setFocusable(false);
         resultContent.add(Box.createRigidArea(new Dimension(0, 5)));
         resultContent.add(insectResults);
 
@@ -378,6 +380,7 @@ public class MainWindow extends JFrame implements JobListener{
                 layeredPane.repaint();
             }
         });
+        
         this.setVisible(true); //A főablak láthatóvá tétele
         this.revalidate();
         this.repaint();
