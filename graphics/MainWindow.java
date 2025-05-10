@@ -17,6 +17,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
@@ -207,10 +208,9 @@ public class MainWindow extends JFrame implements JobListener{
 
         //JPanel az eredményhirdetéshez
         JPanel resultPanel = new JPanel(); //Az eredményhirdetés panel inicializálása
-        //resultPanel.setBackground(Color.GREEN);
+        //resultPanel.setBackground(Color.BLUE);
         resultPanel.setBackground(null); //Az eredményhirdetés panel háttérszínének beállítása
         resultPanel.setOpaque(false);
-        resultPanel.setOpaque(true);
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS)); //Az eredményhirdetés panel elrendezése
         resultPanel.setBounds(0, 0, 700, 500); //Az eredményhirdetés panel méretének beállítása
         //TODO: itt lehet beállítnai a láthatóságát, hogy kezdetben ne legyen látható
@@ -220,15 +220,27 @@ public class MainWindow extends JFrame implements JobListener{
         // Görgethető eredmény panel (ScrollPane)
         JPanel resultContent = new JPanel();
         resultContent.setLayout(new BoxLayout(resultContent, BoxLayout.Y_AXIS));
+        resultContent.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
+        resultContent.setPreferredSize(new Dimension(resultPanel.getWidth(), resultPanel.getHeight())); //A görgethető eredmény panel méretének beállítása
+        resultContent.setMaximumSize(new Dimension(resultPanel.getWidth(), resultPanel.getHeight())); //A görgethető eredmény panel méretének beállítása
         resultContent.setBackground(Color.DARK_GRAY);
 
+        //JPanel a Game Over feliratnak
+        JPanel gameOverPanel = new JPanel();
+        gameOverPanel.setLayout(new BorderLayout());
+        //gameOverPanel.setBackground(Color.GREEN);
+        gameOverPanel.setBackground(null);
+        gameOverPanel.setOpaque(false);
+        gameOverPanel.setPreferredSize(new Dimension(resultPanel.getWidth(), 30)); //A görgethető eredmény panel méretének beállítása
+        gameOverPanel.setMaximumSize(new Dimension(resultPanel.getWidth(), 30)); //A görgethető eredmény panel méretének beállítása
+        gameOverPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        resultContent.add(gameOverPanel);
+
         // "Game Over" cím
-        JLabel gameOverLabel = new JLabel("GAME OVER");
+        JLabel gameOverLabel = new JLabel("GAME OVER", SwingConstants.CENTER);
         gameOverLabel.setFont(new Font("Arial", Font.BOLD, 36));
         gameOverLabel.setForeground(Color.RED);
-        gameOverLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        resultContent.add(Box.createRigidArea(new Dimension(0, 10)));
-        resultContent.add(gameOverLabel);
+        gameOverPanel.add(gameOverLabel, BorderLayout.CENTER);
 
         // "Results" felirat
         JLabel resultsLabel = new JLabel("Results:");
@@ -252,15 +264,61 @@ public class MainWindow extends JFrame implements JobListener{
         mushroomResults.setEditable(false);
         mushroomResults.setBackground(Color.DARK_GRAY);
         mushroomResults.setForeground(Color.WHITE);
-        mushroomResults.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //mushroomResults.setAlignmentX(Component.LEFT_ALIGNMENT);
         mushroomResults.setFocusable(false);
         resultContent.add(Box.createRigidArea(new Dimension(0, 5)));
-        resultContent.add(mushroomResults);
+
+        // Görgethető szöveges eredmények panel modern stílussal
+        JScrollPane mushroomScroll = new JScrollPane(mushroomResults) {
+            @Override
+            public void updateUI() {
+            super.updateUI();
+            // Egyedi görgetősáv stílus
+            JScrollBar verticalScrollBar = getVerticalScrollBar();
+            verticalScrollBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+                @Override
+                protected void configureScrollBarColors() {
+                this.thumbColor = Color.GRAY; // Görgetősáv színe
+                this.trackColor = Color.DARK_GRAY; // Háttér színe
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton(); // Gombok eltávolítása
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton(); // Gombok eltávolítása
+                }
+
+                private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+                }
+            });
+            verticalScrollBar.setPreferredSize(new Dimension(8, 0)); // Görgetősáv szélessége
+            }
+        };
+        mushroomScroll.setPreferredSize(new Dimension(600, 115));
+        mushroomScroll.setMaximumSize(new Dimension(600, 115));
+        mushroomScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        mushroomScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        mushroomScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mushroomScroll.setBorder(null); // Border removed
+        resultContent.add(Box.createRigidArea(new Dimension(0, 5)));
+        resultContent.add(mushroomScroll);
 
         // Szeparátor
         JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-        separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 1));
+        separator.setMaximumSize(new Dimension(Integer.MAX_VALUE, 3)); // Thicker separator
+        separator.setForeground(Color.WHITE); // White color
+        separator.setBackground(Color.WHITE); // White color
         resultContent.add(Box.createRigidArea(new Dimension(0, 10)));
+        separator.setAlignmentX(Component.LEFT_ALIGNMENT);
         resultContent.add(separator);
 
         // "Top Insectpickers" felirat
@@ -272,15 +330,71 @@ public class MainWindow extends JFrame implements JobListener{
         resultContent.add(topInsectLabel);
 
         // Eredmények szöveges megjelenítése (Insectpickers)
-        JTextArea insectResults = new JTextArea("# 1.: InsectPicker_1____________________8\n# 2.: InsectPicker_2____________________5\n# 3.: InsectPicker_3____________________4\n# 4.: InsectPicker_4____________________3\n# 5.: InsectPicker_5____________________2\n# 6.: InsectPicker_6____________________1\n# 7.: InsectPicker_7____________________0\n# 8.: InsectPicker_8____________________0");
+        JTextArea insectResults = new JTextArea("# 1.: InsectPicker_1____________________8\n# 2.: InsectPicker_2____________________5");
         insectResults.setFont(new Font("Monospaced", Font.PLAIN, 16));
         insectResults.setEditable(false);
         insectResults.setBackground(Color.DARK_GRAY);
         insectResults.setForeground(Color.WHITE);
-        insectResults.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //insectResults.setAlignmentX(Component.LEFT_ALIGNMENT);
         insectResults.setFocusable(false);
         resultContent.add(Box.createRigidArea(new Dimension(0, 5)));
-        resultContent.add(insectResults);
+
+        // Görgethető szöveges eredmények panel modern stílussal
+        JScrollPane insectScroll = new JScrollPane(insectResults) {
+            @Override
+            public void updateUI() {
+            super.updateUI();
+            // Egyedi görgetősáv stílus
+            JScrollBar verticalScrollBar = getVerticalScrollBar();
+            verticalScrollBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+            this.thumbColor = Color.GRAY; // Görgetősáv színe
+            this.trackColor = Color.DARK_GRAY; // Háttér színe
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+            return createZeroButton(); // Gombok eltávolítása
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+            return createZeroButton(); // Gombok eltávolítása
+            }
+
+            private JButton createZeroButton() {
+            JButton button = new JButton();
+            button.setPreferredSize(new Dimension(0, 0));
+            button.setMinimumSize(new Dimension(0, 0));
+            button.setMaximumSize(new Dimension(0, 0));
+            return button;
+            }
+            });
+            verticalScrollBar.setPreferredSize(new Dimension(8, 0)); // Görgetősáv szélessége
+            }
+        };
+        insectScroll.setPreferredSize(new Dimension(600, 115));
+        insectScroll.setMaximumSize(new Dimension(600, 115));
+        //Set policy to never show the horizontal scrollbar
+        insectScroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        insectScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        insectScroll.setAlignmentX(Component.LEFT_ALIGNMENT);
+        insectScroll.setBorder(null); // Border removed
+        resultContent.add(Box.createRigidArea(new Dimension(0, 5)));
+        resultContent.add(insectScroll);
+
+        // JPanel az exit gombnak
+        JPanel exitPanel = new JPanel();
+        exitPanel.setLayout(new BorderLayout()); // A vezérlő panel elrendezése
+        exitPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        //exitPanel.setBackground(Color.CYAN); // A vezérlő panel háttérszínének beállítása
+        exitPanel.setBackground(null);
+        exitPanel.setOpaque(false);
+        exitPanel.setPreferredSize(new Dimension(resultPanel.getWidth(), 40)); // A görgethető eredmény panel méretének beállítása
+        exitPanel.setMaximumSize(new Dimension(resultPanel.getWidth(), 40)); // A görgethető eredmény panel méretének beállítása
+        resultContent.add(Box.createRigidArea(new Dimension(0, 40)));
+        resultContent.add(exitPanel);
 
         // Exit Game gomb
         JButton exitButton = new JButton("Exit game");
@@ -288,22 +402,21 @@ public class MainWindow extends JFrame implements JobListener{
         exitButton.setBackground(Color.DARK_GRAY);
         exitButton.setForeground(Color.RED);
         exitButton.setFocusPainted(false);
-        exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        exitButton.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-        exitButton.setMaximumSize(new Dimension(200, 40));
+        exitButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));
+        exitButton.setPreferredSize(new Dimension(200, 30));
+        exitButton.setMaximumSize(new Dimension(200, 30));
         exitButton.addActionListener(e -> System.exit(0)); // Exit event added
-        resultContent.add(Box.createRigidArea(new Dimension(0, 20)));
-        resultContent.add(exitButton);
 
-        // ScrollPane, ha túl sok tartalom lenne
-        JScrollPane scrollPane2 = new JScrollPane(resultContent);
-        scrollPane2.setBounds(0, 0, resultPanel.getWidth(), resultPanel.getHeight());
-        scrollPane2.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane2.setBorder(null);
+        // Középre igazítás
+        JPanel centerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+        centerPanel.setOpaque(false); // Átlátszó háttér
+        centerPanel.add(exitButton);
+        exitPanel.add(centerPanel, BorderLayout.CENTER); // A középre igazított panel hozzáadása
 
-        // Hozzáadás a resultPanel-hez
-        resultPanel.setLayout(null); // Használjunk abszolút pozícionálást itt
-        resultPanel.add(scrollPane2);
+        // Eredmény tartalom hozzáadása a fő resultPanel-hez
+        resultPanel.removeAll(); // csak ha újratöltöd
+        resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS));
+        resultPanel.add(resultContent);
 
         //###########################[notificJPanel]####################################
 
