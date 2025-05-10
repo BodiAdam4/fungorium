@@ -23,7 +23,7 @@ public class GTecton extends Image implements TectonListener {
 
     /* - Konstruktor(ok)*/
     public GTecton(Tecton tecton) {
-        super("graphics/images/Spores.png"); // A SporeContainer képe
+        super("graphics/images/tectonNormal.png"); // A SporeContainer képe
         this.myTecton = tecton;
     }
 

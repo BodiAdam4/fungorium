@@ -27,6 +27,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     //TODO: ezt eltávolítani!!
     private HashMap<Point, GMushroom> mushrooms;        //A térképen elhelyezkedő grafikus gombatestek. Kulcsként a gombatest griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
 
+    final public int CELL_SIZE = 100;
+
+    //Start pos : 50 55
 
     /* - Konstuktor(ok)*/
     public Map() {
@@ -34,6 +37,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         this.addMouseMotionListener(this);
         this.setBounds(-5000, -5000, 10000, 10000); //A térkép pozíciója és mérete
         this.setOpaque(false);
+        this.setLayout(null);
     }
 
     /* - Getter/Setter metódusok*/
@@ -56,9 +60,32 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     /* - Egyéb metódusok*/
 
+    public Point getCell(int x, int y) {
+        int col = x * CELL_SIZE;
+        int row = y * CELL_SIZE;
+        return new Point(col, row);
+    }
+
+    public Point getCell(Point cell) {
+        int col = cell.x * CELL_SIZE;
+        int row = cell.y * CELL_SIZE;
+        return new Point(col, row);
+    }
+
+    Point nextTecton = new Point(53, 52);
+
     /* - Tekton hozzáadása a térképhez. Paraméterként át kell adni a hozzáadandó grafikus tecton objektumot.*/
     public void addTecton(GTecton gtecton) {
-        
+        Point tPos = getCell(nextTecton);
+        System.out.println("Tecton position: " + tPos.x + ", " + tPos.y);
+        gtecton.setBounds(tPos.x, tPos.y, CELL_SIZE, CELL_SIZE);
+        this.add(gtecton);
+        System.out.println("Tecton bounds: " + gtecton.getBounds());
+        this.revalidate();
+        this.repaint();
+
+        nextTecton.x += 3;
+        nextTecton.y += 3;
     }
 
 
@@ -107,27 +134,26 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        int width = getWidth();                     //A panel szélessége
-        int height = getHeight();                   //A panel magassága
-        int cellSize = 100;                         //Cellák méretezése
+        int width = getWidth();
+        int height = getHeight();
 
         //A háttérszín legyen fekete
         g.setColor(new Color(0, 0, 0, 0));
         g.fillRect(0, 0, width, height);
 
-        int cols = width / cellSize;                //Az oszlopok számának meghatározása
-        int rows = height / cellSize;               //A sorok számáának meghatározása
+        int cols = width / CELL_SIZE;                //Az oszlopok számának meghatározása
+        int rows = height / CELL_SIZE;               //A sorok számáának meghatározása
 
         //Grid rajzolása, ez pedig legyen fehér
         //TODO: a grig körvonalát majd el kell tüntetni
         g.setColor(Color.WHITE);
         for (int col = 0; col <= cols; col++) {
-            int x = col * cellSize;
-            g.drawLine(x, 0, x, rows * cellSize);
+            int x = col * CELL_SIZE;
+            g.drawLine(x, 0, x, rows * CELL_SIZE);
         }
         for (int row = 0; row <= rows; row++) {
-            int y = row * cellSize;
-            g.drawLine(0, y, cols * cellSize, y);
+            int y = row * CELL_SIZE;
+            g.drawLine(0, y, cols * CELL_SIZE, y);
         }
 
         //Draw lines between islands
@@ -154,11 +180,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         // Handle mouse click event
-        int col = e.getX() / 150;
-        int row = e.getY() / 150;
+        int col = e.getX() / CELL_SIZE;
+        int row = e.getY() / CELL_SIZE;
         Point cell = new Point(col, row);
         //cell.addMushroom(new GMushroom()); //TODO: ezt majd át kell írni, hogy a gombatest pozícióját is figyelembe vegye.
         System.out.println("Cell clicked: " + cell.x + ", " + cell.y);
+        System.out.println("Mouse clicked at: " + e.getX() + ", " + e.getY());
         //GMushroom m = new GMushroom("12","s1");
         //addMushroom(m);
         this.repaint();
