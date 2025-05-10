@@ -34,6 +34,11 @@ public class GTecton extends Image implements TectonListener {
         return map;
     }
 
+    //TODO: Új függvény
+    public Tecton getMyTecton() {
+        return myTecton;
+    }
+
     /* - Egyéb metódusok*/
     
     /**
