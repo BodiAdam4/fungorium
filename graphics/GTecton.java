@@ -22,9 +22,9 @@ public class GTecton extends Image implements TectonListener {
     private Map map; //A térkép ami tartalmazza a grafikus tektont
 
     /* - Konstruktor(ok)*/
-    public GTecton(Tecton tecton) {
-        super("graphics/images/tectonNormal.png"); // A SporeContainer képe
-        this.myTecton = tecton;
+    public GTecton(Tecton myTecton) {
+        super("graphics/images/tectonNormal.png"); // A Tecton képe
+        this.myTecton = myTecton; //A tektonhoz tartozó kontrollerbeli azonosító beállítása
     }
 
 
@@ -47,6 +47,7 @@ public class GTecton extends Image implements TectonListener {
     */
     public void addMushroom(GMushroom mushroom) {
         this.mushroom = mushroom;
+        this.add(mushroom);
     }
     
     /**
@@ -54,15 +55,9 @@ public class GTecton extends Image implements TectonListener {
      */
     public void removeMushroom() {
         this.mushroom = null;
+        this.remove(mushroom);
     }
     
-    /**
-     * Grafikus tekton megsemmisítése.
-     */
-    public void destroy(){
-
-    }
-
     /**
      * A tektonon való gombatest növesztésének következtében lefutó metódus. Paraméterként megkapja a kinövesztett gombatestet.
      */
@@ -76,7 +71,8 @@ public class GTecton extends Image implements TectonListener {
      */ 
     @Override
     public void mushroomRemoved() {
-        
+        mushroom.destroy();
+        removeMushroom();
     }
 
     /**

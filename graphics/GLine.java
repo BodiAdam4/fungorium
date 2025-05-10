@@ -28,7 +28,7 @@ public class GLine extends JPanel implements LineListener
 
     /* - Privát attribútumok*/
     
-    public BufferedImage lineMidle;
+    public BufferedImage lineMiddle;
     public BufferedImage endCapStart;
     public BufferedImage endCapEnd;
 
@@ -53,7 +53,7 @@ public class GLine extends JPanel implements LineListener
         setOpaque(false);
         setBackground(Color.WHITE);
         try {
-            lineMidle = ImageIO.read(new File("graphics\\images\\LineMiddle.png"));
+            lineMiddle = ImageIO.read(new File("graphics\\images\\LineMiddle.png"));
             endCapStart = ImageIO.read(new File("graphics\\images\\LineLeft.png"));
             endCapEnd = ImageIO.read(new File("graphics\\images\\LineRight.png"));
         } catch (IOException e) {
@@ -85,13 +85,19 @@ public class GLine extends JPanel implements LineListener
     }
 
 
+    public void setEndPoints(Point startPoint, Point endPoint) {
+        this.endPoint = endPoint;
+        this.startPoint = startPoint;
+    }
+
+
     /*Egyéb metódusok */
 
     /**
      * A grafikus gombafonal megsemmisítésére alkalmas függvény.
      */
     public void destroy() {
-        //TODO: GLine.destroy()
+        ends.get(0).getMap().removeLine(id);
     }
 
 
@@ -111,7 +117,7 @@ public class GLine extends JPanel implements LineListener
      * A gombafonal elpusztulásakor lefutó függvény
      */
     public void lineDestroyed(){
-        //TODO: lineDestroyed()
+        destroy();      //?????
     }
 
 
@@ -122,16 +128,28 @@ public class GLine extends JPanel implements LineListener
      * @param phase a fázist mutató szám
      */
     public void phaseChange(int phase){
-        //TODO: phaseChanged(int phase)
+        switch (phase) {
+            case 0:
+                
+                break;
+            case 1:
+
+                break;
+            case 2:
+
+                break;
+            default:
+                break;
+        }
     }
 
-    //TODO: Új függvény
-    public void setEndPoints(Point startPoint, Point endPoint) {
-        this.endPoint = endPoint;
-        this.startPoint = startPoint;
-    }
-
-    //TODO: Új függvény
+    /**
+     * Kontrolpont előállítása két pont között.
+     * @param p1 az első pont
+     * @param p2 a második pont
+     * @param offset eltolás mennyisége
+     * @return a kapott kontrolpont
+     */
     public Point generateControlPoint(Point p1, Point p2, double offset) {
         // Középpont
         int midX = (p1.x + p2.x) / 2;
@@ -153,7 +171,12 @@ public class GLine extends JPanel implements LineListener
         return new Point(ctrlX, ctrlY);
     }
 
-    //TODO: Új függvény
+    /**
+     * Szín sötétítése
+     * @param color a sötétítendő szín
+     * @param factor a sötétítés erőssége
+     * @return a kapott szín
+     */
     public static Color darken(Color color, double factor) {
         factor = Math.max(0.0, Math.min(1.0, factor)); // biztos, hogy 0..1 között van
         int r = (int)(color.getRed() * factor);
