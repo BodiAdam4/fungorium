@@ -52,13 +52,13 @@ public class MainWindow extends JFrame implements JobListener{
         this.setSize(1000, 600);     //Ablakméret beállítása
         this.setBackground(Color.BLACK);
         
-        /*
+        
         this.menu = new MainMenu(); //A főmenü inicializálása
         this.add(menu, BorderLayout.CENTER); //A főmenü inicializálása
         menu.revalidate();
         menu.repaint(); //A főmenü újrarajzolása
-        */
-
+        
+        
         //TODO: TÖRÖLNI!!
         //#############################################
         HashMap<String, Integer> players = new HashMap<>();
