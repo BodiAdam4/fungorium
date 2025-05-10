@@ -11,7 +11,7 @@ import model.Tecton;
 public class GTecton extends Image implements TectonListener {
     
     /* - Publikus attribútumok*/
-    public String id;                   //A tektonhoz tartozó kontrollerbeli azonosító
+    public Tecton myTecton;                  //A tektonhoz tartozó kontrollerbeli azonosító
     
 
     /* - Privát attribútumok*/
@@ -22,9 +22,9 @@ public class GTecton extends Image implements TectonListener {
     private Map map; //A térkép ami tartalmazza a grafikus tektont
 
     /* - Konstruktor(ok)*/
-    public GTecton(String id) {
+    public GTecton(Tecton tecton) {
         super("graphics/images/Spores.png"); // A SporeContainer képe
-        this.id = id;
+        this.myTecton = tecton;
     }
 
 

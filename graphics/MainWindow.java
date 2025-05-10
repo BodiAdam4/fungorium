@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.HashMap;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,14 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import listeners.JobListener;
 
 
@@ -218,7 +214,7 @@ public class MainWindow extends JFrame implements JobListener{
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS)); //Az eredményhirdetés panel elrendezése
         resultPanel.setBounds(0, 0, 700, 500); //Az eredményhirdetés panel méretének beállítása
         //TODO: itt lehet beállítnai a láthatóságát, hogy kezdetben ne legyen látható
-        resultPanel.setVisible(true); // Kezdetben látható
+        resultPanel.setVisible(false); // Kezdetben látható
         layeredPane.add(resultPanel, JLayeredPane.PALETTE_LAYER); //Az eredményhirdetés panel hozzáadása a rétegelt panelhez
 
         // Görgethető eredmény panel (ScrollPane)

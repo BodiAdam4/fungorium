@@ -8,7 +8,6 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 import java.util.List;
-
 import javax.swing.JPanel;
 
 /**
@@ -58,7 +57,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     /* - Egyéb metódusok*/
 
     /* - Tekton hozzáadása a térképhez. Paraméterként át kell adni a hozzáadandó grafikus tecton objektumot.*/
-    //public void addTecton(GTecton gtecton) {}
+    public void addTecton(GTecton gtecton) {
+        
+    }
 
 
     /* - Gombatest hozzáadása a térképhez. Paraméterként elvárja a hozzáadandó grafikus gombatest példányt.*/
