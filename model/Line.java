@@ -22,7 +22,6 @@ public class Line
     private List<LineListener> lineListeners;
     private List<JobListener> jobListeners;
     public int ttl = -1;
-    public boolean crossable;   //öttlet, egyből példányosítjuk, de nem lehet rajta átmenni, amíg ki nem nő
 
     public ObjectChangeListener changeListener;
 
@@ -59,8 +58,6 @@ public class Line
 
         boolean connected = checkConnections(new ArrayList<>(), null);
         notifyNeighbors(connected, new ArrayList<>(), null);
-
-        crossable = false;
     }
 
 
