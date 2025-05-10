@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JPanel;
+import model.Mushroom;
 import model.Tecton;
 
 /**
@@ -97,14 +98,14 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
     }
 
-    public static Point normalize(Point from, Point to) {
+    public static Point normalize(Point from, Point to, double sc) {
         int dx = to.x - from.x;
         int dy = to.y - from.y;
 
         double length = Math.sqrt(dx * dx + dy * dy);
         if (length == 0) return new Point(0, 0); // azonos pont esetén nincs irány
 
-        double scale = 2.0 / length;
+        double scale = sc / length;
         int nx = (int)Math.round(dx * scale);
         int ny = (int)Math.round(dy * scale);
 
@@ -127,12 +128,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                         isSorted = false;
                         Point t1Pos = t1.getLocation();
                         Point t2Pos = t2.getLocation();
-                        Point dir1 = normalize(t2Pos, t1Pos);
-                        Point dir2 = normalize(t1Pos, t2Pos);
+                        Point dir1 = normalize(t2Pos, t1Pos,2.0);
+                        Point dir2 = normalize(t1Pos, t2Pos,2.0);
 
                         t1.setLocation(new Point(t1Pos.x + dir1.x, t1Pos.y + dir1.y));
                         t2.setLocation(new Point(t2Pos.x + dir2.x, t2Pos.y + dir2.y));
-                        System.out.println("Tecton " + t1.getMyTecton() + " moved to: " + t1.getLocation());
+                        
                     }
                 }
             }
@@ -270,7 +271,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         line.setEndPoints(t1RelativPos, t2RelativPos);
         System.out.println("Line endpoints: "+t1RelativPos.x + ", " + t1RelativPos.y + " - " + t2RelativPos.x + ", " + t2RelativPos.y);
         this.add(line);
-
+        this.setComponentZOrder(line, this.getComponentCount() - 1);
         this.revalidate();
         this.repaint();
 
@@ -296,7 +297,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                 t1RelativPos = t2RelativPos;
                 t2RelativPos = temp;
             }
-
+            
+            this.setComponentZOrder(line, this.getComponentCount() - 1);
             line.setEndPoints(t1RelativPos, t2RelativPos);
             line.repaint();
         }
@@ -329,25 +331,39 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         g.setColor(new Color(0, 0, 0, 0));
         g.fillRect(0, 0, width, height);
 
-        int cols = width / CELL_SIZE;                //Az oszlopok számának meghatározása
-        int rows = height / CELL_SIZE;               //A sorok számáának meghatározása
-
-        //Grid rajzolása, ez pedig legyen fehér
-        //TODO: a grig körvonalát majd el kell tüntetni
-        g.setColor(new Color(255, 255, 255, 50));
-        for (int col = 0; col <= cols; col++) {
-            int x = col * CELL_SIZE;
-            g.drawLine(x, 0, x, rows * CELL_SIZE);
-        }
-        for (int row = 0; row <= rows; row++) {
-            int y = row * CELL_SIZE;
-            g.drawLine(0, y, cols * CELL_SIZE, y);
-        }
-
         
-        g.setColor(Color.RED);
-        for (GTecton t : tectons) {
-            g.drawOval(t.getLocation().x-(int) (maxDist/2)+(CELL_SIZE/2), t.getLocation().y-(int) (maxDist/2)+(CELL_SIZE/2), (int) maxDist, (int) maxDist);
+        boolean drawGrid = false;
+        boolean drawBarrier = false;
+
+        if (drawGrid) {
+
+            int cols = width / CELL_SIZE;                //Az oszlopok számának meghatározása
+            int rows = height / CELL_SIZE;               //A sorok számáának meghatározása
+
+            //Grid rajzolása, ez pedig legyen fehér
+            //TODO: a grig körvonalát majd el kell tüntetni
+            g.setColor(new Color(255, 255, 255, 50));
+            for (int col = 0; col <= cols; col++) {
+                int x = col * CELL_SIZE;
+                g.drawLine(x, 0, x, rows * CELL_SIZE);
+            }
+            for (int row = 0; row <= rows; row++) {
+                int y = row * CELL_SIZE;
+                g.drawLine(0, y, cols * CELL_SIZE, y);
+            }
+        }
+
+        if (drawBarrier){
+            g.setColor(Color.RED);
+            for (GTecton t : tectons) {
+                g.drawOval(t.getLocation().x-(int) (maxDist/2)+(CELL_SIZE/2), t.getLocation().y-(int) (maxDist/2)+(CELL_SIZE/2), (int) maxDist, (int) maxDist);
+                
+                for (GTecton n : tectons) {
+                    if (t.getMyTecton().getNeighbors().contains(n.getMyTecton()) && !t.equals(n)) {
+                        g.drawLine(t.getLocation().x+(CELL_SIZE/2), t.getLocation().y+(CELL_SIZE/2), n.getLocation().x+(CELL_SIZE/2), n.getLocation().y+(CELL_SIZE/2));
+                    }
+                }
+            }
         }
 
         //Draw lines between islands
@@ -383,8 +399,56 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         //TODO: Csak teszt miatt van benne ki kell venni
         //maxDist += 10;
         Tecton t = new Tecton();
-        GTecton gTecton = new GTecton(t);
-        addTecton(new Point(e.getX()-(CELL_SIZE/2), e.getY()-(CELL_SIZE/2)), gTecton);
+        GTecton gtecton = new GTecton(t);
+
+
+
+        for (GTecton g : tectons) {
+            if (getDistance(e.getPoint(), g.getLocation()) <= maxDist+50) {
+                g.getMyTecton().setNeighbors(t);
+                t.setNeighbors(g.getMyTecton());
+                GLine line = new GLine(gtecton, g);
+                line.setBackground(Color.magenta);
+                addLine(line);
+            }
+        }
+
+
+        gtecton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                gtecton.TintImage(Color.RED);
+                gtecton.repaint();
+
+                for(GTecton t : tectons) {
+                    if (t.getMyTecton().getNeighbors().contains(gtecton.getMyTecton())) {
+                        t.TintImage(Color.white);
+                        t.repaint();
+                    }
+                }
+            }
+
+            public void mouseExited(MouseEvent e) {
+                gtecton.ResetTint();
+                gtecton.repaint();
+
+                for(GTecton t : tectons) {
+                    if (t.getMyTecton().getNeighbors().contains(gtecton.getMyTecton())) {
+                        t.ResetTint();
+                        t.repaint();
+                    }
+                }
+            }
+
+            public void mouseClicked(MouseEvent e) {
+                Mushroom mushroom = new Mushroom(1, gtecton.getMyTecton());
+                GMushroom gmushroom = new GMushroom(mushroom);
+                gtecton.addMushroom(gmushroom);
+            }
+        });
+
+        addTecton(new Point(e.getX()-(CELL_SIZE/2), e.getY()-(CELL_SIZE/2)), gtecton);
+
+
 
         Thread thread = new Thread(() -> {
             physicSorting(maxDist);
