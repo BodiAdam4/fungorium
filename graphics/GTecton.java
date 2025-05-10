@@ -22,9 +22,9 @@ public class GTecton extends Image implements TectonListener {
     private Map map; //A térkép ami tartalmazza a grafikus tektont
 
     /* - Konstruktor(ok)*/
-    public GTecton(String id) {
+    public GTecton(Tecton myTecton) {
         super("graphics/images/tectonNormal.png"); // A Tecton képe
-        this.id = id;
+        this.myTecton = myTecton; //A tektonhoz tartozó kontrollerbeli azonosító beállítása
     }
 
 
