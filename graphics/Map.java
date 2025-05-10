@@ -1,11 +1,14 @@
 package graphics;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JPanel;
@@ -19,15 +22,22 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     
     /* - Privát attribútumok*/
-    private HashMap<Point, GTecton> tectons;            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
+    private List<GTecton> tectons = new ArrayList<>();            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
     private List<GInsect> insects;                      //A térképen lévő rovarok grafikus objektumainak listája.
-    private List<GLine> lines;                          //A térképen elhelyezkedő grafikus gombafonalak listája.
+    private List<GLine> lines = new ArrayList<>();                          //A térképen elhelyezkedő grafikus gombafonalak listája.
     //private GraphicController graphicController;        //A grafikus vezérlést megvalósító objektum.
 
     //TODO: ezt eltávolítani!!
     private HashMap<Point, GMushroom> mushrooms;        //A térképen elhelyezkedő grafikus gombatestek. Kulcsként a gombatest griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
 
     final public int CELL_SIZE = 100;
+    final public int ROW_COUNT = 3;
+    final public int FIRST_TECTON_POSITION_X = 10;
+    final public int FIRST_TECTON_POSITION_Y = 10;
+    final public int TECTON_DISTANCE = 4;
+
+    final public int MAP_SIZE = 5000;
+    final public int MAP_START_POSITION = -2000;
 
     //Start pos : 50 55
 
@@ -35,7 +45,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     public Map() {
         this.addMouseListener(this); //MouseListener hozzáadása a térképhez, hogy érzékelje a kattintásokat.
         this.addMouseMotionListener(this);
-        this.setBounds(-5000, -5000, 10000, 10000); //A térkép pozíciója és mérete
+        this.setBounds(MAP_START_POSITION, MAP_START_POSITION, MAP_SIZE, MAP_SIZE); //A térkép pozíciója és mérete
         this.setOpaque(false);
         this.setLayout(null);
     }
@@ -72,7 +82,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         return new Point(col, row);
     }
 
-    Point nextTecton = new Point(53, 52);
+    Point nextTecton = new Point(FIRST_TECTON_POSITION_X, FIRST_TECTON_POSITION_Y);
+    int rows = 0;
 
     /* - Tekton hozzáadása a térképhez. Paraméterként át kell adni a hozzáadandó grafikus tecton objektumot.*/
     public void addTecton(GTecton gtecton) {
@@ -84,8 +95,37 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         this.revalidate();
         this.repaint();
 
-        nextTecton.x += 3;
-        nextTecton.y += 3;
+        tectons.add(gtecton);
+
+        gtecton.addMouseListener(new MouseAdapter() {
+            public void mouseEntered(MouseEvent e) {
+                gtecton.TintImage(Color.RED);
+                gtecton.repaint();
+
+                for(GTecton t : tectons) {
+                    
+                }
+            }
+
+            public void mouseExited(MouseEvent e) {
+                gtecton.ResetTint();
+                gtecton.repaint();
+            }
+        });
+
+        nextTecton.x += TECTON_DISTANCE;
+
+        if (nextTecton.x > FIRST_TECTON_POSITION_X + (TECTON_DISTANCE * ROW_COUNT)) {
+            if (rows % 2 == 0) {
+                nextTecton.x = FIRST_TECTON_POSITION_X + (TECTON_DISTANCE / 2);
+            } else {
+                nextTecton.x = FIRST_TECTON_POSITION_X;
+            }
+            nextTecton.y += TECTON_DISTANCE;
+
+            rows++;
+        }
+
     }
 
 
@@ -113,7 +153,42 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
     /* - Gombafonal hozzáadása a játéktérképhez, amit a grafikus gombafonal példányának megadásával lehet végrehajtani.*/
-    //public void addLine(GLine line) {}
+    public void addLine(GLine line) {
+        Point t1Pos = line.getEnds().get(0).getLocation();
+        Point t2Pos = line.getEnds().get(1).getLocation();
+
+        Point min = new Point(Math.min(t1Pos.x, t2Pos.x), Math.min(t1Pos.y, t2Pos.y));
+        Point max = new Point(Math.max(t1Pos.x, t2Pos.x), Math.max(t1Pos.y, t2Pos.y));
+
+        Dimension size = new Dimension(max.x - min.x + CELL_SIZE, max.y - min.y+ CELL_SIZE);
+        line.setBounds(min.x, min.y, size.width, size.height); //A gombafonal pozíciója és mérete
+
+        Point t1RelativPos = new Point(t1Pos.x - line.getLocation().x+CELL_SIZE/2, t1Pos.y - line.getLocation().y+CELL_SIZE/2+10);
+        Point t2RelativPos = new Point(t2Pos.x - line.getLocation().x+CELL_SIZE/2, t2Pos.y - line.getLocation().y+CELL_SIZE/2+10);
+
+        if (t2RelativPos.x < t1RelativPos.x) {
+            Point temp = t1RelativPos;
+            t1RelativPos = t2RelativPos;
+            t2RelativPos = temp;
+        }
+
+
+        for (GLine l : lines) {
+            if (l.getEnds().contains(line.getEnds().get(0)) && l.getEnds().contains(line.getEnds().get(1))) {
+                line.stepCurve();
+                System.out.println("Line already exists between ");
+            }
+        }
+
+        line.setEndPoints(t1RelativPos, t2RelativPos);
+        System.out.println("Line endpoints: "+t1RelativPos.x + ", " + t1RelativPos.y + " - " + t2RelativPos.x + ", " + t2RelativPos.y);
+        this.add(line);
+
+        this.revalidate();
+        this.repaint();
+
+        lines.add(line);
+    }
 
 
     /**
@@ -146,7 +221,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
         //Grid rajzolása, ez pedig legyen fehér
         //TODO: a grig körvonalát majd el kell tüntetni
-        g.setColor(Color.WHITE);
+        g.setColor(new Color(255, 255, 255, 50));
         for (int col = 0; col <= cols; col++) {
             int x = col * CELL_SIZE;
             g.drawLine(x, 0, x, rows * CELL_SIZE);
@@ -173,9 +248,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         
     }
 
-    private boolean isDragging = false;
     private Point mousePosition;
-    private Point windowPosition;
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -186,19 +259,15 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         //cell.addMushroom(new GMushroom()); //TODO: ezt majd át kell írni, hogy a gombatest pozícióját is figyelembe vegye.
         System.out.println("Cell clicked: " + cell.x + ", " + cell.y);
         System.out.println("Mouse clicked at: " + e.getX() + ", " + e.getY());
-        //GMushroom m = new GMushroom("12","s1");
-        //addMushroom(m);
-        this.repaint();
-        this.revalidate();
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        mousePosition = e.getPoint();
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        isDragging = false;
     }
 
     @Override
@@ -214,17 +283,13 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     
     @Override
     public void mouseDragged(MouseEvent e) {
-        if (isDragging == false) {
-            mousePosition = e.getPoint();
-            windowPosition = this.getLocation();
-            isDragging = true;
-        }
+        // Térkép mozgatása
+        Point currentLocation = this.getLocation();
 
-        System.out.println("Dragging from: " + e.getPoint().x + ", " + e.getPoint().y);
-        int newX = windowPosition.x + e.getX() -mousePosition.x;
-        int newY = windowPosition.y + e.getY() -mousePosition.y; 
-        
-        this.setLocation(newX , newY);
+        int newX = currentLocation.x + e.getX() - mousePosition.x;
+        int newY = currentLocation.y + e.getY() - mousePosition.y;
+
+        this.setLocation(newX, newY);
     
     }
 

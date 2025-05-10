@@ -92,6 +92,11 @@ public class Image extends JPanel implements MouseListener {
         image = tintedImage;
     }
 
+    //TODO: Új függvény
+    public void ResetTint(){
+        image = baseImage;
+    }
+
     
     @Override
     protected void paintComponent(Graphics g) {

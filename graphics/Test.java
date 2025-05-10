@@ -1,7 +1,9 @@
 package graphics;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.Tecton;
@@ -24,13 +26,32 @@ public class Test {
         frame.repaint();
 
         List<Tecton> tectons = new ArrayList<>();
+        List<GTecton> gTectons = new ArrayList<>();
 
-        for (int i = 0; i<10; i++){
+        for (int i = 0; i<20; i++){
             Tecton tecton = new Tecton();
             tectons.add(tecton);
 
             GTecton gTecton = new GTecton(tecton);
             map.addTecton(gTecton);
+            gTectons.add(gTecton);
         }
+
+        GLine gLine = new GLine(gTectons.get(0), gTectons.get(4));
+        map.addLine(gLine);
+
+        GLine gLine1 = new GLine(gTectons.get(1), gTectons.get(4));
+        map.addLine(gLine1);
+
+
+        GLine gLineMulty = new GLine(gTectons.get(2), gTectons.get(4));
+        map.addLine(gLineMulty);
+
+        for (int i = 0; i < 3; i++) {
+            gLineMulty = new GLine(gTectons.get(new Random().nextInt(0, gTectons.size())), gTectons.get(new Random().nextInt(0, gTectons.size())));
+            gLineMulty.setBackground(new Color(i*60+100, i*60+50, i*30+60));
+            map.addLine(gLineMulty);
+        }
+
     }
 }
