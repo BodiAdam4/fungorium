@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JPanel;
+import model.Tecton;
 
 /**
  * Map osztály
@@ -82,8 +83,73 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         return new Point(col, row);
     }
 
+    public boolean isCellEmpty(Point cell) {
+        Point tPos = getCell(cell);
+        for (GTecton t : tectons) {
+            if (t.getLocation().equals(tPos)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public double getDistance(Point p1, Point p2) {
+        return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
+    }
+
+    public static Point normalize(Point from, Point to) {
+        int dx = to.x - from.x;
+        int dy = to.y - from.y;
+
+        double length = Math.sqrt(dx * dx + dy * dy);
+        if (length == 0) return new Point(0, 0); // azonos pont esetén nincs irány
+
+        double scale = 2.0 / length;
+        int nx = (int)Math.round(dx * scale);
+        int ny = (int)Math.round(dy * scale);
+
+        return new Point(nx, ny);
+    }
+
+    public void physicSorting(double distance) {
+        boolean isSorted = false;
+        while (!isSorted) {
+            isSorted = true;
+            for (int i = 0; i < tectons.size() - 1; i++) {
+                GTecton t1 = tectons.get(i);
+                for (int k = 0; k<tectons.size(); k++) {
+                    GTecton t2 = tectons.get(k);
+                    if (t1.equals(t2)) {
+                        continue;
+                    }
+
+                    if (distance > getDistance(t1.getLocation(), t2.getLocation())) {
+                        isSorted = false;
+                        Point t1Pos = t1.getLocation();
+                        Point t2Pos = t2.getLocation();
+                        Point dir1 = normalize(t2Pos, t1Pos);
+                        Point dir2 = normalize(t1Pos, t2Pos);
+
+                        t1.setLocation(new Point(t1Pos.x + dir1.x, t1Pos.y + dir1.y));
+                        t2.setLocation(new Point(t2Pos.x + dir2.x, t2Pos.y + dir2.y));
+                        System.out.println("Tecton " + t1.getMyTecton() + " moved to: " + t1.getLocation());
+                    }
+                }
+            }
+            RefreshLines();
+            this.revalidate();
+            this.repaint();
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+            }
+        }
+    }
+
+
     Point nextTecton = new Point(FIRST_TECTON_POSITION_X, FIRST_TECTON_POSITION_Y);
     int rows = 0;
+    double maxDist = 200;
 
     /* - Tekton hozzáadása a térképhez. Paraméterként át kell adni a hozzáadandó grafikus tecton objektumot.*/
     public void addTecton(GTecton gtecton) {
@@ -103,13 +169,23 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                 gtecton.repaint();
 
                 for(GTecton t : tectons) {
-                    
+                    if (t.getMyTecton().getNeighbors().contains(gtecton.getMyTecton())) {
+                        t.TintImage(Color.white);
+                        t.repaint();
+                    }
                 }
             }
 
             public void mouseExited(MouseEvent e) {
                 gtecton.ResetTint();
                 gtecton.repaint();
+
+                for(GTecton t : tectons) {
+                    if (t.getMyTecton().getNeighbors().contains(gtecton.getMyTecton())) {
+                        t.ResetTint();
+                        t.repaint();
+                    }
+                }
             }
         });
 
@@ -125,7 +201,18 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
             rows++;
         }
+        Thread t = new Thread(() -> {
+            physicSorting(maxDist);
+        });
+        t.start();
+    }
 
+    public void addTecton(Point position, GTecton tecton) {
+        tectons.add(tecton);
+        tecton.setBounds(position.x, position.y, CELL_SIZE, CELL_SIZE);
+        this.add(tecton);
+        this.revalidate();
+        this.repaint();
     }
 
 
@@ -190,6 +277,31 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         lines.add(line);
     }
 
+    public void RefreshLines() {
+        for (GLine line : lines) {
+            Point t1Pos = line.getEnds().get(0).getLocation();
+            Point t2Pos = line.getEnds().get(1).getLocation();
+
+            Point min = new Point(Math.min(t1Pos.x, t2Pos.x), Math.min(t1Pos.y, t2Pos.y));
+            Point max = new Point(Math.max(t1Pos.x, t2Pos.x), Math.max(t1Pos.y, t2Pos.y));
+
+            Dimension size = new Dimension(max.x - min.x + CELL_SIZE, max.y - min.y+ CELL_SIZE);
+            line.setBounds(min.x, min.y, size.width, size.height); //A gombafonal pozíciója és mérete
+
+            Point t1RelativPos = new Point(t1Pos.x - line.getLocation().x+CELL_SIZE/2, t1Pos.y - line.getLocation().y+CELL_SIZE/2+10);
+            Point t2RelativPos = new Point(t2Pos.x - line.getLocation().x+CELL_SIZE/2, t2Pos.y - line.getLocation().y+CELL_SIZE/2+10);
+
+            if (t2RelativPos.x < t1RelativPos.x) {
+                Point temp = t1RelativPos;
+                t1RelativPos = t2RelativPos;
+                t2RelativPos = temp;
+            }
+
+            line.setEndPoints(t1RelativPos, t2RelativPos);
+            line.repaint();
+        }
+    }
+
 
     /**
      * Gombafonal eltávolítása a térképről. 
@@ -212,6 +324,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         int width = getWidth();
         int height = getHeight();
 
+
         //A háttérszín legyen fekete
         g.setColor(new Color(0, 0, 0, 0));
         g.fillRect(0, 0, width, height);
@@ -229,6 +342,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         for (int row = 0; row <= rows; row++) {
             int y = row * CELL_SIZE;
             g.drawLine(0, y, cols * CELL_SIZE, y);
+        }
+
+        
+        g.setColor(Color.RED);
+        for (GTecton t : tectons) {
+            g.drawOval(t.getLocation().x-(int) (maxDist/2)+(CELL_SIZE/2), t.getLocation().y-(int) (maxDist/2)+(CELL_SIZE/2), (int) maxDist, (int) maxDist);
         }
 
         //Draw lines between islands
@@ -259,6 +378,18 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         //cell.addMushroom(new GMushroom()); //TODO: ezt majd át kell írni, hogy a gombatest pozícióját is figyelembe vegye.
         System.out.println("Cell clicked: " + cell.x + ", " + cell.y);
         System.out.println("Mouse clicked at: " + e.getX() + ", " + e.getY());
+
+
+        //TODO: Csak teszt miatt van benne ki kell venni
+        //maxDist += 10;
+        Tecton t = new Tecton();
+        GTecton gTecton = new GTecton(t);
+        addTecton(new Point(e.getX()-(CELL_SIZE/2), e.getY()-(CELL_SIZE/2)), gTecton);
+
+        Thread thread = new Thread(() -> {
+            physicSorting(maxDist);
+        });
+        thread.start();
     }
 
     @Override

@@ -28,11 +28,19 @@ public class Test {
         List<Tecton> tectons = new ArrayList<>();
         List<GTecton> gTectons = new ArrayList<>();
 
+        Tecton mainTecton = new Tecton();
+        GTecton gTecton = new GTecton(mainTecton);
+        map.addTecton(gTecton);
+        gTectons.add(gTecton);
+        
+
         for (int i = 0; i<20; i++){
             Tecton tecton = new Tecton();
             tectons.add(tecton);
+            tecton.setNeighbors(mainTecton);
+            mainTecton.setNeighbors(tecton);
 
-            GTecton gTecton = new GTecton(tecton);
+            gTecton = new GTecton(tecton);
             map.addTecton(gTecton);
             gTectons.add(gTecton);
         }
