@@ -308,7 +308,11 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
      * Az eltávolításhoz meg kell adni az eltávolítandó fonál kontrollerbeli azonosítóját.
      * @param id az eltávolítandó gombafonal azonosítója
      */
-    public void removeLine(String id) {}
+    public void removeLine(String id) {
+        for(GLine gl : lines)
+            if(gl.id.equals(id))
+                lines.remove(gl);
+    }
 
 
     /**
