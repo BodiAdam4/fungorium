@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.JPanel;
-import model.Mushroom;
 import model.Tecton;
 
 /**
@@ -406,7 +405,6 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
         //TODO: Csak teszt miatt van benne ki kell venni
-        //maxDist += 10;
         Tecton t = new Tecton();
         GTecton gtecton = new GTecton(t);
 
@@ -447,12 +445,6 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                     }
                 }
             }
-
-            public void mouseClicked(MouseEvent e) {
-                Mushroom mushroom = new Mushroom(1, gtecton.getMyTecton());
-                GMushroom gmushroom = new GMushroom(mushroom);
-                gtecton.addMushroom(gmushroom);
-            }
         });
 
         addTecton(new Point(e.getX()-(CELL_SIZE/2), e.getY()-(CELL_SIZE/2)), gtecton);
@@ -463,6 +455,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             physicSorting(maxDist);
         });
         thread.start();
+
+        //TODO: Idáig csak teszt miatt van benne ki kell venni
     }
 
     @Override
