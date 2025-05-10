@@ -9,7 +9,6 @@ import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.HashMap;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -18,14 +17,11 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
-import javax.swing.OverlayLayout;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import listeners.JobListener;
 
 
@@ -52,12 +48,12 @@ public class MainWindow extends JFrame implements JobListener{
         this.setSize(1000, 600);     //Ablakméret beállítása
         this.setBackground(Color.BLACK);
         
-        
+        /* 
         this.menu = new MainMenu(); //A főmenü inicializálása
         this.add(menu, BorderLayout.CENTER); //A főmenü inicializálása
         menu.revalidate();
         menu.repaint(); //A főmenü újrarajzolása
-        
+        */
         
         //TODO: TÖRÖLNI!!
         //#############################################
@@ -257,6 +253,7 @@ public class MainWindow extends JFrame implements JobListener{
         mushroomResults.setBackground(Color.DARK_GRAY);
         mushroomResults.setForeground(Color.WHITE);
         mushroomResults.setAlignmentX(Component.LEFT_ALIGNMENT);
+        mushroomResults.setFocusable(false);
         resultContent.add(Box.createRigidArea(new Dimension(0, 5)));
         resultContent.add(mushroomResults);
 
@@ -281,6 +278,7 @@ public class MainWindow extends JFrame implements JobListener{
         insectResults.setBackground(Color.DARK_GRAY);
         insectResults.setForeground(Color.WHITE);
         insectResults.setAlignmentX(Component.LEFT_ALIGNMENT);
+        insectResults.setFocusable(false);
         resultContent.add(Box.createRigidArea(new Dimension(0, 5)));
         resultContent.add(insectResults);
 
@@ -378,6 +376,7 @@ public class MainWindow extends JFrame implements JobListener{
                 layeredPane.repaint();
             }
         });
+        
         this.setVisible(true); //A főablak láthatóvá tétele
         this.revalidate();
         this.repaint();

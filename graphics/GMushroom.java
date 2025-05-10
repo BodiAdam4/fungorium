@@ -3,6 +3,7 @@ package graphics;
 import listeners.MushroomListener;
 import model.Spore;
 import model.Line;
+import model.Mushroom;
 
 
 /**
@@ -12,14 +13,12 @@ import model.Line;
 public class GMushroom extends Image implements MushroomListener{
     
     /* - Publikus attribútumok*/
-    public String id;                   //A gombatesthez tartozó azonosító, amely alapján meg lehet találni a kontrollerben.
-    public String playerId;             //Annak a játékosnak az azonosítója akihez a gombatest tartozik.
+    private Mushroom myMushroom;        //A gombatest, amelyhez a grafikus elem tartozik
 
     /* - Konstruktor(ok)*/
-    public GMushroom(String id, String playerId) {
+    public GMushroom(Mushroom myMushroom) {
         super("graphics/images/mushroom.png"); //A gombatest képe
-        this.id = id;
-        this.playerId = playerId;
+        this.myMushroom = myMushroom; //A gombatest referenciájának beállítása
     }
 
 

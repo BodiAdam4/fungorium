@@ -22,6 +22,7 @@ public class Line
     private List<LineListener> lineListeners;
     private List<JobListener> jobListeners;
     public int ttl = -1;
+    public boolean crossable;   //öttlet, egyből példányosítjuk, de nem lehet rajta átmenni, amíg ki nem nő
 
     public ObjectChangeListener changeListener;
 
@@ -58,6 +59,8 @@ public class Line
 
         boolean connected = checkConnections(new ArrayList<>(), null);
         notifyNeighbors(connected, new ArrayList<>(), null);
+
+        crossable = false;
     }
 
 
@@ -120,9 +123,13 @@ public class Line
 
         if (alive && ttl != -1) {
             ttl = -1;
+            for(LineListener ll : lineListeners)
+                ll.phaseChange(1);
         }
         else if (!alive && ttl == -1) {
             ttl = 3;
+            for(LineListener ll : lineListeners)
+                ll.phaseChange(2);
         }
 
         List<Line> connections = new ArrayList<>();
@@ -198,6 +205,8 @@ public class Line
             this.ends[0].getSporeContainer().addSpores(newSpores);
             this.ends[0].addMushroom(this.mushroomId);
             insect.destroy();
+            for(LineListener ll : lineListeners)
+                ll.insectEaten(insect);
             System.out.println("Rovar elfogyasztva és gombatest nőtt!");
             return true;
     }
@@ -221,6 +230,9 @@ public class Line
                 found.get().notifyNeighbors(connected, new ArrayList<>(), null);
             }
         }
+
+        for(LineListener ll : lineListeners)
+            ll.lineDestroyed();
     }
 
 
