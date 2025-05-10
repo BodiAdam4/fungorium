@@ -62,7 +62,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
     /* - Grafikus gombafonal keresése a térképen a kontrollerbeli azonosító szerint.*/
-    //public GLine getLine(String id) {}
+    public GLine getLine(String id) {
+        for(GLine gl : lines)
+            if(gl.id.equals(id))
+                return gl;
+        return null;
+    }
 
 
     /* - Grafikus rovar keresése a térképen a kontrollerbeli azonosító szerint.*/
