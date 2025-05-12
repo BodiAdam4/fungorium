@@ -237,7 +237,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
     /* - Rovar hozzáadása a térképhez. Szükséges megadni a rovar grafikus példányát, amit el szeretnénk helyezni.*/
-    //public void addInsect(GInsect ginsect) {}
+    public void addInsect(GInsect ginsect) {}
 
 
     /* - Rovar eltávolítása a játéktérképről. Ehhez meg kell adni a rovar kontrollerbeli azonosítóját.*/

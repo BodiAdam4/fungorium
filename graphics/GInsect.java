@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import listeners.InsectListener;
 import model.Tecton;
+import model.Insect;
 import model.Line;
 
 public class GInsect extends Image implements InsectListener{
@@ -14,6 +15,7 @@ public class GInsect extends Image implements InsectListener{
     //attribútumok
     public String id;
     public String playerId;
+    public Insect insect;
     private JPanel place;
     private JLabel infoTag;
 
@@ -22,6 +24,11 @@ public class GInsect extends Image implements InsectListener{
         super("graphics/images/Insect.png");
         this.id = id;
         this.playerId = playerId;
+    }
+
+    public GInsect(Insect insect){
+        super("graphics/images/Insect.png");
+        this.insect = insect;
     }
 
     public void move(JPanel to){

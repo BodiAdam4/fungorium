@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import model.Insect;
+import model.Line;
+import model.Mushroom;
 import model.Tecton;
 import controller.Controller;
 
@@ -40,18 +42,27 @@ public class GraphicController {
     /* - Getter/Setter metódusok*/
     /* - Egyéb metódusok*/
     public void createInsect(Insect insect){
+        GInsect gInsect = new GInsect(insect);
+        map.addInsect(gInsect);
+        insect.addInsectListener(gInsect);
     }
 
-    public void createMushroom(){
-
+    public void createMushroom(Mushroom mushroom){
+        GMushroom gMushroom = new GMushroom(mushroom);
+        map.addMushroom(gMushroom);
+        mushroom.addMushroomListener(gMushroom);
     }
 
-    public void createLine(){
-
+    public void createLine(Line line){
+        GLine gLine = new GLine();
+        map.addLine(gLine);
+        line.addLineListener(gLine);
     }
 
-    public void createTecton(){
-
+    public void createTecton(Tecton tecton){
+        GTecton gTecton = new GTecton(tecton);
+        map.addTecton(gTecton);
+        tecton.addTectonListener(gTecton);
     }
 
     public void addSelected(GTecton gtecton){

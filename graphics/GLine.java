@@ -66,7 +66,9 @@ public class GLine extends JPanel implements LineListener
         id = _id;
         setEnds(_ends);
     }
+    public GLine(){
 
+    }
 
     /* - Getter/Setter metódusok*/
     public String getId(){
