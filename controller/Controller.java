@@ -2,6 +2,9 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
+import java.util.Objects;
+
 import listeners.ObjectChangeListener;
 import model.Insect;
 import model.Line;
@@ -13,11 +16,11 @@ import userinterface.RandTools;
 
 public class Controller {
     /* - Privát attribútumok*/
-    private HashMap<String, Mushroom> allMushroom;
-    private HashMap<String, Line> allLine;
-    private HashMap<String, Insect> allInsect;
-    private HashMap<String, Tecton> allTecton;
-    private PlayerHandler playerHandler;
+    private static HashMap<String, Mushroom> allMushroom;
+    private static HashMap<String, Line> allLine;
+    private static HashMap<String, Insect> allInsect;
+    private static HashMap<String, Tecton> allTecton;
+    private static PlayerHandler playerHandler;
     private boolean isGameRunning = false;
     private int round = 0;
     private int maxRound = 5;
@@ -153,7 +156,7 @@ public class Controller {
     }
 
 
-    public String getMushroomId(Mushroom mushroom) {
+    public static String getMushroomId(Mushroom mushroom) {
         for (String id : allMushroom.keySet()) {
             if (allMushroom.get(id).equals(mushroom)) {
                 return id;
@@ -205,7 +208,7 @@ public class Controller {
         System.out.println(playerHandler.getWinner());
     }
 
-    public String getLineId(Line line) {
+    public static String getLineId(Line line) {
         for (String id : allLine.keySet()) {
             if (allLine.get(id).equals(line)) {
                 return id;
@@ -240,7 +243,7 @@ public class Controller {
     }
 
 
-    public String getInsectId(Insect insect) {
+    public static String getInsectId(Insect insect) {
         for (String id : allInsect.keySet()) {
             if (allInsect.get(id).equals(insect)) {
                 return id;
@@ -275,7 +278,7 @@ public class Controller {
     }
 
 
-    public String getTectonId(Tecton tecton) {
+    public static String getTectonId(Tecton tecton) {
         for (String id : allTecton.keySet()) {
             if (allTecton.get(id).equals(tecton)) {
                 return id;
@@ -335,5 +338,90 @@ public class Controller {
         }, 2);
 
         RandTools.resetFix();
+    }
+
+    /**
+     * Parancsok lefordítása a CommandProcessor számára.
+     * A GrapicController által használt "gombnyomásokat" és kijelölt tektonokar a CommandProcessor számára érthető formátumra alakítja.
+     */
+    public static String translateCommand(String cmd, Tecton[] tectons){
+        //A kivalasztott tektonok
+        Tecton from = tectons[0];
+        Tecton to = null;
+        
+        //A kivalasztott tektonok ID-jainak megkeresese
+        String fromId = getTectonId(from);
+        String toId = null;
+
+        //Ha csak egy tekton van kivalasztva, akkor a toId null marad
+        if(tectons.length == 2){
+            to = tectons[1];
+            toId = getTectonId(to);
+        }
+
+        //Az aktuális játékos
+        Player player = playerHandler.getActualPlayer();
+        
+
+        String insectId = null;
+
+        String lineId = null;
+                
+        switch (cmd) {
+            case "/move":
+                //Megkeressük a kivalasztott tektonban az aktuális játékos rovarját
+                for (Insect insect : from.getInsects()) {
+                    if(insect.getInsectId() == player.getPlayerId()){
+                        return "/move " + getInsectId(insect) + " " + toId;
+                    }
+                }
+                break;
+            case "/eat-spore":
+                //Megkeressük a kivalasztott tektonban az aktuális játékos rovarját
+                for (Insect insect : from.getInsects()) {
+                    if(insect.getInsectId() == player.getPlayerId()){
+                        return "/eat-spore " + getInsectId(insect);
+                    }
+                }
+                break;
+            case "/cut-line":
+                for (Insect insect : from.getInsects()) {
+                    if(insect.getInsectId() == player.getPlayerId()){
+                        insectId = getInsectId(insect);
+                    }
+                }
+                for(Line line : from.getConnections()){
+                    if(line.getEnds()[0] == from && line.getEnds()[1] == to){
+                        return "/cut-line " + insectId + " " + getLineId(line);
+                    }
+                }     
+                break;
+            case "/grow-line":
+                return "/grow-line " + fromId + " " + toId;
+            case "/build-mushroom":
+                return "/build-mushroom " + fromId;
+            case "/throw-spore":
+                if(from.getMyMushroom() == null){
+                    return "";
+                }
+                return "/throw-spore " + getMushroomId(from.getMyMushroom())+ " " + toId;    
+            case "/eat-insect":
+                for (Insect insect : from.getInsects()) {
+                    if(insect.getCanMove() == false){
+                        insectId = getInsectId(insect);
+                    }
+                }
+                for(Line line : from.getConnections()){
+                    if(line.getId() == player.getPlayerId()){
+                        lineId = getLineId(line);
+                    }
+                }
+                return "/eat-insect " + insectId + " " + lineId;    
+            case "/next":
+                return "/next";
+            default:
+                return "";
+        }
+        return "";
     }
 }

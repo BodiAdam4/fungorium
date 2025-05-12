@@ -2,6 +2,11 @@ package graphics;
 
 import java.util.HashMap;
 import java.util.List;
+
+import model.Insect;
+import model.Tecton;
+import controller.Controller;
+
 import java.awt.Color;
 
 import userinterface.CommandProcessor;
@@ -15,7 +20,7 @@ public class GraphicController {
     /* - Privát attribútumok*/
     private Map map; //A térképet kezelő objektum.
 
-    private List<GTecton> selected; //A kiválasztott tektonok listája
+    private List<Tecton> selected; //A kiválasztott tektonok listája
 
     private CommandProcessor cmd; //A parancsokat feldolgozó egység, amelyen keresztül a felhasználói tevékenységek végrehajtódnak.
 
@@ -34,22 +39,30 @@ public class GraphicController {
 
     /* - Getter/Setter metódusok*/
     /* - Egyéb metódusok*/
-    public void createInsect(){
-
+    public void createInsect(Insect insect){
     }
+
     public void createMushroom(){
 
     }
+
     public void createLine(){
 
     }
+
     public void createTecton(){
 
     }
-    public void addSelected(GTecton tecton){
-        selected.add(tecton);
+
+    public void addSelected(GTecton gtecton){
+        selected.add(gtecton.getMyTecton());
     }
+
     public void sendCommand(String command){
-        
+        Tecton[] tectons = new Tecton[2];
+        tectons[0] = selected.get(0);
+        tectons[1] = selected.get(1);
+        String commmand = Controller.translateCommand(command, tectons);
+        cmd.ExecuteCommand(command);
     }
 }
