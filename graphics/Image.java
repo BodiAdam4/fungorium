@@ -76,28 +76,50 @@ public class Image extends JPanel implements MouseListener {
                 int pixel = baseImage.getRGB(x, y);
                 int alpha = (pixel >> 24) & 0xff;
 
-                if(alpha != 0 && new Color(pixel, true).equals(Color.WHITE))
+                if(alpha != 0 && whiteCloseness(pixel) > 0.6)
                 {
-                    int red = (color.getRed());
-                    int green = (color.getGreen());
-                    int blue = (color.getBlue());
+                    int pixelRed = (pixel >> 16) & 0xFF;
+                    int pixelGreen = (pixel >> 8) & 0xFF;
+                    int pixelBlue = pixel & 0xFF;
+
+                    int targetRed = color.getRed();
+                    int targetGreen = color.getGreen();
+                    int targetBlue = color.getBlue();
+
+                    double blendFactor = 0.5;
+
+                    int red = (int) (blendFactor * targetRed + (1 - blendFactor) * pixelRed);
+                    int green = (int) (blendFactor * targetGreen + (1 - blendFactor) * pixelGreen);
+                    int blue = (int) (blendFactor * targetBlue + (1 - blendFactor) * pixelBlue);
+
+                    // Összerakjuk az új ARGB pixelt
                     int tintedPixel = (alpha << 24) | (red << 16) | (green << 8) | blue;
                     tintedImage.setRGB(x, y, tintedPixel);
-                }
-                else if (alpha != 0 && !new Color(pixel, true).equals(Color.BLACK)) {
-                    Color originalColor = new Color(pixel, true);
-                    int red = (originalColor.getRed() + color.getRed()) / 2;
-                    int green = (originalColor.getGreen() + color.getGreen()) / 2;
-                    int blue = (originalColor.getBlue() + color.getBlue()) / 2;
-                    int tintedPixel = (alpha << 24) | (red << 16) | (green << 8) | blue;
-                    tintedImage.setRGB(x, y, tintedPixel);
-                } else {
+                }else {
                     tintedImage.setRGB(x, y, pixel);
                 }
             }
         }
 
         image = tintedImage;
+    }
+
+    public static double whiteCloseness(int argb) {
+        // Szétszedjük az ARGB értéket komponensekre
+        int r = (argb >> 16) & 0xFF;
+        int g = (argb >> 8) & 0xFF;
+        int b = argb & 0xFF;
+
+        // Fehértől való távolság
+        int dr = 255 - r;
+        int dg = 255 - g;
+        int db = 255 - b;
+
+        double distance = Math.sqrt(dr * dr + dg * dg + db * db);
+        double maxDistance = Math.sqrt(3 * 255 * 255); // ≈ 441.67
+
+        // Fehér közelség = 1 - normalizált távolság
+        return 1.0 - (distance / maxDistance);
     }
 
     //TODO: Új függvény
