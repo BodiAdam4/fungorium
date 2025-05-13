@@ -44,7 +44,7 @@ public class ControlPanel extends JPanel implements ControlListener {
         panel.add(title);
         
         // Player label
-        JLabel playerLabel = new JLabel("Actual player: ");
+        JLabel playerLabel = new JLabel("Actual player: " + player);
         playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(playerLabel);
         
@@ -59,7 +59,7 @@ public class ControlPanel extends JPanel implements ControlListener {
         }
         
         // Round label
-        JLabel roundLabel = new JLabel("ROUND: ");
+        JLabel roundLabel = new JLabel("ROUND: " + round);
         roundLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
         panel.add(roundLabel);
@@ -84,7 +84,7 @@ public class ControlPanel extends JPanel implements ControlListener {
         panel.add(title);
         
         // Player label
-        JLabel playerLabel = new JLabel("Actual player: ");
+        JLabel playerLabel = new JLabel("Actual player: " + player);
         playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(playerLabel);
         
@@ -99,7 +99,7 @@ public class ControlPanel extends JPanel implements ControlListener {
         }
         
         // Round label
-        JLabel roundLabel = new JLabel("ROUND: ");
+        JLabel roundLabel = new JLabel("ROUND: " + round);
         roundLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
         panel.add(roundLabel);
