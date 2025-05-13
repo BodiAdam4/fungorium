@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JPanel;
@@ -27,12 +26,11 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     private List<GTecton> tectons = new ArrayList<>();            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
     private List<GInsect> insects = new ArrayList<>();                      //A térképen lévő rovarok grafikus objektumainak listája.
     private List<GLine> lines = new ArrayList<>();                          //A térképen elhelyezkedő grafikus gombafonalak listája.
+    private List<GMushroom> mushrooms = new ArrayList<>();       //A térképen elhelyezkedő grafikus gombatestek. Kulcsként a gombatest griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
+
     //private GraphicController graphicController;        //A grafikus vezérlést megvalósító objektum.
 
-    //TODO: ezt eltávolítani!!
-    private HashMap<Point, GMushroom> mushrooms;        //A térképen elhelyezkedő grafikus gombatestek. Kulcsként a gombatest griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
-
-    final public int CELL_SIZE = 100;
+    final static public int CELL_SIZE = 100;
     final public int ROW_COUNT = 3;
     final public int FIRST_TECTON_POSITION_X = 10;
     final public int FIRST_TECTON_POSITION_Y = 10;
@@ -238,12 +236,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     /* - Gombatest hozzáadása a térképhez. Paraméterként elvárja a hozzáadandó grafikus gombatest példányt.*/
     public void addMushroom(GMushroom gmushroom) {
-        if (mushrooms == null) {
-            mushrooms = new HashMap<>();
-        }
-        Point p = new Point(0, 0); //TODO: ezt majd át kell írni, hogy a gombatest pozícióját is figyelembe vegye.
-        mushrooms.put(p, gmushroom);
-        this.add(gmushroom); //Hozzáadja a grafikus gombatestet a térképhez.
+        mushrooms.add(gmushroom);
+        GTecton parentTecton = getTecton(gmushroom.getMyMushroom().getMyTecton());
+        parentTecton.addMushroom(gmushroom);
     }
 
 

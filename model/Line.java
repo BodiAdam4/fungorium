@@ -19,8 +19,8 @@ public class Line
     /* - Privát attribútumok*/
     private int mushroomId;
     private Tecton[] ends;
-    private List<LineListener> lineListeners;
-    private List<JobListener> jobListeners;
+    private List<LineListener> lineListeners = new ArrayList<>();
+    private List<JobListener> jobListeners = new ArrayList<>();
     public int ttl = -1;
 
     public ObjectChangeListener changeListener;

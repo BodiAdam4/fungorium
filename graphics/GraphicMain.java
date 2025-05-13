@@ -50,6 +50,6 @@ public class GraphicMain {
         mainWindow.repaint();
 
         
-        //cmdProcessor.ExecuteCommand("/load TestFiles\\SporeThrowToNeighborsNeighbor_success_input.txt");
+        cmdProcessor.ExecuteCommand("/load TestFiles\\MushroomGrow_success_input.txt");
     }
 }
