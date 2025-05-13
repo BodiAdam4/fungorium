@@ -1,13 +1,9 @@
 package controller;
-import graphics.GraphicController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.Objects;
 import listeners.ControlListener;
 import listeners.JobListener;
-
 import listeners.ObjectChangeListener;
 import model.Insect;
 import model.Line;
@@ -138,6 +134,10 @@ public class Controller {
 
     public void addJobListener(JobListener listener) {
         jobListeners.add(listener);
+    }
+    
+    public List<JobListener> getJobListeners() {
+        return jobListeners;
     }
 
     public void addControlListener(ControlListener listener) {
