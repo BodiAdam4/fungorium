@@ -8,13 +8,6 @@ import model.Insect;
  * Az interfész tartalmaz minden lehetséges eseményhez egy függvényt, amit a gombafonal lefuttat, ha bekövetkezik.
  */
 public interface LineListener {
-
-    /** 
-     * Rovar elfogyasztásakor lefutó függvény
-     * @param insect a megevett rovar
-     */
-    public void insectEaten(Insect insect);
-
     
     /**
      * A gombafonal elpusztulásakor meghívódó metódus.
