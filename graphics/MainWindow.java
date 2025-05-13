@@ -222,8 +222,11 @@ public class MainWindow extends JFrame implements JobListener{
         mainContentPanel.add(controlPanel, BorderLayout.EAST); //A vezérlő panel hozzáadása a fő tartalom panelhez
         */
         controlPanel = new ControlPanel(gController); //A vezérlő panel inicializálása
+        controlPanel.setPreferredSize(new Dimension(this.getWidth()/5, this.getHeight())); //A vezérlő panel méretének beállítása
+        controlPanel.setMaximumSize(new Dimension(this.getWidth()/5, this.getHeight())); //A vezérlő panel méretének beállítása
         GraphicMain.controller.addControlListener(controlPanel);
         mainContentPanel.add(controlPanel, BorderLayout.EAST);
+
 
         //###############################################################################
 
@@ -498,8 +501,8 @@ public class MainWindow extends JFrame implements JobListener{
                 mapPanel.setPreferredSize(new Dimension(width, height));
                 mapPanel.setSize(width, height);
         
-                controlPanel.setPreferredSize(new Dimension(width / 4, height));
-                controlPanel.setSize(width / 4, height);
+                controlPanel.setPreferredSize(new Dimension(width / 5, height));
+                controlPanel.setSize(width / 5, height);
         
                 //Az értesítéspanel pozícionálása az alsó részre
                 int notWidth = 700;
