@@ -38,8 +38,9 @@ public class MainWindow extends JFrame implements JobListener{
     private Map map;                        //A játék térképét megjelenítő JPanel leszármazott osztály példánya.
     private MainMenu menu;                  //A játék kezdetén megjelenő, a beállításokat tartalmazó panel.
     //private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
-    private JPanel notificationBar;         //Az értesítéseknél felugró panel.
+    private JPanel notificJPanel;         //Az értesítéseknél felugró panel.
     private JLabel notificationText;        //Az értesítéseknél megjelenő szöveg.
+    private JLabel notificationLabel;
     private GraphicController gController;
 
     /* - Konstruktor(ok)*/
@@ -424,7 +425,7 @@ public class MainWindow extends JFrame implements JobListener{
         //###########################[notificJPanel]####################################
 
         //A notification panel létrehozása
-        JPanel notificJPanel = new JPanel();
+        notificJPanel = new JPanel();
         notificJPanel.setBackground(Color.DARK_GRAY);
         notificJPanel.setOpaque(true);
         notificJPanel.setLayout(new BoxLayout(notificJPanel, BoxLayout.Y_AXIS));
@@ -435,7 +436,7 @@ public class MainWindow extends JFrame implements JobListener{
         layeredPane.add(notificJPanel, JLayeredPane.PALETTE_LAYER);
 
         //JLabel a notification címhez (felül)
-        JLabel notificationLabel = new JLabel("Notification Bar");
+        notificationLabel = new JLabel("Notification Bar");
         notificationLabel.setForeground(Color.RED);
         notificationLabel.setFont(new Font("Arial", Font.BOLD, 18));
         notificationLabel.setBorder(new EmptyBorder(5, 5, 0, 0)); // Top, Left, Bottom, Right
@@ -513,11 +514,23 @@ public class MainWindow extends JFrame implements JobListener{
 
 
     /* - Sikeres műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.*/
-    public void jobSuccessfull(String msg) {}
+    public void jobSuccessfull(String msg) {
+        notificationLabel.setText("Success!"); //A notification címének beállítása
+        notificationLabel.setForeground(Color.GREEN); //A notification címének színének beállítása
+        notificationText.setText(msg); //Az üzenet szövegének beállítása
+        notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
+        repaint();
+    }
 
 
     /* - Sikertelen műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.*/
-    public void jobFailed(String msg) {}
+    public void jobFailed(String msg) {
+        notificationLabel.setText("Failed!"); //A notification címének beállítása
+        notificationLabel.setForeground(Color.RED); //A notification címének színének beállítása
+        notificationText.setText(msg); //Az üzenet szövegének beállítása
+        notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
+        repaint();
+    }
 
 
 
