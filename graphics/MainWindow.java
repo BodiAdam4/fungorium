@@ -38,9 +38,18 @@ public class MainWindow extends JFrame implements JobListener{
     private Map map;                        //A játék térképét megjelenítő JPanel leszármazott osztály példánya.
     private MainMenu menu;                  //A játék kezdetén megjelenő, a beállításokat tartalmazó panel.
     //private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
-    private JPanel notificJPanel;         //Az értesítéseknél felugró panel.
+    
+    /* - Notification privát elemei */
+    private JPanel notificJPanel;           //Az értesítéseknél felugró panel.
     private JLabel notificationText;        //Az értesítéseknél megjelenő szöveg.
-    private JLabel notificationLabel;
+    private JLabel notificationLabel;       //Az értesítéseknél megjelenő cím.
+
+    /* - A dicsőségfal privát elemei */
+    private JTextArea mushroomResults;
+    private JTextArea insectResults;
+
+
+
     private GraphicController gController;
 
     /* - Konstruktor(ok)*/
@@ -263,7 +272,7 @@ public class MainWindow extends JFrame implements JobListener{
         resultContent.add(topMushLabel);
 
         // Eredmények szöveges megjelenítése (Mushroompickers)
-        JTextArea mushroomResults = new JTextArea("# 1.: MushroomPicker_2__________________19\n# 2.: MushroomPicker_1__________________17\n# 3.: MushroomPicker_3__________________12\n# 4.: MushroomPicker_4__________________10\n# 5.: MushroomPicker_5__________________8\n# 6.: MushroomPicker_6__________________5\n# 7.: MushroomPicker_7__________________3\n# 8.: MushroomPicker_8__________________2");
+        mushroomResults = new JTextArea("# 1.: MushroomPicker_2__________________19\n# 2.: MushroomPicker_1__________________17\n# 3.: MushroomPicker_3__________________12\n# 4.: MushroomPicker_4__________________10\n# 5.: MushroomPicker_5__________________8\n# 6.: MushroomPicker_6__________________5\n# 7.: MushroomPicker_7__________________3\n# 8.: MushroomPicker_8__________________2");
         mushroomResults.setFont(new Font("Monospaced", Font.PLAIN, 16));
         mushroomResults.setEditable(false);
         mushroomResults.setBackground(Color.DARK_GRAY);
@@ -334,7 +343,7 @@ public class MainWindow extends JFrame implements JobListener{
         resultContent.add(topInsectLabel);
 
         // Eredmények szöveges megjelenítése (Insectpickers)
-        JTextArea insectResults = new JTextArea("# 1.: InsectPicker_1____________________8\n# 2.: InsectPicker_2____________________5");
+        insectResults = new JTextArea("# 1.: InsectPicker_1____________________8\n# 2.: InsectPicker_2____________________5");
         insectResults.setFont(new Font("Monospaced", Font.PLAIN, 16));
         insectResults.setEditable(false);
         insectResults.setBackground(Color.DARK_GRAY);
