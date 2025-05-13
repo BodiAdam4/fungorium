@@ -40,15 +40,19 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     final public int MAP_SIZE = 5000;
     final public int MAP_START_POSITION = -2000;
 
+    private GraphicController gController;
+
     //Start pos : 50 55
 
     /* - Konstuktor(ok)*/
-    public Map() {
+    public Map(GraphicController gController) {
         this.addMouseListener(this); //MouseListener hozzáadása a térképhez, hogy érzékelje a kattintásokat.
         this.addMouseMotionListener(this);
         this.setBounds(MAP_START_POSITION, MAP_START_POSITION, MAP_SIZE, MAP_SIZE); //A térkép pozíciója és mérete
         this.setOpaque(false);
         this.setLayout(null);
+
+        this.gController = gController;
     }
 
     /* - Getter/Setter metódusok*/
@@ -213,6 +217,10 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                     }
                 }
             }
+
+            public void mouseClicked(MouseEvent e) {
+                gController.addSelected(gtecton);
+            }
         });
 
         nextTecton.x += TECTON_DISTANCE;
@@ -258,7 +266,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     /* - Gombatest eltávolítása a térképről. Szükséges megadni a gombatest kontrollerbeli azonosítóját.*/
     public void removeMushroom(String id) {
-        
+
     }
 
 
