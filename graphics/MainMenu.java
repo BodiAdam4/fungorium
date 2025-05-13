@@ -311,7 +311,7 @@ public class MainMenu extends JPanel {
         
 
         //JSpinner a játékosok számának megadásához
-        playerSpinner = new JSpinner(new SpinnerNumberModel(5, 4, 16, 1));
+        playerSpinner = new JSpinner(new SpinnerNumberModel(4, 4, 16, 1));
         playerSpinner.setPreferredSize(new Dimension(40, 30));
         playerSpinner.setFont(new Font("Arial", Font.PLAIN, 14));
         playerSpinner.setBorder(BorderFactory.createLineBorder(Color.WHITE));
