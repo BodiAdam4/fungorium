@@ -19,7 +19,7 @@ public class GraphicController {
     /* - Privát attribútumok*/
     private Map map; //A térképet kezelő objektum.
 
-    private List<Tecton> selected; //A kiválasztott tektonok listája
+    private List<GTecton> selected; //A kiválasztott tektonok listája
 
     private CommandProcessor cmd; //A parancsokat feldolgozó egység, amelyen keresztül a felhasználói tevékenységek végrehajtódnak.
 
@@ -71,13 +71,13 @@ public class GraphicController {
         if(selected.size() == 2){
             selected.clear();
         }
-        selected.add(gtecton.getMyTecton());
+        selected.add(gtecton);
     }
 
     public void sendCommand(String command){
         Tecton[] tectons = new Tecton[2];
-        tectons[0] = selected.get(0);
-        tectons[1] = selected.get(1);
+        tectons[0] = selected.get(0).getMyTecton();
+        tectons[1] = selected.get(1).getMyTecton();
         String commmand = Controller.translateCommand(command, tectons);
         cmd.ExecuteCommand(command);
     }
