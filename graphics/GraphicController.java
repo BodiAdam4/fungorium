@@ -68,6 +68,9 @@ public class GraphicController {
     }
 
     public void addSelected(GTecton gtecton){
+        if(selected.size() == 2){
+            selected.clear();
+        }
         selected.add(gtecton.getMyTecton());
     }
 
