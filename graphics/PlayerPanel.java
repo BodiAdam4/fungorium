@@ -1,6 +1,14 @@
 package graphics;
 
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -11,19 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.plaf.basic.BasicScrollBarUI;
-
-import java.awt.event.MouseEvent;
-
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.MouseAdapter;
 
 /**
  * Egy-egy játékos beállítását lehetővé tevő UI elem. Ezen helyezkedik el a név beviteli mezeje, 
@@ -34,7 +31,7 @@ public class PlayerPanel extends JPanel {
     /* - Privát attribútumok*/
     private JTextField nameBox;         //A játékos nevének beviteléhez szükséges szövegdoboz.
     private Color color;                //A játékos színe, mely a későbbiekben segít megkülönböztetni a különböző objektumok tulajdonosait.
-    private JRadioButton insectRadio;   //Egy rádiógomb, mellyel eldönthető, hogy a játékos rovarász vagy gombász szeretne lenni.
+    private JRadioButton insectButton;   //Egy rádiógomb, mellyel eldönthető, hogy a játékos rovarász vagy gombász szeretne lenni.
     private int playerNumber;          //A játékos sorszáma, mely a fejlécben jelenik meg.
     private MainMenu parent;            //A szülő panel, mely a PlayerPanel-t tartalmazza. Ezen keresztül lehet eltávolítani a panelt a főmenüből.
 
@@ -315,7 +312,7 @@ public class PlayerPanel extends JPanel {
         insectPanel.setOpaque(false);
 
         //JRadioButton a rovarászoknak
-        JRadioButton insectButton = new JRadioButton("Insectpicker");
+        insectButton = new JRadioButton("Insectpicker");
         insectButton.setForeground(Color.WHITE);
         insectButton.setOpaque(false);
         insectButton.setSelected(true);
@@ -367,7 +364,7 @@ public class PlayerPanel extends JPanel {
 
     /* - Visszaad egy logikai változót, ami megmondja, hogy a játékos rovarász vagy gombász kasztot választotta.*/
     public boolean isInsect(){
-        return insectRadio.isSelected();
+        return insectButton.isSelected();
     }
 
 

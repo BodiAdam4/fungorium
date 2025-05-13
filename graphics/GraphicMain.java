@@ -51,6 +51,5 @@ public class GraphicMain {
         
         controller.addJobListener(mainWindow);
         
-        cmdProcessor.ExecuteCommand("/load TestFiles\\InsectMoveTwice_input.txt");
     }
 }

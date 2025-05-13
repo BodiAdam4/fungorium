@@ -45,7 +45,8 @@ public class MainMenu extends JPanel {
 
 
     /* - Konstruktor(ok)*/
-    public MainMenu() {
+    public MainMenu(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
         this.setLayout(new BorderLayout()); //A főmenü elrendezése
         //JPanel a főmenünek
         JPanel mainPanel = new JPanel(new BorderLayout());
@@ -200,7 +201,6 @@ public class MainMenu extends JPanel {
             playerPanels.forEach(playerPanel -> {
                 System.out.println("Player color: " + playerPanel.getColor() + "player name: " + playerPanel.getName());
             });
-            mainWindow = new MainWindow(gController); //TODO: Ha meglesz a GraphicController, akkor ezt kell implementálni
             System.out.println("Enter the game button clicked!");
             startGame(); // Add mouse click event
         });
@@ -478,8 +478,8 @@ public class MainMenu extends JPanel {
         String insectNames = String.join(" ", insectPickers);
         String mushroomNames = String.join(" ", mushroomPickers);
 
-
-        GraphicMain.cmdProcessor.ExecuteCommand("/start " + mushroomNames + " " + insectNames + " -m " + mushroomNames.length() + " -i " + insectNames.length() + " -k " + turnSpinner.getValue());
+        String command = "/start " + mushroomNames + " " + insectNames + " -m " + mushroomPickers.size() + " -i " + insectPickers.size() + " -k " + turnSpinner.getValue();
+        GraphicMain.cmdProcessor.ExecuteCommand(command);
         //a start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
     }
 }

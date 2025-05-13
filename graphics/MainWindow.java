@@ -53,8 +53,7 @@ public class MainWindow extends JFrame implements JobListener{
     private GraphicController gController;
 
     /* - Konstruktor(ok)*/
-    public MainWindow(GraphicController gController){
-        this.gController = gController;
+    public MainWindow(GraphicController gctrl){
         this.setTitle("Fungorium_by_oet_kis_malacz");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 600);     //Ablakméret beállítása
@@ -66,7 +65,8 @@ public class MainWindow extends JFrame implements JobListener{
         menu.revalidate();
         menu.repaint(); //A főmenü újrarajzolása
         */
-
+        
+        this.gController = gctrl;
         showMenu();
 
         //showMap();
@@ -206,7 +206,6 @@ public class MainWindow extends JFrame implements JobListener{
 
         map = new Map(gController); //A térkép inicializálása
         mapPanel.add(map); //A térkép hozzáadása a térkép panelhez
-
         gController.setMap(map);
 
         mainContentPanel.add(mapPanel, BorderLayout.CENTER); //A térkép panel hozzáadása a fő tartalom panelhez
@@ -529,7 +528,7 @@ public class MainWindow extends JFrame implements JobListener{
 
     public void showMenu(){
 
-        this.menu = new MainMenu(); //A főmenü inicializálása
+        this.menu = new MainMenu(this); //A főmenü inicializálása
         this.add(menu, BorderLayout.CENTER); //A főmenü inicializálása
         menu.revalidate();
         menu.repaint(); //A főmenü újrarajzolása
