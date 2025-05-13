@@ -10,7 +10,7 @@ import userinterface.CommandProcessor;
 
 public class GraphicMain {
 
-    private static Controller controller;
+    public static Controller controller;
     public static CommandProcessor cmdProcessor;
     private static GraphicController gController;
     private static MainWindow mainWindow;

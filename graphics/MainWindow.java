@@ -222,6 +222,7 @@ public class MainWindow extends JFrame implements JobListener{
         mainContentPanel.add(controlPanel, BorderLayout.EAST); //A vezérlő panel hozzáadása a fő tartalom panelhez
         */
         controlPanel = new ControlPanel(gController); //A vezérlő panel inicializálása
+        GraphicMain.controller.addControlListener(controlPanel);
         mainContentPanel.add(controlPanel, BorderLayout.EAST);
 
         //###############################################################################

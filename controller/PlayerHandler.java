@@ -2,8 +2,10 @@ package controller;
 
 import java.io.BufferedInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import listeners.ControlListener;
 
 public class PlayerHandler {
     /* - Privát attribútumok*/
@@ -83,7 +85,16 @@ public class PlayerHandler {
             mushroomPickers.forEach(MushroomPicker::ResetInsectActions);
             controller.nextRound();
         }
+        
+        HashMap<String, Integer> scores = new HashMap<>();
 
+        for (Player player : getAllPlayer()) {
+            scores.put(player.getDisplayName(), player.calculateScore());
+        }
+
+        for (ControlListener listener : controller.getControlListeners()) {
+            listener.onNextRound(getActualPlayer().getDisplayName(), !actualPlayerIsMushroomPicker(), actualPlayerIdx, scores);
+        }
     }
     
 

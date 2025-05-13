@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
+import listeners.ControlListener;
 import listeners.JobListener;
 
 import listeners.ObjectChangeListener;
@@ -30,6 +31,7 @@ public class Controller {
     private ObjectChangeListener objectChangeListener;
     private List<ObjectChangeListener> objectListeners = new ArrayList<>();
     private List<JobListener> jobListeners = new ArrayList<>();
+    private List<ControlListener> controlListeners = new ArrayList<>();
 
     /* - Publikus attribútumok*/
 
@@ -136,6 +138,14 @@ public class Controller {
 
     public void addJobListener(JobListener listener) {
         jobListeners.add(listener);
+    }
+
+    public void addControlListener(ControlListener listener) {
+        controlListeners.add(listener);
+    }
+
+    public List<ControlListener> getControlListeners() {
+        return controlListeners;
     }
 
     /* - Propertyk*/
