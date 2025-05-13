@@ -347,17 +347,30 @@ public class PlayerPanel extends JPanel {
 
     /* - Visszaadja a felhasználó által bevitt játékosnevet.*/
     public String getName() {
-        return nameBox.getText();
+        //If the playerName equals "Enter your name here", then add a "Player_[number]" name to the player. The "[]number]" is the player number.
+        if (nameBox.getText().equals("Enter your name here") || nameBox.getText().isEmpty()) {
+            return "Player_" + playerNumber;
+            
+        } else{
+            //If the playerName is not empty, then return the playerName.
+            return nameBox.getText();
+        }
+        
     }
 
 
     /* - Visszaadja a játékos által kiválasztott színt*/
     public Color getColor(){
-        return color;
-        //TODO: Lehetséges, hogy a színt nem így kellene visszaadni.
-        //A színt a színválasztó négyzetek színéből kellene visszaadni, nem pedig egy külön attribútumból.
-        //A színválasztó négyzetek színét a mouseClicked eseménykezelőben állítjuk be.
-        //Ezért a színválasztó négyzetek színét kellene visszaadni.
+        
+        //If the color is not selected, then return a random picked color.
+
+        if (color == null) {
+            //return with a randomized neon color
+            return new Color((int)(Math.random() * 128) + 128, (int)(Math.random() * 128) + 128, (int)(Math.random() * 128) + 128);
+        } else {
+            return color;
+            
+        }
         
     }
 

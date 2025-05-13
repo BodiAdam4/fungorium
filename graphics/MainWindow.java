@@ -460,7 +460,7 @@ public class MainWindow extends JFrame implements JobListener{
         notificJPanel.setBackground(Color.DARK_GRAY);
         notificJPanel.setOpaque(true);
         notificJPanel.setLayout(new BoxLayout(notificJPanel, BoxLayout.Y_AXIS));
-        notificJPanel.setBounds(0, 0, 600, 60);
+        notificJPanel.setBounds((this.getWidth()/2)-(700/2), this.getHeight()-155, 700, 70);
         notificJPanel.add(Box.createRigidArea(new Dimension(0, 5))); // 5 pixel magas üres hely
         //TODO: itt lehet beállítnai a láthatóságát, hogy kezdetben ne legyen látható
         notificJPanel.setVisible(false); // Kezdetben látható
@@ -503,11 +503,13 @@ public class MainWindow extends JFrame implements JobListener{
         
                 controlPanel.setPreferredSize(new Dimension(width / 5, height));
                 controlPanel.setSize(width / 5, height);
+                controlPanel.revalidate();
+                controlPanel.repaint();
         
                 //Az értesítéspanel pozícionálása az alsó részre
                 int notWidth = 700;
                 int notHeight = 70;
-                int stateX = (width/2)-(notWidth/2); // 50 pixel távolság a jobb széltől
+                int stateX = (width/2)-(notWidth/2);
                 int stateY = height - notHeight - 50;
         
                 notificJPanel.setBounds(stateX, stateY, notWidth, notHeight);
@@ -515,8 +517,8 @@ public class MainWindow extends JFrame implements JobListener{
                 //Az eredményhirdetés panel pozicionálása
                 int resultWidth = 700;
                 int resultHeight = 500;
-                int resultX = (width/2)-(resultWidth/2); // 50 pixel távolság a jobb széltől
-                int resultY = (height/2)-(resultHeight/2); // 50 pixel távolság a jobb széltől
+                int resultX = (width/2)-(resultWidth/2);
+                int resultY = (height/2)-(resultHeight/2);
 
                 resultPanel.setBounds(resultX, resultY, resultWidth, resultHeight);
         
@@ -554,6 +556,7 @@ public class MainWindow extends JFrame implements JobListener{
         notificationLabel.setForeground(Color.GREEN); //A notification címének színének beállítása
         notificationText.setText(msg); //Az üzenet szövegének beállítása
         notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
+        revalidate();
         repaint();
 
         
@@ -572,6 +575,8 @@ public class MainWindow extends JFrame implements JobListener{
         });
 
         closeThread.start();
+        notificJPanel.revalidate();
+        notificJPanel.repaint(); //A notification panel újrarajzolása
     }
 
 
@@ -581,6 +586,7 @@ public class MainWindow extends JFrame implements JobListener{
         notificationLabel.setForeground(Color.RED); //A notification címének színének beállítása
         notificationText.setText(msg); //Az üzenet szövegének beállítása
         notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
+        revalidate();
         repaint();
 
         //Értesítési panel eltűntetésének időzítése

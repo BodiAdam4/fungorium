@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.List;
+import listeners.JobListener;
+
 public class Player {
     /* - Privát attribútumok*/
     private int playerId;
@@ -9,6 +12,7 @@ public class Player {
 
     /* - Protected attribútumok*/
     protected Controller controller;
+    protected List<JobListener> jobListeners;
 
     /* - Publikus attribútumok*/
     protected int score = 0;
@@ -37,6 +41,11 @@ public class Player {
 
     public int calculateScore() {
         return 0;
+    }
+
+    
+    public void setJobListeners(List<JobListener> listeners) {
+        jobListeners = listeners;
     }
 
     /**

@@ -1,25 +1,30 @@
 package graphics;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.util.HashMap;
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
-
 import listeners.ControlListener;
-import java.awt.Color;
 
 public class ControlPanel extends JPanel implements ControlListener {
     
     private final GraphicController gController;
     private JPanel insectPanel;
     private JPanel mushroomPanel;
+    private JPanel containerPanel;
+
+    private JLabel playerTextMushroom;
+    private JLabel roundTextMushroom;
+
+    private JLabel playerTextInsect;
+    private JLabel roundTextInsect;
     
     public ControlPanel(GraphicController gController) {
         this.gController = gController;
@@ -55,10 +60,10 @@ public class ControlPanel extends JPanel implements ControlListener {
         playerLabel.setForeground(Color.WHITE);
         panel.add(playerLabel);
 
-        JLabel playerLabel2 = new JLabel(player);
-        playerLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        playerLabel2.setForeground(Color.RED);
-        panel.add(playerLabel2);
+        playerTextInsect = new JLabel(player);
+        playerTextInsect.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerTextInsect.setForeground(Color.RED);
+        panel.add(playerTextInsect);
         
         // Buttons
         String[] actions = {"Move insect", "Cut line", "Eat spore"};
@@ -72,7 +77,7 @@ public class ControlPanel extends JPanel implements ControlListener {
             button.setFocusPainted(false);  // Ne legyen fókusz keret
             switch (action) {
                 case "Move insect":
-                    button.addActionListener(e -> gController.sendCommand("/move-insect"));
+                    button.addActionListener(e -> gController.sendCommand("/move"));
                     break;
                 case "Cut line":
                     button.addActionListener(e -> gController.sendCommand("/cut-line"));
@@ -88,11 +93,11 @@ public class ControlPanel extends JPanel implements ControlListener {
         }
         
         // Round label
-        JLabel roundLabel = new JLabel("ROUND: " + round);
-        roundLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        roundLabel.setForeground(Color.WHITE);
+        roundTextInsect = new JLabel("ROUND: " + round);
+        roundTextInsect.setAlignmentX(Component.CENTER_ALIGNMENT);
+        roundTextInsect.setForeground(Color.WHITE);
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
-        panel.add(roundLabel);
+        panel.add(roundTextInsect);
         
         // Finish button
         JButton finishButton = new JButton("Finish my round");
@@ -126,10 +131,10 @@ public class ControlPanel extends JPanel implements ControlListener {
         playerLabel.setForeground(Color.WHITE);
         panel.add(playerLabel);
 
-        JLabel playerLabel2 = new JLabel(player);
-        playerLabel2.setAlignmentX(Component.CENTER_ALIGNMENT);
-        playerLabel2.setForeground(Color.RED);
-        panel.add(playerLabel2);
+        playerTextMushroom = new JLabel(player);
+        playerTextMushroom.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerTextMushroom.setForeground(Color.RED);
+        panel.add(playerTextMushroom);
         
         
         // Buttons
@@ -144,7 +149,7 @@ public class ControlPanel extends JPanel implements ControlListener {
             button.setFocusPainted(false);  // Ne legyen fókusz keret
             switch (action) {
                 case "Grow mushroom":
-                    button.addActionListener(e -> gController.sendCommand("/grow-mushroom"));
+                    button.addActionListener(e -> gController.sendCommand("/build-mushroom"));
                     break;
                 case "Throw spore":
                     button.addActionListener(e -> gController.sendCommand("/throw-spore"));
@@ -162,11 +167,11 @@ public class ControlPanel extends JPanel implements ControlListener {
         }
         
         // Round label
-        JLabel roundLabel = new JLabel("ROUND: " + round);
-        roundLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        roundLabel.setForeground(Color.WHITE);
+        roundTextMushroom = new JLabel("ROUND: " + round);
+        roundTextMushroom.setAlignmentX(Component.CENTER_ALIGNMENT);
+        roundTextMushroom.setForeground(Color.WHITE);
         panel.add(Box.createRigidArea(new Dimension(0, 20)));
-        panel.add(roundLabel);
+        panel.add(roundTextMushroom);
         
         // Finish button
         JButton finishButton = new JButton("Finish my round");
@@ -194,13 +199,18 @@ public class ControlPanel extends JPanel implements ControlListener {
     @Override
     public void onNextRound(String player, boolean isInsect, int round, HashMap<String, Integer> points) {
         if(isInsect){
-            insectPanel = createInsectPanel(player, round);
-            showPanel(true);
+            playerTextInsect.setText(player);
+            roundTextInsect.setText("ROUND: " + round);
+            showPanel(isInsect);
         }
         else{
-            mushroomPanel = createMushroomPanel(player, round);
-            showPanel(true);
+            playerTextMushroom.setText(player);
+            roundTextMushroom = new JLabel("ROUND: " + round);
+            showPanel(isInsect);
         }
+        
+        this.revalidate();
+        this.repaint();
     }
     
     // Helper methods for testing

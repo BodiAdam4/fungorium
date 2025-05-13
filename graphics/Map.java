@@ -183,11 +183,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     /* - Tekton hozzáadása a térképhez. Paraméterként át kell adni a hozzáadandó grafikus tecton objektumot.*/
     public void addTecton(GTecton gtecton) {
-        Point tPos = getCell(nextTecton);
-        System.out.println("Tecton position: " + tPos.x + ", " + tPos.y);
         gtecton.setBounds(MAP_SIZE/2+new Random().nextInt(1,5), MAP_SIZE/2+new Random().nextInt(1,5), CELL_SIZE, CELL_SIZE);
         this.add(gtecton);
-        System.out.println("Tecton bounds: " + gtecton.getBounds());
         this.revalidate();
         this.repaint();
 
@@ -223,18 +220,6 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             }
         });
 
-        nextTecton.x += TECTON_DISTANCE;
-
-        if (nextTecton.x > FIRST_TECTON_POSITION_X + (TECTON_DISTANCE * ROW_COUNT)) {
-            if (rows % 2 == 0) {
-                nextTecton.x = FIRST_TECTON_POSITION_X + (TECTON_DISTANCE / 2);
-            } else {
-                nextTecton.x = FIRST_TECTON_POSITION_X;
-            }
-            nextTecton.y += TECTON_DISTANCE;
-
-            rows++;
-        }
         Thread t = new Thread(() -> {
             physicSorting();
         });
