@@ -22,22 +22,26 @@ public class GraphicMain {
 
             @Override
             public void insectChanged(ObjectChangeEvent event, Insect insect) {
-                gController.createInsect(insect);
+                if (event == ObjectChangeEvent.OBJECT_ADDED)
+                    gController.createInsect(insect);
             }
 
             @Override
             public void lineChanged(ObjectChangeEvent event, Line line) {
-                gController.createLine(line);
+                if (event == ObjectChangeEvent.OBJECT_ADDED)
+                    gController.createLine(line);
             }
 
             @Override
             public void tectonChanged(ObjectChangeEvent event, Tecton tecton) {
-                gController.createTecton(tecton);
+                if (event == ObjectChangeEvent.OBJECT_ADDED)
+                    gController.createTecton(tecton);
             }
 
             @Override
             public void mushroomChanged(ObjectChangeEvent event, Mushroom mushroom) {
-                gController.createMushroom(mushroom);
+                if (event == ObjectChangeEvent.OBJECT_ADDED)
+                    gController.createMushroom(mushroom);
             }
             
         });
