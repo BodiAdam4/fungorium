@@ -37,6 +37,8 @@ public class PlayerPanel extends JPanel {
 
     private JLabel headerLabel;         //A fejléc szövege, mely a játékos sorszámát tartalmazza.
 
+    private Color[] colors = new Color[16]; //A színválasztó négyzetek színeit tároló tömb.
+
 
     /* - Konstruktor(ok)*/
     public PlayerPanel(int playerNumber, MainMenu parent) {
@@ -163,7 +165,7 @@ public class PlayerPanel extends JPanel {
         colorsPanel.setBackground(Color.BLACK);
 
         //Színek tömbje
-        Color[] colors = {
+        colors = new Color[]{
             new Color(57, 255, 20),   // Neon Green
             new Color(0, 255, 255),  // Neon Cyan
             new Color(255, 20, 147), // Neon Pink
@@ -366,7 +368,7 @@ public class PlayerPanel extends JPanel {
 
         if (color == null) {
             //return with a randomized neon color
-            return new Color((int)(Math.random() * 128) + 128, (int)(Math.random() * 128) + 128, (int)(Math.random() * 128) + 128);
+            return colors[(int) (Math.random() * colors.length)];
         } else {
             return color;
             
