@@ -36,10 +36,12 @@ public class MainMenu extends JPanel {
     
     /* - Privát attribútumok*/
     private List<PlayerPanel> playerPanels;         //A játékosok beállításához szükséges panelek listája. Minden játékoshoz egy panel tartozik.
-    //private GraphicController gController;          //A grafikus felületet irányító objektum. //TODO: Ha meglesz a GraphicController, akkor ezt kell implementálni
+    private GraphicController gController;          //A grafikus felületet irányító objektum. //TODO: Ha meglesz a GraphicController, akkor ezt kell implementálni
     private JSpinner playerSpinner;                 //A játékosszám megadásához szükséges szám bevitelére alkalmas bemeneti mező.
     private JSpinner turnSpinner;                   //A körök számának megadásához szükséges szám bevitelére alkalmas bemeneti mező.
     private JPanel configPanel;                     //A játékospaneleket tartalmazó JPanel típusú grafikus panel.
+
+    private MainWindow mainWindow;                 //A főablak, amelyben a menü található.
 
 
     /* - Konstruktor(ok)*/
@@ -198,6 +200,7 @@ public class MainMenu extends JPanel {
             playerPanels.forEach(playerPanel -> {
                 System.out.println("Player color: " + playerPanel.getColor() + "player name: " + playerPanel.getName());
             });
+            mainWindow = new MainWindow(gController); //TODO: Ha meglesz a GraphicController, akkor ezt kell implementálni
             System.out.println("Enter the game button clicked!");
             startGame(); // Add mouse click event
         });
@@ -458,6 +461,8 @@ public class MainMenu extends JPanel {
 
     /* - A játék indítását elvégző függvény.*/
     public void startGame() {
+
+        mainWindow.showMap();
 
         List<String> insectPickers = new ArrayList<>();
         List<String> mushroomPickers = new ArrayList<>();
