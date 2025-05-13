@@ -366,7 +366,7 @@ public class PlayerPanel extends JPanel {
 
         if (color == null) {
             //return with a randomized neon color
-            return new Color((int)(Math.random() * 255), (int)(Math.random() * 255), (int)(Math.random() * 255));
+            return new Color((int)(Math.random() * 128) + 128, (int)(Math.random() * 128) + 128, (int)(Math.random() * 128) + 128);
         } else {
             return color;
             
