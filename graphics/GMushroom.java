@@ -25,9 +25,12 @@ public class GMushroom extends Image implements MushroomListener{
 
 
     /* - Getter/Setter metódusok*/
+    
+
     /**
-     * TODO
-     * @return
+     * Visszaadja a garafikus gombatesthez tartozó elemet.
+     *
+     * @return a gombatest, amelyhez a grafikus elem tartozik
      */
     public Mushroom getMyMushroom() {
         return myMushroom;
