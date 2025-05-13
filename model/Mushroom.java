@@ -40,8 +40,6 @@ public class Mushroom{
     private List<JobListener> jobListeners = new ArrayList<>();
 
 
-
-
     public ObjectChangeListener changeListener; //A gombatesthez tartozó eseménykezelők listája
 
     /* - Publikus attribútumok*/
