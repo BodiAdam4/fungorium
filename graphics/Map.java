@@ -184,10 +184,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     /* - Tekton hozzáadása a térképhez. Paraméterként át kell adni a hozzáadandó grafikus tecton objektumot.*/
     public void addTecton(GTecton gtecton) {
         Point tPos = getCell(nextTecton);
-        System.out.println("Tecton position: " + tPos.x + ", " + tPos.y);
         gtecton.setBounds(MAP_SIZE/2+new Random().nextInt(1,5), MAP_SIZE/2+new Random().nextInt(1,5), CELL_SIZE, CELL_SIZE);
         this.add(gtecton);
-        System.out.println("Tecton bounds: " + gtecton.getBounds());
         this.revalidate();
         this.repaint();
 

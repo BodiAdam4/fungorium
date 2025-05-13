@@ -13,6 +13,7 @@ import listeners.ObjectChangeListener.ObjectChangeEvent;
  */
 public class Insect {
 
+    /* - Privát attribútumok */
     private int insectId;           //A rovar azonosítója
     private int speed;              //A rovar sebessége
     private int sporeCount;         //A rovar által elfogyasztott spórák száma
@@ -21,15 +22,17 @@ public class Insect {
     private Tecton currentTecton;   //A tekton amin a rovar éppen van.
     private boolean unusable = false;
 
+    /* - Publikus attribútumok */
     public ObjectChangeListener changeListener; //A rovarhoz tartozó eseménykezelők listája
 
-    /* - Listenerlisták*/
+    /* - Listenerlisták */
     private List<InsectListener> InsectListeners = new ArrayList<>();
     private List<JobListener> jobListeners = new ArrayList<>();
 
     /**
      * Egy Insect-eseményfigyelő beállítása.
-    */
+     * @param listener az adott InsectListener
+     */
     public void addInsectListener(InsectListener listener) {
         this.InsectListeners.add(listener);
     }
@@ -37,7 +40,8 @@ public class Insect {
 
     /**
      * Műveletek eseményfigyelőjének beállítása.
-    */
+     * @param listener az adott JobListener
+     */
     public void addJobListener(JobListener listener) {
         this.jobListeners.add(listener);
     }
@@ -157,7 +161,6 @@ public class Insect {
 
     /**
      * A rovart egy új helyre mozgatja.
-     *
      * @param to a cél Tecton
      * @return igaz, ha a mozgás sikeres volt, egyébként hamis
      */
@@ -236,7 +239,6 @@ public class Insect {
 
     /**
      * Csökkenti a spórák számát a megadott mennyiséggel.
-     *
      * @param count az elfogyasztandó spórák száma
      */
     public int eatSpores(int count) {
@@ -264,7 +266,6 @@ public class Insect {
 
     /**
      * Megpróbál elvágni egy fonalat.
-     *
      * @param line az elvágandó fonal
      * @return igaz, ha a fonalat sikeresen elvágta, egyébként hamis
      */

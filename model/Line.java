@@ -21,14 +21,14 @@ public class Line
     private Tecton[] ends;
     private List<LineListener> lineListeners = new ArrayList<>();
     private List<JobListener> jobListeners = new ArrayList<>();
-    public int ttl = -1;
 
+    /* - Publikus attribútumok */
+    public int ttl = -1;
     public ObjectChangeListener changeListener;
 
 
     /**
      * Line konstruktor.
-     *
      * @param name Line neve
      * @param t1 A vonal által összekötött első Tecton
      * @param t2 A vonal által összekötött második Tecton
@@ -88,7 +88,8 @@ public class Line
     
     /**
      * Megnézi a vele összekötött vonalakon keresztül, hogy a gombafajnak van-e teste.
-     * 
+     * @param checkList az eddig megvizsgált fonalak listája
+     * @param last az a tekton, amelyik hívtuk a metüdust
      * @return true, ha a gombafajnak van teste, false ha nincs
      */
     public boolean checkConnections(List<Line> checkList, Tecton last)
@@ -114,7 +115,10 @@ public class Line
 
     /**
      * Értesíti a fonalakat a gombatest hiányáról.
-     * (Ez a függvény a vezérlővel lesz erősebb kapcsolatban)
+     * Ez a függvény a vezérlővel lesz erősebb kapcsolatban
+     * @param alive üzenet
+     * @param checkList az eddig megvizsgált fonalak listája
+     * @param last az a tekton, amelyik hívtuk a metüdust
      */
     public void notifyNeighbors(boolean alive, List<Line> checkList, Tecton last) {
 
@@ -148,7 +152,6 @@ public class Line
 
     /**
      * Növeszt egy gombát valamelyik Tectonjára
-     *
      * @param to Az a Tecton, amelyre a gomba nő
      * @return Tesztelés miatt mindig true
      */
@@ -161,7 +164,6 @@ public class Line
 
     /**
      * Növeszt egy fonalat a két Tecton között.
-     *
      * @param to1 Az első Tecton
      * @param to2 A második Tecton
      * @return Tesztelés miatt mindig true
@@ -198,14 +200,12 @@ public class Line
      * @return igaz, ha a fonál megevett egy rovart, különben hamis
      */
     public boolean eatInsect(Insect insect) {
-            Spore[] newSpores = SporeContainer.generateSpores(3, this.mushroomId);
-            this.ends[0].getSporeContainer().addSpores(newSpores);
-            this.ends[0].addMushroom(this.mushroomId);
-            insect.destroy();
-            for(LineListener ll : lineListeners)
-                ll.insectEaten(insect);
-            System.out.println("Rovar elfogyasztva és gombatest nőtt!");
-            return true;
+        Spore[] newSpores = SporeContainer.generateSpores(3, this.mushroomId);
+        this.ends[0].getSporeContainer().addSpores(newSpores);
+        this.ends[0].addMushroom(this.mushroomId);
+        insect.destroy();
+        System.out.println("Rovar elfogyasztva és gombatest nőtt!");
+        return true;
     }
 
 

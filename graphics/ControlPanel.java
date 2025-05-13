@@ -198,7 +198,7 @@ public class ControlPanel extends JPanel implements ControlListener {
             showPanel(true);
         }
         else{
-            mushroomPanel = createInsectPanel(player, round);
+            mushroomPanel = createMushroomPanel(player, round);
             showPanel(true);
         }
     }

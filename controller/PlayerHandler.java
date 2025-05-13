@@ -70,6 +70,16 @@ public class PlayerHandler {
         }
         
         controller.setGameRunning(true);
+
+        HashMap<String, Integer> scores = new HashMap<>();
+
+        for (Player player : getAllPlayer()) {
+            scores.put(player.getDisplayName(), player.calculateScore());
+        }
+
+        for (ControlListener listener : controller.getControlListeners()) {
+            listener.onNextRound(getActualPlayer().getDisplayName(), !actualPlayerIsMushroomPicker(), actualPlayerIdx, scores);
+        }
     }
 
 
