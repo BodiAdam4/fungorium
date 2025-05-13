@@ -124,6 +124,10 @@ public class Controller {
         playerHandler = new PlayerHandler(mushroomPickerCount, insectPickerCount, this, askName);
     }
 
+    public void StartGame(int mushroomPickerCount, int insectPickerCount, List<String> playerNames) {
+        playerHandler = new PlayerHandler(mushroomPickerCount, insectPickerCount, this, playerNames);
+    }
+
     /* - Getter/Setter metódusok*/
 
     public void addObjectListener(ObjectChangeListener listener) {

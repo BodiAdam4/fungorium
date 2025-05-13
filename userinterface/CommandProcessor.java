@@ -1262,7 +1262,16 @@ public class CommandProcessor {
                     }
                 }
 
-                controller.StartGame(mCount, iCount, !noName);
+                if (args.length == 1) {
+                    controller.StartGame(mCount, iCount, !noName);
+                }
+                else {
+                    List<String> names = new ArrayList<>();
+                    for (int i = 1; i<args.length; i++) {
+                        names.add(args[i]);
+                    }
+                    controller.StartGame(mCount, iCount, names);
+                }
                 controller.setMaxRound(roundCount);
             }
 
