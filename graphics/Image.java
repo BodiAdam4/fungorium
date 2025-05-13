@@ -115,8 +115,8 @@ public class Image extends JPanel implements MouseListener {
             if (selected) {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setColor(Color.RED);
-                g2d.setStroke(new BasicStroke(2));
-                g2d.drawRoundRect(2, 2, Map.CELL_SIZE-4, Map.CELL_SIZE-4, 20, 20);
+                g2d.setStroke(new BasicStroke(3));
+                g2d.drawRoundRect(3, 3, Map.CELL_SIZE-6, Map.CELL_SIZE-6, 20, 20);
             }
         }
     }
