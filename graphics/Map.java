@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JPanel;
@@ -24,13 +25,13 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     
     /* - Privát attribútumok*/
     private List<GTecton> tectons = new ArrayList<>();            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
-    private List<GInsect> insects = new ArrayList<>();                      //A térképen lévő rovarok grafikus objektumainak listája.
+    private java.util.Map<GInsect, JPanel> insects = new HashMap<>();                      //A térképen lévő rovarok grafikus objektumainak listája.
     private List<GLine> lines = new ArrayList<>();                          //A térképen elhelyezkedő grafikus gombafonalak listája.
     private List<GMushroom> mushrooms = new ArrayList<>();       //A térképen elhelyezkedő grafikus gombatestek. Kulcsként a gombatest griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
 
     //private GraphicController graphicController;        //A grafikus vezérlést megvalósító objektum.
 
-    final static public int CELL_SIZE = 100;
+    final static public int CELL_SIZE = 150;
     final public int ROW_COUNT = 3;
     final public int FIRST_TECTON_POSITION_X = 10;
     final public int FIRST_TECTON_POSITION_Y = 10;
@@ -123,7 +124,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         return new Point(nx, ny);
     }
 
-    public void physicSorting(double distance) {
+    public void physicSorting() {
         boolean isSorted = false;
         while (!isSorted) {
             isSorted = true;
@@ -135,7 +136,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                         continue;
                     }
 
-                    if (distance > getDistance(t1.getLocation(), t2.getLocation())) {
+                    if (CELL_SIZE*2 > getDistance(t1.getLocation(), t2.getLocation())) {
                         isSorted = false;
                         Point t1Pos = t1.getLocation();
                         Point t2Pos = t2.getLocation();
@@ -154,6 +155,18 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
+            }
+
+            //Rovarok áthelyezése
+            refreshInsects();
+
+            for (GTecton tecton1 : tectons) {
+                tecton1.getMyTecton().clearNeighbors();
+                for (GTecton tecton2 : tectons) {
+                    if (CELL_SIZE*3 > getDistance(tecton1.getLocation(), tecton2.getLocation()) && tecton1 != tecton2) {
+                        tecton1.getMyTecton().setNeighbors(tecton2.getMyTecton());
+                    }
+                }
             }
         }
     }
@@ -214,7 +227,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             rows++;
         }
         Thread t = new Thread(() -> {
-            physicSorting(maxDist);
+            physicSorting();
         });
         t.start();
     }
@@ -224,7 +237,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         tecton.setBounds(position.x, position.y, CELL_SIZE, CELL_SIZE);
         
         Thread thread = new Thread(() -> {
-            physicSorting(maxDist);
+            physicSorting();
         });
         thread.start();
 
@@ -247,11 +260,32 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
     /* - Rovar hozzáadása a térképhez. Szükséges megadni a rovar grafikus példányát, amit el szeretnénk helyezni.*/
-    public void addInsect(GInsect ginsect) {}
+    public void addInsect(GInsect ginsect) {
+        GTecton parentTecton = getTecton(ginsect.getMyInsect().getTecton());
+        ginsect.setBounds(parentTecton.getX(), parentTecton.getY(), CELL_SIZE, CELL_SIZE);
+        insects.put(ginsect, parentTecton);
+        this.add(ginsect);
+
+        for (GInsect insect : insects.keySet()) {
+            this.setComponentZOrder(insect, 0);
+        }
+
+        this.revalidate();
+        this.repaint();
+    }
 
 
     /* - Rovar eltávolítása a játéktérképről. Ehhez meg kell adni a rovar kontrollerbeli azonosítóját.*/
     public void removeInsect(String id) {}
+
+    /* - Rovarok pozíciójának frissítése */
+    public void refreshInsects() {
+        for (GInsect insect : insects.keySet()) {
+            insect.setLocation(insects.get(insect).getLocation());
+        }
+        this.revalidate();
+        this.repaint();
+    }
 
 
     /* - Gombafonal hozzáadása a játéktérképhez, amit a grafikus gombafonal példányának megadásával lehet végrehajtani.*/
@@ -350,8 +384,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         g.fillRect(0, 0, width, height);
 
         
-        boolean drawGrid = true;
-        boolean drawBarrier = true;
+        boolean drawGrid = false;
+        boolean drawBarrier = false;
 
         if (drawGrid) {
 

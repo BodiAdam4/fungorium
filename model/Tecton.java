@@ -103,6 +103,10 @@ public class Tecton {
             neighbors.add(neighbor);
     }
 
+    public void clearNeighbors() {
+        neighbors.clear();
+    }
+
 
 
     /** - Egyéb metódusok*/

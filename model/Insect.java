@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import listeners.InsectListener;
@@ -25,8 +26,8 @@ public class Insect {
     public ObjectChangeListener changeListener; //A rovarhoz tartozó eseménykezelők listája
 
     /* - Listenerlisták*/
-    private List<InsectListener> InsectListeners;
-    private List<JobListener> jobListeners;
+    private List<InsectListener> InsectListeners = new ArrayList<>();
+    private List<JobListener> jobListeners = new ArrayList<>();
 
     /**
      * Egy Insect-eseményfigyelő beállítása.
