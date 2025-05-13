@@ -54,6 +54,19 @@ public class ControlPanel extends JPanel implements ControlListener {
             JButton button = new JButton(action);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             button.setMaximumSize(new Dimension(150, 30));
+            switch (action) {
+                case "Move insect":
+                    button.addActionListener(e -> gController.sendCommand("/move-insect"));
+                    break;
+                case "Cut line":
+                    button.addActionListener(e -> gController.sendCommand("/cut-line"));
+                    break;
+                case "Eat spore":
+                    button.addActionListener(e -> gController.sendCommand("/eat-spore"));
+                    break;
+                default:
+                    break;
+            }
             panel.add(Box.createRigidArea(new Dimension(0, 10)));
             panel.add(button);
         }
@@ -68,6 +81,7 @@ public class ControlPanel extends JPanel implements ControlListener {
         JButton finishButton = new JButton("Finish my round");
         finishButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         finishButton.setMaximumSize(new Dimension(150, 30));
+        finishButton.addActionListener(e -> gController.sendCommand("/next"));
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
         panel.add(finishButton);
         
@@ -94,6 +108,21 @@ public class ControlPanel extends JPanel implements ControlListener {
             JButton button = new JButton(action);
             button.setAlignmentX(Component.CENTER_ALIGNMENT);
             button.setMaximumSize(new Dimension(150, 30));
+            switch (action) {
+                case "Grow mushroom":
+                    button.addActionListener(e -> gController.sendCommand("/grow-mushroom"));
+                    break;
+                case "Throw spore":
+                    button.addActionListener(e -> gController.sendCommand("/throw-spore"));
+                    break;
+                case "Build line":
+                    button.addActionListener(e -> gController.sendCommand("/grow-line"));
+                    break;
+                case "Eat insect":
+                    button.addActionListener(e -> gController.sendCommand("/eat-insect"));
+                default:
+                    break;
+            }
             panel.add(Box.createRigidArea(new Dimension(0, 10)));
             panel.add(button);
         }
@@ -108,6 +137,7 @@ public class ControlPanel extends JPanel implements ControlListener {
         JButton finishButton = new JButton("Finish my round");
         finishButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         finishButton.setMaximumSize(new Dimension(150, 30));
+        finishButton.addActionListener(e -> gController.sendCommand("/next"));
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
         panel.add(finishButton);
         

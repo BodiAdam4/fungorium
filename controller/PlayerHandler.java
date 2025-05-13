@@ -51,6 +51,25 @@ public class PlayerHandler {
         controller.setGameRunning(true);
     }
 
+    public PlayerHandler(int mushroomPickerCount, int insectPickerCount, Controller ctrl, List<String> playerNames) {
+        this.mushroomPickers = new ArrayList<>();
+        this.insectPickers = new ArrayList<>();
+        this.controller = ctrl;
+
+        for (int i = 0; i < mushroomPickerCount; i++) {
+            String name = playerNames.get(i);
+            mushroomPickers.add(new MushroomPicker(name, controller));
+        }
+
+        Player.playerIdCounter = 0;
+        for (int i = 0; i < insectPickerCount; i++) {
+            String name = playerNames.get(mushroomPickerCount+i);
+            insectPickers.add(new InsectPicker(name, controller));
+        }
+        
+        controller.setGameRunning(true);
+    }
+
 
     /**
      * Lépteti a soron következő játékosindexet és lekezeli az új körök kezdetét, amiről szól a Controller osztálynak is.
