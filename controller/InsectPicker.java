@@ -2,6 +2,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import listeners.JobListener;
 import model.Insect;
 import model.Line;
 import model.Tecton;
@@ -36,7 +37,7 @@ public class InsectPicker extends Player {
         return myinsectList;
     }
 
-
+    
 
     /* - Egyéb metódusok*/
 
@@ -80,6 +81,9 @@ public class InsectPicker extends Player {
             } 
             else if(insectActions.get(insect)[2]){
                 System.out.println("Insect already cut a line in this turn!");
+                for (JobListener listener : jobListeners) {
+                    listener.jobFailed("Insect already cut a line in this turn!");
+                }
                 return false;
             }
             
@@ -88,6 +92,9 @@ public class InsectPicker extends Player {
         }
         
         System.out.println("Insect is not yours!");
+        for (JobListener listener : jobListeners) {
+            listener.jobFailed("Insect is not yours!");
+        }
         return false;
     }
 
@@ -106,12 +113,18 @@ public class InsectPicker extends Player {
             } 
             else if(insectActions.get(insect)[1]){
                 System.out.println("Insect already eat spore in this turn!");
+                for (JobListener listener : jobListeners) {
+                    listener.jobFailed("Insect already eat spore in this turn!");
+                }
                 return false;
             }
             insectActions.get(insect)[1] = true;
             score += insect.eatSpores(1);
         }
         System.out.println("Insect is not yours!");
+        for (JobListener listener : jobListeners) {
+            listener.jobFailed("Insect is not yours!");
+        }
         return spores - insect.getTecton().getSporeContainer().getSporeCount() == 1;
     }
     
@@ -129,12 +142,18 @@ public class InsectPicker extends Player {
             } 
             else if(insectActions.get(insect)[0]){
                 System.out.println("Insect already moved in this turn!");
+                for (JobListener listener : jobListeners) {
+                    listener.jobFailed("Insect already moved in this turn!");
+                }
                 return false;
             }
             insectActions.get(insect)[0] = true;
             return insect.move(to);
         }
         System.out.println("Insect is not yours!");
+        for (JobListener listener : jobListeners) {
+            listener.jobFailed("Insect is not yours!");
+        }
         return false;
     }
 
