@@ -86,6 +86,6 @@ public class GraphicController {
         tectons[0] = selected.get(0).getMyTecton();
         tectons[1] = selected.get(1).getMyTecton();
         String commmand = Controller.translateCommand(command, tectons);
-        cmd.ExecuteCommand(command);
+        GraphicMain.cmdProcessor.ExecuteCommand(command);
     }
 }
