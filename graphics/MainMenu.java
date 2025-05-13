@@ -481,7 +481,8 @@ public class MainMenu extends JPanel {
         String insectNames = String.join(" ", insectPickers);
         String mushroomNames = String.join(" ", mushroomPickers);
 
-        String command = "/start" + mushroomNames + " " + insectNames + " -m " + mushroomPickers.size() + " -i " + insectPickers.size() + " -k " + turnSpinner.getValue();
+        String command = "/start " + mushroomNames + " " + insectNames + " -m " + mushroomPickers.size() + " -i " + insectPickers.size() + " -k " + turnSpinner.getValue();
+        System.out.println(command);
         GraphicMain.cmdProcessor.ExecuteCommand(command);
         //a start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
     }
