@@ -66,6 +66,20 @@ public class MainWindow extends JFrame implements JobListener{
         menu.revalidate();
         menu.repaint(); //A főmenü újrarajzolása
         */
+
+        showMenu();
+
+        //showMap();
+        
+    }
+    
+
+    /* - Getter/Setter metódusok*/
+
+
+    /* - Egyéb metódusok*/
+
+    public void showMap(){
         
         //TODO: TÖRÖLNI!!
         //#############################################
@@ -512,12 +526,14 @@ public class MainWindow extends JFrame implements JobListener{
         this.revalidate();
         this.repaint();
     }
-    
 
-    /* - Getter/Setter metódusok*/
+    public void showMenu(){
 
-
-    /* - Egyéb metódusok*/
+        this.menu = new MainMenu(); //A főmenü inicializálása
+        this.add(menu, BorderLayout.CENTER); //A főmenü inicializálása
+        menu.revalidate();
+        menu.repaint(); //A főmenü újrarajzolása
+    }
 
     /* - Az eredményhirdetés megjelenítése, paraméterként át kell adni az eredményeket szöveges formában.*/
     public void showResults(String data) {}
