@@ -13,6 +13,7 @@ public class PlayerHandler {
     private List<InsectPicker> insectPickers;
     private Controller controller;
     private int actualPlayerIdx = 0;
+    private int round = 1;
     
 
     private String askName(String msg){
@@ -82,7 +83,7 @@ public class PlayerHandler {
         }
 
         for (ControlListener listener : controller.getControlListeners()) {
-            listener.onNextRound(getActualPlayer().getDisplayName(), !actualPlayerIsMushroomPicker(), actualPlayerIdx, scores);
+            listener.onNextRound(getActualPlayer().getDisplayName(), !actualPlayerIsMushroomPicker(), round, scores);
         }
     }
 
@@ -98,6 +99,7 @@ public class PlayerHandler {
             insectPickers.forEach(InsectPicker::ResetInsectActions);
             mushroomPickers.forEach(MushroomPicker::ResetInsectActions);
             controller.nextRound();
+            round++;
         }
         
         HashMap<String, Integer> scores = new HashMap<>();
@@ -107,7 +109,7 @@ public class PlayerHandler {
         }
 
         for (ControlListener listener : controller.getControlListeners()) {
-            listener.onNextRound(getActualPlayer().getDisplayName(), !actualPlayerIsMushroomPicker(), actualPlayerIdx, scores);
+            listener.onNextRound(getActualPlayer().getDisplayName(), !actualPlayerIsMushroomPicker(), round, scores);
         }
     }
     
