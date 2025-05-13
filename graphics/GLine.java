@@ -70,12 +70,6 @@ public class GLine extends JPanel implements LineListener
     }
 
 
-    public void setEnds(List<GTecton> _ends){
-        if(_ends.size() == 2)
-            ends = _ends;
-    }
-
-
     public void setEndPoints(Point startPoint, Point endPoint) {
         this.endPoint = endPoint;
         this.startPoint = startPoint;
@@ -88,21 +82,12 @@ public class GLine extends JPanel implements LineListener
      * A grafikus gombafonal megsemmisítésére alkalmas függvény.
      */
     public void destroy() {
+        //MAP
         ends.get(0).getMap().removeLine(id);
     }
 
 
-
     /* - LineListenert megvalósító metódusok */
-
-    /** 
-     * Rovar elfogyasztásakor lefutó függvény
-     * @param insect a megevett rovar
-     */
-    public void insectEaten(Insect insect){
-        //TODO: insectEaten(Insect insect)
-    }
-
 
     /**
      * A gombafonal elpusztulásakor lefutó függvény
