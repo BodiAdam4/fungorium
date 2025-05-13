@@ -2,6 +2,7 @@ package graphics;
 
 import controller.Controller;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import model.Insect;
@@ -19,7 +20,7 @@ public class GraphicController {
     /* - Privát attribútumok*/
     private Map map; //A térképet kezelő objektum.
 
-    private List<GTecton> selected; //A kiválasztott tektonok listája
+    private List<GTecton> selected = new ArrayList<>(); //A kiválasztott tektonok listája
 
     private CommandProcessor cmd; //A parancsokat feldolgozó egység, amelyen keresztül a felhasználói tevékenységek végrehajtódnak.
 
@@ -69,9 +70,15 @@ public class GraphicController {
 
     public void addSelected(GTecton gtecton){
         if(selected.size() == 2){
+            //Kijelölések eltűntetése
+            for (GTecton tecton : selected) {
+                tecton.setSelected(false);
+            }
             selected.clear();
         }
         selected.add(gtecton);
+        //Kijelőlés hozzáadás
+        gtecton.setSelected(true);
     }
 
     public void sendCommand(String command){
