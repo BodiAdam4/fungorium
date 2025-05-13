@@ -37,7 +37,7 @@ public class MainWindow extends JFrame implements JobListener{
 
     private Map map;                        //A játék térképét megjelenítő JPanel leszármazott osztály példánya.
     private MainMenu menu;                  //A játék kezdetén megjelenő, a beállításokat tartalmazó panel.
-    //private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
+    private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
     
     /* - Notification privát elemei */
     private JPanel notificJPanel;           //Az értesítéseknél felugró panel.
@@ -197,14 +197,19 @@ public class MainWindow extends JFrame implements JobListener{
 
         mainContentPanel.add(mapPanel, BorderLayout.CENTER); //A térkép panel hozzáadása a fő tartalom panelhez
 
+
+        //###############################################################################
         //JPanel a controlPanel-nek
+        /* 
         JPanel controlPanel = new JPanel(); //A vezérlő panel inicializálása
         controlPanel.setLayout(new BorderLayout()); //A vezérlő panel elrendezése
         controlPanel.setBackground(Color.DARK_GRAY); //A vezérlő panel háttérszínének beállítása
         controlPanel.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()));
         //controlPanel.setMaximumSize(new Dimension(this.getWidth()/4, this.getHeight()));
         mainContentPanel.add(controlPanel, BorderLayout.EAST); //A vezérlő panel hozzáadása a fő tartalom panelhez
-
+        */
+        controlPanel = new ControlPanel(gController); //A vezérlő panel inicializálása
+        mainContentPanel.add(controlPanel, BorderLayout.EAST);
 
         //###############################################################################
 
