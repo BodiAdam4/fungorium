@@ -2,6 +2,7 @@ package controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import listeners.JobListener;
 import model.Insect;
 import model.Line;
 import model.Mushroom;
@@ -15,6 +16,7 @@ public class MushroomPicker extends Player {
     // A gombász által végrehajtható akciók figyelésére szolgáló lista, ha egy akció már megtörtént, akkor nem hajtható végre újra az új körig
     // 0: growLine, 1: growBody, 2: throwSpores
     private Boolean[] actions = new Boolean[]{false, false, false, false}; 
+
 
     /* - Publikus attribútumok*/
     /* - Konstruktorok*/
@@ -51,7 +53,6 @@ public class MushroomPicker extends Player {
         return myLineList;
     }
 
-
     /* - Egyéb metódusok*/
 
     @Override
@@ -78,6 +79,9 @@ public class MushroomPicker extends Player {
     public boolean growLine(Tecton from, Tecton to){
         if (actions[0]) {
             System.out.println("Mushroom has already grown a line this turn!");
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Mushroom has already grown a line this turn!");
+            }
             return false;
         }
 
@@ -97,6 +101,9 @@ public class MushroomPicker extends Player {
             }
         }
         //Ha egyik sem teljesül, akkor nem tudunk gombafonalat növeszteni
+        for (JobListener listener : jobListeners) {
+            listener.jobFailed("Mushroom is not yours");
+        }
         return false;
     }
 
@@ -110,6 +117,9 @@ public class MushroomPicker extends Player {
         
         if (actions[1]) {
             System.out.println("Mushroom has already grown in this turn!");
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Mushroom has already grown in this turn!");
+            }
             return false;
         }
 
@@ -131,6 +141,9 @@ public class MushroomPicker extends Player {
             }
         }
         System.out.println("Nincs a játékoshoz tartozó gombafonal ezen a tektonon!");
+        for (JobListener listener : jobListeners) {
+            listener.jobFailed("Can't grow mushroom to this tecton!");
+        }
         return false;
     }
 

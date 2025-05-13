@@ -60,13 +60,17 @@ public class PlayerHandler {
 
         for (int i = 0; i < mushroomPickerCount; i++) {
             String name = playerNames.get(i);
-            mushroomPickers.add(new MushroomPicker(name, controller));
+            MushroomPicker picker = new MushroomPicker(name, controller);
+            picker.setJobListeners(controller.getJobListeners());
+            mushroomPickers.add(picker);
         }
 
         Player.playerIdCounter = 0;
         for (int i = 0; i < insectPickerCount; i++) {
             String name = playerNames.get(mushroomPickerCount+i);
-            insectPickers.add(new InsectPicker(name, controller));
+            InsectPicker picker = new InsectPicker(name, controller);
+            picker.setJobListeners(controller.getJobListeners());
+            insectPickers.add(picker);
         }
         
         controller.setGameRunning(true);
