@@ -1,14 +1,11 @@
 package graphics;
 
-import java.util.List;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import listeners.InsectListener;
-import model.Tecton;
 import model.Insect;
 import model.Line;
+import model.Tecton;
 
 public class GInsect extends Image implements InsectListener{
 
@@ -66,5 +63,8 @@ public class GInsect extends Image implements InsectListener{
         this.destroy();
     }
 
+    public Insect getMyInsect() {
+        return insect;
+    }
 
 }

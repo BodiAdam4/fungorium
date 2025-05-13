@@ -39,9 +39,6 @@ public class GLine extends JPanel implements LineListener
     private List<GTecton> ends;
 
     /* - Konstruktor(ok)*/
-    public GLine(String _id){
-        id = _id;
-    }
 
     
     public GLine(GTecton start, GTecton end) {
@@ -61,14 +58,6 @@ public class GLine extends JPanel implements LineListener
         }
     }
 
-
-    public GLine(String _id, List<GTecton> _ends){
-        id = _id;
-        setEnds(_ends);
-    }
-    public GLine(){
-
-    }
 
     /* - Getter/Setter metódusok*/
     public String getId(){

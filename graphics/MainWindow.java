@@ -38,12 +38,23 @@ public class MainWindow extends JFrame implements JobListener{
     private Map map;                        //A játék térképét megjelenítő JPanel leszármazott osztály példánya.
     private MainMenu menu;                  //A játék kezdetén megjelenő, a beállításokat tartalmazó panel.
     //private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
-    private JPanel notificationBar;         //Az értesítéseknél felugró panel.
+    
+    /* - Notification privát elemei */
+    private JPanel notificJPanel;           //Az értesítéseknél felugró panel.
     private JLabel notificationText;        //Az értesítéseknél megjelenő szöveg.
+    private JLabel notificationLabel;       //Az értesítéseknél megjelenő cím.
+
+    /* - A dicsőségfal privát elemei */
+    private JTextArea mushroomResults;
+    private JTextArea insectResults;
+
+
+
+    private GraphicController gController;
 
     /* - Konstruktor(ok)*/
-    public MainWindow(){
-        
+    public MainWindow(GraphicController gController){
+        this.gController = gController;
         this.setTitle("Fungorium_by_oet_kis_malacz");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 600);     //Ablakméret beállítása
@@ -182,6 +193,8 @@ public class MainWindow extends JFrame implements JobListener{
         map = new Map(); //A térkép inicializálása
         mapPanel.add(map); //A térkép hozzáadása a térkép panelhez
 
+        gController.setMap(map);
+
         mainContentPanel.add(mapPanel, BorderLayout.CENTER); //A térkép panel hozzáadása a fő tartalom panelhez
 
         //JPanel a controlPanel-nek
@@ -259,7 +272,7 @@ public class MainWindow extends JFrame implements JobListener{
         resultContent.add(topMushLabel);
 
         // Eredmények szöveges megjelenítése (Mushroompickers)
-        JTextArea mushroomResults = new JTextArea("# 1.: MushroomPicker_2__________________19\n# 2.: MushroomPicker_1__________________17\n# 3.: MushroomPicker_3__________________12\n# 4.: MushroomPicker_4__________________10\n# 5.: MushroomPicker_5__________________8\n# 6.: MushroomPicker_6__________________5\n# 7.: MushroomPicker_7__________________3\n# 8.: MushroomPicker_8__________________2");
+        mushroomResults = new JTextArea("# 1.: MushroomPicker_2__________________19\n# 2.: MushroomPicker_1__________________17\n# 3.: MushroomPicker_3__________________12\n# 4.: MushroomPicker_4__________________10\n# 5.: MushroomPicker_5__________________8\n# 6.: MushroomPicker_6__________________5\n# 7.: MushroomPicker_7__________________3\n# 8.: MushroomPicker_8__________________2");
         mushroomResults.setFont(new Font("Monospaced", Font.PLAIN, 16));
         mushroomResults.setEditable(false);
         mushroomResults.setBackground(Color.DARK_GRAY);
@@ -330,7 +343,7 @@ public class MainWindow extends JFrame implements JobListener{
         resultContent.add(topInsectLabel);
 
         // Eredmények szöveges megjelenítése (Insectpickers)
-        JTextArea insectResults = new JTextArea("# 1.: InsectPicker_1____________________8\n# 2.: InsectPicker_2____________________5");
+        insectResults = new JTextArea("# 1.: InsectPicker_1____________________8\n# 2.: InsectPicker_2____________________5");
         insectResults.setFont(new Font("Monospaced", Font.PLAIN, 16));
         insectResults.setEditable(false);
         insectResults.setBackground(Color.DARK_GRAY);
@@ -421,7 +434,7 @@ public class MainWindow extends JFrame implements JobListener{
         //###########################[notificJPanel]####################################
 
         //A notification panel létrehozása
-        JPanel notificJPanel = new JPanel();
+        notificJPanel = new JPanel();
         notificJPanel.setBackground(Color.DARK_GRAY);
         notificJPanel.setOpaque(true);
         notificJPanel.setLayout(new BoxLayout(notificJPanel, BoxLayout.Y_AXIS));
@@ -432,7 +445,7 @@ public class MainWindow extends JFrame implements JobListener{
         layeredPane.add(notificJPanel, JLayeredPane.PALETTE_LAYER);
 
         //JLabel a notification címhez (felül)
-        JLabel notificationLabel = new JLabel("Notification Bar");
+        notificationLabel = new JLabel("Notification Bar");
         notificationLabel.setForeground(Color.RED);
         notificationLabel.setFont(new Font("Arial", Font.BOLD, 18));
         notificationLabel.setBorder(new EmptyBorder(5, 5, 0, 0)); // Top, Left, Bottom, Right
@@ -501,20 +514,61 @@ public class MainWindow extends JFrame implements JobListener{
 
     /* - Egyéb metódusok*/
 
-    /* - Értesítések megjelenítésére szolgáló függvény. Paraméterként át kell adni az értesítés szövegét és színét.*/
-    public void showNotification(String msg, Color color) {}
-
-
     /* - Az eredményhirdetés megjelenítése, paraméterként át kell adni az eredményeket szöveges formában.*/
     public void showResults(String data) {}
 
 
     /* - Sikeres műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.*/
-    public void jobSuccessfull(String msg) {}
+    public void jobSuccessfull(String msg) {
+        notificationLabel.setText("Success!"); //A notification címének beállítása
+        notificationLabel.setForeground(Color.GREEN); //A notification címének színének beállítása
+        notificationText.setText(msg); //Az üzenet szövegének beállítása
+        notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
+        repaint();
+
+        
+        //Értesítési panel eltűntetésének időzítése
+        Thread closeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+
+                }
+                notificJPanel.setVisible(false);
+            }
+            
+        });
+
+        closeThread.start();
+    }
 
 
     /* - Sikertelen műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.*/
-    public void jobFailed(String msg) {}
+    public void jobFailed(String msg) {
+        notificationLabel.setText("Failed!"); //A notification címének beállítása
+        notificationLabel.setForeground(Color.RED); //A notification címének színének beállítása
+        notificationText.setText(msg); //Az üzenet szövegének beállítása
+        notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
+        repaint();
+
+        //Értesítési panel eltűntetésének időzítése
+        Thread closeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+
+                }
+                notificJPanel.setVisible(false);
+            }
+            
+        });
+
+        closeThread.start();
+    }
 
 
 

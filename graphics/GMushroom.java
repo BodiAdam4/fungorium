@@ -1,9 +1,10 @@
 package graphics;
 
+import java.awt.Dimension;
 import listeners.MushroomListener;
-import model.Spore;
 import model.Line;
 import model.Mushroom;
+import model.Spore;
 
 
 /**
@@ -19,11 +20,21 @@ public class GMushroom extends Image implements MushroomListener{
     public GMushroom(Mushroom myMushroom) {
         super("graphics/images/mushroom.png"); //A gombatest képe
         this.myMushroom = myMushroom; //A gombatest referenciájának beállítása
+        this.setPreferredSize(new Dimension(Map.CELL_SIZE,Map.CELL_SIZE));
     }
 
 
     /* - Getter/Setter metódusok*/
+    
 
+    /**
+     * Visszaadja a garafikus gombatesthez tartozó elemet.
+     *
+     * @return a gombatest, amelyhez a grafikus elem tartozik
+     */
+    public Mushroom getMyMushroom() {
+        return myMushroom;
+    }
 
     /* - Egyéb metódusok*/
 

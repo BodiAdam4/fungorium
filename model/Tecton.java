@@ -1,6 +1,7 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
+import listeners.JobListener;
 
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
@@ -49,6 +50,7 @@ public class Tecton {
     private List<Insect> insects = new ArrayList<>();       //A tektonon tartózkodó rovarok listája.
 
     private List<TectonListener> tectonListeners = new ArrayList<>();  //A tektonhoz tartozó eseménykezelők listája
+    private List<JobListener> jobListeners = new ArrayList<>();
     
     public ObjectChangeListener changeListener;
 
@@ -103,6 +105,10 @@ public class Tecton {
             neighbors.add(neighbor);
     }
 
+    public void clearNeighbors() {
+        neighbors.clear();
+    }
+
 
 
     /** - Egyéb metódusok*/
@@ -113,6 +119,10 @@ public class Tecton {
      */
     public void addTectonListener(TectonListener listener){
         this.tectonListeners.add(listener);
+    }
+
+    public void addJobListener(JobListener listener) {
+        jobListeners.add(listener);
     }
 
 
