@@ -15,7 +15,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import listeners.LineListener;
-import model.Insect;
+import model.Line;
 
 /**
  * Az osztály a modellbeli gombafonal megjelenítéséért felelős. 
@@ -36,15 +36,18 @@ public class GLine extends JPanel implements LineListener
     public Point endPoint;
     public int curveHeight = 50;
 
+    private Line myLine;
+
     private List<GTecton> ends;
 
     /* - Konstruktor(ok)*/
 
     
-    public GLine(GTecton start, GTecton end) {
+    public GLine(GTecton start, GTecton end, Line line) {
         ends = new ArrayList<>();
         ends.add(start);
         ends.add(end);
+        myLine = line;
 
         setBackground(new Color(0, 0, 0, 0));
         setOpaque(false);
@@ -67,6 +70,10 @@ public class GLine extends JPanel implements LineListener
 
     public List<GTecton> getEnds(){
         return ends;
+    }
+
+    public Line getMyLine() {
+        return myLine;
     }
 
 

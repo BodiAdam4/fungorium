@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -199,7 +200,7 @@ public class MainMenu extends JPanel {
         enterButton.setPreferredSize(new Dimension(200, 40)); // Set button size
         enterButton.addActionListener(e -> {
             playerPanels.forEach(playerPanel -> {
-                System.out.println("Player color: " + playerPanel.getColor() + "player name: " + playerPanel.getName());
+                System.out.println("Player color: " + playerPanel.getColor() + " player name: " + playerPanel.getName() + " is insectPicker? " + playerPanel.isInsect());
             });
             System.out.println("Enter the game button clicked!");
             startGame(); // Add mouse click event
@@ -470,13 +471,23 @@ public class MainMenu extends JPanel {
         List<String> insectPickers = new ArrayList<>();
         List<String> mushroomPickers = new ArrayList<>();
 
+        List<Color> colors = new ArrayList<>();
+
         for (PlayerPanel playerPanel : playerPanels) {
             if (!playerPanel.isInsect()) {
+                colors.add(playerPanel.getColor());
                 mushroomPickers.add(playerPanel.getName());
-            } else if (playerPanel.isInsect()) {
+            }
+        }
+        
+        for (PlayerPanel playerPanel : playerPanels) {
+            if (playerPanel.isInsect()) {
+                colors.add(playerPanel.getColor());
                 insectPickers.add(playerPanel.getName());
             }
         }
+
+        GraphicMain.gController.setPlayers(colors, mushroomPickers.size());
 
         String insectNames = String.join(" ", insectPickers);
         String mushroomNames = String.join(" ", mushroomPickers);
