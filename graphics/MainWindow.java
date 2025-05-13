@@ -190,7 +190,7 @@ public class MainWindow extends JFrame implements JobListener{
         mainContentPanel.setOpaque(false);
         //mapPanel.setMaximumSize(new Dimension(this.getWidth(), this.getHeight()));
 
-        map = new Map(); //A térkép inicializálása
+        map = new Map(gController); //A térkép inicializálása
         mapPanel.add(map); //A térkép hozzáadása a térkép panelhez
 
         gController.setMap(map);

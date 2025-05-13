@@ -1,7 +1,9 @@
 package graphics;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -15,6 +17,7 @@ public class Image extends JPanel implements MouseListener {
     
     private BufferedImage baseImage;
     private BufferedImage image;
+    private boolean selected = false;
 
     public Image(String imagePath){
         SetImage(imagePath);
@@ -50,6 +53,11 @@ public class Image extends JPanel implements MouseListener {
 
         revalidate();
         repaint();
+    }
+
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+        this.repaint();
     }
 
     
@@ -103,6 +111,13 @@ public class Image extends JPanel implements MouseListener {
         super.paintComponent(g);
         if (image != null) {
             g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+
+            if (selected) {
+                Graphics2D g2d = (Graphics2D) g;
+                g2d.setColor(Color.RED);
+                g2d.setStroke(new BasicStroke(3));
+                g2d.drawRoundRect(3, 3, Map.CELL_SIZE-6, Map.CELL_SIZE-6, 20, 20);
+            }
         }
     }
 
