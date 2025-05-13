@@ -206,7 +206,7 @@ public class ControlPanel extends JPanel implements ControlListener {
         else{
             playerTextMushroom.setText(player);
             roundTextMushroom = new JLabel("ROUND: " + round);
-            showPanel(!isInsect);
+            showPanel(isInsect);
         }
         
         this.revalidate();
