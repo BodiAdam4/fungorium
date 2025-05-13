@@ -200,7 +200,7 @@ public class MainMenu extends JPanel {
         enterButton.setPreferredSize(new Dimension(200, 40)); // Set button size
         enterButton.addActionListener(e -> {
             playerPanels.forEach(playerPanel -> {
-                System.out.println("Player color: " + playerPanel.getColor() + "player name: " + playerPanel.getName());
+                System.out.println("Player color: " + playerPanel.getColor() + " player name: " + playerPanel.getName() + " is insectPicker? " + playerPanel.isInsect());
             });
             System.out.println("Enter the game button clicked!");
             startGame(); // Add mouse click event
