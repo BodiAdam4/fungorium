@@ -203,6 +203,7 @@ public class MainMenu extends JPanel {
             });
             System.out.println("Enter the game button clicked!");
             startGame(); // Add mouse click event
+            mainWindow.removeMenu();
         });
         panel.add(enterButton, BorderLayout.EAST);
         
@@ -463,6 +464,8 @@ public class MainMenu extends JPanel {
     public void startGame() {
 
         mainWindow.showMap();
+        mainWindow.revalidate();
+        this.repaint();
 
         List<String> insectPickers = new ArrayList<>();
         List<String> mushroomPickers = new ArrayList<>();

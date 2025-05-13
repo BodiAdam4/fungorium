@@ -534,6 +534,12 @@ public class MainWindow extends JFrame implements JobListener{
         menu.repaint(); //A főmenü újrarajzolása
     }
 
+    public void removeMenu(){
+        this.remove(menu); //A főmenü eltávolítása
+        menu.revalidate();
+        menu.repaint(); //A főmenü újrarajzolása
+    }
+
     /* - Az eredményhirdetés megjelenítése, paraméterként át kell adni az eredményeket szöveges formában.*/
     public void showResults(String data) {}
 
