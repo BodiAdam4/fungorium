@@ -9,6 +9,7 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -470,13 +471,23 @@ public class MainMenu extends JPanel {
         List<String> insectPickers = new ArrayList<>();
         List<String> mushroomPickers = new ArrayList<>();
 
+        List<Color> colors = new ArrayList<>();
+
         for (PlayerPanel playerPanel : playerPanels) {
             if (!playerPanel.isInsect()) {
+                colors.add(playerPanel.getColor());
                 mushroomPickers.add(playerPanel.getName());
-            } else if (playerPanel.isInsect()) {
+            }
+        }
+        
+        for (PlayerPanel playerPanel : playerPanels) {
+            if (playerPanel.isInsect()) {
+                colors.add(playerPanel.getColor());
                 insectPickers.add(playerPanel.getName());
             }
         }
+
+        GraphicMain.gController.setPlayers(colors, mushroomPickers.size());
 
         String insectNames = String.join(" ", insectPickers);
         String mushroomNames = String.join(" ", mushroomPickers);

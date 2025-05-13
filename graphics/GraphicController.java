@@ -3,7 +3,6 @@ package graphics;
 import controller.Controller;
 import java.awt.Color;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import model.Insect;
 import model.Line;
@@ -24,7 +23,8 @@ public class GraphicController {
 
     private CommandProcessor cmd; //A parancsokat feldolgozó egység, amelyen keresztül a felhasználói tevékenységek végrehajtódnak.
 
-    private HashMap<String, Color> playerColors; //A játékosokhoz tartozó színek listája. Kulcsként a játékos azonosítója, értékként pedig a hozzá tartozó szín van.
+    private List<Color> playerColors; //A játékosokhoz tartozó színek listája. Kulcsként a játékos azonosítója, értékként pedig a hozzá tartozó szín van.
+    private int mushroomPickerCount;
 
     /* - Konstruktor(ok)*/
 
@@ -46,18 +46,21 @@ public class GraphicController {
     /* - Egyéb metódusok*/
     public void createInsect(Insect insect){
         GInsect gInsect = new GInsect(insect);
+        gInsect.TintImage(getInsectColor(gInsect.getMyInsect().getInsectId()));
         map.addInsect(gInsect);
         insect.addInsectListener(gInsect);
     }
 
     public void createMushroom(Mushroom mushroom){
         GMushroom gMushroom = new GMushroom(mushroom);
+        gMushroom.TintImage(getMushroomColor(gMushroom.getMyMushroom().getMushroomId()));
         map.addMushroom(gMushroom);
         mushroom.addMushroomListener(gMushroom);
     }
 
     public void createLine(Line line){
-        GLine gLine = new GLine(map.getTecton(line.getEnds()[0]), map.getTecton(line.getEnds()[1]));
+        GLine gLine = new GLine(map.getTecton(line.getEnds()[0]), map.getTecton(line.getEnds()[1]), line);
+        gLine.setBackground(getMushroomColor(gLine.getMyLine().getId()));
         map.addLine(gLine);
         line.addLineListener(gLine);
     }
@@ -97,5 +100,18 @@ public class GraphicController {
         }
         String commmand = Controller.translateCommand(command, tectons);
         GraphicMain.cmdProcessor.ExecuteCommand(command);
+    }
+
+    public void setPlayers(List<Color> players, int mushroomPickCount) {
+        playerColors = players;
+        mushroomPickerCount = mushroomPickCount;
+    }
+
+    public Color getMushroomColor(int index) {
+        return playerColors.get(index);
+    }
+
+    public Color getInsectColor(int index) {
+        return playerColors.get(index+mushroomPickerCount);
     }
 }

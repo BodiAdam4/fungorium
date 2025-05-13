@@ -12,7 +12,7 @@ public class GraphicMain {
 
     public static Controller controller;
     public static CommandProcessor cmdProcessor;
-    private static GraphicController gController;
+    public static GraphicController gController;
     private static MainWindow mainWindow;
 
     public static void main(String[] args) {
