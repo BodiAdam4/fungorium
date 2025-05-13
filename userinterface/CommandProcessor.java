@@ -1267,7 +1267,7 @@ public class CommandProcessor {
                 }
                 else {
                     List<String> names = new ArrayList<>();
-                    for (int i = 1; i<args.length; i++) {
+                    for (int i = 0; i<args.length; i++) {
                         names.add(args[i]);
                     }
                     controller.StartGame(mCount, iCount, names);
