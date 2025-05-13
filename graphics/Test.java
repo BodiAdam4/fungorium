@@ -19,7 +19,7 @@ public class Test {
         mapPanel.setLayout(null);
         frame.add(mapPanel);
 
-        Map map = new Map();
+        //Map map = new Map();
         mapPanel.add(map);
 
         frame.revalidate();
