@@ -1258,7 +1258,7 @@ public class CommandProcessor {
 
                     for (int i = 0; i<iCount; i++){
                         String tectonId = "t"+i+"_"+1;
-                        ExecuteCommand("/create-insect "+tectonId+" -mid "+i+" -i i"+i);
+                        ExecuteCommand("/create-insect "+tectonId+" -iid "+i+" -i i"+i);
                     }
                 }
 
