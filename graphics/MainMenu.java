@@ -199,7 +199,7 @@ public class MainMenu extends JPanel {
                 System.out.println("Player color: " + playerPanel.getColor() + "player name: " + playerPanel.getName());
             });
             System.out.println("Enter the game button clicked!");
-            //startGame(); // Add mouse click event
+            startGame(); // Add mouse click event
         });
         panel.add(enterButton, BorderLayout.EAST);
         
@@ -457,5 +457,24 @@ public class MainMenu extends JPanel {
 
 
     /* - A játék indítását elvégző függvény.*/
-    public void startGame() {}
+    public void startGame() {
+
+        List<String> insectPickers = new ArrayList<>();
+        List<String> mushroomPickers = new ArrayList<>();
+
+        for (PlayerPanel playerPanel : playerPanels) {
+            if (!playerPanel.isInsect()) {
+                mushroomPickers.add(playerPanel.getName());
+            } else if (playerPanel.isInsect()) {
+                insectPickers.add(playerPanel.getName());
+            }
+        }
+
+        String insectNames = String.join(" ", insectPickers);
+        String mushroomNames = String.join(" ", mushroomPickers);
+
+
+        GraphicMain.cmdProcessor.ExecuteCommand("/start " + mushroomNames + " " + insectNames + " -m " + mushroomNames.length() + " -i " + insectNames.length() + " -k " + turnSpinner.getValue());
+        //a start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
+    }
 }
