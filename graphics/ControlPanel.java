@@ -149,7 +149,7 @@ public class ControlPanel extends JPanel implements ControlListener {
             button.setFocusPainted(false);  // Ne legyen fókusz keret
             switch (action) {
                 case "Grow mushroom":
-                    button.addActionListener(e -> gController.sendCommand("/grow-mushroom"));
+                    button.addActionListener(e -> gController.sendCommand("/build-mushroom"));
                     break;
                 case "Throw spore":
                     button.addActionListener(e -> gController.sendCommand("/throw-spore"));

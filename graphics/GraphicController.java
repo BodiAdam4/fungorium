@@ -95,7 +95,8 @@ public class GraphicController {
             tectons[0] = selected.get(0).getMyTecton();
             tectons[1] = selected.get(1).getMyTecton();
         }
-        String commmand = Controller.translateCommand(command, tectons);
-        GraphicMain.cmdProcessor.ExecuteCommand(command);
+        String translatedCommand = Controller.translateCommand(command, tectons);
+        System.out.println("Command: " + translatedCommand);
+        GraphicMain.cmdProcessor.ExecuteCommand(translatedCommand);
     }
 }
