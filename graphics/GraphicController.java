@@ -1,16 +1,13 @@
 package graphics;
 
+import controller.Controller;
+import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
-
 import model.Insect;
 import model.Line;
 import model.Mushroom;
 import model.Tecton;
-import controller.Controller;
-
-import java.awt.Color;
-
 import userinterface.CommandProcessor;
 
 /**
@@ -33,10 +30,15 @@ public class GraphicController {
     /**
      * Az osztály konstruktora, mely a játék kezdetén fut le.
      * Paraméterként átveszi a játékosok azonosítóit, amik szerint a színeket fogja kiosztani.
-     * @param players A játékosok azonosítói
+     * @param players A játékosok azonosítói //TODO: Rá kell nézni
      */
-    GraphicController(String[] players){
+    GraphicController(){
 
+    }
+
+    //TODO: Új függvény
+    public void setMap(Map map) {
+        this.map = map;
     }
 
     /* - Getter/Setter metódusok*/
@@ -54,7 +56,7 @@ public class GraphicController {
     }
 
     public void createLine(Line line){
-        GLine gLine = new GLine();
+        GLine gLine = new GLine(map.getTecton(line.getEnds()[0]), map.getTecton(line.getEnds()[1]));
         map.addLine(gLine);
         line.addLineListener(gLine);
     }

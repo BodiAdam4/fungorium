@@ -1,4 +1,5 @@
 package controller;
+import graphics.GraphicController;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Controller {
     private int maxRound = 5;
 
     private ObjectChangeListener objectChangeListener;
+    private List<ObjectChangeListener> objectListeners = new ArrayList<>();
 
     /* - Publikus attribútumok*/
 
@@ -122,6 +124,10 @@ public class Controller {
 
     /* - Getter/Setter metódusok*/
 
+    public void addObjectListener(ObjectChangeListener listener) {
+        objectListeners.add(listener);
+    }
+
     /* - Propertyk*/
     public boolean isGameRunning() {
         return isGameRunning;
@@ -142,6 +148,12 @@ public class Controller {
             System.out.println("Mushroom with this ID already exists.");
             return;
         }
+
+        
+        for (ObjectChangeListener listener : objectListeners) {
+            listener.mushroomChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, mushroom);
+        }
+
         mushroom.changeListener = objectChangeListener;
         allMushroom.put(id, mushroom);
     }
@@ -177,6 +189,12 @@ public class Controller {
             System.out.println("Line with this ID already exists.");
             return;
         }
+
+        
+        for (ObjectChangeListener listener : objectListeners) {
+            listener.lineChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, line);
+        }
+
         line.changeListener = objectChangeListener;
         allLine.put(id, line);
     }
@@ -229,6 +247,11 @@ public class Controller {
             System.out.println("Insect with this ID already exists.");
             return;
         }
+        
+        for (ObjectChangeListener listener : objectListeners) {
+            listener.insectChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, insect);
+        }
+
         insect.changeListener = objectChangeListener;
         allInsect.put(id, insect);
     }
@@ -264,6 +287,11 @@ public class Controller {
             System.out.println("Tecton with this ID already exists.");
             return;
         }
+        
+        for (ObjectChangeListener listener : objectListeners) {
+            listener.tectonChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, tecton);
+        }
+
         tecton.changeListener = objectChangeListener;
         allTecton.put(id, tecton);
     }

@@ -11,6 +11,7 @@ import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import javax.swing.JPanel;
 import model.Tecton;
 
@@ -24,7 +25,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     
     /* - Privát attribútumok*/
     private List<GTecton> tectons = new ArrayList<>();            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
-    private List<GInsect> insects;                      //A térképen lévő rovarok grafikus objektumainak listája.
+    private List<GInsect> insects = new ArrayList<>();                      //A térképen lévő rovarok grafikus objektumainak listája.
     private List<GLine> lines = new ArrayList<>();                          //A térképen elhelyezkedő grafikus gombafonalak listája.
     //private GraphicController graphicController;        //A grafikus vezérlést megvalósító objektum.
 
@@ -52,6 +53,14 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     }
 
     /* - Getter/Setter metódusok*/
+    public GTecton getTecton(Tecton t) {
+        for (GTecton gTecton : tectons) {
+            if (gTecton.getMyTecton().equals(t)) {
+                return gTecton;
+            }
+        }
+        return null;
+    }
 
     /* - Grafikus gombatest keresése a térképen a kontrollerbeli azonosító szerint.*/
     //public GMushroom getMushroom(String id) {}
@@ -160,7 +169,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     public void addTecton(GTecton gtecton) {
         Point tPos = getCell(nextTecton);
         System.out.println("Tecton position: " + tPos.x + ", " + tPos.y);
-        gtecton.setBounds(tPos.x, tPos.y, CELL_SIZE, CELL_SIZE);
+        gtecton.setBounds(MAP_SIZE/2+new Random().nextInt(1,5), MAP_SIZE/2+new Random().nextInt(1,5), CELL_SIZE, CELL_SIZE);
         this.add(gtecton);
         System.out.println("Tecton bounds: " + gtecton.getBounds());
         this.revalidate();
@@ -215,6 +224,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     public void addTecton(Point position, GTecton tecton) {
         tectons.add(tecton);
         tecton.setBounds(position.x, position.y, CELL_SIZE, CELL_SIZE);
+        
+        Thread thread = new Thread(() -> {
+            physicSorting(maxDist);
+        });
+        thread.start();
+
         this.add(tecton);
         this.revalidate();
         this.repaint();
@@ -340,8 +355,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         g.fillRect(0, 0, width, height);
 
         
-        boolean drawGrid = false;
-        boolean drawBarrier = false;
+        boolean drawGrid = true;
+        boolean drawBarrier = true;
 
         if (drawGrid) {
 
@@ -405,56 +420,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
         //TODO: Csak teszt miatt van benne ki kell venni
-        Tecton t = new Tecton();
-        GTecton gtecton = new GTecton(t);
+        //GraphicMain.cmdProcessor.ExecuteCommand("/create-tecton");
 
-
-
-        for (GTecton g : tectons) {
-            if (getDistance(e.getPoint(), g.getLocation()) <= maxDist+50) {
-                g.getMyTecton().setNeighbors(t);
-                t.setNeighbors(g.getMyTecton());
-                GLine line = new GLine(gtecton, g);
-                line.setBackground(Color.magenta);
-                addLine(line);
-            }
-        }
-
-
-        gtecton.addMouseListener(new MouseAdapter() {
-            public void mouseEntered(MouseEvent e) {
-                gtecton.TintImage(Color.RED);
-                gtecton.repaint();
-
-                for(GTecton t : tectons) {
-                    if (t.getMyTecton().getNeighbors().contains(gtecton.getMyTecton())) {
-                        t.TintImage(Color.white);
-                        t.repaint();
-                    }
-                }
-            }
-
-            public void mouseExited(MouseEvent e) {
-                gtecton.ResetTint();
-                gtecton.repaint();
-
-                for(GTecton t : tectons) {
-                    if (t.getMyTecton().getNeighbors().contains(gtecton.getMyTecton())) {
-                        t.ResetTint();
-                        t.repaint();
-                    }
-                }
-            }
-        });
-
-        addTecton(new Point(e.getX()-(CELL_SIZE/2), e.getY()-(CELL_SIZE/2)), gtecton);
-
-
-
-        Thread thread = new Thread(() -> {
-            physicSorting(maxDist);
-        });
-        thread.start();
 
         //TODO: Idáig csak teszt miatt van benne ki kell venni
     }

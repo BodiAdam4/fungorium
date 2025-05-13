@@ -36,8 +36,8 @@ public class Mushroom{
     private Tecton myTecton;
 
     /* - Listenerlisták*/
-    private List<MushroomListener> mushroomListeners;
-    private List<JobListener> jobListeners;
+    private List<MushroomListener> mushroomListeners = new ArrayList<>();
+    private List<JobListener> jobListeners = new ArrayList<>();
 
 
 

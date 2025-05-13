@@ -40,10 +40,11 @@ public class MainWindow extends JFrame implements JobListener{
     //private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
     private JPanel notificationBar;         //Az értesítéseknél felugró panel.
     private JLabel notificationText;        //Az értesítéseknél megjelenő szöveg.
+    private GraphicController gController;
 
     /* - Konstruktor(ok)*/
-    public MainWindow(){
-        
+    public MainWindow(GraphicController gController){
+        this.gController = gController;
         this.setTitle("Fungorium_by_oet_kis_malacz");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1000, 600);     //Ablakméret beállítása
@@ -181,6 +182,8 @@ public class MainWindow extends JFrame implements JobListener{
 
         map = new Map(); //A térkép inicializálása
         mapPanel.add(map); //A térkép hozzáadása a térkép panelhez
+
+        gController.setMap(map);
 
         mainContentPanel.add(mapPanel, BorderLayout.CENTER); //A térkép panel hozzáadása a fő tartalom panelhez
 
