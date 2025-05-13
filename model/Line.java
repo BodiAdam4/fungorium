@@ -246,7 +246,7 @@ public class Line
      * Hozzáad egy JobListenert a jobListeners-hez
      * @param listener a listener, amit a listához adunk
      */
-    public void addJobListerner(JobListener listener){
+    public void addJobListener(JobListener listener){
         jobListeners.add(listener);
     }
 }

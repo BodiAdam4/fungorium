@@ -2,10 +2,8 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import listeners.InsectListener;
 import listeners.JobListener;
-import listeners.MushroomListener;
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
@@ -166,6 +164,9 @@ public class Insect {
     public boolean move(Tecton to) {
         if (unusable) {
             System.out.println("Insect is currently moving");
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Insect is currently moving");
+            }
             return false;
         }
 
@@ -189,6 +190,9 @@ public class Insect {
         if(inRange){
             if(!canMove){
                 System.out.println("Insect cannot move");
+                for (JobListener listener : jobListeners) {
+                    listener.jobFailed("Insect cannot move");
+                }
                 return false;
             }
 
@@ -201,6 +205,10 @@ public class Insect {
                         currentTecton.removeInsect(Insect.this);
                         currentTecton = to;
                         System.out.println("Insect moved to tecton");
+                        
+                        for (JobListener listener : jobListeners) {
+                            listener.jobSuccessfull("Insect moved to tecton");
+                        }
                         unusable = false;
                     }
                 }, 1);
@@ -209,11 +217,17 @@ public class Insect {
                 to.addInsect(this);
                 currentTecton.removeInsect(this);
                 currentTecton = to;
+                for (JobListener listener : jobListeners) {
+                    listener.jobSuccessfull("Insect moved to tecton");
+                }
                 System.out.println("Insect moved to tecton");
             }
         }
         else{
             System.out.println("No line between the tectons or not in range");
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("No line between the tectons or not in range");
+            }
             return false;
         }
         return true;
@@ -228,6 +242,9 @@ public class Insect {
     public int eatSpores(int count) {
         if (unusable) {
             System.out.println("Insect is currently moving");
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Insect is currently moving");
+            }
             return 0;
         }
 
@@ -254,11 +271,17 @@ public class Insect {
     public boolean cutLine(Line line) {
         if (unusable) {
             System.out.println("Insect is currently moving");
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Insect is currently moving");
+            }
             return false;
         }
 
         if (!canCut) {
             System.out.println("Insect cannot cut line");
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Insect cannot cut line");
+            }
             return false;
         }
         line.Destroy();
@@ -280,4 +303,5 @@ public class Insect {
         currentTecton.removeInsect(this);
         changeListener.insectChanged(ObjectChangeEvent.OBJECT_REMOVED, this);
     }
+
 }

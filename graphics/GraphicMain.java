@@ -48,7 +48,8 @@ public class GraphicMain {
         mainWindow.setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE);
         mainWindow.revalidate();
         mainWindow.repaint();
-
+        
+        controller.addJobListener(mainWindow);
         
         cmdProcessor.ExecuteCommand("/load TestFiles\\InsectMoveTwice_input.txt");
     }

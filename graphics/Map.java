@@ -160,6 +160,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             //Rovarok áthelyezése
             refreshInsects();
 
+            //Szomszédok kiszámítása
             for (GTecton tecton1 : tectons) {
                 tecton1.getMyTecton().clearNeighbors();
                 for (GTecton tecton2 : tectons) {
@@ -256,7 +257,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
     /* - Gombatest eltávolítása a térképről. Szükséges megadni a gombatest kontrollerbeli azonosítóját.*/
-    public void removeMushroom(String id) {}
+    public void removeMushroom(String id) {
+        
+    }
 
 
     /* - Rovar hozzáadása a térképhez. Szükséges megadni a rovar grafikus példányát, amit el szeretnénk helyezni.*/

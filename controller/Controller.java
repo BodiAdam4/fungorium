@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Objects;
+import listeners.JobListener;
 
 import listeners.ObjectChangeListener;
 import model.Insect;
@@ -28,6 +29,7 @@ public class Controller {
 
     private ObjectChangeListener objectChangeListener;
     private List<ObjectChangeListener> objectListeners = new ArrayList<>();
+    private List<JobListener> jobListeners = new ArrayList<>();
 
     /* - Publikus attribútumok*/
 
@@ -128,6 +130,10 @@ public class Controller {
         objectListeners.add(listener);
     }
 
+    public void addJobListener(JobListener listener) {
+        jobListeners.add(listener);
+    }
+
     /* - Propertyk*/
     public boolean isGameRunning() {
         return isGameRunning;
@@ -152,6 +158,10 @@ public class Controller {
         
         for (ObjectChangeListener listener : objectListeners) {
             listener.mushroomChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, mushroom);
+        }
+
+        for (JobListener listener : jobListeners) {
+            mushroom.addJobListener(listener);
         }
 
         mushroom.changeListener = objectChangeListener;
@@ -193,6 +203,11 @@ public class Controller {
         
         for (ObjectChangeListener listener : objectListeners) {
             listener.lineChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, line);
+        }
+
+        
+        for (JobListener listener : jobListeners) {
+            line.addJobListener(listener);
         }
 
         line.changeListener = objectChangeListener;
@@ -252,6 +267,11 @@ public class Controller {
             listener.insectChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, insect);
         }
 
+        
+        for (JobListener listener : jobListeners) {
+            insect.addJobListener(listener);
+        }
+
         insect.changeListener = objectChangeListener;
         allInsect.put(id, insect);
     }
@@ -290,6 +310,11 @@ public class Controller {
         
         for (ObjectChangeListener listener : objectListeners) {
             listener.tectonChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, tecton);
+        }
+
+        
+        for (JobListener listener : jobListeners) {
+            tecton.addJobListener(listener);
         }
 
         tecton.changeListener = objectChangeListener;

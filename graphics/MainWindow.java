@@ -514,10 +514,6 @@ public class MainWindow extends JFrame implements JobListener{
 
     /* - Egyéb metódusok*/
 
-    /* - Értesítések megjelenítésére szolgáló függvény. Paraméterként át kell adni az értesítés szövegét és színét.*/
-    public void showNotification(String msg, Color color) {}
-
-
     /* - Az eredményhirdetés megjelenítése, paraméterként át kell adni az eredményeket szöveges formában.*/
     public void showResults(String data) {}
 
@@ -529,6 +525,23 @@ public class MainWindow extends JFrame implements JobListener{
         notificationText.setText(msg); //Az üzenet szövegének beállítása
         notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
         repaint();
+
+        
+        //Értesítési panel eltűntetésének időzítése
+        Thread closeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+
+                }
+                notificJPanel.setVisible(false);
+            }
+            
+        });
+
+        closeThread.start();
     }
 
 
@@ -539,6 +552,22 @@ public class MainWindow extends JFrame implements JobListener{
         notificationText.setText(msg); //Az üzenet szövegének beállítása
         notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
         repaint();
+
+        //Értesítési panel eltűntetésének időzítése
+        Thread closeThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+
+                }
+                notificJPanel.setVisible(false);
+            }
+            
+        });
+
+        closeThread.start();
     }
 
 
