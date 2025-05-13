@@ -83,6 +83,7 @@ public class GLine extends JPanel implements LineListener
      */
     public void destroy() {
         //MAP
+        //job listener modelben
         ends.get(0).getMap().removeLine(id);
     }
 
