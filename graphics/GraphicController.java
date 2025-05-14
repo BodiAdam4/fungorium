@@ -45,7 +45,7 @@ public class GraphicController {
     /* - Getter/Setter metódusok*/
     /* - Egyéb metódusok*/
     public void createInsect(Insect insect){
-        GInsect gInsect = new GInsect(insect);
+        GInsect gInsect = new GInsect(insect, map);
         gInsect.TintImage(getInsectColor(gInsect.getMyInsect().getInsectId()));
         map.addInsect(gInsect);
         insect.addInsectListener(gInsect);

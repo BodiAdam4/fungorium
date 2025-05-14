@@ -175,6 +175,10 @@ public class GLine extends JPanel implements LineListener
         curveHeight += 20;
     }
 
+    public Point getMiddlePoint() {
+        return generateControlPoint(startPoint, endPoint, curveHeight);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
