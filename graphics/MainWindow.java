@@ -619,6 +619,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
         int playerCount = points.size();
         int i = 0;
 
+        scrollablePanel.removeAll(); // A játékos panel törlése a régi elemek eltávolításához
         for (String playerpoints : points.keySet()) {
             Integer score = points.get(playerpoints);
             System.out.println(playerpoints+"\n");
@@ -648,6 +649,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
             }
             i++;
         }
+        scrollablePanel.repaint();
     }
 
 
