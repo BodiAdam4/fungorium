@@ -66,7 +66,7 @@ public class GraphicController {
     }
 
     public void createTecton(Tecton tecton){
-        GTecton gTecton = new GTecton(tecton);
+        GTecton gTecton = new GTecton(tecton, map);
         map.addTecton(gTecton);
         tecton.addTectonListener(gTecton);
     }

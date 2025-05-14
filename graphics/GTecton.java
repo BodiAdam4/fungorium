@@ -22,12 +22,12 @@ public class GTecton extends Image implements TectonListener {
     private Map map; //A térkép ami tartalmazza a grafikus tektont
 
     /* - Konstruktor(ok)*/
-    public GTecton(Tecton myTecton) {
+    public GTecton(Tecton myTecton, Map map) {
         super("graphics/images/tecton"+myTecton.toString()+".png"); // A Tecton képe
         this.myTecton = myTecton; //A tektonhoz tartozó kontrollerbeli azonosító beállítása
-
+        this.map = map;
         this.setLayout(null);
-
+        this.addMouseListener(this);
         sporeContainer = new GSporeContainer();
         myTecton.getSporeContainer().addSporeContainerListener(sporeContainer);
         this.add(sporeContainer);

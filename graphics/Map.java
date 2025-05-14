@@ -66,6 +66,10 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         return null;
     }
 
+    public GraphicController getGraphicController() {
+        return gController;
+    }
+
     /* - Grafikus gombatest keresése a térképen a kontrollerbeli azonosító szerint.*/
     //public GMushroom getMushroom(String id) {}
 
@@ -217,7 +221,18 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             }
 
             public void mouseClicked(MouseEvent e) {
-                gController.addSelected(gtecton);
+                if (e.getButton() == MouseEvent.BUTTON1) {
+                    gController.addSelected(gtecton);
+                }
+                else if (e.getButton() == MouseEvent.BUTTON3) {
+                    System.out.println("Infopanel on");
+                    JPanel infoPanel = new JPanel();
+                    infoPanel.setLocation(e.getPoint());
+                    infoPanel.setSize(100, 100);
+                    Map.this.add(infoPanel);
+                    Map.this.revalidate();
+                    Map.this.repaint();
+                }
             }
         });
 
@@ -286,8 +301,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
             for (GLine line : lines) {
                 if (line.getEnds().contains(start) && line.getEnds().contains(end)) {
-                    Point middlePoint = line.getMiddlePoint();
-                    ginsect.setBounds(middlePoint.x, middlePoint.y, CELL_SIZE, CELL_SIZE);
+                    int x = line.getMiddlePoint().x-this.getLocation().x;
+                    int y = line.getMiddlePoint().y-this.getLocation().y;
+                    ginsect.setBounds(x, y, CELL_SIZE, CELL_SIZE);
                 }
             }
         }
