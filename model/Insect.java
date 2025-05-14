@@ -26,7 +26,7 @@ public class Insect {
     public ObjectChangeListener changeListener; //A rovarhoz tartozó eseménykezelők listája
 
     /* - Listenerlisták */
-    private List<InsectListener> InsectListeners = new ArrayList<>();
+    private List<InsectListener> insectListeners = new ArrayList<>();
     private List<JobListener> jobListeners = new ArrayList<>();
 
     /**
@@ -34,7 +34,7 @@ public class Insect {
      * @param listener az adott InsectListener
      */
     public void addInsectListener(InsectListener listener) {
-        this.InsectListeners.add(listener);
+        this.insectListeners.add(listener);
     }
 
 
@@ -201,6 +201,10 @@ public class Insect {
 
             if (speed == 1) {
                 unusable = true;
+                for (InsectListener listener : insectListeners ) {
+                    listener.moveStarted(currentTecton, to);
+                }
+
                 Timer.addOneTimeSchedule(new Schedule() {
                     @Override
                     public void onTime() {
@@ -212,6 +216,11 @@ public class Insect {
                         for (JobListener listener : jobListeners) {
                             listener.jobSuccessfull("Insect moved to tecton");
                         }
+
+                        for (InsectListener listener : insectListeners ) {
+                            listener.moveFinished(to);
+                        }
+
                         unusable = false;
                     }
                 }, 1);
@@ -222,6 +231,9 @@ public class Insect {
                 currentTecton = to;
                 for (JobListener listener : jobListeners) {
                     listener.jobSuccessfull("Insect moved to tecton");
+                }
+                for (InsectListener listener : insectListeners ) {
+                    listener.moveFinished(to);
                 }
                 System.out.println("Insect moved to tecton");
             }

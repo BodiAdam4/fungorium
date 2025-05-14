@@ -272,6 +272,30 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     }
 
 
+    public void InsectMoved(GInsect ginsect, List<Tecton> moveTectons) {
+        if (moveTectons.size() == 1) {
+            //A rovar sebessége miatt egyből átkerül a másik tektonra
+            GTecton parentTecton = getTecton(moveTectons.get(0));
+            ginsect.setBounds(parentTecton.getX(), parentTecton.getY(), CELL_SIZE, CELL_SIZE);
+            
+        }
+        else {
+            //A rovar sebessége miatt még megy át a fonalon
+            GTecton start = getTecton(moveTectons.get(0));
+            GTecton end = getTecton(moveTectons.get(1));
+
+            for (GLine line : lines) {
+                if (line.getEnds().contains(start) && line.getEnds().contains(end)) {
+                    Point middlePoint = line.getMiddlePoint();
+                    ginsect.setBounds(middlePoint.x, middlePoint.y, CELL_SIZE, CELL_SIZE);
+                }
+            }
+        }
+        this.revalidate();
+        this.repaint();
+    }
+
+
     /* - Rovar eltávolítása a játéktérképről. Ehhez meg kell adni a rovar kontrollerbeli azonosítóját.*/
     public void removeInsect(String id) {}
 

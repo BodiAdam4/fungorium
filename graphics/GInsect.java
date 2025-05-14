@@ -1,35 +1,25 @@
 package graphics;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import listeners.InsectListener;
 import model.Insect;
-import model.Line;
 import model.Tecton;
 
 public class GInsect extends Image implements InsectListener{
 
     //attribútumok
-    public String id;
-    public String playerId;
     public Insect insect;
-    private JPanel place;
     private JLabel infoTag;
+    private Map map;
 
     //publikus metódusok
-    public GInsect(String id, String playerId, JPanel place){
-        super("graphics/images/Insect.png");
-        this.id = id;
-        this.playerId = playerId;
-    }
 
-    public GInsect(Insect insect){
+    public GInsect(Insect insect, Map map){
         super("graphics/images/Insect.png");
         this.insect = insect;
-    }
-
-    public void move(JPanel to){
-        place = to;
+        this.map = map;
     }
 
     public void destroy() {
@@ -39,16 +29,16 @@ public class GInsect extends Image implements InsectListener{
     //InsectListenert implementáló metódusok
 
     public void moveStarted(Tecton from, Tecton to) {
-        for(Line l : from.getConnections()){
-            Tecton[] ends = l.getEnds();
-            if(ends[0] == from && ends[1] == to || ends[0] == to && ends[1] == from){
-                
-            }
-        }
+        List<Tecton> tectons = new ArrayList<>();
+        tectons.add(from);
+        tectons.add(to);
+        map.InsectMoved(this, tectons);
     }
     
     public void moveFinished(Tecton to) {
-        
+        List<Tecton> tectons = new ArrayList<>();
+        tectons.add(to);
+        map.InsectMoved(this, tectons);
     }
 
     public void sporeEaten(String effect) {
