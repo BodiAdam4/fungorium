@@ -23,8 +23,18 @@ public class GTecton extends Image implements TectonListener {
 
     /* - Konstruktor(ok)*/
     public GTecton(Tecton myTecton) {
-        super("graphics/images/tectonNormal.png"); // A Tecton képe
+        super("graphics/images/tecton"+myTecton.toString()+".png"); // A Tecton képe
         this.myTecton = myTecton; //A tektonhoz tartozó kontrollerbeli azonosító beállítása
+
+        this.setLayout(null);
+
+        sporeContainer = new GSporeContainer();
+        myTecton.getSporeContainer().addSporeContainerListener(sporeContainer);
+        this.add(sporeContainer);
+        sporeContainer.setBounds(0, 0, Map.CELL_SIZE, Map.CELL_SIZE);
+        sporeContainer.setVisible(false);
+        this.revalidate();
+        this.repaint();
     }
 
 
@@ -48,6 +58,8 @@ public class GTecton extends Image implements TectonListener {
     public void addMushroom(GMushroom mushroom) {
         this.mushroom = mushroom;
         this.add(mushroom);
+        mushroom.setBounds(0, 0, Map.CELL_SIZE, Map.CELL_SIZE);
+        this.repaint();
     }
     
     /**

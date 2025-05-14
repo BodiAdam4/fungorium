@@ -50,4 +50,9 @@ public class TectonTime extends Tecton{
             connections.get(0).Destroy();
         }
     }
+
+    
+    public String toString() {
+        return "Time";
+    }
 }

@@ -241,4 +241,9 @@ public class Tecton {
     public void removeInsect(Insect insect) {
         insects.remove(insect);
     }
+
+
+    public String toString() {
+        return "Normal";
+    }
 }

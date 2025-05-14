@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
@@ -59,5 +58,10 @@ public class TectonInfertile extends Tecton{
         for (int i = 0; i < size; i++) {
             connections.get(0).Destroy();
         }
+    }
+
+    
+    public String toString() {
+        return "Infertile";
     }
 }

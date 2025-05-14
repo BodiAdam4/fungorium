@@ -8,14 +8,10 @@ import listeners.SporeContainerListener;
 public class GSporeContainer extends Image implements SporeContainerListener {
     
     /* - Publikus attribútumok*/
-    public String id;                   //A spóratárolóhoz tartozó azonosító, amely alapján meg lehet találni a kontrollerben
-    public String tectonId;             //Annak a tektonnak az azonosítója amihez a spóratároló tartozik.
 
     /* - Konstruktor(ok)*/
-    public GSporeContainer(String id, String tectonId) {
+    public GSporeContainer() {
         super("graphics/images/Spores.png"); // A SporeContainer képe
-        this.id = id;
-        this.tectonId = tectonId;
     }
 
     /* - Getter/Setter metódusok*/
@@ -35,7 +31,8 @@ public class GSporeContainer extends Image implements SporeContainerListener {
      */
     @Override
     public void sporeAdded(int sporeCount) {
-        
+        this.setVisible(true);
+        this.getParent().repaint();
     }
 
     /**
@@ -43,7 +40,10 @@ public class GSporeContainer extends Image implements SporeContainerListener {
      */
     @Override
     public void sporeRemoved(int sporeCount) {
-        
+        if(sporeCount == 0) {
+            this.setVisible(false);
+            this.getParent().repaint();
+        }
     }
 
 }
