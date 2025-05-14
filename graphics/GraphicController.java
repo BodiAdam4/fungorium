@@ -59,7 +59,7 @@ public class GraphicController {
     }
 
     public void createLine(Line line){
-        GLine gLine = new GLine(map.getTecton(line.getEnds()[0]), map.getTecton(line.getEnds()[1]), line);
+        GLine gLine = new GLine(map.getTecton(line.getEnds()[0]), map.getTecton(line.getEnds()[1]), line, map);
         gLine.setBackground(getMushroomColor(gLine.getMyLine().getId()));
         map.addLine(gLine);
         line.addLineListener(gLine);

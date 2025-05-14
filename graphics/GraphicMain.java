@@ -1,6 +1,8 @@
 package graphics;
 
 import controller.Controller;
+import java.io.BufferedInputStream;
+import java.util.Scanner;
 import listeners.ObjectChangeListener;
 import model.Insect;
 import model.Line;
@@ -56,5 +58,30 @@ public class GraphicMain {
         controller.addControlListener(mainWindow);
         controller.addJobListener(mainWindow);
         
+        Thread consoleThread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                Scanner scanner = new Scanner(new BufferedInputStream(System.in));
+
+                while(scanner.hasNextLine()) {
+                    String input = scanner.nextLine();
+                    if(input.equals("/exit")) {
+                        System.out.println("Exiting the game.");
+                        break;
+                    }
+                    try {
+                        cmdProcessor.ExecuteCommand(input);
+                    } catch (Exception e) {
+                        System.out.println("Something went wrong :(\nInvalid command or invalid parameters.\n" +
+                                "Please check the command and try again.\n" +
+                                "Type /help to see the game commands."+e.getMessage());
+                    }
+                }
+                scanner.close();
+            }
+            
+        });
+        consoleThread.start();
     }
 }

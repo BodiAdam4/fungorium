@@ -39,15 +39,18 @@ public class GLine extends JPanel implements LineListener
     private Line myLine;
 
     private List<GTecton> ends;
+    private boolean dying = false;
+    private Map map;
 
     /* - Konstruktor(ok)*/
 
     
-    public GLine(GTecton start, GTecton end, Line line) {
+    public GLine(GTecton start, GTecton end, Line line, Map map) {
         ends = new ArrayList<>();
         ends.add(start);
         ends.add(end);
         myLine = line;
+        this.map = map;
 
         setBackground(new Color(0, 0, 0, 0));
         setOpaque(false);
@@ -89,9 +92,7 @@ public class GLine extends JPanel implements LineListener
      * A grafikus gombafonal megsemmisítésére alkalmas függvény.
      */
     public void destroy() {
-        //MAP
-        //job listener modelben
-        ends.get(0).getMap().removeLine(id);
+        map.removeLine(myLine);
     }
 
 
@@ -101,7 +102,7 @@ public class GLine extends JPanel implements LineListener
      * A gombafonal elpusztulásakor lefutó függvény
      */
     public void lineDestroyed(){
-        destroy();      //?????
+        destroy();
     }
 
 
@@ -117,10 +118,10 @@ public class GLine extends JPanel implements LineListener
                 
                 break;
             case 1:
-
+                dying = false;
                 break;
             case 2:
-
+                dying = true;
                 break;
             default:
                 break;
@@ -187,7 +188,7 @@ public class GLine extends JPanel implements LineListener
 
         // Sötétített vonal
         g2d.setStroke(new BasicStroke(6));
-        g2d.setColor(darken(color, 0.7));
+        g2d.setColor(darken(color, 0.7-(dying ? 0.3:0.0)));
 
         QuadCurve2D q = new QuadCurve2D.Float();
         q.setCurve(startPoint, controlPoint, endPoint);
@@ -195,7 +196,7 @@ public class GLine extends JPanel implements LineListener
 
         // Világosabb vonal
         g2d.setStroke(new BasicStroke(2));
-        g2d.setColor(color);
+        g2d.setColor(darken(color, 1.0-(dying ? 0.3:0.0)));
 
         q = new QuadCurve2D.Float();
         q.setCurve(startPoint, controlPoint, endPoint);

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import javax.swing.JPanel;
+import model.Line;
 import model.Tecton;
 
 /**
@@ -354,10 +355,14 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
      * Az eltávolításhoz meg kell adni az eltávolítandó fonál kontrollerbeli azonosítóját.
      * @param id az eltávolítandó gombafonal azonosítója
      */
-    public void removeLine(String id) {
-        for(GLine gl : lines)
-            if(gl.id.equals(id))
+    public void removeLine(Line line) {
+        for(GLine gl : lines) {
+            if(gl.getMyLine().equals(line)) {
                 lines.remove(gl);
+                this.remove(gl);
+                this.repaint();
+            }
+        }
     }
 
 
