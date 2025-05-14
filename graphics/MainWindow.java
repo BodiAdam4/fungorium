@@ -23,6 +23,8 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import listeners.ControlListener;
 import listeners.JobListener;
 
 
@@ -31,13 +33,15 @@ import listeners.JobListener;
 /**
  * A játék ablakát megvalósító osztály, tartalmazza a játék során megjelenő elemeket.
 */
-public class MainWindow extends JFrame implements JobListener{
+public class MainWindow extends JFrame implements JobListener, ControlListener{
 
     /* - Privát attribútumok*/
 
     private Map map;                        //A játék térképét megjelenítő JPanel leszármazott osztály példánya.
     private MainMenu menu;                  //A játék kezdetén megjelenő, a beállításokat tartalmazó panel.
     private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
+
+    private JPanel scrollablePanel;
     
     /* - Notification privát elemei */
     private JPanel notificJPanel;           //Az értesítéseknél felugró panel.
@@ -104,11 +108,11 @@ public class MainWindow extends JFrame implements JobListener{
         //statusBar.setMaximumSize(new Dimension(this.getWidth(), 50));
 
         // Görgethető panel létrehozása
-        JPanel scrollablePanel = new JPanel();
+        scrollablePanel = new JPanel();
         scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.X_AXIS));
         //scrollablePanel.setOpaque(false);
         scrollablePanel.setBackground(Color.decode("#38778a")); //A görgethető panel háttérszínének beállítása
-
+        /*
         //Dinamikus elemek felvétele a státusz sávra
         int playerCount = players.size();
         int i = 0;
@@ -140,7 +144,9 @@ public class MainWindow extends JFrame implements JobListener{
             scrollablePanel.add(separator);
             }
             i++;
+            
         }
+        */
 
         //Görgetősáv hozzáadása egyedi stílussal
         javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(scrollablePanel) {
@@ -604,6 +610,44 @@ public class MainWindow extends JFrame implements JobListener{
         });
 
         closeThread.start();
+    }
+
+
+    @Override
+    public void onNextRound(String player, boolean isInsect, int round, HashMap<String, Integer> points) {
+        //Dinamikus elemek felvétele a státusz sávra
+        int playerCount = points.size();
+        int i = 0;
+
+        for (String playerpoints : points.keySet()) {
+            Integer score = points.get(playerpoints);
+            System.out.println(playerpoints+"\n");
+
+            // Játékospanel
+            JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 15));
+            playerPanel.setOpaque(false);
+
+            JLabel label = new JLabel(playerpoints + ": ");
+            label.setForeground(Color.WHITE);
+            label.setFont(label.getFont().deriveFont(Font.BOLD, 18));
+
+            JLabel scoreLabel = new JLabel(score.toString());
+            scoreLabel.setForeground(Color.RED);
+            scoreLabel.setFont(scoreLabel.getFont().deriveFont(Font.BOLD, 18));
+
+            playerPanel.add(label);
+            playerPanel.add(scoreLabel);
+            scrollablePanel.add(playerPanel);
+
+            // Elválasztó
+            if (i < playerCount - 1) {
+            JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
+            separator.setPreferredSize(new Dimension(3, 40));
+            separator.setForeground(Color.WHITE);
+            scrollablePanel.add(separator);
+            }
+            i++;
+        }
     }
 
 

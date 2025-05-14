@@ -53,6 +53,7 @@ public class GraphicMain {
         mainWindow.revalidate();
         mainWindow.repaint();
         
+        controller.addControlListener(mainWindow);
         controller.addJobListener(mainWindow);
         
     }

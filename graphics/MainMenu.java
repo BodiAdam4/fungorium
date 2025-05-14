@@ -16,6 +16,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -464,9 +465,9 @@ public class MainMenu extends JPanel {
     /* - A játék indítását elvégző függvény.*/
     public void startGame() {
 
-        mainWindow.showMap();
-        mainWindow.revalidate();
-        this.repaint();
+        
+
+        
 
         List<String> insectPickers = new ArrayList<>();
         List<String> mushroomPickers = new ArrayList<>();
@@ -487,14 +488,39 @@ public class MainMenu extends JPanel {
             }
         }
 
-        GraphicMain.gController.setPlayers(colors, mushroomPickers.size());
+        //
 
-        String insectNames = String.join(" ", insectPickers);
-        String mushroomNames = String.join(" ", mushroomPickers);
+        if(Math.abs(mushroomPickers.size() - insectPickers.size()) <= 1) {
 
-        String command = "/start " + mushroomNames + " " + insectNames + " -m " + mushroomPickers.size() + " -i " + insectPickers.size() + " -k " + turnSpinner.getValue();
-        System.out.println(command);
-        GraphicMain.cmdProcessor.ExecuteCommand(command);
-        //a start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
+
+            mainWindow.showMap();
+            mainWindow.revalidate();
+            this.repaint();
+            
+            GraphicMain.gController.setPlayers(colors, mushroomPickers.size());
+
+            String insectNames = String.join(" ", insectPickers);
+            String mushroomNames = String.join(" ", mushroomPickers);
+
+            String command = "/start " + mushroomNames + " " + insectNames + " -m " + mushroomPickers.size() + " -i " + insectPickers.size() + " -k " + turnSpinner.getValue();
+            System.out.println(command);
+            GraphicMain.cmdProcessor.ExecuteCommand(command);
+            //a start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
+            mainWindow.removeMenu();
+            this.revalidate();
+            this.repaint();
+
+        }else {
+            
+            System.out.println("legyen mindkét kasztból játékos, különben nem indul el a játék!");
+            JOptionPane.showMessageDialog(mainWindow, "There should be at least one player in each class!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            mainWindow.showMenu();
+            mainWindow.revalidate();
+            mainWindow.repaint();
+            this.revalidate();
+            this.repaint();
+        }
+
+        
     }
 }
