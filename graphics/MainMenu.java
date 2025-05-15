@@ -202,12 +202,13 @@ public class MainMenu extends JPanel {
             });
             System.out.println("Enter the game button clicked!");
 
-            //Ellenőrizzük, hogy van-e legalább egy gombász és egy rovarász
-            boolean hasInsectPlayer = playerPanels.stream().anyMatch(PlayerPanel::isInsect);
-            boolean hasMushroomPlayer = playerPanels.stream().anyMatch(playerPanel -> !playerPanel.isInsect());
-            //Amennyiben nincs legalább egy gombász és egy rovarász, akkor hibaüzenetet adunk
-            if (!hasInsectPlayer || !hasMushroomPlayer) {
-                //Egyedi dialógusablak hívása
+            
+            //Amennyiben nincs legalább 2 gombász és 2 rovarász, akkor hibaüzenetet adunk
+            long insectPlayerCount = playerPanels.stream().filter(PlayerPanel::isInsect).count();
+            long mushroomPlayerCount = playerPanels.stream().filter(playerPanel -> !playerPanel.isInsect()).count();
+
+            if (insectPlayerCount < 2 || mushroomPlayerCount < 2) {
+                // Egyedi dialógusablak hívása
                 showCustomErrorDialog(this);
                 return;
             }
@@ -234,7 +235,7 @@ public class MainMenu extends JPanel {
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel messageLabel = new JLabel("There must be at least one selected player from each caste!");
+        JLabel messageLabel = new JLabel("There must be at least two selected player from each caste!");
         messageLabel.setForeground(Color.WHITE);
         messageLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         messageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
