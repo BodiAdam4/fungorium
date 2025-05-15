@@ -484,11 +484,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         int col = e.getX() / CELL_SIZE;
         int row = e.getY() / CELL_SIZE;
         Point cell = new Point(col, row);
-        //cell.addMushroom(new GMushroom()); //TODO: ezt majd át kell írni, hogy a gombatest pozícióját is figyelembe vegye.
-        System.out.println("Cell clicked: " + cell.x + ", " + cell.y);
-        System.out.println("Mouse clicked at: " + e.getX() + ", " + e.getY());
 
-
+        gController.RemoveSelection();
         //TODO: Csak teszt miatt van benne ki kell venni
         //GraphicMain.cmdProcessor.ExecuteCommand("/create-tecton");
 

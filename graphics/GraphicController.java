@@ -74,14 +74,18 @@ public class GraphicController {
     public void addSelected(GTecton gtecton){
         if(selected.size() == 2){
             //Kijelölések eltűntetése
-            for (GTecton tecton : selected) {
-                tecton.setSelected(false);
-            }
-            selected.clear();
+            RemoveSelection();
         }
         selected.add(gtecton);
         //Kijelőlés hozzáadás
         gtecton.setSelected(true);
+    }
+
+    public void RemoveSelection() {
+        for (GTecton tecton : selected) {
+            tecton.setSelected(false);
+        }
+        selected.clear();
     }
 
     public void sendCommand(String command){
