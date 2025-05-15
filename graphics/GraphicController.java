@@ -124,6 +124,7 @@ public class GraphicController {
         String translatedCommand = Controller.translateCommand(command, tectons);
         System.out.println("Parsed command: " + translatedCommand);
         GraphicMain.cmdProcessor.ExecuteCommand(translatedCommand);
+        RemoveSelection();
     }
 
     public void setPlayers(List<Color> players, List<String> names, int mushroomPickCount) {

@@ -25,8 +25,6 @@ public class GLine extends JPanel implements LineListener
 {
     /* - Publikus attribútumok*/
     public String id;                   //A gombatesthez tartozó azonosító, amely alapján meg lehet találni a kontrollerben.
-
-    /* - Privát attribútumok*/
     
     public BufferedImage lineMiddle;
     public BufferedImage endCapStart;
@@ -36,14 +34,14 @@ public class GLine extends JPanel implements LineListener
     public Point endPoint;
     public int curveHeight = 50;
 
-    private Line myLine;
+    /* - Privát attribútumok*/
 
+    private Line myLine;
     private List<GTecton> ends;
-    private boolean dying = false;
     private Map map;
+    private double darkenFactor = 0.0;
 
     /* - Konstruktor(ok)*/
-
     
     public GLine(GTecton start, GTecton end, Line line, Map map) {
         ends = new ArrayList<>();
@@ -109,24 +107,22 @@ public class GLine extends JPanel implements LineListener
     /** 
      * A gombafonal fázisainak változása esetén fut le a függvény. 
      * Három különböző fázis követése lehetséges,amit a paraméterként adott szám mutat meg. 
-     * Ha a phase = 1, akkor a gombafonal kinőtt, ha 2 akkor a gombafonal elkezdett haldokolni, és ha 0 akkor még csak most kezdett el kinőni.
+     * Ha a phase = 1, akkor a gombafonal kinőtt, és ha 2 akkor a gombafonal elkezdett haldokolni.
      * @param phase a fázist mutató szám
      */
     public void phaseChange(int phase){
         switch (phase) {
-            case 0:
-                
-                break;
             case 1:
-                dying = false;
+                darkenFactor = 0.0;
                 break;
             case 2:
-                dying = true;
+                darkenFactor = 0.3;
                 break;
             default:
                 break;
         }
     }
+
 
     /**
      * Kontrolpont előállítása két pont között.
@@ -156,6 +152,7 @@ public class GLine extends JPanel implements LineListener
         return new Point(ctrlX, ctrlY);
     }
 
+
     /**
      * Szín sötétítése
      * @param color a sötétítendő szín
@@ -170,14 +167,23 @@ public class GLine extends JPanel implements LineListener
         return new Color(r, g, b);
     }
 
-    //TODO: Új függvény
+
+    /**
+     * Segédfüggvény görbe beállításához
+     */
     public void stepCurve() {
         curveHeight += 20;
     }
 
+
+    /**
+     * Kontrolpont előállítása a gombafonalhoz
+     * @return a kontrolpont
+     */
     public Point getMiddlePoint() {
         return generateControlPoint(startPoint, endPoint, curveHeight);
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -192,7 +198,7 @@ public class GLine extends JPanel implements LineListener
 
         // Sötétített vonal
         g2d.setStroke(new BasicStroke(6));
-        g2d.setColor(darken(color, 0.7-(dying ? 0.3:0.0)));
+        g2d.setColor(darken(color, 0.7 - darkenFactor));
 
         QuadCurve2D q = new QuadCurve2D.Float();
         q.setCurve(startPoint, controlPoint, endPoint);
@@ -200,11 +206,10 @@ public class GLine extends JPanel implements LineListener
 
         // Világosabb vonal
         g2d.setStroke(new BasicStroke(2));
-        g2d.setColor(darken(color, 1.0-(dying ? 0.3:0.0)));
+        g2d.setColor(darken(color, 1.0 - darkenFactor));
 
         q = new QuadCurve2D.Float();
         q.setCurve(startPoint, controlPoint, endPoint);
         g2d.draw(q);
-
     }
 }

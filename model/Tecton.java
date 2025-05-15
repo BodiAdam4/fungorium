@@ -17,7 +17,9 @@ import listeners.TectonListener;
  * viszont csak egy gombatest nőhet rajta.
 */
 public class Tecton {
-    //Privat attribútumok
+
+    /* - Privát attribútumok */
+
     /**
      * A Tecton osztály tartalmazza a tektonon lévő 
      * Mushroom példányt. 
@@ -29,30 +31,31 @@ public class Tecton {
     private Mushroom myMushroom;
 
     /**
+     * A SporeContainerben tárolja a rá dobott Spore példányokat.
+     * Ha egy rovar a tektonra jut, akkor képes ezáltal megnézni
+     * az ott található spórákat, ami a spóraevéshez létfontosságú.
+     */
+    private SporeContainer sporeContainer;
+    private List<Tecton> neighbors = new ArrayList<>();     //A tektononnal szomszédos tektonok listája.
+    private List<Insect> insects = new ArrayList<>();       //A tektonon tartózkodó rovarok listája.
+    private List<TectonListener> tectonListeners = new ArrayList<>();  //A tektonhoz tartozó eseménykezelők listája
+
+
+    /* - Publikus attribútumok */
+    
+    public ObjectChangeListener changeListener;
+    
+
+    /* - Védedtt attribútumok */
+    
+    /**
      * A Tecton osztály ismeri a hozzá csatlakoztatott gombafonalakat,
      * és a gombafonalak is ismerik a hozzájuk kapcsolt
      * kezdő- és végpontjukként szolgáló tektonokat.
      * Fontos a fonalak bejárásához.
      */
     protected List<Line> connections = new ArrayList<>();
-
-
-    /**
-     * A SporeContainerben tárolja a rá dobott Spore példányokat.
-     * Ha egy rovar a tektonra jut, akkor képes ezáltal megnézni
-     * az ott található spórákat, ami a spóraevéshez létfontosságú.
-     */
-    private SporeContainer sporeContainer;
-
-    private List<Tecton> neighbors = new ArrayList<>();     //A tektononnal szomszédos tektonok listája.
-
-    private List<Insect> insects = new ArrayList<>();       //A tektonon tartózkodó rovarok listája.
-
-    private List<TectonListener> tectonListeners = new ArrayList<>();  //A tektonhoz tartozó eseménykezelők listája
     protected List<JobListener> jobListeners = new ArrayList<>();
-    
-    public ObjectChangeListener changeListener;
-
     
     
     /**

@@ -10,7 +10,8 @@ import listeners.ObjectChangeListener.ObjectChangeEvent;
  */
 public class TectonOnlyLine extends Tecton{
 
-    //Konstruktor
+    /* - Konstruktok(ok) */
+    
     public TectonOnlyLine(){
         super();
     }

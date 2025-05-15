@@ -10,7 +10,8 @@ import listeners.ObjectChangeListener.ObjectChangeEvent;
  */
 public class TectonTime extends Tecton{
     
-    //Konstruktor
+    /* - Konstruktor(ok) */
+    
     public TectonTime(){
         super();
     }
