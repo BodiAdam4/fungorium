@@ -1,7 +1,9 @@
 package graphics;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -12,8 +14,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
+
 import model.Insect;
 import model.Line;
 import model.Spore;
@@ -239,70 +247,186 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         t.start();
     }
 
-    public JPanel infoPanel;
 
-    public void drawInfoPanel (GTecton gTecton, Point position) {
-        if(infoPanel != null) {
-            this.remove(infoPanel);
+    /**
+     * Infópanel kirajzolása a tekton felületén elhelyezett objektumok listázásához
+    */
+    public JPanel infoPanel;
+    public JScrollPane infoScrollPane;
+
+    public void drawInfoPanel(GTecton gTecton, Point position) {
+        if (infoScrollPane != null) {
+            this.remove(infoScrollPane);
         }
 
         infoPanel = new JPanel();
-        Point infoPos = new Point(gTecton.getX()+position.x, gTecton.getY()+position.y);
-        infoPanel.setLocation(infoPos);
-        infoPanel.setSize(150, 100);
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
         infoPanel.setOpaque(true);
         infoPanel.setBackground(new Color(100, 100, 100, 200));
+        infoPanel.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5)); // Set 5 px margin around the panel
 
+        // mushroom info
         if (gTecton.getMyTecton().getMyMushroom() != null) {
             int id = gTecton.getMyTecton().getMyMushroom().getMushroomId();
-            JLabel mushroomLabel = new JLabel("Mushroom: "+gController.getMushroomName(id));
-            mushroomLabel.setForeground(gController.getMushroomColor(id));
-            infoPanel.add(mushroomLabel);
+
+            JPanel mushroomInfoPanel = new JPanel(new BorderLayout());
+            mushroomInfoPanel.setOpaque(false);
+            infoPanel.add(mushroomInfoPanel);
+
+            JLabel mushroomSubLabel = new JLabel("Mushroom: ");
+            mushroomSubLabel.setForeground(Color.WHITE);
+            mushroomInfoPanel.add(mushroomSubLabel, BorderLayout.WEST);
+
+            JLabel mushroomPickerJLabel = new JLabel(gController.getMushroomName(id));
+            mushroomPickerJLabel.setForeground(gController.getMushroomColor(id));
+            mushroomInfoPanel.add(mushroomPickerJLabel, BorderLayout.CENTER);
         }
 
-        JLabel insectLabel = new JLabel("Insects");
-        infoPanel.add(insectLabel);
+        // insect info
+        JPanel insectInfoPanel = new JPanel(new BorderLayout());
+        insectInfoPanel.setBackground(null);
+        insectInfoPanel.setOpaque(false);
+        infoPanel.add(insectInfoPanel);
 
-        for (Insect insect : gTecton.getMyTecton().getInsects()) {
-            Color color = gController.getInsectColor(insect.getInsectId());
-            String effect = "";
+        JLabel insectSubLabel = new JLabel("Insects: ");
+        insectSubLabel.setForeground(Color.WHITE);
+        insectInfoPanel.add(insectSubLabel, BorderLayout.WEST);
 
-            if (!insect.getCanCut()) {
-                effect = "(Tired)";
-            }
-            else if (!insect.getCanMove()) {
-                effect = "(Freezed)";
-            }
-            else if (insect.getSpeed() == 1) {
-                effect = "(Slowed)";
-            }
-            else if (insect.getSpeed() == 3) {
-                effect = "(Fast)";
-            }
+        if (gTecton.getMyTecton().getInsects().isEmpty()) {
 
-            JLabel label = new JLabel(gController.getInsectName(insect.getInsectId())+effect);
-            label.setForeground(color);
-            infoPanel.add(label);
+            //JLabel, ha a tekton rovartól mentes
+            JLabel insectEmptyLabel = new JLabel("  •  None");
+            insectEmptyLabel.setForeground(Color.decode("#ff6e6e"));
+            insectInfoPanel.add(insectEmptyLabel, BorderLayout.SOUTH);
+
+        }else {
+            for (Insect insect : gTecton.getMyTecton().getInsects()) {
+                Color color = gController.getInsectColor(insect.getInsectId());
+                String effect = "";
+    
+                if (!insect.getCanCut()) effect = " (Tired)";
+                else if (!insect.getCanMove()) effect = " (Freezed)";
+                else if (insect.getSpeed() == 1) effect = " (Slowed)";
+                else if (insect.getSpeed() == 3) effect = " (Fast)";
+    
+                JLabel insectNamesLabel = new JLabel("  •  " + gController.getInsectName(insect.getInsectId()) + effect);
+                insectNamesLabel.setForeground(color);
+                insectInfoPanel.add(insectNamesLabel, BorderLayout.SOUTH);
+            }
         }
+        
 
+        // spore info
         HashMap<Integer, Integer> sporeCounts = new HashMap<>();
         for (Spore spore : gTecton.getMyTecton().getSporeContainer().getSpores()) {
-            int oldCount = sporeCounts.containsKey(spore.getSporeId()) ? sporeCounts.get(spore.getSporeId()) : 0;
-            oldCount++;
-
-            sporeCounts.put(spore.getSporeId(), oldCount);
-        }
-        JLabel sporeLabel = new JLabel("Spores");
-        infoPanel.add(sporeLabel);
-        for (int id : sporeCounts.keySet()) {
-            Color color = gController.getMushroomColor(id);
-            JLabel label = new JLabel(gController.getMushroomName(id)+": "+sporeCounts.get(id).toString());
-            label.setForeground(color);
-            infoPanel.add(label);
+            int id = spore.getSporeId();
+            sporeCounts.put(id, sporeCounts.getOrDefault(id, 0) + 1);
         }
 
-        this.add(infoPanel);
-        this.setComponentZOrder(infoPanel, 0);
+        JPanel sporesInfoPanel = new JPanel(new BorderLayout());
+        sporesInfoPanel.setBackground(null);
+        sporesInfoPanel.setOpaque(false);
+        infoPanel.add(sporesInfoPanel);
+
+        JLabel sporeLabel = new JLabel("Spores: ");
+        sporeLabel.setForeground(Color.WHITE);
+        sporesInfoPanel.add(sporeLabel, BorderLayout.WEST);
+
+
+        if (sporeCounts.isEmpty()) {
+
+            //JLabel, ha a tekton spórától mentes
+            JLabel sporeEmptyLabel = new JLabel("  •  None");
+            sporeEmptyLabel.setForeground(Color.decode("#ff6e6e"));
+            sporesInfoPanel.add(sporeEmptyLabel, BorderLayout.SOUTH);
+
+        } else {
+            for (int id : sporeCounts.keySet()) {
+                Color color = gController.getMushroomColor(id);
+                JLabel SporeNameLabel = new JLabel("  •  " +gController.getMushroomName(id) + ": " + sporeCounts.get(id));
+                SporeNameLabel.setForeground(color);
+                sporesInfoPanel.add(SporeNameLabel, BorderLayout.SOUTH);
+            }
+        }
+        
+
+        //ScrollPane létrehozása
+        //ScrollPane felülírt megjelenése
+        infoScrollPane = new JScrollPane(infoPanel) {
+            @Override
+            public JScrollBar createVerticalScrollBar() {
+            JScrollBar verticalScrollBar = super.createVerticalScrollBar();
+            verticalScrollBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+                @Override
+                protected void configureScrollBarColors() {
+                this.thumbColor = Color.DARK_GRAY;
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+                }
+
+                private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+                }
+            });
+            verticalScrollBar.setPreferredSize(new Dimension(5, Integer.MAX_VALUE));
+            return verticalScrollBar;
+            }
+
+            @Override
+            public JScrollBar createHorizontalScrollBar() {
+            JScrollBar horizontalScrollBar = super.createHorizontalScrollBar();
+            horizontalScrollBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
+                @Override
+                protected void configureScrollBarColors() {
+                this.thumbColor = Color.BLACK;
+                }
+
+                @Override
+                protected JButton createDecreaseButton(int orientation) {
+                return createZeroButton();
+                }
+
+                @Override
+                protected JButton createIncreaseButton(int orientation) {
+                return createZeroButton();
+                }
+
+                private JButton createZeroButton() {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(0, 0));
+                button.setMinimumSize(new Dimension(0, 0));
+                button.setMaximumSize(new Dimension(0, 0));
+                return button;
+                }
+            });
+            horizontalScrollBar.setPreferredSize(new Dimension(Integer.MAX_VALUE, 5));
+            return horizontalScrollBar;
+            }
+        };
+        infoScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        infoScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        infoScrollPane.setOpaque(false);
+        infoScrollPane.setBorder(null);
+        infoScrollPane.getViewport().setOpaque(false);
+
+        Point infoPos = new Point(gTecton.getX() + position.x, gTecton.getY() + position.y);
+        infoScrollPane.setLocation(infoPos);
+        infoScrollPane.setSize(150, 100);
+
+        this.add(infoScrollPane);
+        this.setComponentZOrder(infoScrollPane, 0);
         this.revalidate();
         this.repaint();
     }

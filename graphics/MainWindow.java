@@ -608,7 +608,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
             playerPanel.setOpaque(false);
 
             JLabel label = new JLabel(playerpoints + ": ");
-            label.setForeground(Color.WHITE);
+            label.setForeground(gController.getPlayerColor(playerpoints));
             label.setFont(label.getFont().deriveFont(Font.BOLD, 18));
 
             JLabel scoreLabel = new JLabel(score.toString());
