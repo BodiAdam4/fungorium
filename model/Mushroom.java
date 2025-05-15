@@ -230,6 +230,9 @@ public class Mushroom{
 
             if (this.sporeCount <= 2) {
                 this.level = 2;
+                for (MushroomListener listener : mushroomListeners) {
+                    listener.mushroomUpgraded();
+                }
             }
 
             if (this.sporeCount == 0) {
@@ -237,11 +240,6 @@ public class Mushroom{
             }
 
             System.out.println("Spore succesfully thrown to with value: " + spore.getValue());
-
-            //A listener értesítése a spóra dobásáról
-            for (MushroomListener listener : mushroomListeners) {
-                listener.sporeThrowed(spore);
-            }
 
             //Joblistener értesítése a spóra dobásáról
             for (JobListener listener : jobListeners) {

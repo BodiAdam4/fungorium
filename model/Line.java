@@ -3,10 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import listeners.JobListener;
 import listeners.LineListener;
-
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
@@ -181,14 +179,27 @@ public class Line
 
         neighbor = (ends[0] == to1 || ends[1] == to1) || (ends[0] == to2 || ends[1] == to2);
 
-        if(!neighbor)
+        if(!neighbor) {
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("The two tectons are not neighbors");
+            }
             return false;
+        }
+
+            
+        for (JobListener listener : jobListeners) {
+            listener.jobSuccessfull("Line started to grow!");
+        }
 
         Timer.addOneTimeSchedule(new Schedule() {
             @Override
             public void onTime() {
                 Line nl = new Line(to1, to2, mushroomId);
                 changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, nl);
+
+                for (JobListener listener : jobListeners) {
+                    listener.jobSuccessfull("Line successfully grown!");
+                }
             }
         }, 1);
         return true;

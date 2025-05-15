@@ -1,6 +1,5 @@
 package listeners;
 
-import model.Spore;
 import model.Line;
 
 
@@ -15,7 +14,7 @@ public interface MushroomListener {
 
 
     /* - Gombaspóra dobásánál lefutó metódus, mely paraméterként megkapja az eldobott gombaspóra referenciáját.*/
-    public void sporeThrowed(Spore spore);
+    public void mushroomUpgraded();
 
     
     /* - A gombatest elpusztulásakor lefutó metódus.*/

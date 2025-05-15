@@ -18,6 +18,7 @@ public class Image extends JPanel implements MouseListener {
     private BufferedImage baseImage;
     private BufferedImage image;
     private boolean selected = false;
+    private Color color;
 
     public Image(String imagePath){
         SetImage(imagePath);
@@ -37,6 +38,10 @@ public class Image extends JPanel implements MouseListener {
                 throw new IOException("Image file not found: " + imagePath);
             
             image = baseImage;
+
+            if (color != null) {
+                TintImage(color);
+            }
         } 
         catch (IOException e) {
             e.printStackTrace();
@@ -45,6 +50,7 @@ public class Image extends JPanel implements MouseListener {
         revalidate();
         repaint();
     }
+
 
     
     public void SetImage(BufferedImage img){
@@ -64,9 +70,11 @@ public class Image extends JPanel implements MouseListener {
     /**
      * Kép színezése
      * @param color A szín mellyel színeznénk
+     * @param threshold Mennyire színezze át a képet, minnél nagyobb annál több színt színez át
      * @return A színezett kép
      */
-    public void TintImage(Color color){
+    public void TintImage(Color color, double threshold) {
+        this.color = color;
         int width = baseImage.getWidth();
         int height = baseImage.getHeight();
         BufferedImage tintedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
@@ -86,7 +94,7 @@ public class Image extends JPanel implements MouseListener {
                     int targetGreen = color.getGreen();
                     int targetBlue = color.getBlue();
 
-                    double blendFactor = 0.5;
+                    double blendFactor = threshold;
 
                     int red = (int) (blendFactor * targetRed + (1 - blendFactor) * pixelRed);
                     int green = (int) (blendFactor * targetGreen + (1 - blendFactor) * pixelGreen);
@@ -102,6 +110,15 @@ public class Image extends JPanel implements MouseListener {
         }
 
         image = tintedImage;
+    }
+
+    /**
+     * Kép színezése
+     * @param color A szín mellyel színeznénk
+     * @return A színezett kép
+     */
+    public void TintImage(Color color){
+        TintImage(color, 0.5);
     }
 
     public static double whiteCloseness(int argb) {
