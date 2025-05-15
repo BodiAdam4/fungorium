@@ -107,6 +107,7 @@ public class GraphicController {
     }
 
     public void sendCommand(String command){
+        System.out.println("Incomming command: " + command);
         Tecton[] tectons = new Tecton[2];
         if(selected.size() == 0){
             tectons[0] = null;
@@ -121,7 +122,7 @@ public class GraphicController {
             tectons[1] = selected.get(1).getMyTecton();
         }
         String translatedCommand = Controller.translateCommand(command, tectons);
-        System.out.println("Command: " + translatedCommand);
+        System.out.println("Parsed command: " + translatedCommand);
         GraphicMain.cmdProcessor.ExecuteCommand(translatedCommand);
     }
 

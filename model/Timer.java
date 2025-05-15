@@ -1,8 +1,6 @@
 package model;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Timer {
     /* - Privát attribútumok*/
@@ -48,21 +46,21 @@ public class Timer {
      * az onTimeSchedules listában volt megtalálható, akkor eltávolítja ezt a listából.
     */
     public static void forwardTime() {
-        List<Schedule> toRemove = new ArrayList<>();
-        
+        HashMap<Schedule, Integer> updated = new HashMap<>();
+
         for (Schedule schedule : oneTimeSchedules.keySet()) {
             int time = oneTimeSchedules.get(schedule)-1;
             if (time == 0) {
                 schedule.onTime();
-                toRemove.add(schedule);
             } else {
-                oneTimeSchedules.put(schedule, time);
+                updated.put(schedule, time);
             }
         }
 
-        for (Schedule sch : toRemove) {
-            oneTimeSchedules.remove(sch);
-        }
+        oneTimeSchedules = updated;
+
+        
+        HashMap<Schedule, Integer[]> updatedRepeat = new HashMap<>();
 
         for (Schedule schedule : repeatSchedules.keySet()) {
             int time = repeatSchedules.get(schedule)[0]-1;
@@ -70,10 +68,12 @@ public class Timer {
 
             if (time == 0) {
                 schedule.onTime();
-                repeatSchedules.put(schedule, new Integer[]{defaultTime, defaultTime});
+                updatedRepeat.put(schedule, new Integer[]{defaultTime, defaultTime});
             } else {
-                repeatSchedules.put(schedule, new Integer[]{time, defaultTime});
+                updatedRepeat.put(schedule, new Integer[]{time, defaultTime});
             }
         }
+
+        repeatSchedules = updatedRepeat;
     }
 }
