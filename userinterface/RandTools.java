@@ -1,5 +1,8 @@
 package userinterface;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RandTools {
     private static int fixRandom;
     private static boolean active;
@@ -38,6 +41,31 @@ public class RandTools {
      */
     public static int random(int maxExcluded) {
         return random(0, maxExcluded);
+    }
+
+    public static List<Integer> randomPairs(int minIncluded, int maxExcluded, int count) {
+        List<Integer> res = new ArrayList<Integer>();
+
+        res.add(random(minIncluded, maxExcluded));
+        res.add(random(minIncluded, maxExcluded));
+        
+        for(int i = 1; i < count; i++) {
+            Integer i1 = random(minIncluded, maxExcluded);
+            Integer i2 = random(minIncluded, maxExcluded);
+            boolean isNew = true;
+            for(int k = 0; k < i; k++){
+                if(res.get(k * 2) == i1 && res.get((k * 2) + 1) == i2)
+                    isNew = false;
+            }
+            if(isNew) {
+                res.add(i1);
+                res.add(i2);
+            }
+            else
+                i--;
+        }
+
+        return res;
     }
 
     /**

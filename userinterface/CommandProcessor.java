@@ -1251,14 +1251,17 @@ public class CommandProcessor {
                     int mSize = mCount > 5 ? mCount : 5;
                     ExecuteCommand("/matrix-tecton "+mSize+" "+mSize+" -random");
 
-                    for (int i = 0; i<mCount; i++){
-                        String tectonId = "t"+i+"_"+1;
-                        ExecuteCommand("/create-mushroom "+tectonId+" -mid "+i+" -i m"+i);
+                    int bigger = Math.max(mCount, iCount);
+                    List<Integer> tNums = RandTools.randomPairs(0, mSize, bigger);
+
+                    for (int i = 0; i < mCount; i++) {
+                        String tectonId = "t" + tNums.get(i * 2) +"_" + tNums.get((i * 2) + 1);
+                        ExecuteCommand("/create-mushroom " + tectonId + " -mid " + i + " -i m" + i);
                     }
 
-                    for (int i = 0; i<iCount; i++){
-                        String tectonId = "t"+i+"_"+1;
-                        ExecuteCommand("/create-insect "+tectonId+" -iid "+i+" -i i"+i);
+                    for (int i = 0; i < iCount; i++) {
+                        String tectonId = "t" + tNums.get(i * 2) +"_" + tNums.get((i * 2) + 1);
+                        ExecuteCommand("/create-insect " + tectonId + " -iid " + i + " -i i" + i);
                     }
                 }
 
