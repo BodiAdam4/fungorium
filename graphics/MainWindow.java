@@ -514,14 +514,13 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         resultPanel.setVisible(true);
 
         // String data felszeletelése "$" karakter mentén
-        String[] sections = data.split("\\$");
+        String[] sections = data.split("$");
 
         //Mushroompickers eredmények feldolgozása
         if (sections.length > 0) {
             String[] mushroomPickers = sections[0].split(";");
             StringBuilder mushroomResultsBuilder = new StringBuilder();
-            for (int i = 0; i < mushroomPickers.length; i++) {
-            String[] parts = mushroomPickers[i].split(",");
+            for (int i = 0; i < mushroomPickers.length; i+=2) {
             if (parts.length == 2) {
                 mushroomResultsBuilder.append("# ").append(i + 1).append(".: ")
                 .append(parts[0]).append("__________________").append(parts[1]).append("\n");
@@ -535,7 +534,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
             String[] insectPickers = sections[1].split(";");
             StringBuilder insectResultsBuilder = new StringBuilder();
             for (int i = 0; i < insectPickers.length; i++) {
-            String[] parts = insectPickers[i].split(",");
+            String[] parts = insectPickers[i].split(";");
             if (parts.length == 2) {
                 insectResultsBuilder.append("# ").append(i + 1).append(".: ")
                 .append(parts[0]).append("__________________").append(parts[1]).append("\n");
