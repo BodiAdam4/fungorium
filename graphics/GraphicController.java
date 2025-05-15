@@ -4,6 +4,7 @@ import controller.Controller;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import listeners.SelectionListener;
 import model.Insect;
 import model.Line;
 import model.Mushroom;
@@ -25,6 +26,7 @@ public class GraphicController {
 
     private List<Color> playerColors; //A játékosokhoz tartozó színek listája. Kulcsként a játékos azonosítója, értékként pedig a hozzá tartozó szín van.
     private int mushroomPickerCount;
+    private List<SelectionListener> selectionListeners = new ArrayList<>();
 
     /* - Konstruktor(ok)*/
 
@@ -71,12 +73,22 @@ public class GraphicController {
         tecton.addTectonListener(gTecton);
     }
 
+    public void addSelectionListener(SelectionListener listener) {
+        selectionListeners.add(listener);
+    }
+
     public void addSelected(GTecton gtecton){
         if(selected.size() == 2){
             //Kijelölések eltűntetése
             RemoveSelection();
         }
         selected.add(gtecton);
+
+        // Kiválasztásfigyelők meghívása
+        for (SelectionListener listener : selectionListeners) {
+            listener.OnSelection(selected.size());
+        }
+
         //Kijelőlés hozzáadás
         gtecton.setSelected(true);
     }
@@ -86,6 +98,11 @@ public class GraphicController {
             tecton.setSelected(false);
         }
         selected.clear();
+
+        // Kiválasztásfigyelők meghívása
+        for (SelectionListener listener : selectionListeners) {
+            listener.OnSelection(selected.size());
+        }
     }
 
     public void sendCommand(String command){

@@ -1,7 +1,7 @@
 package graphics;
 
+import java.awt.Color;
 import listeners.TectonListener;
-import model.Mushroom;
 import model.Tecton;
 
 
@@ -16,6 +16,7 @@ public class GTecton extends Image implements TectonListener {
 
     /* - Privát attribútumok*/
     private GMushroom mushroom; //A tektonon lévő gombatestet megjelenítő osztály egy példánya.
+    private Image youngMushroom;
 
     private GSporeContainer sporeContainer; //A tektonon lévő spórákat megjelenítő osztály egy példánya.
 
@@ -56,6 +57,11 @@ public class GTecton extends Image implements TectonListener {
     * @param mushroom A gombatest grafikus példánya
     */
     public void addMushroom(GMushroom mushroom) {
+         if (youngMushroom != null) {
+            this.remove(youngMushroom);
+            youngMushroom = null;
+        }
+
         this.mushroom = mushroom;
         this.add(mushroom);
         mushroom.setBounds(0, 0, Map.CELL_SIZE, Map.CELL_SIZE);
@@ -74,8 +80,14 @@ public class GTecton extends Image implements TectonListener {
      * A tektonon való gombatest növesztésének következtében lefutó metódus. Paraméterként megkapja a kinövesztett gombatestet.
      */
     @Override
-    public void mushroomAdded(Mushroom mushroom) {
-        
+    public void mushroomGrowStarted(int id) {
+        youngMushroom = new Image("graphics\\images\\mushroomYoung.png");
+        youngMushroom.setBounds(0, 0, Map.CELL_SIZE, Map.CELL_SIZE);
+        Color mColor = map.getGraphicController().getMushroomColor(id);
+        youngMushroom.TintImage(mColor);
+        this.add(youngMushroom);
+        this.revalidate();
+        this.repaint();
     }
 
     /**
@@ -83,6 +95,7 @@ public class GTecton extends Image implements TectonListener {
      */ 
     @Override
     public void mushroomRemoved() {
+       
         mushroom.destroy();
         removeMushroom();
     }

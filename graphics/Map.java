@@ -480,17 +480,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        // Handle mouse click event
-        int col = e.getX() / CELL_SIZE;
-        int row = e.getY() / CELL_SIZE;
-        Point cell = new Point(col, row);
-
         gController.RemoveSelection();
-        //TODO: Csak teszt miatt van benne ki kell venni
-        //GraphicMain.cmdProcessor.ExecuteCommand("/create-tecton");
-
-
-        //TODO: Idáig csak teszt miatt van benne ki kell venni
     }
 
     @Override
