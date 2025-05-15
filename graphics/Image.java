@@ -114,6 +114,37 @@ public class Image extends JPanel implements MouseListener {
 
     /**
      * Kép színezése
+     * @param src Betöltött kép melyet színezni szertnénk
+     * @param color A szín mellyel színeznénk
+     * @return A színezett kép
+     */
+    public void ChangeColor(Color color){
+        int width = baseImage.getWidth();
+        int height = baseImage.getHeight();
+        BufferedImage tintedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int pixel = baseImage.getRGB(x, y);
+                int alpha = (pixel >> 24) & 0xff;
+
+                if (alpha != 0 && !new Color(pixel, true).equals(Color.BLACK)) {
+                    Color originalColor = new Color(pixel, true);
+                    int red = (originalColor.getRed() + color.getRed()) / 2;
+                    int green = (originalColor.getGreen() + color.getGreen()) / 2;
+                    int blue = (originalColor.getBlue() + color.getBlue()) / 2;
+                    int tintedPixel = (alpha << 24) | (red << 16) | (green << 8) | blue;
+                    tintedImage.setRGB(x, y, tintedPixel);
+                } else {
+                    tintedImage.setRGB(x, y, pixel);
+                }
+            }
+        }
+        image = tintedImage;
+    }
+
+    /**
+     * Kép színezése
      * @param color A szín mellyel színeznénk
      * @return A színezett kép
      */
