@@ -514,34 +514,27 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         resultPanel.setVisible(true);
 
         // String data felszeletelése "$" karakter mentén
-        String[] sections = data.split("$");
+        String[] sections = data.split(" ");
 
         //Mushroompickers eredmények feldolgozása
-        if (sections.length > 0) {
-            String[] mushroomPickers = sections[0].split(";");
-            StringBuilder mushroomResultsBuilder = new StringBuilder();
-            for (int i = 0; i < mushroomPickers.length; i+=2) {
-            if (parts.length == 2) {
-                mushroomResultsBuilder.append("# ").append(i + 1).append(".: ")
-                .append(parts[0]).append("__________________").append(parts[1]).append("\n");
-            }
-            }
-            mushroomResults.setText(mushroomResultsBuilder.toString());
+        String[] mushroomPickers = sections[0].split(";");
+        StringBuilder mushroomResultsBuilder = new StringBuilder();
+        int index = 1;
+        for (int i = 0; i < mushroomPickers.length; i+=2) {
+            mushroomResultsBuilder.append("# ").append((index++)).append(".: ")
+            .append(mushroomPickers[i]).append("__________________").append(mushroomPickers[i+1]).append("\n");
         }
+        mushroomResults.setText(mushroomResultsBuilder.toString());
 
         //Insectpickers eredmények feldolgozása
-        if (sections.length > 1) {
-            String[] insectPickers = sections[1].split(";");
-            StringBuilder insectResultsBuilder = new StringBuilder();
-            for (int i = 0; i < insectPickers.length; i++) {
-            String[] parts = insectPickers[i].split(";");
-            if (parts.length == 2) {
-                insectResultsBuilder.append("# ").append(i + 1).append(".: ")
-                .append(parts[0]).append("__________________").append(parts[1]).append("\n");
-            }
-            }
-            insectResults.setText(insectResultsBuilder.toString());
+        String[] insectPickers = sections[1].split(";");
+        StringBuilder insectResultsBuilder = new StringBuilder();
+        index = 1;
+        for (int i = 0; i < insectPickers.length; i+=2) {
+            insectResultsBuilder.append("# ").append((index++)).append(".: ")
+            .append(insectPickers[i]).append("__________________").append(insectPickers[i+1]).append("\n");
         }
+        insectResults.setText(insectResultsBuilder.toString());
 
     }
 

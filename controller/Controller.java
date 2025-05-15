@@ -279,7 +279,7 @@ public class Controller {
                     dataBuilder.append(";");
                 }
             }
-            dataBuilder.append("$");
+            dataBuilder.append(" ");
 
             for (int i = 0; i<insects.size(); i++) {
                 dataBuilder.append(insects.get(i).getDisplayName()+";"+insects.get(i).calculateScore());
