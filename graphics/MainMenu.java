@@ -6,28 +6,25 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.SwingConstants;
-import javax.swing.border.Border;
+import javax.swing.SwingUtilities;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.plaf.basic.BasicScrollBarUI;
+import java.awt.Dialog;
 
 
 /**
@@ -204,14 +201,67 @@ public class MainMenu extends JPanel {
                 System.out.println("Player color: " + playerPanel.getColor() + " player name: " + playerPanel.getName() + " is insectPicker? " + playerPanel.isInsect());
             });
             System.out.println("Enter the game button clicked!");
-            startGame(); // Add mouse click event
-            mainWindow.removeMenu();
+
+            //Ellenőrizzük, hogy van-e legalább egy gombász és egy rovarász
+            boolean hasInsectPlayer = playerPanels.stream().anyMatch(PlayerPanel::isInsect);
+            boolean hasMushroomPlayer = playerPanels.stream().anyMatch(playerPanel -> !playerPanel.isInsect());
+            //Amennyiben nincs legalább egy gombász és egy rovarász, akkor hibaüzenetet adunk
+            if (!hasInsectPlayer || !hasMushroomPlayer) {
+                //Egyedi dialógusablak hívása
+                showCustomErrorDialog(this);
+                return;
+            }
+            startGame();                    //Különben: játék indítása
+            mainWindow.removeMenu();        //A menü eltávolítása a főablakból
         });
         panel.add(enterButton, BorderLayout.EAST);
         
         return panel;
     }
     
+
+    /**
+     * Segédfüggvény egy egyedi dialógusablak előállításához, melyet akkor veszünk igénybe, ha a játékosok száma
+     * nem felel meg az elvárt paramétereknek. Ekkor ezt a módosított figyelmeztetőablakot küldjük el.
+     * 
+     * A JDialog dialog egyedi fejlécű ablakot hoz létre üres címsorral, setIconImage(null), pedig kiveszi a dialógusablak ikonját.
+     * @param parent - a dialógusablak szülője
+     */
+    public void showCustomErrorDialog(Component parent) {
+        //Cím és üzenet
+        JLabel titleLabel = new JLabel("Warning!");
+        titleLabel.setForeground(Color.RED);
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JLabel messageLabel = new JLabel("There must be at least one selected player from each caste!");
+        messageLabel.setForeground(Color.WHITE);
+        messageLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        messageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(60, 63, 65));
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setBorder(BorderFactory.createEmptyBorder(15, 20, 15, 20));
+
+        panel.add(titleLabel);
+        panel.add(Box.createVerticalStrut(10));
+        panel.add(messageLabel);
+
+        //Egyéni JDialog, ikon nélkül
+        JDialog dialog = new JDialog(SwingUtilities.getWindowAncestor(parent), " ", Dialog.ModalityType.APPLICATION_MODAL);
+        dialog.setUndecorated(false);           //Ne legyen teljesen díszítés nélküli, ha csak ikont akarjuk eltüntetni
+        dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        dialog.getContentPane().add(panel);
+        dialog.pack();
+        dialog.setLocationRelativeTo(parent);
+
+        //Ikon eltávolítása
+        dialog.setIconImage(null);
+
+        dialog.setVisible(true);
+    }
+
 
     /**
      * Elkészíti a beállítások panelt, ahol a játékosok beállíthatják a játék körök számát és a játékosok számát.
@@ -466,7 +516,9 @@ public class MainMenu extends JPanel {
     public void startGame() {
 
         
-
+        mainWindow.showMap();
+        mainWindow.revalidate();
+        this.repaint();
         
 
         List<String> insectPickers = new ArrayList<>();
@@ -488,38 +540,19 @@ public class MainMenu extends JPanel {
             }
         }
 
-        //
-
-        if(Math.abs(mushroomPickers.size() - insectPickers.size()) <= 1) {
-
-
-            mainWindow.showMap();
-            mainWindow.revalidate();
-            this.repaint();
             
-            GraphicMain.gController.setPlayers(colors, mushroomPickers.size());
+        GraphicMain.gController.setPlayers(colors, mushroomPickers.size());
 
-            String insectNames = String.join(" ", insectPickers);
-            String mushroomNames = String.join(" ", mushroomPickers);
+        String insectNames = String.join(" ", insectPickers);
+        String mushroomNames = String.join(" ", mushroomPickers);
 
-            String command = "/start " + mushroomNames + " " + insectNames + " -m " + mushroomPickers.size() + " -i " + insectPickers.size() + " -k " + turnSpinner.getValue();
-            System.out.println(command);
-            GraphicMain.cmdProcessor.ExecuteCommand(command);
-            //a start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
-            mainWindow.removeMenu();
-            this.revalidate();
-            this.repaint();
-
-        }else {
-            
-            System.out.println("legyen mindkét kasztból játékos, különben nem indul el a játék!");
-            JOptionPane.showMessageDialog(mainWindow, "There should be at least one player in each class!", "ERROR", JOptionPane.ERROR_MESSAGE);
-            mainWindow.showMenu();
-            mainWindow.revalidate();
-            mainWindow.repaint();
-            this.revalidate();
-            this.repaint();
-        }
+        String command = "/start " + mushroomNames + " " + insectNames + " -m " + mushroomPickers.size() + " -i " + insectPickers.size() + " -k " + turnSpinner.getValue();
+        System.out.println(command);
+        GraphicMain.cmdProcessor.ExecuteCommand(command);
+        //a start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
+        mainWindow.removeMenu();
+        this.revalidate();
+        this.repaint();
 
         
     }

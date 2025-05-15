@@ -638,7 +638,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
 
             playerPanel.add(label);
             playerPanel.add(scoreLabel);
-            scrollablePanel.add(playerPanel);
+            scrollablePanel.add(playerPanel, BorderLayout.CENTER);
 
             // Elválasztó
             if (i < playerCount - 1) {
