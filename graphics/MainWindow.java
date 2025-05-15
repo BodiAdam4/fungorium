@@ -204,7 +204,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         resultPanel.setBackground(null); //Az eredményhirdetés panel háttérszínének beállítása
         resultPanel.setOpaque(false);
         resultPanel.setLayout(new BoxLayout(resultPanel, BoxLayout.Y_AXIS)); //Az eredményhirdetés panel elrendezése
-        resultPanel.setBounds(0, 0, 700, 500); //Az eredményhirdetés panel méretének beállítása
+        resultPanel.setBounds((this.getWidth()/2)-(700/2), (this.getHeight()/2)-(500/2), 700, 500); //Az eredményhirdetés panel méretének beállítása
         //TODO: itt lehet beállítnai a láthatóságát, hogy kezdetben ne legyen látható
         resultPanel.setVisible(false); // Kezdetben látható
         layeredPane.add(resultPanel, JLayeredPane.PALETTE_LAYER); //Az eredményhirdetés panel hozzáadása a rétegelt panelhez
