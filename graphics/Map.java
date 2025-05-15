@@ -3,7 +3,6 @@ package graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -14,14 +13,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
-
 import model.Insect;
 import model.Line;
 import model.Spore;
@@ -251,7 +248,6 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     /**
      * Infópanel kirajzolása a tekton felületén elhelyezett objektumok listázásához
     */
-    public JPanel infoPanel;
     public JScrollPane infoScrollPane;
 
     public void drawInfoPanel(GTecton gTecton, Point position) {
@@ -259,7 +255,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             this.remove(infoScrollPane);
         }
 
-        infoPanel = new JPanel();
+        JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.PAGE_AXIS));
         infoPanel.setOpaque(true);
         infoPanel.setBackground(new Color(100, 100, 100, 200));
@@ -639,9 +635,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     public void mouseClicked(MouseEvent e) {
         gController.RemoveSelection();
 
-        if (infoPanel != null) {
-            this.remove(infoPanel);
-            infoPanel = null;
+        if (infoScrollPane != null) {
+            this.remove(infoScrollPane);
+            infoScrollPane = null;
         }
 
         this.revalidate();
