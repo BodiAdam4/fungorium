@@ -1,6 +1,5 @@
 package listeners;
 
-import model.Mushroom;
 import model.Tecton;
 
 /**
@@ -13,7 +12,7 @@ public interface TectonListener {
      *  A tektonon való gombatest növesztésének következtében lefutó metódus. Paraméterként megkapja a kinövesztett gombatestet.
      * @param mushroom a kinövesztett gombatestet adja meg
      */
-    public void mushroomAdded(Mushroom mushroom);
+    public void mushroomGrowStarted(int id);
 
     /**
      * A tektonon lévő gombatest megszűnésének következtében lefutó metódus.

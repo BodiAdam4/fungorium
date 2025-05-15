@@ -230,9 +230,9 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
         controlPanel = new ControlPanel(gController); //A vezérlő panel inicializálása
         controlPanel.setPreferredSize(new Dimension(this.getWidth()/5, this.getHeight())); //A vezérlő panel méretének beállítása
         controlPanel.setMaximumSize(new Dimension(this.getWidth()/5, this.getHeight())); //A vezérlő panel méretének beállítása
-        GraphicMain.controller.addControlListener(controlPanel);
         mainContentPanel.add(controlPanel, BorderLayout.EAST);
-
+        GraphicMain.controller.addControlListener(controlPanel);
+        gController.addSelectionListener(controlPanel);
 
         //###############################################################################
 

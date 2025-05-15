@@ -12,19 +12,22 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import listeners.ControlListener;
+import listeners.SelectionListener;
 
-public class ControlPanel extends JPanel implements ControlListener {
+public class ControlPanel extends JPanel implements ControlListener, SelectionListener {
     
     private final GraphicController gController;
     private JPanel insectPanel;
     private JPanel mushroomPanel;
-    private JPanel containerPanel;
 
     private JLabel playerTextMushroom;
     private JLabel roundTextMushroom;
 
     private JLabel playerTextInsect;
     private JLabel roundTextInsect;
+
+    //A gombok aktiválásához szükséges hashmap
+    private HashMap<JButton, Integer> actionButtons = new HashMap<>();
     
     public ControlPanel(GraphicController gController) {
         this.gController = gController;
@@ -73,16 +76,19 @@ public class ControlPanel extends JPanel implements ControlListener {
             button.setMaximumSize(new Dimension(150, 30));
             button.setBackground(Color.DARK_GRAY);
             button.setForeground(Color.WHITE);  // Szöveg színe fehér
-             button.setBorder(new LineBorder(Color.WHITE, 3)); // 3px vastag keret
+            button.setBorder(new LineBorder(Color.WHITE, 3)); // 3px vastag keret
             button.setFocusPainted(false);  // Ne legyen fókusz keret
             switch (action) {
                 case "Move insect":
+                    actionButtons.put(button, 2);
                     button.addActionListener(e -> gController.sendCommand("/move"));
                     break;
                 case "Cut line":
+                    actionButtons.put(button, 2);
                     button.addActionListener(e -> gController.sendCommand("/cut-line"));
                     break;
                 case "Eat spore":
+                    actionButtons.put(button, 1);
                     button.addActionListener(e -> gController.sendCommand("/eat-spore"));
                     break;
                 default:
@@ -149,15 +155,19 @@ public class ControlPanel extends JPanel implements ControlListener {
             button.setFocusPainted(false);  // Ne legyen fókusz keret
             switch (action) {
                 case "Grow mushroom":
+                    actionButtons.put(button, 1);
                     button.addActionListener(e -> gController.sendCommand("/build-mushroom"));
                     break;
                 case "Throw spore":
+                    actionButtons.put(button, 2);
                     button.addActionListener(e -> gController.sendCommand("/throw-spore"));
                     break;
                 case "Build line":
+                    actionButtons.put(button, 2);
                     button.addActionListener(e -> gController.sendCommand("/grow-line"));
                     break;
                 case "Eat insect":
+                    actionButtons.put(button, 1);
                     button.addActionListener(e -> gController.sendCommand("/eat-insect"));
                 default:
                     break;
@@ -220,5 +230,12 @@ public class ControlPanel extends JPanel implements ControlListener {
     
     public JPanel getMushroomPanel() {
         return mushroomPanel;
+    }
+
+    @Override
+    public void OnSelection(int selectedCount) {
+        for (JButton button : actionButtons.keySet()) {
+            button.setEnabled(actionButtons.get(button) == selectedCount);
+        }
     }
 }

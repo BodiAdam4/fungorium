@@ -2,7 +2,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import listeners.JobListener;
-
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 import listeners.TectonListener;
@@ -168,14 +167,15 @@ public class Tecton {
         boolean sporeCountOK = sporeContainer.getSporeCount(id) >= 3;
         if (sporeCountOK) {
             Tecton t = this;
+            for (TectonListener tl : tectonListeners) {
+                tl.mushroomGrowStarted(id);
+            }
             Timer.addOneTimeSchedule(new Schedule() {
                 @Override
                 public void onTime() {
                     myMushroom = new Mushroom(id, t);
                     changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_ADDED, myMushroom);
-                    for (TectonListener tl : tectonListeners) {
-                        tl.mushroomAdded(myMushroom);
-                    }
+                    
                     System.out.println("Mushroom successfully grown");
                 }
             }, 2);
