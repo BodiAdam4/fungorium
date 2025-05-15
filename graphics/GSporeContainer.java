@@ -10,20 +10,23 @@ import listeners.SporeContainerListener;
 public class GSporeContainer extends Image implements SporeContainerListener {
     
     /* - Privát attribútumok*/
-    JLabel sporecountLabel; // A spórák számát megjelenítő JLabel
+    private JLabel sporecountLabel; // A spórák számát megjelenítő JLabel
 
     /* - Konstruktor(ok)*/
     public GSporeContainer() {
         super("graphics/images/Spores.png"); // A SporeContainer képe
+        this.setLayout(null);
 
-        //JLAbel a spórák számának megjelenítésére
+        //JLabel a spórák számának megjelenítésére
         sporecountLabel = new JLabel("0"); // A spórák számát megjelenítő JLabel
         //TODO: a spóra darabszámát lehet feljebb is helyezni, hogy ne takarja el a gomba
-        sporecountLabel.setBounds(0, -5, 50, 50); // A JLabel pozíciója és mérete
+        sporecountLabel.setBounds(this.getX()+70, this.getY()-10, 50, 50); // A JLabel pozíciója és mérete
         sporecountLabel.setForeground(java.awt.Color.RED); // A JLabel szövegének színe
         sporecountLabel.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20)); // A JLabel betűtípusa és mérete
         sporecountLabel.setVisible(true); // A JLabel láthatósága
         this.add(sporecountLabel); // A JLabel hozzáadása a GSporeContainerhez
+        this.revalidate();
+        this.repaint();
     }
 
     /* - Getter/Setter metódusok*/
