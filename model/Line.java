@@ -243,6 +243,10 @@ public class Line
 
         for(LineListener ll : lineListeners)
             ll.lineDestroyed();
+
+        for (JobListener listener : jobListeners) {
+            listener.jobSuccessfull("Line destroyed");
+        }
     }
 
 

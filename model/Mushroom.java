@@ -79,6 +79,9 @@ public class Mushroom{
                 connected = found.get().checkConnections(new ArrayList<>(), null);
             }
             System.out.println("Connected: " + connected);
+            for (JobListener listener : jobListeners) {
+                listener.jobSuccessfull("Connected: " + connected);
+            }
             found.get().notifyNeighbors(connected, new ArrayList<>(), null);
         }
     }
