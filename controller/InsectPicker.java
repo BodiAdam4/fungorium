@@ -121,9 +121,11 @@ public class InsectPicker extends Player {
             insectActions.get(insect)[1] = true;
             score += insect.eatSpores(1);
         }
-        System.out.println("Insect is not yours!");
-        for (JobListener listener : jobListeners) {
-            listener.jobFailed("Insect is not yours!");
+        else {
+            System.out.println("Insect is not yours!");
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Insect is not yours!");
+            }
         }
         return spores - insect.getTecton().getSporeContainer().getSporeCount() == 1;
     }

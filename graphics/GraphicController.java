@@ -139,6 +139,10 @@ public class GraphicController {
         return playerColors.get(index+mushroomPickerCount);
     }
 
+    public Color getPlayerColor(String name) {
+        return playerColors.get(playerNames.indexOf(name));
+    }
+
     public String getMushroomName(int index) {
         return playerNames.get(index);
     }

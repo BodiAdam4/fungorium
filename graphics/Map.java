@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import model.Insect;
 import model.Line;
 import model.Spore;
 import model.Tecton;
@@ -257,6 +258,31 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             JLabel mushroomLabel = new JLabel("Mushroom: "+gController.getMushroomName(id));
             mushroomLabel.setForeground(gController.getMushroomColor(id));
             infoPanel.add(mushroomLabel);
+        }
+
+        JLabel insectLabel = new JLabel("Insects");
+        infoPanel.add(insectLabel);
+
+        for (Insect insect : gTecton.getMyTecton().getInsects()) {
+            Color color = gController.getInsectColor(insect.getInsectId());
+            String effect = "";
+
+            if (!insect.getCanCut()) {
+                effect = "(Tired)";
+            }
+            else if (!insect.getCanMove()) {
+                effect = "(Freezed)";
+            }
+            else if (insect.getSpeed() == 1) {
+                effect = "(Slowed)";
+            }
+            else if (insect.getSpeed() == 3) {
+                effect = "(Fast)";
+            }
+
+            JLabel label = new JLabel(gController.getInsectName(insect.getInsectId())+effect);
+            label.setForeground(color);
+            infoPanel.add(label);
         }
 
         HashMap<Integer, Integer> sporeCounts = new HashMap<>();

@@ -23,7 +23,6 @@ import javax.swing.JSeparator;
 import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-
 import listeners.ControlListener;
 import listeners.JobListener;
 
@@ -555,27 +554,31 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
         notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
         revalidate();
         repaint();
-
+        startNotificationHide();
+    }
+    
+    private  Thread closeThread;
+    public void startNotificationHide() {
         
+        if (closeThread != null) {
+            closeThread.interrupt();
+        }
+
         //Értesítési panel eltűntetésének időzítése
-        Thread closeThread = new Thread(new Runnable() {
+        closeThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Thread.sleep(2000);
+                    notificJPanel.setVisible(false);
                 } catch (InterruptedException e) {
-
+                    System.out.println("Notification timer interrupted");
                 }
-                notificJPanel.setVisible(false);
             }
             
         });
-
         closeThread.start();
-        notificJPanel.revalidate();
-        notificJPanel.repaint(); //A notification panel újrarajzolása
     }
-
 
     /* - Sikertelen műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.*/
     public void jobFailed(String msg) {
@@ -585,22 +588,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
         notificJPanel.setVisible(true); //A notification panel láthatóvá tétele
         revalidate();
         repaint();
-
-        //Értesítési panel eltűntetésének időzítése
-        Thread closeThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-
-                }
-                notificJPanel.setVisible(false);
-            }
-            
-        });
-
-        closeThread.start();
+        startNotificationHide();
     }
 
 
