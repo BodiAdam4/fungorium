@@ -49,7 +49,7 @@ public class Tecton {
     private List<Insect> insects = new ArrayList<>();       //A tektonon tartózkodó rovarok listája.
 
     private List<TectonListener> tectonListeners = new ArrayList<>();  //A tektonhoz tartozó eseménykezelők listája
-    private List<JobListener> jobListeners = new ArrayList<>();
+    protected List<JobListener> jobListeners = new ArrayList<>();
     
     public ObjectChangeListener changeListener;
 
@@ -131,6 +131,9 @@ public class Tecton {
     public void removeMushroom(){
         if (myMushroom != null) {
             myMushroom = null;
+            for (JobListener listener : jobListeners) {
+                listener.jobSuccessfull("Mushroom removed");
+            }
             System.out.println("Mushroom removed");
             for (TectonListener tl : tectonListeners) {
                 tl.mushroomRemoved();
@@ -229,6 +232,9 @@ public class Tecton {
         int size = connections.size();
         for (int i = 0; i < size; i++) {
             connections.get(0).Destroy();
+        }
+        for (JobListener listener : jobListeners) {
+            listener.jobSuccessfull("A tecton broke");
         }
     }
 

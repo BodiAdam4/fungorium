@@ -196,7 +196,6 @@ public class Line
             public void onTime() {
                 Line nl = new Line(to1, to2, mushroomId);
                 changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, nl);
-
                 for (JobListener listener : jobListeners) {
                     listener.jobSuccessfull("Line successfully grown!");
                 }
@@ -215,7 +214,10 @@ public class Line
         this.ends[0].getSporeContainer().addSpores(newSpores);
         this.ends[0].addMushroom(this.mushroomId);
         insect.destroy();
-        System.out.println("Rovar elfogyasztva és gombatest nőtt!");
+        System.out.println("Insect eaten and Mushroom grown");
+        for (JobListener listener : jobListeners) {
+            listener.jobSuccessfull("Insect eaten and Mushroom grown");
+        }
         return true;
     }
 

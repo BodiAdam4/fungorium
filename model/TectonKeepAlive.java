@@ -1,6 +1,8 @@
 package model;
 
 import java.util.List;
+
+import listeners.JobListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
@@ -49,6 +51,9 @@ public class TectonKeepAlive extends Tecton {
         int size = connections.size();
         for (int i = 0; i < size; i++) {
             connections.get(0).Destroy();
+        }
+        for (JobListener listener : jobListeners) {
+            listener.jobSuccessfull("A tecton broke");
         }
     }
 
