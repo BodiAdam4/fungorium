@@ -205,12 +205,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
         gtecton.addMouseListener(new MouseAdapter() {
             public void mouseEntered(MouseEvent e) {
-                gtecton.TintImage(Color.RED);
+                gtecton.ChangeColor(Color.RED);
                 gtecton.repaint();
 
                 for(GTecton t : tectons) {
                     if (t.getMyTecton().getNeighbors().contains(gtecton.getMyTecton())) {
-                        t.TintImage(Color.white);
+                        t.ChangeColor(Color.white);
                         t.repaint();
                     }
                 }

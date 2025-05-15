@@ -72,8 +72,8 @@ public class GTecton extends Image implements TectonListener {
      * Grafikus gombatest eltüntetése a tektonról.
      */
     public void removeMushroom() {
-        this.mushroom = null;
         this.remove(mushroom);
+        this.mushroom = null;
     }
     
     /**
