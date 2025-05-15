@@ -5,6 +5,7 @@ import java.util.List;
 import listeners.ControlListener;
 import listeners.JobListener;
 import listeners.ObjectChangeListener;
+import listeners.ResultListener;
 import model.Insect;
 import model.Line;
 import model.Mushroom;
@@ -28,6 +29,7 @@ public class Controller {
     private List<ObjectChangeListener> objectListeners = new ArrayList<>();
     private List<JobListener> jobListeners = new ArrayList<>();
     private List<ControlListener> controlListeners = new ArrayList<>();
+    private List<ResultListener> resultListeners = new ArrayList<>();
 
     /* - Publikus attribútumok*/
 
@@ -148,6 +150,10 @@ public class Controller {
         return controlListeners;
     }
 
+    public List<ResultListener> gResultListeners() {
+        return resultListeners;
+    }
+
     /* - Propertyk*/
     public boolean isGameRunning() {
         return isGameRunning;
@@ -253,6 +259,29 @@ public class Controller {
     public void endGame() {
         System.out.println("Game ended!");
         System.out.println(playerHandler.getWinner());
+
+        for (ResultListener resultListener : resultListeners) {
+
+            List<Player> playerResults = playerHandler.getAllPlayer();
+
+            // Sort players by points in descending order
+            playerResults.sort((p1, p2) -> Integer.compare(p2.getPoints(), p1.getPoints()));
+
+            // Concatenate the data in the required format
+            StringBuilder dataBuilder = new StringBuilder();
+            for (Player player : playerResults) {
+            dataBuilder.append(player.getRole()).append("_").append(player.getDisplayName())
+                   .append(";").append(player.getPoints()).append("$");
+            }
+
+            // Remove the trailing "$" if it exists
+            if (dataBuilder.length() > 0) {
+            dataBuilder.setLength(dataBuilder.length() - 1);
+            }
+
+            String data = dataBuilder.toString();
+            resultListener.showResults(data);
+        }
     }
 
     public static String getLineId(Line line) {
