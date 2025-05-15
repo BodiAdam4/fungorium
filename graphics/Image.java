@@ -18,6 +18,7 @@ public class Image extends JPanel implements MouseListener {
     private BufferedImage baseImage;
     private BufferedImage image;
     private boolean selected = false;
+    private Color color;
 
     public Image(String imagePath){
         SetImage(imagePath);
@@ -37,6 +38,10 @@ public class Image extends JPanel implements MouseListener {
                 throw new IOException("Image file not found: " + imagePath);
             
             image = baseImage;
+
+            if (color != null) {
+                TintImage(color);
+            }
         } 
         catch (IOException e) {
             e.printStackTrace();
@@ -67,6 +72,7 @@ public class Image extends JPanel implements MouseListener {
      * @return A színezett kép
      */
     public void TintImage(Color color){
+        this.color = color;
         int width = baseImage.getWidth();
         int height = baseImage.getHeight();
         BufferedImage tintedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);

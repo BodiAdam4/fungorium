@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Timer {
     /* - Privát attribútumok*/
@@ -46,14 +48,20 @@ public class Timer {
      * az onTimeSchedules listában volt megtalálható, akkor eltávolítja ezt a listából.
     */
     public static void forwardTime() {
+        List<Schedule> toRemove = new ArrayList<>();
+        
         for (Schedule schedule : oneTimeSchedules.keySet()) {
             int time = oneTimeSchedules.get(schedule)-1;
             if (time == 0) {
                 schedule.onTime();
-                oneTimeSchedules.remove(schedule);
+                toRemove.add(schedule);
             } else {
                 oneTimeSchedules.put(schedule, time);
             }
+        }
+
+        for (Schedule sch : toRemove) {
+            oneTimeSchedules.remove(sch);
         }
 
         for (Schedule schedule : repeatSchedules.keySet()) {

@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import listeners.MushroomListener;
 import model.Line;
 import model.Mushroom;
-import model.Spore;
 
 
 /**
@@ -56,8 +55,10 @@ public class GMushroom extends Image implements MushroomListener{
 
 
     /* - Gombaspóra dobásánál lefutó metódus, mely paraméterként megkapja az eldobott gombaspóra referenciáját.*/
-    public void sporeThrowed(Spore spore) {
-        //TODO: implementálni kell a gombaspóra dobását a grafikus felületen.
+    public void mushroomUpgraded() {
+        this.SetImage("graphics\\images\\mushroom_leaves.png");
+        this.revalidate();
+        this.repaint();
     }
 
 

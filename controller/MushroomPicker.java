@@ -85,7 +85,7 @@ public class MushroomPicker extends Player {
             return false;
         }
 
-        if(from.hasBody(getPlayerId())) {
+        if(from.hasBody(getPlayerId()) && from.getMyMushroom() != null) {
             from.getMyMushroom().growLine(to);
             actions[0] = true;
             return true;
