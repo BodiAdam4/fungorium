@@ -1,4 +1,5 @@
 package controller;
+import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -150,8 +151,8 @@ public class Controller {
         return controlListeners;
     }
 
-    public List<ResultListener> gResultListeners() {
-        return resultListeners;
+    public void addResultListeners(ResultListener listener) {
+        resultListeners.add(listener);
     }
 
     /* - Propertyk*/
@@ -262,26 +263,37 @@ public class Controller {
 
         for (ResultListener resultListener : resultListeners) {
 
-            List<Player> playerResults = playerHandler.getAllPlayer();
+            List<InsectPicker> insects = playerHandler.getInsectPickers();
+            List<MushroomPicker> mushrooms = playerHandler.getMushroomPickers();
 
             // Sort players by points in descending order
-            playerResults.sort((p1, p2) -> Integer.compare(p2.getPoints(), p1.getPoints()));
+            insects.sort((p1, p2) -> Integer.compare(p2.calculateScore(), p1.calculateScore()));
+            mushrooms.sort((p1, p2) -> Integer.compare(p2.calculateScore(), p1.calculateScore()));
 
             // Concatenate the data in the required format
             StringBuilder dataBuilder = new StringBuilder();
-            for (Player player : playerResults) {
-            dataBuilder.append(player.getRole()).append("_").append(player.getDisplayName())
-                   .append(";").append(player.getPoints()).append("$");
-            }
+            for (int i = 0; i<mushrooms.size(); i++) {
+                dataBuilder.append(mushrooms.get(i).getDisplayName()+";"+mushrooms.get(i).calculateScore());
 
-            // Remove the trailing "$" if it exists
-            if (dataBuilder.length() > 0) {
-            dataBuilder.setLength(dataBuilder.length() - 1);
+                if(i != mushrooms.size()-1) {
+                    dataBuilder.append(";");
+                }
+            }
+            dataBuilder.append("$");
+
+            for (int i = 0; i<insects.size(); i++) {
+                dataBuilder.append(insects.get(i).getDisplayName()+";"+insects.get(i).calculateScore());
+
+                if(i != insects.size()-1) {
+                    dataBuilder.append(";");
+                }
             }
 
             String data = dataBuilder.toString();
             resultListener.showResults(data);
+            System.out.println(data);
         }
+        
     }
 
     public static String getLineId(Line line) {

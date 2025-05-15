@@ -47,6 +47,7 @@ public class GraphicMain {
             }
             
         });
+
         cmdProcessor = new CommandProcessor(controller);
 
         MainWindow mainWindow = new MainWindow(gController);
@@ -54,6 +55,9 @@ public class GraphicMain {
         mainWindow.setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE);
         mainWindow.revalidate();
         mainWindow.repaint();
+
+        
+        controller.addResultListeners(mainWindow);
         
         controller.addControlListener(mainWindow);
         controller.addJobListener(mainWindow);

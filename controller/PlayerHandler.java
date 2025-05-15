@@ -113,7 +113,13 @@ public class PlayerHandler {
         }
     }
     
+    public List<InsectPicker> getInsectPickers() {
+        return insectPickers;
+    }
 
+    public List<MushroomPicker> getMushroomPickers() {
+        return  mushroomPickers;
+    }
 
     /**
      * Ha a visszatérési érték true, akkor a játékos gombász, ha false, akkor rovarász.

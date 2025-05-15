@@ -25,6 +25,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import listeners.ControlListener;
 import listeners.JobListener;
+import listeners.ResultListener;
 
 
 
@@ -32,7 +33,7 @@ import listeners.JobListener;
 /**
  * A játék ablakát megvalósító osztály, tartalmazza a játék során megjelenő elemeket.
 */
-public class MainWindow extends JFrame implements JobListener, ControlListener{
+public class MainWindow extends JFrame implements JobListener, ControlListener, ResultListener{
 
     /* - Privát attribútumok*/
 
