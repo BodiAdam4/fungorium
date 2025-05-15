@@ -114,7 +114,16 @@ public class PlayerPanel extends JPanel {
         nameBox.setFont(new Font("Arial", Font.ITALIC, 14));
         // Removing the top border of the text field
         nameBox.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
-        
+        nameBox.setToolTipText("Please do not use special characters, like: !@#$%^&*()_+-=[]{}|;:'\",.<>/?`~\\\\");
+
+        nameBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            @Override
+            public void keyTyped(java.awt.event.KeyEvent e) {
+                if (e.getKeyChar() == ' ' ) {
+                    e.consume(); // Megakadályozza a szóköz beírását
+                }
+            }
+        });
 
         // Add focus listener to handle placeholder text
         nameBox.addFocusListener(new java.awt.event.FocusAdapter() {
