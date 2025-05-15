@@ -10,10 +10,8 @@ import listeners.ObjectChangeListener.ObjectChangeEvent;
  */
 public class TectonInfertile extends Tecton{
 
-    /* - Privát attribútumok*/
+    /* - Konstruktok(ok) */
     
-    
-    //Konstruktor
     public TectonInfertile(){
         super();
     }

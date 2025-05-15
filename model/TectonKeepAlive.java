@@ -10,9 +10,8 @@ import listeners.ObjectChangeListener.ObjectChangeEvent;
  */
 public class TectonKeepAlive extends Tecton {
 
-    /* - Privát attribútumok*/
-
-    //Konstruktor
+    /* - Konstruktok(ok) */
+    
     public TectonKeepAlive() {
         super();
     }
@@ -29,6 +28,10 @@ public class TectonKeepAlive extends Tecton {
     }
 
 
+    /**
+     * hasBody felülírása, hogy mindig igaz legyen
+     * @return mindig true
+     */
     @Override
     public boolean hasBody(int mushroomId){
         return true;
