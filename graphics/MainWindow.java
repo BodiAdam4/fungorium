@@ -49,6 +49,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
     private JLabel notificationLabel;       //Az értesítéseknél megjelenő cím.
 
     /* - A dicsőségfal privát elemei */
+    private JPanel resultPanel;
     private JTextArea mushroomResults;
     private JTextArea insectResults;
 
@@ -84,26 +85,11 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
     /* - Egyéb metódusok*/
 
     public void showMap(){
-        
-        //TODO: TÖRÖLNI!!
-        //#############################################
-        HashMap<String, Integer> players = new HashMap<>();
-        players.put("MushroomPicker_1", 17);
-        players.put("MushroomPicker_2", 19);
-        players.put("InsectPicker_1", 8);
-        players.put("InsectPicker_2", 5);
-        players.put("InsectPicker_3", 12);
-        players.put("InsectPicker_4", 3);
-        players.put("InsectPicker_5", 6);
-        players.put("InsectPicker_6", 4);
-        players.put("InsectPicker_7", 2);
-        //#############################################
-
 
         //JPanel az állapotsávnak
-        JPanel statusBar = new JPanel(); //A státusz sáv inicializálása
-        statusBar.setLayout(new BoxLayout(statusBar, BoxLayout.X_AXIS)); //A státusz sáv elrendezése
-        statusBar.setBackground(Color.decode("#38778a")); //A státusz sáv háttérszínének beállítása
+        JPanel statusBar = new JPanel();            //A státusz sáv inicializálása
+        statusBar.setLayout(new BoxLayout(statusBar, BoxLayout.X_AXIS));        //A státusz sáv elrendezése
+        statusBar.setBackground(Color.decode("#38778a"));       //A státusz sáv háttérszínének beállítása
         statusBar.setPreferredSize(new Dimension(this.getWidth(), 50));
         //statusBar.setMaximumSize(new Dimension(this.getWidth(), 50));
 
@@ -111,65 +97,30 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
         scrollablePanel = new JPanel();
         scrollablePanel.setLayout(new BoxLayout(scrollablePanel, BoxLayout.X_AXIS));
         //scrollablePanel.setOpaque(false);
-        scrollablePanel.setBackground(Color.decode("#38778a")); //A görgethető panel háttérszínének beállítása
-        /*
-        //Dinamikus elemek felvétele a státusz sávra
-        int playerCount = players.size();
-        int i = 0;
-
-        for (String player : players.keySet()) {
-            Integer score = players.get(player);
-
-            // Játékospanel
-            JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 15));
-            playerPanel.setOpaque(false);
-
-            JLabel label = new JLabel(player + ": ");
-            label.setForeground(Color.WHITE);
-            label.setFont(label.getFont().deriveFont(Font.BOLD, 18));
-
-            JLabel scoreLabel = new JLabel(score.toString());
-            scoreLabel.setForeground(Color.RED);
-            scoreLabel.setFont(scoreLabel.getFont().deriveFont(Font.BOLD, 18));
-
-            playerPanel.add(label);
-            playerPanel.add(scoreLabel);
-            scrollablePanel.add(playerPanel);
-
-            // Elválasztó
-            if (i < playerCount - 1) {
-            JSeparator separator = new JSeparator(SwingConstants.VERTICAL);
-            separator.setPreferredSize(new Dimension(3, 40));
-            separator.setForeground(Color.WHITE);
-            scrollablePanel.add(separator);
-            }
-            i++;
-            
-        }
-        */
+        scrollablePanel.setBackground(Color.decode("#38778a"));     //A görgethető panel háttérszínének beállítása
 
         //Görgetősáv hozzáadása egyedi stílussal
         javax.swing.JScrollPane scrollPane = new javax.swing.JScrollPane(scrollablePanel) {
             @Override
             public void updateUI() {
             super.updateUI();
-            // Egyedi görgetősáv stílus
+            //Egyedi görgetősáv stílus
             javax.swing.JScrollBar hScrollBar = getHorizontalScrollBar();
             hScrollBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
                 @Override
                 protected void configureScrollBarColors() {
-                this.thumbColor = Color.GRAY; // Görgetősáv színe
-                this.trackColor = Color.decode("#38778a"); // Háttér színe
+                this.thumbColor = Color.GRAY;       //Görgetősáv színe
+                this.trackColor = Color.decode("#38778a");      //Háttér színe
                 }
 
                 @Override
                 protected JButton createDecreaseButton(int orientation) {
-                return createZeroButton(); // Gombok eltávolítása
+                return createZeroButton();      //Gombok eltávolítása
                 }
 
                 @Override
                 protected JButton createIncreaseButton(int orientation) {
-                return createZeroButton(); // Gombok eltávolítása
+                return createZeroButton();      //Gombok eltávolítása
                 }
 
                 private JButton createZeroButton() {
@@ -180,7 +131,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
                 return button;
                 }
             });
-            hScrollBar.setPreferredSize(new Dimension(5, 0)); // Görgetősáv szélessége
+            hScrollBar.setPreferredSize(new Dimension(5, 0));       //Görgetősáv szélessége
             }
         };
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -248,7 +199,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
         //###############################[resultPanel]#################################
 
         //JPanel az eredményhirdetéshez
-        JPanel resultPanel = new JPanel(); //Az eredményhirdetés panel inicializálása
+        resultPanel = new JPanel(); //Az eredményhirdetés panel inicializálása
         //resultPanel.setBackground(Color.BLUE);
         resultPanel.setBackground(null); //Az eredményhirdetés panel háttérszínének beállítása
         resultPanel.setOpaque(false);
@@ -300,7 +251,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
         resultContent.add(topMushLabel);
 
         // Eredmények szöveges megjelenítése (Mushroompickers)
-        mushroomResults = new JTextArea("# 1.: MushroomPicker_2__________________19\n# 2.: MushroomPicker_1__________________17\n# 3.: MushroomPicker_3__________________12\n# 4.: MushroomPicker_4__________________10\n# 5.: MushroomPicker_5__________________8\n# 6.: MushroomPicker_6__________________5\n# 7.: MushroomPicker_7__________________3\n# 8.: MushroomPicker_8__________________2");
+        mushroomResults = new JTextArea("Empty");
         mushroomResults.setFont(new Font("Monospaced", Font.PLAIN, 16));
         mushroomResults.setEditable(false);
         mushroomResults.setBackground(Color.DARK_GRAY);
@@ -371,7 +322,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
         resultContent.add(topInsectLabel);
 
         // Eredmények szöveges megjelenítése (Insectpickers)
-        insectResults = new JTextArea("# 1.: InsectPicker_1____________________8\n# 2.: InsectPicker_2____________________5");
+        insectResults = new JTextArea("Empty");
         insectResults.setFont(new Font("Monospaced", Font.PLAIN, 16));
         insectResults.setEditable(false);
         insectResults.setBackground(Color.DARK_GRAY);
@@ -553,7 +504,47 @@ public class MainWindow extends JFrame implements JobListener, ControlListener{
     }
 
     /* - Az eredményhirdetés megjelenítése, paraméterként át kell adni az eredményeket szöveges formában.*/
-    public void showResults(String data) {}
+    public void showResults(String data) {
+
+        /**
+         * //TODO: String data formátuma legyen:
+         * [MPicker_playername];[points]$[IPicker_playername];[points];"
+         * "$" karakterrel vannak elválasztva a mushroompickerek nevei és pontjai az insectpicker szekciótól
+        */
+        resultPanel.setVisible(true);
+
+        // String data felszeletelése "$" karakter mentén
+        String[] sections = data.split("\\$");
+
+        //Mushroompickers eredmények feldolgozása
+        if (sections.length > 0) {
+            String[] mushroomPickers = sections[0].split(";");
+            StringBuilder mushroomResultsBuilder = new StringBuilder();
+            for (int i = 0; i < mushroomPickers.length; i++) {
+            String[] parts = mushroomPickers[i].split(",");
+            if (parts.length == 2) {
+                mushroomResultsBuilder.append("# ").append(i + 1).append(".: ")
+                .append(parts[0]).append("__________________").append(parts[1]).append("\n");
+            }
+            }
+            mushroomResults.setText(mushroomResultsBuilder.toString());
+        }
+
+        //Insectpickers eredmények feldolgozása
+        if (sections.length > 1) {
+            String[] insectPickers = sections[1].split(";");
+            StringBuilder insectResultsBuilder = new StringBuilder();
+            for (int i = 0; i < insectPickers.length; i++) {
+            String[] parts = insectPickers[i].split(",");
+            if (parts.length == 2) {
+                insectResultsBuilder.append("# ").append(i + 1).append(".: ")
+                .append(parts[0]).append("__________________").append(parts[1]).append("\n");
+            }
+            }
+            insectResults.setText(insectResultsBuilder.toString());
+        }
+
+    }
 
 
     /* - Sikeres műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.*/
