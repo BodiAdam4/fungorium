@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import model.Line;
+import model.Spore;
 import model.Tecton;
 
 /**
@@ -79,9 +81,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
     /* - Grafikus gombafonal keresése a térképen a kontrollerbeli azonosító szerint.*/
-    public GLine getLine(String id) {
+    public GLine getLine(Line line) {
         for(GLine gl : lines)
-            if(gl.id.equals(id))
+            if(gl.getMyLine().equals(line))
                 return gl;
         return null;
     }
@@ -225,13 +227,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                     gController.addSelected(gtecton);
                 }
                 else if (e.getButton() == MouseEvent.BUTTON3) {
-                    System.out.println("Infopanel on");
-                    JPanel infoPanel = new JPanel();
-                    infoPanel.setLocation(e.getPoint());
-                    infoPanel.setSize(100, 100);
-                    Map.this.add(infoPanel);
-                    Map.this.revalidate();
-                    Map.this.repaint();
+                    drawInfoPanel(gtecton, e.getPoint());
                 }
             }
         });
@@ -242,16 +238,45 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         t.start();
     }
 
-    public void addTecton(Point position, GTecton tecton) {
-        tectons.add(tecton);
-        tecton.setBounds(position.x, position.y, CELL_SIZE, CELL_SIZE);
-        
-        Thread thread = new Thread(() -> {
-            physicSorting();
-        });
-        thread.start();
+    public JPanel infoPanel;
 
-        this.add(tecton);
+    public void drawInfoPanel (GTecton gTecton, Point position) {
+        if(infoPanel != null) {
+            this.remove(infoPanel);
+        }
+
+        infoPanel = new JPanel();
+        Point infoPos = new Point(gTecton.getX()+position.x, gTecton.getY()+position.y);
+        infoPanel.setLocation(infoPos);
+        infoPanel.setSize(150, 100);
+        infoPanel.setOpaque(true);
+        infoPanel.setBackground(new Color(100, 100, 100, 200));
+
+        if (gTecton.getMyTecton().getMyMushroom() != null) {
+            int id = gTecton.getMyTecton().getMyMushroom().getMushroomId();
+            JLabel mushroomLabel = new JLabel("Mushroom: "+gController.getMushroomName(id));
+            mushroomLabel.setForeground(gController.getMushroomColor(id));
+            infoPanel.add(mushroomLabel);
+        }
+
+        HashMap<Integer, Integer> sporeCounts = new HashMap<>();
+        for (Spore spore : gTecton.getMyTecton().getSporeContainer().getSpores()) {
+            int oldCount = sporeCounts.containsKey(spore.getSporeId()) ? sporeCounts.get(spore.getSporeId()) : 0;
+            oldCount++;
+
+            sporeCounts.put(spore.getSporeId(), oldCount);
+        }
+        JLabel sporeLabel = new JLabel("Spores");
+        infoPanel.add(sporeLabel);
+        for (int id : sporeCounts.keySet()) {
+            Color color = gController.getMushroomColor(id);
+            JLabel label = new JLabel(gController.getMushroomName(id)+": "+sporeCounts.get(id).toString());
+            label.setForeground(color);
+            infoPanel.add(label);
+        }
+
+        this.add(infoPanel);
+        this.setComponentZOrder(infoPanel, 0);
         this.revalidate();
         this.repaint();
     }
@@ -396,13 +421,10 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
      * @param id az eltávolítandó gombafonal azonosítója
      */
     public void removeLine(Line line) {
-        for(GLine gl : lines) {
-            if(gl.getMyLine().equals(line)) {
-                lines.remove(gl);
-                this.remove(gl);
-                this.repaint();
-            }
-        }
+        GLine gLine = getLine(line);
+        lines.remove(gLine);
+        this.remove(gLine);
+        this.repaint();
     }
 
 
@@ -458,21 +480,6 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                 }
             }
         }
-
-        //Draw lines between islands
-        /*
-        Graphics2D g2 = (Graphics2D) g;
-        for (Line line : handler.getLines()) {
-            line.draw(g2);
-        }
-        
-        //Draw mushroom images in the grid cells
-        for (java.util.Map.Entry<Point, GMushroom> entry : mushrooms.entrySet()) {
-            Point p = entry.getKey();
-            GMushroom mushroom = new GMushroom("12","s1");
-            addMushroom(mushroom);
-        }
-        */
         
     }
 
@@ -481,6 +488,14 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         gController.RemoveSelection();
+
+        if (infoPanel != null) {
+            this.remove(infoPanel);
+            infoPanel = null;
+        }
+
+        this.revalidate();
+        this.repaint();
     }
 
     @Override

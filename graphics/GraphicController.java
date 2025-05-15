@@ -25,6 +25,7 @@ public class GraphicController {
     private CommandProcessor cmd; //A parancsokat feldolgozó egység, amelyen keresztül a felhasználói tevékenységek végrehajtódnak.
 
     private List<Color> playerColors; //A játékosokhoz tartozó színek listája. Kulcsként a játékos azonosítója, értékként pedig a hozzá tartozó szín van.
+    private List<String> playerNames;
     private int mushroomPickerCount;
     private List<SelectionListener> selectionListeners = new ArrayList<>();
 
@@ -124,8 +125,9 @@ public class GraphicController {
         GraphicMain.cmdProcessor.ExecuteCommand(translatedCommand);
     }
 
-    public void setPlayers(List<Color> players, int mushroomPickCount) {
+    public void setPlayers(List<Color> players, List<String> names, int mushroomPickCount) {
         playerColors = players;
+        playerNames = names;
         mushroomPickerCount = mushroomPickCount;
     }
 
@@ -135,5 +137,13 @@ public class GraphicController {
 
     public Color getInsectColor(int index) {
         return playerColors.get(index+mushroomPickerCount);
+    }
+
+    public String getMushroomName(int index) {
+        return playerNames.get(index);
+    }
+
+    public String getInsectName(int index) {
+        return playerNames.get(index+mushroomPickerCount);
     }
 }

@@ -1,9 +1,8 @@
 package model;
 import java.util.ArrayList;
 import java.util.List;
-
-import userinterface.RandTools;
 import listeners.SporeContainerListener;
+import userinterface.RandTools;
 
 /**
  * A gombaspórák tárolására és kezelésére alkalmas osztály.
@@ -166,6 +165,14 @@ public class SporeContainer
             }
         }
 
+        return spores;
+    }
+
+    /**
+     * Minden spóra lekérdezése
+     * @return A spóratárolóban lévő spórák
+     */
+    public List<Spore> getSpores() {
         return spores;
     }
 }

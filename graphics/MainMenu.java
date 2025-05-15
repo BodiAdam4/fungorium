@@ -526,10 +526,12 @@ public class MainMenu extends JPanel {
         List<String> mushroomPickers = new ArrayList<>();
 
         List<Color> colors = new ArrayList<>();
+        List<String> names = new ArrayList<>();
 
         for (PlayerPanel playerPanel : playerPanels) {
             if (!playerPanel.isInsect()) {
                 colors.add(playerPanel.getColor());
+                names.add(playerPanel.getName());
                 mushroomPickers.add(playerPanel.getName());
             }
         }
@@ -537,12 +539,13 @@ public class MainMenu extends JPanel {
         for (PlayerPanel playerPanel : playerPanels) {
             if (playerPanel.isInsect()) {
                 colors.add(playerPanel.getColor());
+                names.add(playerPanel.getName());
                 insectPickers.add(playerPanel.getName());
             }
         }
 
             
-        GraphicMain.gController.setPlayers(colors, mushroomPickers.size());
+        GraphicMain.gController.setPlayers(colors, names, mushroomPickers.size());
 
         String insectNames = String.join(" ", insectPickers);
         String mushroomNames = String.join(" ", mushroomPickers);

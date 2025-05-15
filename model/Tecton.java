@@ -175,16 +175,24 @@ public class Tecton {
                 public void onTime() {
                     myMushroom = new Mushroom(id, t);
                     changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_ADDED, myMushroom);
-                    
+                    for (JobListener listener : jobListeners) {
+                        listener.jobSuccessfull("Mushroom successfully grown");
+                    }
                     System.out.println("Mushroom successfully grown");
                 }
             }, 2);
             
             sporeContainer.popSpores(id, 3);
+            for (JobListener listener : jobListeners) {
+                listener.jobSuccessfull("Mushroom started to grow");
+            }
             System.out.println("Mushroom started to grow");
             return true;
         }
         else {
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Mushroom failed to build");
+            }
             System.out.println("Mushroom failed to build");
             return false;
         }
