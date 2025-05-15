@@ -32,6 +32,9 @@ public class TectonOnlyLine extends Tecton{
         }
         else {
             System.out.println("You can't add lines with different id!");
+            for (JobListener listener : jobListeners) {
+                listener.jobSuccessfull("You can't add lines with different id!");
+            }
             return false;
         }
     }

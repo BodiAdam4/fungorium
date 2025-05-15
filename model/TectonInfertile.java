@@ -28,6 +28,9 @@ public class TectonInfertile extends Tecton{
      */
     public boolean addMushroom(int id){
         System.out.println("You can't grow mushroom on this tecton!");
+        for (JobListener listener : jobListeners) {
+            listener.jobFailed("You can't grow mushroom on this tecton!");
+        }
         return false;
     }
 
