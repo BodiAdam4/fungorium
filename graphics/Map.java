@@ -340,8 +340,11 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             for (int id : sporeCounts.keySet()) {
                 Color color = gController.getMushroomColor(id);
                 JLabel SporeNameLabel = new JLabel("  •  " +gController.getMushroomName(id) + ": " + sporeCounts.get(id));
+                System.out.println(gController.getMushroomName(id) + ": " + sporeCounts.get(id));
                 SporeNameLabel.setForeground(color);
                 sporesInfoPanel.add(SporeNameLabel, BorderLayout.SOUTH);
+                //infoPanel.revalidate();
+                //infoPanel.repaint();
             }
         }
         

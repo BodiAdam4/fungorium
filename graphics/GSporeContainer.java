@@ -1,8 +1,12 @@
 package graphics;
 
+import java.util.List;
+
 import javax.swing.JLabel;
 
 import listeners.SporeContainerListener;
+import model.Spore;
+import model.SporeContainer;
 /**
  * A tektonon elhelyezkedő spórák kirajzolásáért felelős osztály.
  * A játék során a példányait a GTecton osztály példányai fogják tartalmazni, mivel egy tektonhoz egy spóratároló tartozik.
@@ -11,10 +15,14 @@ public class GSporeContainer extends Image implements SporeContainerListener {
     
     /* - Privát attribútumok*/
     private JLabel sporecountLabel; // A spórák számát megjelenítő JLabel
+    private SporeContainer mySporeContainer;
+    private GTecton myGTecton;
 
     /* - Konstruktor(ok)*/
-    public GSporeContainer() {
+    public GSporeContainer(SporeContainer mySporeContainer, GTecton myGTecton) {
         super("graphics/images/Spores.png"); // A SporeContainer képe
+        this.mySporeContainer = mySporeContainer;
+        this.myGTecton=myGTecton;
         this.setLayout(null);
 
         //JLabel a spórák számának megjelenítésére
@@ -48,6 +56,24 @@ public class GSporeContainer extends Image implements SporeContainerListener {
     public void sporeAdded(int sporeCount) {
         this.setVisible(true);
         this.getParent().repaint();
+
+        List<Spore> spores = mySporeContainer.getSpores();
+        boolean sameId = true;
+        for(int i = 1; i < spores.size(); i++){
+            if (spores.get(i).getSporeId()!= spores.get(i-1).getSporeId()) {
+                sameId = false;
+                break;
+            }
+        }
+
+        if (sameId) {
+            int id = spores.get(0).getSporeId();
+            this.SetImage("graphics\\images\\Spores.png");
+            this.TintImage(myGTecton.getMap().getGraphicController().getMushroomColor(id));
+        } else {
+            this.ResetTint();
+            this.SetImage("graphics\\images\\SporesMulticlolor.png");
+        }
 
         //A spórák számát megjelenítő JLabel
         sporecountLabel.setText(String.valueOf(sporeCount)); // A spórák számát megjelenítő JLabel frissítése

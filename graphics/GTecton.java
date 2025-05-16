@@ -29,7 +29,7 @@ public class GTecton extends Image implements TectonListener {
         this.map = map;
         this.setLayout(null);
         this.addMouseListener(this);
-        sporeContainer = new GSporeContainer();
+        sporeContainer = new GSporeContainer(myTecton.getSporeContainer(), this);
         myTecton.getSporeContainer().addSporeContainerListener(sporeContainer);
         this.add(sporeContainer);
         sporeContainer.setBounds(0, 0, Map.CELL_SIZE, Map.CELL_SIZE);
