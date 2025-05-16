@@ -362,7 +362,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             verticalScrollBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
                 @Override
                 protected void configureScrollBarColors() {
-                this.thumbColor = Color.DARK_GRAY;
+                this.thumbColor = Color.LIGHT_GRAY;
+                this.trackColor = new Color(100, 100, 100, 200);
                 }
 
                 @Override
@@ -384,6 +385,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                 }
             });
             verticalScrollBar.setPreferredSize(new Dimension(5, Integer.MAX_VALUE));
+            verticalScrollBar.setBorder(null);
             return verticalScrollBar;
             }
 
