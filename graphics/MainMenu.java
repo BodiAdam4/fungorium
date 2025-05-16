@@ -35,18 +35,17 @@ public class MainMenu extends JPanel {
     
     /* - Privát attribútumok*/
     private List<PlayerPanel> playerPanels;         //A játékosok beállításához szükséges panelek listája. Minden játékoshoz egy panel tartozik.
-    private GraphicController gController;          //A grafikus felületet irányító objektum. //TODO: Ha meglesz a GraphicController, akkor ezt kell implementálni
     private JSpinner playerSpinner;                 //A játékosszám megadásához szükséges szám bevitelére alkalmas bemeneti mező.
     private JSpinner turnSpinner;                   //A körök számának megadásához szükséges szám bevitelére alkalmas bemeneti mező.
     private JPanel configPanel;                     //A játékospaneleket tartalmazó JPanel típusú grafikus panel.
+    private MainWindow mainWindow;                  //A főablak, amelyben a menü található.
 
-    private MainWindow mainWindow;                 //A főablak, amelyben a menü található.
 
-
-    /* - Konstruktor(ok)*/
+    /* - Konstruktor*/
     public MainMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.setLayout(new BorderLayout()); //A főmenü elrendezése
+
         //JPanel a főmenünek
         JPanel mainPanel = new JPanel(new BorderLayout());
         mainPanel.setBackground(Color.BLACK);
@@ -78,7 +77,7 @@ public class MainMenu extends JPanel {
         //Lista a játékos panelekről
         playerPanels = new ArrayList<>();
 
-        //Ha a playerPanel-ek száma meghaladja a 5-öt, akkor új sort kezdünk
+        //Ha a playerPanel-ek száma meghaladja a 5-öt, akkor új sort kezdünk [végül nem lett benne]
         //configPanel.setLayout(new GridLayout(0, 5, 30, 30));    //5 oszlopos elrendezés, dinamikus sorokkal
         configPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 30, 30));
 
@@ -188,27 +187,26 @@ public class MainMenu extends JPanel {
         authorLabel.setBorder(BorderFactory.createEmptyBorder(14, 20, 0, 0));
         panel.add(authorLabel, BorderLayout.CENTER);
         
-        // JButton a játék elindításához
+        //JButton a játék elindításához
         JButton enterButton = new JButton("Enter the game");
         enterButton.setForeground(Color.RED);
         enterButton.setFont(new Font("Arial", Font.BOLD, 25));
-        enterButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3)); // Thicker border
+        enterButton.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3));      //Szélesebb oldalszegély
         enterButton.setBackground(Color.BLACK);
         enterButton.setFocusPainted(false);
-        enterButton.setPreferredSize(new Dimension(200, 40)); // Set button size
+        enterButton.setPreferredSize(new Dimension(200, 40));                   //Gombméret beállítása
         enterButton.addActionListener(e -> {
             playerPanels.forEach(playerPanel -> {
+                //Példakiiratás a konzolra, hogy lássuk jól veszi-e át az értékeket a játék.
                 System.out.println("Player color: " + playerPanel.getColor() + " player name: " + playerPanel.getName() + " is insectPicker? " + playerPanel.isInsect());
             });
-            System.out.println("Enter the game button clicked!");
+            //System.out.println("Enter the game button clicked!");
 
-            
             //Amennyiben nincs legalább 2 gombász és 2 rovarász, akkor hibaüzenetet adunk
             long insectPlayerCount = playerPanels.stream().filter(PlayerPanel::isInsect).count();
             long mushroomPlayerCount = playerPanels.stream().filter(playerPanel -> !playerPanel.isInsect()).count();
-
             if (insectPlayerCount < 2 || mushroomPlayerCount < 2) {
-                // Egyedi dialógusablak hívása
+                //Egyedi dialógusablak hívása
                 showCustomErrorDialog(this);
                 return;
             }
@@ -274,10 +272,12 @@ public class MainMenu extends JPanel {
         panel.setBackground(Color.BLACK);
         panel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
         
+        //###########################################################[Játékban megtett körök darabszámának beállítása]############################################################################
+
         //JPanel a játék körök számának beállításához
         JPanel turnsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         turnsPanel.setBackground(null);
-        turnsPanel.setOpaque(false); //A panel háttérszínének beállítása
+        turnsPanel.setOpaque(false);            //A panel háttérszínének beállítása
 
         //JLabel a játék körök számának beállításához
         JLabel turnsLabel = new JLabel("Game turns");
@@ -330,7 +330,7 @@ public class MainMenu extends JPanel {
         turnsPanel.add(turnSpinner);
         panel.add(turnsPanel);
         
-        //##########################################################################################################################################
+        //###########################################################[Játékosok darabszámának beállítása]############################################################################
 
         //JPanel a játékosok számának beállításához
         JPanel numbersPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -357,11 +357,9 @@ public class MainMenu extends JPanel {
         pontBehindLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         pontBehindLabel.setBorder(BorderFactory.createEmptyBorder(30, 0, 30, 0));
         numbersPanel.add(pontBehindLabel);
-        
 
-        JPanel playerSpinnerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0)); // Add some horizontal spacing
+        JPanel playerSpinnerPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 0));     //Horizontáis szintezés felvétele
         playerSpinnerPanel.setBackground(Color.BLACK);
-        
 
         //JSpinner a játékosok számának megadásához
         playerSpinner = new JSpinner(new SpinnerNumberModel(4, 4, 16, 1));
@@ -376,7 +374,7 @@ public class MainMenu extends JPanel {
             if (component instanceof JButton) {
             component.setBackground(Color.BLACK);
             component.setForeground(Color.WHITE);
-            ((JButton) component).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1)); //kövérebb szegély
+            ((JButton) component).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));        //Kövérebb szegély
             }
         }
 
@@ -410,17 +408,8 @@ public class MainMenu extends JPanel {
         panel.add(numbersPanel);
         
         //JSeparator a beállítások és a játékosok közé
-        /*
-        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
-        separator.setForeground(Color.WHITE);
-        separator.setBackground(Color.WHITE);
-        separator.setPreferredSize(new Dimension(panel.getWidth() - 200, 10)); // Rövidebb és 3px vastag
-        //separator.setBorder(BorderFactory.createLineBorder(Color.WHITE, 3)); // 3px vastagság beállítása
 
-        panel.add(separator);
-        */
-
-        //JPanel for separating
+        //JPanel alkalmazása szeparátorként
         JPanel separatorPanel = new JPanel(new BorderLayout());
         separatorPanel.setPreferredSize(new Dimension(Integer.MAX_VALUE, 3));
         separatorPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 3));
@@ -444,6 +433,8 @@ public class MainMenu extends JPanel {
 
         panel.revalidate();
         panel.repaint();
+
+        //###########################################################[Játékosokat felkonfiguráló panel beállítása]############################################################################
 
         //JPanel a játékosok konfigurálásához
         JPanel configPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -513,7 +504,13 @@ public class MainMenu extends JPanel {
     }
 
 
-    /* - A játék indítását elvégző függvény.*/
+    /**
+     * A játék indítását végző függvény,
+     * hívja a "/start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>" parancsot,
+     * melyet végrehajt a CommandProccessor osztály executeCommand metódusa.
+     * A parancsot úgy egészíti ki, hogy kiolvassa a JSpinnerek és a textBoxok értékét a grafikus ablakról, 
+     * majd ezeket lesznek a parancs argumentumai.
+    */
     public void startGame() {
 
         
@@ -544,20 +541,21 @@ public class MainMenu extends JPanel {
             }
         }
 
-            
+        //GraphicController a GraphicMain ostályból, mely felel a grafikus vezérlésért.
         GraphicMain.gController.setPlayers(colors, names, mushroomPickers.size());
 
         String insectNames = String.join(" ", insectPickers);
         String mushroomNames = String.join(" ", mushroomPickers);
 
+        //A start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
         String command = "/start " + mushroomNames + " " + insectNames + " -m " + mushroomPickers.size() + " -i " + insectPickers.size() + " -k " + turnSpinner.getValue();
         System.out.println(command);
         GraphicMain.cmdProcessor.ExecuteCommand(command);
-        //a start parancs: /start <gombásznevek> <rovarásznevek> -m <gombászok száma> -i <rovarászok száma> -k <körök száma>
+        
         mainWindow.removeMenu();
+
+        //Revalitálás és újrarajzolás
         this.revalidate();
         this.repaint();
-
-        
     }
 }
