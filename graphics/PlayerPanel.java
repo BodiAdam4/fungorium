@@ -112,6 +112,7 @@ public class PlayerPanel extends JPanel {
         nameBox.setMaximumSize(new Dimension(Short.MAX_VALUE, 25));
         nameBox.setAlignmentX(CENTER_ALIGNMENT);
         nameBox.setFont(new Font("Arial", Font.ITALIC, 14));
+        nameBox.setCaretColor(Color.WHITE);
         // Removing the top border of the text field
         nameBox.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
         nameBox.setToolTipText("Please do not use special characters, like: !@#$%^&*()_+-=[]{}|;:'\",.<>/?`~\\\\");
