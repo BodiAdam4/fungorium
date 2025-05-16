@@ -29,7 +29,7 @@ public class GInsect extends Image implements InsectListener{
         //JLabel az effektek megjelenítésére
         infoTag = new JLabel("None"); // A spórák számát megjelenítő JLabel
         //TODO: a spóra darabszámát lehet feljebb is helyezni, hogy ne takarja el a gomba
-        infoTag.setBounds(this.getX()+100,this.getY()+50, 50, 50); // A JLabel pozíciója és mérete
+        infoTag.setBounds(this.getX()+100,this.getY()+50, 100, 50); // A JLabel pozíciója és mérete
         infoTag.setForeground(java.awt.Color.RED); // A JLabel szövegének színe
         infoTag.setFont(new java.awt.Font("Arial", java.awt.Font.BOLD, 20)); // A JLabel betűtípusa és mérete
         infoTag.setVisible(false); // A JLabel láthatósága
