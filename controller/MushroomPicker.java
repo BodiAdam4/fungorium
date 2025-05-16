@@ -131,18 +131,24 @@ public class MushroomPicker extends Player {
                 // Megpróbáljuk növeszteni a gombatestet
                 if (line.growMushroom(tecton)) {
                     System.out.println("Sikeres gombatest-növesztés a tektonon!");
+                    for (JobListener listener : jobListeners) {
+                        listener.jobSuccessfull("Successfully grew mushroom");
+                    }
                     score++;
                     actions[1] = true;
                     return true;
                 } else {
                     System.out.println("Nem sikerült gombatestet növeszteni!");
+                    for (JobListener listener : jobListeners) {
+                        listener.jobFailed("Couldn't grow mushroom");
+                    }
                     return false;
                 }
             }
         }
         System.out.println("Nincs a játékoshoz tartozó gombafonal ezen a tektonon!");
         for (JobListener listener : jobListeners) {
-            listener.jobFailed("Can't grow mushroom to this tecton!");
+            listener.jobFailed("This Tecton doesn't have line from this player");
         }
         return false;
     }
@@ -158,6 +164,9 @@ public class MushroomPicker extends Player {
 
         if (actions[2]) {
             System.out.println("Spores has already thrown in this turn!");
+            for(JobListener listener : jobListeners){
+                listener.jobFailed("Spores has already thrown in this turn!");
+            }
             return false;
         }
 
@@ -188,12 +197,18 @@ public class MushroomPicker extends Player {
     public boolean eatInsect(Insect insect) {
         if (actions[3]) {
             System.out.println("One insect has already eaten in this turn!");
+            for(JobListener listener : jobListeners){
+                listener.jobFailed("One insect has already eaten in this turn!");
+            }
             return false;
         }
 
         //Ellenőrizzük, hogy a rovar fagyasztott állapotban van-e
         if (insect.getCanMove()) {
             System.out.println("The insect is not frozen!");
+            for(JobListener listener : jobListeners){
+                listener.jobFailed("The insect is not frozen!");
+            }
             return false;
         }
 
@@ -202,6 +217,9 @@ public class MushroomPicker extends Player {
                 boolean success = line.eatInsect(insect);
                 if (line.eatInsect(insect)) {
                     System.out.println("Insect eaten successfully!");
+                    for(JobListener listener : jobListeners){
+                        listener.jobSuccessfull("Insect eaten successfully!");
+                    }
                     actions[3] = true;
                     return true;
                 }
@@ -209,6 +227,9 @@ public class MushroomPicker extends Player {
         }
 
         System.out.println("The insect is not on your line!");
+        for(JobListener listener : jobListeners){
+            listener.jobFailed("The insect is not on your line!");
+        }
         return false;
     }
 
