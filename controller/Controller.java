@@ -107,6 +107,8 @@ public class Controller {
                 for (String id : allInsect.keySet()) {
                     allInsect.get(id).resetEffect();
                 }
+
+                
             }
         }, 1);
 
@@ -431,6 +433,17 @@ public class Controller {
 
                 for (String id : allInsect.keySet()) {
                     allInsect.get(id).resetEffect();
+                }
+
+                int breakChance = RandTools.random(10);
+                if(breakChance == 5){
+                    int which = RandTools.random(allTecton.size());
+                    for (String key : allTecton.keySet()) {
+                        if (which == 0) {
+                            allTecton.get(key).breakTecton();
+                        }
+                        which--;
+                    }
                 }
             }
         }, 1);
