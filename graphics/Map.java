@@ -266,7 +266,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         if (gTecton.getMyTecton().getMyMushroom() != null) {
             int id = gTecton.getMyTecton().getMyMushroom().getMushroomId();
 
-            JPanel mushroomInfoPanel = new JPanel(new BorderLayout());
+            JPanel mushroomInfoPanel = new JPanel();
+            mushroomInfoPanel.setLayout(new BoxLayout(mushroomInfoPanel, BoxLayout.PAGE_AXIS));
             mushroomInfoPanel.setOpaque(false);
             infoPanel.add(mushroomInfoPanel);
 
@@ -274,16 +275,17 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             mushroomSubLabel.setForeground(Color.WHITE);
             mushroomInfoPanel.add(mushroomSubLabel, BorderLayout.WEST);
 
-            JLabel mushroomPickerJLabel = new JLabel(gController.getMushroomName(id));
+            JLabel mushroomPickerJLabel = new JLabel("  •  " + gController.getMushroomName(id));
             mushroomPickerJLabel.setForeground(gController.getMushroomColor(id));
-            mushroomInfoPanel.add(mushroomPickerJLabel, BorderLayout.CENTER);
+            infoPanel.add(mushroomPickerJLabel, BorderLayout.SOUTH);
         }
 
         // insect info
         JPanel insectInfoPanel = new JPanel(new BorderLayout());
+        insectInfoPanel.setLayout(new BoxLayout(insectInfoPanel, BoxLayout.PAGE_AXIS));
         insectInfoPanel.setBackground(null);
         insectInfoPanel.setOpaque(false);
-        infoPanel.add(insectInfoPanel);
+        infoPanel.add(insectInfoPanel, BorderLayout.WEST);
 
         JLabel insectSubLabel = new JLabel("Insects: ");
         insectSubLabel.setForeground(Color.WHITE);
