@@ -113,7 +113,7 @@ public class Controller {
                 }
 
                 int breakChance = RandTools.random(10);
-                if(breakChance == 5){
+                if(breakChance < 4){
                     int which = RandTools.random(allTecton.size());
                     for (String key : allTecton.keySet()) {
                         if (which == 0) {
