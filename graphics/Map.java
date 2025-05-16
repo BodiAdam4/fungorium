@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import model.Insect;
 import model.Line;
 import model.Spore;
@@ -265,7 +266,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         if (gTecton.getMyTecton().getMyMushroom() != null) {
             int id = gTecton.getMyTecton().getMyMushroom().getMushroomId();
 
-            JPanel mushroomInfoPanel = new JPanel(new BorderLayout());
+            JPanel mushroomInfoPanel = new JPanel();
+            mushroomInfoPanel.setLayout(new BoxLayout(mushroomInfoPanel, BoxLayout.PAGE_AXIS));
             mushroomInfoPanel.setOpaque(false);
             infoPanel.add(mushroomInfoPanel);
 
@@ -273,16 +275,17 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             mushroomSubLabel.setForeground(Color.WHITE);
             mushroomInfoPanel.add(mushroomSubLabel, BorderLayout.WEST);
 
-            JLabel mushroomPickerJLabel = new JLabel(gController.getMushroomName(id));
+            JLabel mushroomPickerJLabel = new JLabel("  •  " + gController.getMushroomName(id));
             mushroomPickerJLabel.setForeground(gController.getMushroomColor(id));
-            mushroomInfoPanel.add(mushroomPickerJLabel, BorderLayout.CENTER);
+            infoPanel.add(mushroomPickerJLabel, BorderLayout.SOUTH);
         }
 
         // insect info
         JPanel insectInfoPanel = new JPanel(new BorderLayout());
+        insectInfoPanel.setLayout(new BoxLayout(insectInfoPanel, BoxLayout.PAGE_AXIS));
         insectInfoPanel.setBackground(null);
         insectInfoPanel.setOpaque(false);
-        infoPanel.add(insectInfoPanel);
+        infoPanel.add(insectInfoPanel, BorderLayout.WEST);
 
         JLabel insectSubLabel = new JLabel("Insects: ");
         insectSubLabel.setForeground(Color.WHITE);
@@ -319,12 +322,13 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             sporeCounts.put(id, sporeCounts.getOrDefault(id, 0) + 1);
         }
 
-        JPanel sporesInfoPanel = new JPanel(new BorderLayout());
+        JPanel sporesInfoPanel = new JPanel();
+        sporesInfoPanel.setLayout(new BoxLayout(sporesInfoPanel, BoxLayout.PAGE_AXIS));
         sporesInfoPanel.setBackground(null);
         sporesInfoPanel.setOpaque(false);
         infoPanel.add(sporesInfoPanel);
 
-        JLabel sporeLabel = new JLabel("Spores: ");
+        JLabel sporeLabel = new JLabel("Spores: ",SwingConstants.LEFT);
         sporeLabel.setForeground(Color.WHITE);
         sporesInfoPanel.add(sporeLabel, BorderLayout.WEST);
 
@@ -358,7 +362,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             verticalScrollBar.setUI(new javax.swing.plaf.basic.BasicScrollBarUI() {
                 @Override
                 protected void configureScrollBarColors() {
-                this.thumbColor = Color.DARK_GRAY;
+                this.thumbColor = Color.LIGHT_GRAY;
+                this.trackColor = new Color(100, 100, 100, 200);
                 }
 
                 @Override
@@ -380,6 +385,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                 }
             });
             verticalScrollBar.setPreferredSize(new Dimension(5, Integer.MAX_VALUE));
+            verticalScrollBar.setBorder(null);
             return verticalScrollBar;
             }
 
