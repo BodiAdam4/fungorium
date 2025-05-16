@@ -107,10 +107,6 @@ public class Controller {
                     line.Destroy();
                 }
 
-                for (String id : allInsect.keySet()) {
-                    allInsect.get(id).resetEffect();
-                }
-
                 int breakChance = RandTools.random(10);
                 if(breakChance < 4){
                     int which = RandTools.random(allTecton.size());
