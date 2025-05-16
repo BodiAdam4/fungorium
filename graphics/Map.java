@@ -19,6 +19,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
+import javax.swing.SwingConstants;
 import model.Insect;
 import model.Line;
 import model.Spore;
@@ -319,12 +320,13 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             sporeCounts.put(id, sporeCounts.getOrDefault(id, 0) + 1);
         }
 
-        JPanel sporesInfoPanel = new JPanel(new BorderLayout());
+        JPanel sporesInfoPanel = new JPanel();
+        sporesInfoPanel.setLayout(new BoxLayout(sporesInfoPanel, BoxLayout.PAGE_AXIS));
         sporesInfoPanel.setBackground(null);
         sporesInfoPanel.setOpaque(false);
         infoPanel.add(sporesInfoPanel);
 
-        JLabel sporeLabel = new JLabel("Spores: ");
+        JLabel sporeLabel = new JLabel("Spores: ",SwingConstants.LEFT);
         sporeLabel.setForeground(Color.WHITE);
         sporesInfoPanel.add(sporeLabel, BorderLayout.WEST);
 

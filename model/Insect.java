@@ -249,6 +249,16 @@ public class Insect {
     }
 
 
+    public String getEffect() {
+        
+        if (!getCanCut()) return "Tired";
+        else if (!getCanMove()) return "Freezed";
+        else if (getSpeed() == 1) return "Slowed";
+        else if (getSpeed() == 3) return "Fast";
+        else return "";
+    }
+
+
     /**
      * Csökkenti a spórák számát a megadott mennyiséggel.
      * @param count az elfogyasztandó spórák száma
@@ -271,6 +281,10 @@ public class Insect {
             selected[i].addEffect(this);
             sporeCount += selected[i].getValue();
             nutrientCount += selected[i].getValue();
+        }
+        String effect = getEffect();
+        for (InsectListener listener : insectListeners ) {
+            listener.sporeEaten(effect);
         }
         return nutrientCount;
     }
@@ -309,6 +323,11 @@ public class Insect {
         canMove = true;
         canCut = true;
         speed = 2;
+
+        
+        for (InsectListener listener : insectListeners ) {
+            listener.effectReseted();
+        }
     }
     
 

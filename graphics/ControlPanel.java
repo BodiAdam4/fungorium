@@ -111,6 +111,7 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         finishButton.setMaximumSize(new Dimension(150, 30));
         finishButton.setForeground(Color.WHITE);
         finishButton.setBackground(Color.DARK_GRAY);
+        finishButton.setFocusable(false);
         finishButton.setBorder(new LineBorder(Color.WHITE, 3));
         finishButton.addActionListener(e -> gController.sendCommand("/next"));
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
@@ -190,6 +191,7 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         finishButton.addActionListener(e -> gController.sendCommand("/next"));
         finishButton.setForeground(Color.WHITE);
         finishButton.setBackground(Color.DARK_GRAY);
+        finishButton.setFocusable(false);
         finishButton.setBorder(new LineBorder(Color.WHITE, 3));
         panel.add(Box.createRigidArea(new Dimension(0, 10)));
         panel.add(finishButton);
