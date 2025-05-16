@@ -86,17 +86,17 @@ public class MushroomPicker extends Player {
         }
 
         if(from.hasBody(getPlayerId()) && from.getMyMushroom() != null) {
-            from.getMyMushroom().growLine(to);
-            actions[0] = true;
-            return true;
+            boolean result = from.getMyMushroom().growLine(to);
+            actions[0] = result;
+            return result;
 
         //Ha van a tektonon line, akkor a line növeszti a gombafonalat a Line osztály growLine() metódusával
         } else {
             for (Line line : from.getConnections()) {
                 if (line.getId() == this.getPlayerId()) {
-                    line.growLine(from,to);
-                    actions[0] = true;
-                    return true;
+                    boolean result = line.growLine(from,to);
+                    actions[0] = result;
+                    return result;
                 }
             }
         }
