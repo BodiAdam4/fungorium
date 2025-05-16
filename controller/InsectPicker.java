@@ -149,8 +149,14 @@ public class InsectPicker extends Player {
                 }
                 return false;
             }
-            insectActions.get(insect)[0] = true;
-            return insect.move(to);
+
+            if (insect.move(to)) {
+                insectActions.get(insect)[0] = true;
+                return true;
+            } 
+            else {
+                return false;
+            }
         }
         System.out.println("Insect is not yours!");
         for (JobListener listener : jobListeners) {

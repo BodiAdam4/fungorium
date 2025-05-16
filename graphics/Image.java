@@ -172,6 +172,7 @@ public class Image extends JPanel implements MouseListener {
 
     //TODO: Új függvény
     public void ResetTint(){
+        color = null;
         image = baseImage;
     }
 

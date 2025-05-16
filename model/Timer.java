@@ -4,8 +4,13 @@ import java.util.HashMap;
 
 public class Timer {
     /* - Privát attribútumok*/
-    private static HashMap<Schedule, Integer> oneTimeSchedules = new HashMap<>();;
-    private static HashMap<Schedule, Integer[]> repeatSchedules = new HashMap<>();;
+    private static HashMap<Schedule, Integer> oneTimeSchedules = new HashMap<>();
+    private static HashMap<Schedule, Integer[]> repeatSchedules = new HashMap<>();
+
+    private static HashMap<Schedule, Integer> oneBuffer = new HashMap<>();
+    private static HashMap<Schedule, Integer[]> repeatBuffer = new HashMap<>();
+
+    private static boolean forwarding = false;
 
     /* - Publikus attribútumok*/
 
@@ -21,13 +26,19 @@ public class Timer {
     public static void ResetTimer() {
         oneTimeSchedules.clear();
         repeatSchedules.clear();
+
+        oneBuffer.clear();
+        repeatBuffer.clear();
     }
 
     /**
      * Adder függvény, mely felvesz egy időzítést az "egyszer használatos" időzítések közé.
     */
     public static void addOneTimeSchedule(Schedule schedule, int time) {
-        oneTimeSchedules.put(schedule, time);
+        if (forwarding)
+            oneBuffer.put(schedule, time);
+        else
+            oneTimeSchedules.put(schedule, time);
     }
 
 
@@ -35,7 +46,10 @@ public class Timer {
      * Adder függvény, mely felvesz egy időzítést az ismétlődő időzítések közé.
     */
     public static void addRepeatSchedule(Schedule schedule, int time) {
-        repeatSchedules.put(schedule, new Integer[]{time, time});
+        if (forwarding)
+            repeatBuffer.put(schedule, new Integer[]{time, time});
+        else
+            repeatSchedules.put(schedule, new Integer[]{time, time});
     }
 
 
@@ -46,6 +60,8 @@ public class Timer {
      * az onTimeSchedules listában volt megtalálható, akkor eltávolítja ezt a listából.
     */
     public static void forwardTime() {
+        forwarding = true;
+
         HashMap<Schedule, Integer> updated = new HashMap<>();
 
         for (Schedule schedule : oneTimeSchedules.keySet()) {
@@ -59,6 +75,10 @@ public class Timer {
 
         oneTimeSchedules = updated;
 
+        for (Schedule schedule : oneBuffer.keySet()) {
+            oneTimeSchedules.put(schedule, oneBuffer.get(schedule));
+        }
+        oneBuffer.clear();
         
         HashMap<Schedule, Integer[]> updatedRepeat = new HashMap<>();
 
@@ -75,5 +95,11 @@ public class Timer {
         }
 
         repeatSchedules = updatedRepeat;
+
+        for (Schedule schedule : repeatBuffer.keySet()) {
+            repeatSchedules.put(schedule, repeatBuffer.get(schedule));
+        }
+        repeatBuffer.clear();
+        forwarding = false;
     }
 }
