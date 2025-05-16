@@ -1247,7 +1247,7 @@ public class CommandProcessor {
                 boolean noName = getOption(options, "-noname", "false").equalsIgnoreCase("true");
 
                 if (!noMap) {
-                    controller.HardReset();
+                    //controller.HardReset();
                     int mSize = mCount > 5 ? mCount : 5;
                     ExecuteCommand("/matrix-tecton "+mSize+" "+mSize+" -random");
 
