@@ -1,5 +1,4 @@
 package controller;
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -115,11 +114,17 @@ public class Controller {
                 int breakChance = RandTools.random(10);
                 if(breakChance < 4){
                     int which = RandTools.random(allTecton.size());
+                    Tecton toBreak = null;
                     for (String key : allTecton.keySet()) {
                         if (which == 0) {
-                            allTecton.get(key).breakTecton();
+                            toBreak = allTecton.get(key);
+                            break;
                         }
                         which--;
+                    }
+
+                    if (toBreak != null) {
+                        toBreak.breakTecton();
                     }
                 }
             }
