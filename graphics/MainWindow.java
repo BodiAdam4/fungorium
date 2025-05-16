@@ -178,7 +178,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         //controlPanel.setMaximumSize(new Dimension(this.getWidth()/4, this.getHeight()));
         mainContentPanel.add(controlPanel, BorderLayout.EAST); //A vezérlő panel hozzáadása a fő tartalom panelhez
         */
-        controlPanel = new ControlPanel(gController); //A vezérlő panel inicializálása
+        controlPanel = new ControlPanel(gController, this); //A vezérlő panel inicializálása
         controlPanel.setPreferredSize(new Dimension(this.getWidth()/5, this.getHeight())); //A vezérlő panel méretének beállítása
         controlPanel.setMaximumSize(new Dimension(this.getWidth()/5, this.getHeight())); //A vezérlő panel méretének beállítása
         mainContentPanel.add(controlPanel, BorderLayout.EAST);
