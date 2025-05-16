@@ -1,12 +1,11 @@
 package model;
-import listeners.MushroomListener;
-import listeners.JobListener;
-import listeners.ObjectChangeListener;
-import listeners.ObjectChangeListener.ObjectChangeEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import listeners.JobListener;
+import listeners.MushroomListener;
+import listeners.ObjectChangeListener;
+import listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
  * A Mushroom osztály valósítja meg a gombatesteket a játékban. 
@@ -163,11 +162,26 @@ public class Mushroom{
         
         //A szomszédos tektonok listája
         List<Tecton> neighborlist = this.myTecton.getNeighbors();
+
+        if (!to.canAddLine(id)) {
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Can't grow more than two types of line on this tecton");
+            }
+            return false;
+        }
         
         if (neighborlist.contains(to)){
             Timer.addOneTimeSchedule(new Schedule() {
                 @Override
                 public void onTime() {
+
+                    if (!to.canAddLine(id)) {
+                        for (JobListener listener : jobListeners) {
+                            listener.jobFailed("Failed to grow mushroom on tecton");
+                        }
+                        return;
+                    }
+
                     Line line = new Line(myTecton, to, id);
                     changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, line); //Eseménykezelő értesítése
                     System.out.println("Line successfully grown");

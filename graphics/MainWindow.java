@@ -562,7 +562,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
             @Override
             public void run() {
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                     notificJPanel.setVisible(false);
                 } catch (InterruptedException e) {
                     System.out.println("Notification timer interrupted");

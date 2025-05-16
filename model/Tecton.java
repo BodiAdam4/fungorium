@@ -205,6 +205,15 @@ public class Tecton {
         
     }
 
+    /**
+     * A függvény visszaadja, hogy a paraméterként kapott gombaazonosítóval lehet-e gombafonalat növeszteni.
+     * @param id Az ellenőrizendő gombaazonosító
+     * @return Lehetséges-e gombafonalat növeszteni
+     */
+    public boolean  canAddLine(int id) {
+        return true;
+    }
+
     
     /**
       * A függvény segítségével lekérdezhető, hogy a tektonon van-e gombatest 

@@ -186,6 +186,12 @@ public class Line
             return false;
         }
 
+        if (!to1.canAddLine(mushroomId) || !to2.canAddLine(mushroomId)) {
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Can't grow more than two types of line on this tecton");
+            }
+            return false;
+        }
             
         for (JobListener listener : jobListeners) {
             listener.jobSuccessfull("Line started to grow!");
@@ -194,6 +200,14 @@ public class Line
         Timer.addOneTimeSchedule(new Schedule() {
             @Override
             public void onTime() {
+
+                if (!to1.canAddLine(mushroomId) || !to2.canAddLine(mushroomId)) {
+                    for (JobListener listener : jobListeners) {
+                        listener.jobFailed("Failed to grow mushroom on tecton");
+                    }
+                    return;
+                }
+
                 Line nl = new Line(to1, to2, mushroomId);
                 changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, nl);
                 for (JobListener listener : jobListeners) {

@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-
 import listeners.JobListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
@@ -38,6 +37,12 @@ public class TectonOnlyLine extends Tecton{
             }
             return false;
         }
+    }
+
+
+    @Override
+    public boolean canAddLine(int id) {
+        return ((!this.connections.isEmpty() && this.connections.get(0).getId() == id) || this.connections.isEmpty());
     }
 
 
