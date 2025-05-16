@@ -34,6 +34,7 @@ public class RandTools {
         }
     }
 
+
     /**
      * Visszaad egy random számot 0-tól a megadott maximumig. Ha a fixRandom
      * metódust meghívtuk, akkor mindig ugyanazt a számot adja vissza.
@@ -43,6 +44,15 @@ public class RandTools {
         return random(0, maxExcluded);
     }
 
+
+    /**
+     * Véletlenszerű különböző értékű számpárok előállítása
+     * A számoknak páronként kell különbözniük
+     * @param minIncluded a minimum érték, amit vissza akarunk adni (inclusive)
+     * @param maxExcluded a maximum érték, amit vissza akarunk adni (exclusive)
+     * @param count hány darab számpárt akaruk
+     * @return egy lista a számokról. A számpárok [0, 1], [2, 3] módban vannak párban
+     */
     public static List<Integer> randomPairs(int minIncluded, int maxExcluded, int count) {
         List<Integer> res = new ArrayList<Integer>();
 
