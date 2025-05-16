@@ -8,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -205,9 +206,22 @@ public class MainMenu extends JPanel {
             //Amennyiben nincs legalább 2 gombász és 2 rovarász, akkor hibaüzenetet adunk
             long insectPlayerCount = playerPanels.stream().filter(PlayerPanel::isInsect).count();
             long mushroomPlayerCount = playerPanels.stream().filter(playerPanel -> !playerPanel.isInsect()).count();
+            
+            //Biztosítjuk, hogy ne legyenek a nevek azonosak
+            boolean sameNames = playerPanels.stream()
+                .map(PlayerPanel::getName)
+                .collect(Collectors.groupingBy(name -> name, Collectors.counting()))
+                .values()
+                .stream()
+                .anyMatch(count -> count > 1);
+
+            //Ha a darabszám nem megfelelő
             if (insectPlayerCount < 2 || mushroomPlayerCount < 2) {
                 //Egyedi dialógusablak hívása
-                showCustomErrorDialog(this);
+                showCustomErrorDialog(this, "There must be at least two selected player from each caste!");
+                return;
+            } else if (sameNames) {
+                showCustomErrorDialog(this, "Each players must use different names!");
                 return;
             }
             startGame();                    //Különben: játék indítása
@@ -226,14 +240,14 @@ public class MainMenu extends JPanel {
      * A JDialog dialog egyedi fejlécű ablakot hoz létre üres címsorral, setIconImage(null), pedig kiveszi a dialógusablak ikonját.
      * @param parent - a dialógusablak szülője
      */
-    public void showCustomErrorDialog(Component parent) {
+    public void showCustomErrorDialog(Component parent, String notificationSub) {
         //Cím és üzenet
         JLabel titleLabel = new JLabel("Warning!");
         titleLabel.setForeground(Color.RED);
         titleLabel.setFont(new Font("Arial", Font.BOLD, 20));
         titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel messageLabel = new JLabel("There must be at least two selected player from each caste!");
+        JLabel messageLabel = new JLabel(notificationSub);
         messageLabel.setForeground(Color.WHITE);
         messageLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         messageLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
