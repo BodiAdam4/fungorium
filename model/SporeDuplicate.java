@@ -1,5 +1,6 @@
 package model;
 
+import listeners.JobListener;
 import listeners.ObjectChangeListener;
 
 public class SporeDuplicate extends Spore{
@@ -18,6 +19,9 @@ public class SporeDuplicate extends Spore{
         Insect insect = new Insect();
         insect.setInsectId(i.getInsectId());
         insect.setTecton(i.getTecton());
+        for(JobListener listeners : i.getJobListeners()){
+            listeners.jobSuccessfull("Spore eaten with value: " + value + " and insect was duplicated.");
+        }
         i.changeListener.insectChanged(ObjectChangeListener.ObjectChangeEvent.OBJECT_ADDED, insect);
     }
 }

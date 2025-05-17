@@ -75,6 +75,10 @@ public class Insect {
         this.insectId = insectId;
     }
 
+    public List<JobListener> getJobListeners() {
+        return jobListeners;
+    }
+
     /**
      * Beállítja a rovar sebességét.
      *
@@ -327,6 +331,9 @@ public class Insect {
         
         for (InsectListener listener : insectListeners ) {
             listener.effectReseted();
+        }
+        for(JobListener listeners : jobListeners){
+            listeners.jobSuccessfull("Insect's status has been reverted.");
         }
     }
     
