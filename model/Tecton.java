@@ -179,6 +179,14 @@ public class Tecton {
      * @return Ha effekt vagy egyéb indok miatt nem tud ott gomba létesülni, akkor false értéket ad vissza.
      */
     public boolean addMushroom(int id){
+
+        if (myMushroom != null) {
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("Tecton already has mushroom!");
+            }
+            return false;
+        }
+
         boolean sporeCountOK = sporeContainer.getSporeCount(id) >= 3;
         if (sporeCountOK) {
             Tecton t = this;
@@ -232,6 +240,11 @@ public class Tecton {
         if (myMushroom != null) {
             return myMushroom.getMushroomId() == mushroomId;
         }
+
+        if (mushroomId == -1) {
+            return myMushroom != null;
+        }
+
         return false;
         
     }
