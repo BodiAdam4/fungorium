@@ -66,7 +66,16 @@ public class Tecton {
         sporeContainer = new SporeContainer();
     }
 
-    
+    private Tecton breakTecton;
+
+    public Tecton(Tecton tecton) {
+        breakTecton = tecton;
+        sporeContainer = new SporeContainer();
+    }
+
+    public Tecton getBreakTecton() {
+        return breakTecton;
+    }
     
     
     /** - Getter/Setter metódusok*/
@@ -233,7 +242,7 @@ public class Tecton {
      */
     public void breakTecton(){
         List<Tecton> ng = getNeighbors();
-        Tecton t3 = new Tecton();
+        Tecton t3 = new Tecton(this);
         changeListener.tectonChanged(ObjectChangeEvent.OBJECT_ADDED, t3);
         for (Tecton t : ng) {
             t3.setNeighbors(t);
