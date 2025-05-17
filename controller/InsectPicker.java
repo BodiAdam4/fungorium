@@ -166,4 +166,8 @@ public class InsectPicker extends Player {
         return false;
     }
 
+    public boolean canPlay(){
+        return getInsect().size() > 0;
+    }
+
 }

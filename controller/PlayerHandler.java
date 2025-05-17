@@ -94,12 +94,18 @@ public class PlayerHandler {
     public void nextPlayer() {
         actualPlayerIdx++;
 
+
         if (actualPlayerIdx >= mushroomPickers.size() + insectPickers.size()) {
             actualPlayerIdx = 0;
             insectPickers.forEach(InsectPicker::ResetInsectActions);
             mushroomPickers.forEach(MushroomPicker::ResetInsectActions);
             controller.nextRound();
             round++;
+        }
+
+        
+        if (!getActualPlayer().canPlay()) {
+            nextPlayer();
         }
         
         HashMap<String, Integer> scores = new HashMap<>();

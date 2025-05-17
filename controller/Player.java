@@ -54,4 +54,13 @@ public class Player {
     public void ResetInsectActions() {
         return;
     }
+
+
+    /**
+     * Ahhoz szükséges, hogy lekérdezhessük, hogy a játékosnak még vannak-e olyan objektumai amivel képes játszani
+     * @return Képes-e játszani a játékos
+     */
+    public boolean canPlay() {
+        return true;
+    }
 }

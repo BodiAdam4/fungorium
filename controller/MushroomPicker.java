@@ -232,5 +232,10 @@ public class MushroomPicker extends Player {
         return false;
     }
 
-    
+    public boolean canPlay(){
+        int lineCount = getLines().size();
+        int mushroomCount = getMushrooms().size();
+
+        return lineCount > 0 || mushroomCount > 0;
+    }
 }
