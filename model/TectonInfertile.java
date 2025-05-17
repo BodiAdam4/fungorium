@@ -34,15 +34,6 @@ public class TectonInfertile extends Tecton{
 
 
     /**
-     * Mivel a tektonon nem képes gombatest nőni, ezért számolás nélkül false értékkel tér vissza.
-     * @return Mindig false
-     */
-    boolean hasBody(){
-        return false;
-    }
-
-
-    /**
      * A tekton két tektonra törése
      */
     public void breakTecton(){

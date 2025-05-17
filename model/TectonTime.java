@@ -3,6 +3,7 @@ package model;
 import java.util.List;
 
 import listeners.JobListener;
+import listeners.LineListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
 /**
