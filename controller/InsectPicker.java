@@ -86,9 +86,10 @@ public class InsectPicker extends Player {
                 }
                 return false;
             }
-            
-            insectActions.get(insect)[2] = true;
-            return insect.cutLine(toCut);
+
+            boolean result = insect.cutLine(toCut);
+            insectActions.get(insect)[2] = result;
+            return result;
         }
         
         System.out.println("Insect is not yours!");
