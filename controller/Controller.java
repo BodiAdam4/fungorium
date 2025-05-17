@@ -464,7 +464,7 @@ public class Controller {
                         return "/move " + getInsectId(insect) + " " + toId;
                     }
                 }
-                break;
+                return "Hiba";
             case "/eat-spore":
                 //Megkeressük a kivalasztott tektonban az aktuális játékos rovarját
                 for (Insect insect : from.getInsects()) {
@@ -472,7 +472,7 @@ public class Controller {
                         return "/eat-spore " + getInsectId(insect);
                     }
                 }
-                break;
+                return "Hiba";
             case "/cut-line":
                 for (Insect insect : from.getInsects()) {
                     if(insect.getInsectId() == player.getPlayerId()){
@@ -480,18 +480,18 @@ public class Controller {
                     }
                 }
                 for(Line line : from.getConnections()){
-                    if(line.getEnds()[0] == from && line.getEnds()[1] == to){
+                    if((line.getEnds()[0] == from && line.getEnds()[1] == to) || (line.getEnds()[0] == to && line.getEnds()[1] == from)){
                         return "/cut-line " + insectId + " " + getLineId(line);
                     }
                 }     
-                break;
+                return "Hiba";
             case "/grow-line":
                 return "/grow-line " + fromId + " " + toId;
             case "/build-mushroom":
                 return "/build-mushroom " + fromId;
             case "/throw-spore":
                 if(from.getMyMushroom() == null){
-                    return "";
+                    return "Hiba";
                 }
                 return "/throw-spore " + getMushroomId(from.getMyMushroom())+ " " + toId;    
             case "/eat-insect":
@@ -511,6 +511,5 @@ public class Controller {
             default:
                 return "";
         }
-        return "";
     }
 }
