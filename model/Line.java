@@ -155,8 +155,7 @@ public class Line
      */
     public boolean growMushroom(Tecton to)
     {
-        to.addMushroom(mushroomId);
-        return true;
+        return to.addMushroom(mushroomId);
     }
 
 
