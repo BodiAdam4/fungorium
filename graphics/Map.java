@@ -609,7 +609,11 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                     t2RelativPos = temp;
                 }
                 
-                this.setComponentZOrder(line, this.getComponentCount() - 1);
+                try {
+                    this.setComponentZOrder(line, this.getComponentCount() - 1);
+                } catch (Exception e) {
+
+                }
                 line.setEndPoints(t1RelativPos, t2RelativPos);
                 line.repaint();
             }
@@ -623,7 +627,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
      * @param id az eltávolítandó gombafonal azonosítója
      */
     public void removeLine(Line line) {
+
         GLine gLine = getLine(line);
+
+        if (gLine == null)  //Ha a fonál már megsimmisült a TectonTime vagy fonalvágás miatt
+            return;
+
         if (gLine.getParent() == this)
             this.remove(gLine);
 
