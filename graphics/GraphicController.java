@@ -123,7 +123,9 @@ public class GraphicController {
         }
         String translatedCommand = Controller.translateCommand(command, tectons);
         System.out.println("Parsed command: " + translatedCommand);
-        GraphicMain.cmdProcessor.ExecuteCommand(translatedCommand);
+        if(!translatedCommand.equals("Hiba")){
+            GraphicMain.cmdProcessor.ExecuteCommand(translatedCommand);
+        }
         RemoveSelection();
     }
 
