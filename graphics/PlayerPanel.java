@@ -377,18 +377,12 @@ public class PlayerPanel extends JPanel {
 
 
     /* - Visszaadja a játékos által kiválasztott színt*/
-    public Color getColor(){
-        
-        //If the color is not selected, then return a random picked color.
-
+    public Color getColor() {
         if (color == null) {
-            //return with a randomized neon color
-            return colors[(int) (Math.random() * colors.length)];
-        } else {
-            return color;
-            
+            int index = (int) (Math.random() * colors.length);
+            color = colors[index];
         }
-        
+        return color;
     }
 
     public void setColor(Color newColor){
