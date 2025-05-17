@@ -52,6 +52,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     private GraphicController gController;
 
+    public static final Object lockObject = new Object();
+
     //Start pos : 50 55
 
     /* - Konstuktor(ok)*/
@@ -93,6 +95,18 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             if(gl.getMyLine().equals(line))
                 return gl;
         return null;
+    }
+
+    public void addToList(GLine line) {
+        synchronized (this) {
+            lines.add(line);
+        }
+    }
+
+    public void removeFromList(GLine line) {
+        synchronized (this) {
+            lines.remove(line);
+        }
     }
 
 
@@ -541,32 +555,34 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         this.revalidate();
         this.repaint();
 
-        lines.add(line);
+        addToList(line);
     }
 
     public void RefreshLines() {
-        for (GLine line : lines) {
-            Point t1Pos = line.getEnds().get(0).getLocation();
-            Point t2Pos = line.getEnds().get(1).getLocation();
+        synchronized (this) {
+            for (GLine line : lines) {
+                Point t1Pos = line.getEnds().get(0).getLocation();
+                Point t2Pos = line.getEnds().get(1).getLocation();
 
-            Point min = new Point(Math.min(t1Pos.x, t2Pos.x), Math.min(t1Pos.y, t2Pos.y));
-            Point max = new Point(Math.max(t1Pos.x, t2Pos.x), Math.max(t1Pos.y, t2Pos.y));
+                Point min = new Point(Math.min(t1Pos.x, t2Pos.x), Math.min(t1Pos.y, t2Pos.y));
+                Point max = new Point(Math.max(t1Pos.x, t2Pos.x), Math.max(t1Pos.y, t2Pos.y));
 
-            Dimension size = new Dimension(max.x - min.x + CELL_SIZE, max.y - min.y+ CELL_SIZE);
-            line.setBounds(min.x, min.y, size.width, size.height); //A gombafonal pozíciója és mérete
+                Dimension size = new Dimension(max.x - min.x + CELL_SIZE, max.y - min.y+ CELL_SIZE);
+                line.setBounds(min.x, min.y, size.width, size.height); //A gombafonal pozíciója és mérete
 
-            Point t1RelativPos = new Point(t1Pos.x - line.getLocation().x+CELL_SIZE/2, t1Pos.y - line.getLocation().y+CELL_SIZE/2+10);
-            Point t2RelativPos = new Point(t2Pos.x - line.getLocation().x+CELL_SIZE/2, t2Pos.y - line.getLocation().y+CELL_SIZE/2+10);
+                Point t1RelativPos = new Point(t1Pos.x - line.getLocation().x+CELL_SIZE/2, t1Pos.y - line.getLocation().y+CELL_SIZE/2+10);
+                Point t2RelativPos = new Point(t2Pos.x - line.getLocation().x+CELL_SIZE/2, t2Pos.y - line.getLocation().y+CELL_SIZE/2+10);
 
-            if (t2RelativPos.x < t1RelativPos.x) {
-                Point temp = t1RelativPos;
-                t1RelativPos = t2RelativPos;
-                t2RelativPos = temp;
+                if (t2RelativPos.x < t1RelativPos.x) {
+                    Point temp = t1RelativPos;
+                    t1RelativPos = t2RelativPos;
+                    t2RelativPos = temp;
+                }
+                
+                this.setComponentZOrder(line, this.getComponentCount() - 1);
+                line.setEndPoints(t1RelativPos, t2RelativPos);
+                line.repaint();
             }
-            
-            this.setComponentZOrder(line, this.getComponentCount() - 1);
-            line.setEndPoints(t1RelativPos, t2RelativPos);
-            line.repaint();
         }
     }
 
@@ -578,7 +594,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
      */
     public void removeLine(Line line) {
         GLine gLine = getLine(line);
-        lines.remove(gLine);
+        removeFromList(gLine);
         this.remove(gLine);
         this.repaint();
     }
