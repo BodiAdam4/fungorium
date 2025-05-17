@@ -1,7 +1,6 @@
 package model;
 
 import java.util.List;
-
 import listeners.JobListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
 
@@ -55,6 +54,14 @@ public class TectonInfertile extends Tecton{
         for (JobListener listener : jobListeners) {
             listener.jobSuccessfull("A tecton broke");
         }
+    }
+
+    public boolean hasBody(int mushroomId){
+        if (mushroomId == -1) {
+            return true;
+        }
+
+        return false;
     }
 
     

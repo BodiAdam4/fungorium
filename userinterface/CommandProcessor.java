@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import model.Insect;
 import model.Line;
 import model.Mushroom;
@@ -1254,12 +1255,30 @@ public class CommandProcessor {
                     int bigger = Math.max(mCount, iCount);
                     List<Integer> tNums = RandTools.randomPairs(0, mSize, bigger);
 
+                    List<String> possibleTectons = new ArrayList<>();
+                    List<String> mushroomAssigned = new ArrayList<>();
+
+                    for (String tId : controller.getAllTecton().keySet()) {
+                        if (!controller.getAllTecton().get(tId).hasBody(-1)) {
+                            possibleTectons.add(tId);
+                        }
+                    }
+
+                    Random random = new Random();
+                    
                     for (int i = 0; i < mCount; i++) {
-                        String tectonId = "t" + tNums.get(i * 2) +"_" + tNums.get((i * 2) + 1);
+                        String tectonId = possibleTectons.get(random.nextInt(0, possibleTectons.size()));
+                        possibleTectons.remove(tectonId);
+                        mushroomAssigned.add(tectonId);
                         ExecuteCommand("/create-mushroom " + tectonId + " -mid " + i + " -i m" + i);
                     }
 
-                    for (int i = 0; i < iCount; i++) {
+                    for (int i = 0; i < iCount && i < mushroomAssigned.size(); i++) {
+                        String tectonId = mushroomAssigned.get(i);
+                        ExecuteCommand("/create-insect " + tectonId + " -iid " + i + " -i i" + i);
+                    }
+
+                    for (int i = mushroomAssigned.size(); i < iCount; i++) {
                         String tectonId = "t" + tNums.get(i * 2) +"_" + tNums.get((i * 2) + 1);
                         ExecuteCommand("/create-insect " + tectonId + " -iid " + i + " -i i" + i);
                     }
