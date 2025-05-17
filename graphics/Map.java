@@ -606,7 +606,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
      */
     public void removeLine(Line line) {
         GLine gLine = getLine(line);
-        this.remove(gLine);
+        if (gLine.getParent() == this)
+            this.remove(gLine);
+            
         removeFromList(gLine);
         this.repaint();
     }
