@@ -206,6 +206,14 @@ public class MainMenu extends JPanel {
             //Amennyiben nincs legalább 2 gombász és 2 rovarász, akkor hibaüzenetet adunk
             long insectPlayerCount = playerPanels.stream().filter(PlayerPanel::isInsect).count();
             long mushroomPlayerCount = playerPanels.stream().filter(playerPanel -> !playerPanel.isInsect()).count();
+
+            // Biztosítsuk, hogy ne lehessen azonos színt választani:
+            boolean sameColor = playerPanels.stream()
+                .map(PlayerPanel::getColor)
+                .collect(Collectors.groupingBy(color -> color, Collectors.counting()))
+                .values()
+                .stream()
+                .anyMatch(count -> count > 1);
             
             //Biztosítjuk, hogy ne legyenek a nevek azonosak
             boolean sameNames = playerPanels.stream()
@@ -222,6 +230,9 @@ public class MainMenu extends JPanel {
                 return;
             } else if (sameNames) {
                 showCustomErrorDialog(this, "Each players must use different names!");
+                return;
+            } else if (sameColor) {
+                showCustomErrorDialog(this, "Each players must use different colors!");
                 return;
             }
             startGame();                    //Különben: játék indítása
