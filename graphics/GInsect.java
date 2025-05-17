@@ -1,6 +1,5 @@
 package graphics;
 
-import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
@@ -39,7 +38,7 @@ public class GInsect extends Image implements InsectListener{
     }
 
     public void destroy() {
-        //TODO
+        map.removeInsect(insect);
     }
 
     //InsectListenert implementáló metódusok

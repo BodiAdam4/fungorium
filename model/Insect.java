@@ -6,6 +6,7 @@ import listeners.InsectListener;
 import listeners.JobListener;
 import listeners.ObjectChangeListener;
 import listeners.ObjectChangeListener.ObjectChangeEvent;
+import userinterface.RandTools;
 
 /**
  * Egy rovart reprezentál különböző tulajdonságokkal, például sebesség,
@@ -73,6 +74,10 @@ public class Insect {
 
     public void setInsectId(int insectId) {
         this.insectId = insectId;
+    }
+
+    public List<JobListener> getJobListeners() {
+        return jobListeners;
     }
 
     /**
@@ -282,6 +287,14 @@ public class Insect {
             sporeCount += selected[i].getValue();
             nutrientCount += selected[i].getValue();
         }
+
+        Timer.addOneTimeSchedule(new Schedule() {
+            @Override
+            public void onTime() {
+                resetEffect();
+            }
+        }, 2);
+
         String effect = getEffect();
         for (InsectListener listener : insectListeners ) {
             listener.sporeEaten(effect);
@@ -328,12 +341,19 @@ public class Insect {
         for (InsectListener listener : insectListeners ) {
             listener.effectReseted();
         }
+        for(JobListener listeners : jobListeners){
+            listeners.jobSuccessfull("Insect's status has been reverted.");
+        }
     }
     
 
     public void destroy(){
         currentTecton.removeInsect(this);
         changeListener.insectChanged(ObjectChangeEvent.OBJECT_REMOVED, this);
+
+        for (InsectListener listener : insectListeners) {
+            listener.insectDestroyed();
+        }
     }
 
 }

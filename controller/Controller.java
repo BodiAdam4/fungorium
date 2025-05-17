@@ -125,16 +125,6 @@ public class Controller {
                 }
             }
         }, 1);
-
-        Timer.addRepeatSchedule(new Schedule() {
-            @Override
-            public void onTime() {
-                for (String id : allInsect.keySet()) {
-                    allInsect.get(id).resetEffect();
-                    System.out.println("Insect effect reset: " + id);
-                }
-            }
-        }, 2);
     }
 
     public void StartGame(int mushroomPickerCount, int insectPickerCount, boolean askName) {
@@ -479,6 +469,9 @@ public class Controller {
                         insectId = getInsectId(insect);
                     }
                 }
+                if(insectId == null){
+                    return "Hiba";
+                }
                 for(Line line : from.getConnections()){
                     if((line.getEnds()[0] == from && line.getEnds()[1] == to) || (line.getEnds()[0] == to && line.getEnds()[1] == from)){
                         return "/cut-line " + insectId + " " + getLineId(line);
@@ -500,10 +493,16 @@ public class Controller {
                         insectId = getInsectId(insect);
                     }
                 }
+                if(insectId == null){
+                    return "Hiba";
+                }
                 for(Line line : from.getConnections()){
                     if(line.getId() == player.getPlayerId()){
                         lineId = getLineId(line);
                     }
+                }
+                if(lineId == null){
+                    return "Hiba";
                 }
                 return "/eat-insect " + insectId + " " + lineId;    
             case "/next":

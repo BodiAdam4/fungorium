@@ -1,4 +1,7 @@
 package model;
+
+import listeners.JobListener;
+
 /**
  * A Spóra leszármazottja.
  * Felülírja az addEffect metódust, hogy a saját hatását átadja a rovarnak.
@@ -25,5 +28,8 @@ public class SporeFast extends Spore
     @Override
     public void addEffect(Insect i) {
         i.setSpeed(3);
+        for(JobListener listeners : i.getJobListeners()){
+            listeners.jobSuccessfull("Spore eaten with value: " + value + " and insect became fast.");
+        }
     }
 }

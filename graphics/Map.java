@@ -110,6 +110,16 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     }
 
 
+    public GInsect getInsect(Insect insect) {
+        for (GInsect i : insects.keySet()) {
+            if (i.getMyInsect().equals(insect)) {
+                return i;
+            }
+        }
+        return null;
+    }
+
+
     /* - Grafikus rovar keresése a térképen a kontrollerbeli azonosító szerint.*/
     //public GInsect getInsect(String id) {}
 
@@ -520,7 +530,13 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
 
     /* - Rovar eltávolítása a játéktérképről. Ehhez meg kell adni a rovar kontrollerbeli azonosítóját.*/
-    public void removeInsect(String id) {}
+    public void removeInsect(Insect insect) {
+        GInsect gInsect = getInsect(insect);
+        insects.remove(gInsect);
+        this.remove(gInsect);
+        this.revalidate();
+        this.repaint();
+    }
 
     /* - Rovarok pozíciójának frissítése */
     public void refreshInsects() {
@@ -606,7 +622,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
      */
     public void removeLine(Line line) {
         GLine gLine = getLine(line);
-        this.remove(gLine);
+        if (gLine.getParent() == this)
+            this.remove(gLine);
+
         removeFromList(gLine);
         this.repaint();
     }

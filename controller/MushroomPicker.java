@@ -214,7 +214,6 @@ public class MushroomPicker extends Player {
 
         for (Line line : insect.getTecton().getConnections()) {
             if (line.getId() == this.getPlayerId()) {
-                boolean success = line.eatInsect(insect);
                 if (line.eatInsect(insect)) {
                     System.out.println("Insect eaten successfully!");
                     for(JobListener listener : jobListeners){

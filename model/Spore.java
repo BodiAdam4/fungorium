@@ -1,4 +1,7 @@
 package model;
+
+import listeners.JobListener;
+
 /**
  * A játékban lévő spórákat valósítja meg.
  * Tartalmazza a tápértéket és a gombához tartozó azonosítót.
@@ -6,11 +9,10 @@ package model;
 public class Spore
 {
     /* - Privát attribútumok*/
-    private int value;
     private int id;
 
-    /* - Publikus attribútumok*/
-
+    /* - Védett attribútumok*/
+    protected int value;
 
     /* - Konstruktorok*/
 
@@ -44,6 +46,9 @@ public class Spore
      */
     public void addEffect(Insect i)
     {
+        for(JobListener listeners : i.getJobListeners()){
+            listeners.jobSuccessfull("Spore eaten with value: " + value);
+        }
         return;
     }
 }

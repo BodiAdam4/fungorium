@@ -155,8 +155,7 @@ public class Line
      */
     public boolean growMushroom(Tecton to)
     {
-        to.addMushroom(mushroomId);
-        return true;
+        return to.addMushroom(mushroomId);
     }
 
 
@@ -225,8 +224,16 @@ public class Line
      */
     public boolean eatInsect(Insect insect) {
         Spore[] newSpores = SporeContainer.generateSpores(3, this.mushroomId);
-        this.ends[0].getSporeContainer().addSpores(newSpores);
-        this.ends[0].addMushroom(this.mushroomId);
+
+        Tecton insectSideTecton = null;
+
+        for (int i = 0; i<ends.length; i++) {
+            if (this.ends[i].equals(insect.getTecton()))
+                insectSideTecton = ends[i];
+        }
+
+        insectSideTecton.getSporeContainer().addSpores(newSpores);
+        insectSideTecton.addMushroom(this.mushroomId);
         insect.destroy();
         System.out.println("Insect eaten and Mushroom grown");
         for (JobListener listener : jobListeners) {
