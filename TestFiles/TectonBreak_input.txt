@@ -1,5 +1,0 @@
-/create-tecton -i t1 -sp 2 -t time
-/create-tecton -i t2 -n t1
-/create-line t1 t2
-/create-mushroom t1
-/tecton-break t1

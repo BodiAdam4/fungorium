@@ -1,6 +1,0 @@
-/create-tecton -i t1
-/create-tecton -i t2 -n t1
-/create-tecton -i t3 -n t2
-/create-mushroom t1 -i m1 -mid 1
-/setlevel-mushroom m1 1
-/throw-spore m1 t3
