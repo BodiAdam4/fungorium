@@ -41,6 +41,8 @@ public class GLine extends JPanel implements LineListener
     private Map map;
     private double darkenFactor = 0.0;
 
+    private Point controlPoint;
+
     /* - Konstruktor(ok)*/
     
     public GLine(GTecton start, GTecton end, Line line, Map map) {
@@ -181,7 +183,14 @@ public class GLine extends JPanel implements LineListener
      * @return a kontrolpont
      */
     public Point getMiddlePoint() {
-        return generateControlPoint(startPoint, endPoint, curveHeight);
+        Point start = startPoint;
+        Point control = controlPoint;
+        Point end = endPoint;
+
+        double midX = 0.25 * start.getX() + 0.5 * control.getX() + 0.25 * end.getX();
+        double midY = 0.25 * start.getY() + 0.5 * control.getY() + 0.25 * end.getY();
+
+        return new Point((int)midX, (int)midY);
     }
 
 
@@ -192,7 +201,7 @@ public class GLine extends JPanel implements LineListener
         
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        Point controlPoint = generateControlPoint(startPoint, endPoint, curveHeight);
+        controlPoint = generateControlPoint(startPoint, endPoint, curveHeight);
         
         Color color = this.getBackground();
 

@@ -517,8 +517,9 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
             for (GLine line : lines) {
                 if (line.getEnds().contains(start) && line.getEnds().contains(end)) {
-                    int x = line.getMiddlePoint().x-this.getLocation().x;
-                    int y = line.getMiddlePoint().y-this.getLocation().y;
+                    int x = line.getMiddlePoint().x+line.getX()-CELL_SIZE/2;
+                    int y = line.getMiddlePoint().y+line.getY()-CELL_SIZE/2;
+                    System.out.println("Moved to X:"+x+" Y:"+y);
                     ginsect.setBounds(x, y, CELL_SIZE, CELL_SIZE);
                     insects.put(ginsect, line);
                 }
