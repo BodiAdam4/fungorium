@@ -173,15 +173,15 @@ public class MushroomPicker extends Player {
         for(Mushroom m : getMushrooms()){
             for  (Tecton t : m.getMyTecton().getNeighbors()){
                 if (m.getLevel() >= 2 && t.getNeighbors().contains(tectonTo)){
-                    m.throwSpores(tectonTo);
-                    actions[2] = true;
-                    return true;
+                    boolean result = m.throwSpores(tectonTo);
+                    actions[2] = result;
+                    return result;
                 } 
                 
                 if (t == tectonTo){
-                    m.throwSpores(tectonTo);
-                    actions[2] = true;
-                    return true;
+                    boolean result = m.throwSpores(tectonTo);
+                    actions[2] = result;
+                    return result;
                 }
             }
         }
