@@ -472,7 +472,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
             //A rovar sebessége miatt egyből átkerül a másik tektonra
             GTecton parentTecton = getTecton(moveTectons.get(0));
             ginsect.setBounds(parentTecton.getX(), parentTecton.getY(), CELL_SIZE, CELL_SIZE);
-            
+            insects.put(ginsect, parentTecton);
         }
         else {
             //A rovar sebessége miatt még megy át a fonalon
@@ -484,6 +484,7 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
                     int x = line.getMiddlePoint().x-this.getLocation().x;
                     int y = line.getMiddlePoint().y-this.getLocation().y;
                     ginsect.setBounds(x, y, CELL_SIZE, CELL_SIZE);
+                    insects.put(ginsect, line);
                 }
             }
         }
