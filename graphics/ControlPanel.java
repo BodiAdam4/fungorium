@@ -66,20 +66,21 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         JLabel title = new JLabel("Available actions");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, 20));
+        title.setFont(new Font("Arial", Font.BOLD, 25));
         title.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
         panel.add(title);
-        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(Box.createRigidArea(new Dimension(0, 30)));
         
         // Player label
         JLabel playerLabel = new JLabel("Actual player: ");
         playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         playerLabel.setForeground(Color.WHITE);
-        playerLabel.setFont(new Font("Arial", Font.PLAIN, 16));
+        playerLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(playerLabel);
 
         playerTextInsect = new JLabel(player);
         playerTextInsect.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerTextInsect.setFont(new Font("Arial", Font.BOLD, 20));
         playerTextInsect.setForeground(Color.RED);
         panel.add(playerTextInsect);
         
@@ -100,6 +101,7 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
             button.setBackground(Color.DARK_GRAY);
             button.setForeground(Color.WHITE);  // Szöveg színe fehér
             button.setBorder(new LineBorder(Color.WHITE, 3)); // 3px vastag keret
+            button.setFont(new Font("Arial", Font.BOLD, 20));
             button.setFocusPainted(false);  // Ne legyen fókusz keret
             switch (action) {
                 case "Move insect":
@@ -117,11 +119,24 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
                 default:
                     break;
             }
-            buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+            buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
             buttonPanel.add(button);
         }
 
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        //Láthatatlan JButton a távolságtartásra.
+        JButton invisibleButton = new JButton();
+        invisibleButton.setMaximumSize(new Dimension((mainWindow.getWidth()/5), 40));
+        invisibleButton.setAlignmentX(MainWindow.CENTER_ALIGNMENT);
+        invisibleButton.setBackground(null);
+        invisibleButton.setForeground(null);
+        invisibleButton.setBorder(null);
+        invisibleButton.setEnabled(false);
+        invisibleButton.setFocusPainted(false);  // Ne legyen fókusz keret
+        //actionButtons.put(invisibleButton, 1);
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
+        buttonPanel.add(invisibleButton);
+
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         panel.add(buttonPanel);
         
         // Round label
@@ -131,7 +146,7 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         //Round:
         roundTextInsect = new JLabel("ROUND:");
         roundTextInsect.setForeground(Color.WHITE);
-        roundTextInsect.setFont(new Font("Arial", Font.BOLD, 20));
+        roundTextInsect.setFont(new Font("Arial", Font.BOLD, 40));
         roundTextInsect.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         roundpanel.add(roundTextInsect);
@@ -139,27 +154,28 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         //Round number
         roundNumberTextInsect = new JLabel(" " + round);
         roundNumberTextInsect.setForeground(Color.RED);
-        roundNumberTextInsect.setFont(new Font("Arial", Font.BOLD, 20));
+        roundNumberTextInsect.setFont(new Font("Arial", Font.BOLD, 40));
         roundNumberTextInsect.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         roundpanel.add(roundNumberTextInsect);
         roundpanel.setBackground(Color.DARK_GRAY);
-        roundpanel.setMaximumSize(new Dimension(mainWindow.getWidth()/5 - 40, 40));
+        roundpanel.setMaximumSize(new Dimension(mainWindow.getWidth()/5 - 40, 100));
 
 
-        panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        panel.add(Box.createRigidArea(new Dimension(0, 80)));
         panel.add(roundpanel);
         
         // Finish button
         JButton finishButton = new JButton("Finish my round");
         finishButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         finishButton.setMaximumSize(new Dimension(mainWindow.getWidth()/5 - 40, 40));
+        finishButton.setFont(new Font("Arial", Font.BOLD, 20));
         finishButton.setForeground(Color.RED);
         finishButton.setBackground(Color.DARK_GRAY);
         finishButton.setFocusable(false);
         finishButton.setBorder(new LineBorder(Color.WHITE, 3));
         finishButton.addActionListener(e -> gController.sendCommand("/next"));
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(Box.createRigidArea(new Dimension(0, 20)));
         panel.add(finishButton);
         
         return panel;
@@ -177,20 +193,21 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         JLabel title = new JLabel("Available actions");
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setForeground(Color.WHITE);
-        title.setFont(new Font("Arial", Font.BOLD, 20));
+        title.setFont(new Font("Arial", Font.BOLD, 25));
         title.setBorder(BorderFactory.createMatteBorder(0, 0, 3, 0, Color.WHITE));
         panel.add(title);
-        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        panel.add(Box.createRigidArea(new Dimension(0, 30)));
         
         // Player label
         JLabel playerLabel = new JLabel("Actual player: ");
-        playerLabel.setFont(new Font("Arial", Font.PLAIN, 16));
         playerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         playerLabel.setForeground(Color.WHITE);
+        playerLabel.setFont(new Font("Arial", Font.PLAIN, 20));
         panel.add(playerLabel);
 
         playerTextMushroom = new JLabel(player);
         playerTextMushroom.setAlignmentX(Component.CENTER_ALIGNMENT);
+        playerTextMushroom.setFont(new Font("Arial", Font.BOLD, 20));
         playerTextMushroom.setForeground(Color.RED);
         panel.add(playerTextMushroom);
         
@@ -210,6 +227,7 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
             button.setBackground(Color.DARK_GRAY);
             button.setForeground(Color.WHITE);  // Szöveg színe fehér
             button.setBorder(new LineBorder(Color.WHITE, 3)); // 3px vastag keret
+            button.setFont(new Font("Arial", Font.BOLD, 20));
             button.setFocusPainted(false);  // Ne legyen fókusz keret
             switch (action) {
                 case "Grow mushroom":
@@ -230,10 +248,10 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
                 default:
                     break;
             }
-            buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+            buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
             buttonPanel.add(button);
         }
-        buttonPanel.add(Box.createRigidArea(new Dimension(0, 20)));
+        buttonPanel.add(Box.createRigidArea(new Dimension(0, 30)));
         panel.add(buttonPanel);
 
         
@@ -244,7 +262,7 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         //Round:
         roundTextMushroom = new JLabel("ROUND:");
         roundTextMushroom.setForeground(Color.WHITE);
-        roundTextMushroom.setFont(new Font("Arial", Font.BOLD, 20));
+        roundTextMushroom.setFont(new Font("Arial", Font.BOLD, 40));
         roundTextMushroom.setAlignmentX(Component.LEFT_ALIGNMENT);
         
         roundpanel.add(roundTextMushroom);
@@ -252,21 +270,22 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         //Round number
         roundNumberTextMushroom = new JLabel(" " + round);
         roundNumberTextMushroom.setForeground(Color.RED);
-        roundNumberTextMushroom.setFont(new Font("Arial", Font.BOLD, 20));
+        roundNumberTextMushroom.setFont(new Font("Arial", Font.BOLD, 40));
         roundNumberTextMushroom.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
         roundpanel.add(roundNumberTextMushroom);
         roundpanel.setBackground(Color.DARK_GRAY);
-        roundpanel.setMaximumSize(new Dimension(mainWindow.getWidth()/5 - 40, 40));
+        roundpanel.setMaximumSize(new Dimension(mainWindow.getWidth()/5 - 40, 100));
 
 
-        panel.add(Box.createRigidArea(new Dimension(0, 20)));
+        panel.add(Box.createRigidArea(new Dimension(0, 80)));
         panel.add(roundpanel);
         
         // Finish button
         JButton finishButton = new JButton("Finish my round");
         finishButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         finishButton.setMaximumSize(new Dimension(mainWindow.getWidth()/5 - 40, 40));
+        finishButton.setFont(new Font("Arial", Font.BOLD, 20));
         finishButton.addActionListener(e -> gController.sendCommand("/next"));
         finishButton.setForeground(Color.RED);
         finishButton.setBackground(Color.DARK_GRAY);
