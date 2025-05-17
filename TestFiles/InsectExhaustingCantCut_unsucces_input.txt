@@ -1,8 +1,0 @@
-/create-tecton -i t1
-/create-tecton -i t2 -n t1
-/create-line t1 t2
-/set-random 1
-/add-spore t1 -sp 1 -t exhausting
-/create-insect t1 -i i1 -iid 1
-/eat-spore i1
-/cut-line i1 l0
