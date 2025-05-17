@@ -215,7 +215,6 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         Tecton breakTecton = gtecton.getMyTecton().getBreakTecton();
 
         if (breakTecton != null) {
-            System.out.println("Tecton broken");
             GTecton parentTecton = getTecton(breakTecton);
             Random random = new Random();
             Point breakPos = new Point(parentTecton.getX()+random.nextInt(2, 7), parentTecton.getY()+random.nextInt(2, 7));
