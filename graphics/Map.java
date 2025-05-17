@@ -507,7 +507,8 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         if (moveTectons.size() == 1) {
             //A rovar sebessége miatt egyből átkerül a másik tektonra
             GTecton parentTecton = getTecton(moveTectons.get(0));
-            ginsect.setBounds(parentTecton.getX(), parentTecton.getY(), CELL_SIZE, CELL_SIZE);
+            Random random = new Random();
+            ginsect.setBounds(parentTecton.getX()+random.nextInt(-10,10), parentTecton.getY(), CELL_SIZE, CELL_SIZE);
             insects.put(ginsect, parentTecton);
         }
         else {
