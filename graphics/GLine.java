@@ -118,11 +118,12 @@ public class GLine extends JPanel implements LineListener
                 darkenFactor = 0.0;
                 break;
             case 2:
-                darkenFactor = 0.3;
+                darkenFactor = 0.6;
                 break;
             default:
                 break;
         }
+        this.repaint();
     }
 
 

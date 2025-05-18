@@ -127,7 +127,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -199,7 +201,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -245,7 +249,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Loads the game object's states from a previously saved state.\n" +
@@ -307,7 +313,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             public String toString() {
                 return "Description: Creates an insect on the specified tecton.\n" +
                         "\tUsing: /create-insect <TectonID>\n" +
@@ -356,7 +364,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Moves the specified insect to a new tecton.\n" +
@@ -403,7 +413,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Sets the neighbors of the specified tecton.\n" +
@@ -458,7 +470,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Cuts a mushroom line on the tecton where the specified insect is located.\n" +
@@ -514,7 +528,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Grows a line between two tectons.\n" +
@@ -562,7 +578,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -600,7 +618,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -647,7 +667,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -693,7 +715,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -743,7 +767,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -773,7 +799,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Breaks the specified tecton.\n" +
@@ -837,7 +865,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -868,7 +898,9 @@ public class CommandProcessor {
                 }
             }
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: The specified insect consumes one mushroom spore from the tecton it is currently on.\n" +
@@ -900,7 +932,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Throws a mushroom spore from the given mushroom to the specified tecton.\n" +
@@ -925,7 +959,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -1009,7 +1045,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Creates a tecton matrix with specified rows and columns.\n" +
@@ -1060,7 +1098,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -1109,7 +1149,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -1178,7 +1220,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return """
@@ -1206,7 +1250,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */
             @Override
             public String toString() {
                 return "Description: Fast-forwards the game by the specified number of rounds.\n" +
@@ -1298,7 +1344,9 @@ public class CommandProcessor {
             }
 
 
-            //Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+            /**
+             * Felülírt toString() metódus, hogy a parancs leírását ki tudjuk írni a felhasználónak
+             */ 
             @Override
             public String toString() {
                 return """
@@ -1320,7 +1368,7 @@ public class CommandProcessor {
          * Opciók:
          * -f <elérési út> : Ha nem a program aktuális állapotát szeretnénk összehasonlítani, 
          *  hanem kettő már elmentett log fájlt akkor ezzel az opcióval meg lehet adni a másik fájlnak az elérési útját.
-        */
+         */
         commands.put("/compare", new Command() {
             public void execute(String[] args, HashMap<String, String> options) {
                 String filePath = args[0];
@@ -1435,7 +1483,6 @@ public class CommandProcessor {
     /**
      * Egy parancsot hajt végre, amelyet a felhasználó adott meg.
      * A parancsot és az opcionális argumentumokat feldolgozza, majd a megfelelő műveletet végrehajtja.
-     *
      * @param command A végrehajtandó parancs szöveges formában. Tartalmazhat opciókat és argumentumokat.
      */
     public void ExecuteCommand(String command) {
