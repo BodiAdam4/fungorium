@@ -19,6 +19,7 @@ public class SporeDuplicate extends Spore{
         Insect insect = new Insect();
         insect.setInsectId(i.getInsectId());
         insect.setTecton(i.getTecton());
+        i.getTecton().addInsect(insect);
         for(JobListener listeners : i.getJobListeners()){
             listeners.jobSuccessfull("Spore eaten with value: " + value + " and insect was duplicated.");
         }
