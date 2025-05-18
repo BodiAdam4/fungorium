@@ -193,6 +193,14 @@ public class GLine extends JPanel implements LineListener
 
     @Override
     protected void paintComponent(Graphics g) {
+
+        if (myLine.ttl != -1) {
+            darkenFactor = 0.6;
+        }
+        else {
+            darkenFactor = 0.0;
+        }
+
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         

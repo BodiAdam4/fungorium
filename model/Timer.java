@@ -71,7 +71,11 @@ public class Timer {
         for (Schedule schedule : oneTimeSchedules.keySet()) {
             int time = oneTimeSchedules.get(schedule)-1;
             if (time == 0) {
-                schedule.onTime();
+                try {
+                    schedule.onTime();
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
             } else {
                 updated.put(schedule, time);
             }

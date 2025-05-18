@@ -25,10 +25,10 @@ public class Controller {
     private static HashMap<String, Insect> allInsect;
     private static HashMap<String, Tecton> allTecton;
 
-    public static int mushroomIndex = 0;
-    public static int lineIndex = 0;
-    public static int insectIndex = 0;
-    public static int tectonIndex = 0;
+    public static int mushroomIndex = 100;
+    public static int lineIndex = 100;
+    public static int insectIndex = 100;
+    public static int tectonIndex = 100;
 
     private static PlayerHandler playerHandler;
     private boolean isGameRunning = false;
@@ -87,7 +87,7 @@ public class Controller {
             @Override
             public void mushroomChanged(ObjectChangeEvent event, Mushroom mushroom) {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
-                    addMushroom(("m"+(mushroomIndex++)), mushroom);
+                    addMushroom(("m"+(mushroomIndex)), mushroom);
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
                     allMushroom.remove(getMushroomId(mushroom));
                 }
