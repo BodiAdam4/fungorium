@@ -24,6 +24,12 @@ public class Controller {
     private static HashMap<String, Line> allLine;
     private static HashMap<String, Insect> allInsect;
     private static HashMap<String, Tecton> allTecton;
+
+    public static int mushroomIndex = 0;
+    public static int lineIndex = 0;
+    public static int insectIndex = 0;
+    public static int tectonIndex = 0;
+
     private static PlayerHandler playerHandler;
     private boolean isGameRunning = false;
     private int round = 0;
@@ -54,7 +60,7 @@ public class Controller {
             @Override
             public void insectChanged(ObjectChangeEvent event, Insect insect) {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
-                    addInsect(("i"+(allInsect.size()+1)), insect);
+                    addInsect(("i"+(insectIndex++)), insect);
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
                     allInsect.remove(getInsectId(insect));
                 }
@@ -63,7 +69,7 @@ public class Controller {
             @Override
             public void lineChanged(ObjectChangeEvent event, Line line) {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
-                    addLine(("l"+(allLine.size()+1)), line);
+                    addLine(("l"+(lineIndex++)), line);
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
                     allLine.remove(getLineId(line));
                 }
@@ -72,7 +78,7 @@ public class Controller {
             @Override
             public void tectonChanged(ObjectChangeEvent event, Tecton tecton) {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
-                    addTecton(("t"+(allTecton.size()+1)), tecton);
+                    addTecton(("t"+(tectonIndex++)), tecton);
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
                     allTecton.remove(getTectonId(tecton));
                 }
@@ -81,7 +87,7 @@ public class Controller {
             @Override
             public void mushroomChanged(ObjectChangeEvent event, Mushroom mushroom) {
                 if(event == ObjectChangeEvent.OBJECT_ADDED) {
-                    addMushroom(("m"+(allMushroom.size()+1)), mushroom);
+                    addMushroom(("m"+(mushroomIndex++)), mushroom);
                 } else if (event == ObjectChangeEvent.OBJECT_REMOVED) {
                     allMushroom.remove(getMushroomId(mushroom));
                 }
