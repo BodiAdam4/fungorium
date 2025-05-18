@@ -9,15 +9,22 @@ import model.Line;
 */
 public interface MushroomListener {
 
-    /* - Gombafonál növesztésekor lefutó függvény, paraméterként átadja a kinövesztett gombafonalat.*/
+    /**
+     * Gombafonal növesztésekor meghívandó függvény.
+     * @param line az adott gombafonal
+     */
     public void lineGrew(Line line);
 
 
-    /* - Gombaspóra dobásánál lefutó metódus, mely paraméterként megkapja az eldobott gombaspóra referenciáját.*/
+    /**
+     * Gombatest fejlődésekor meghívandó függvény.
+     */
     public void mushroomUpgraded();
 
     
-    /* - A gombatest elpusztulásakor lefutó metódus.*/
+    /**
+     * Gombatetst megsemmisülésekor meghívandó függvény.
+     */
     public void mushroomDestroyed();
 
 }
