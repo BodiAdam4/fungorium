@@ -116,8 +116,6 @@ public class GTecton extends Image implements TectonListener {
      */ 
     @Override
     public void mushroomRemoved() {
-       
-        mushroom.destroy();
         removeMushroom();
     }
 

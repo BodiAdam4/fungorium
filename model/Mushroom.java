@@ -186,11 +186,6 @@ public class Mushroom{
                     changeListener.lineChanged(ObjectChangeEvent.OBJECT_ADDED, line); //Eseménykezelő értesítése
                     System.out.println("Line successfully grown");
 
-                    //A listener értesítése a gombafonal növesztéséről
-                    for (MushroomListener listener : mushroomListeners) {
-                        listener.lineGrew(line);
-                    }
-
                     //Joblistener értesítése a gombafonal növesztéséről
                     for (JobListener listener : jobListeners) {
                         listener.jobSuccessfull("Line successfully grown");
@@ -287,12 +282,6 @@ public class Mushroom{
         changeListener.mushroomChanged(ObjectChangeEvent.OBJECT_REMOVED, this); //A gombatest eltávolítása a tektonról
 
         NotifyLines(true);
-
-        //Listenerek értesítése a gombatest eltávolításáról
-        for (MushroomListener listener : mushroomListeners) {
-            listener.mushroomDestroyed();
-        }
-
     }
     
 }

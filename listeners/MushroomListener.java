@@ -10,21 +10,7 @@ import model.Line;
 public interface MushroomListener {
 
     /**
-     * Gombafonal növesztésekor meghívandó függvény.
-     * @param line az adott gombafonal
-     */
-    public void lineGrew(Line line);
-
-
-    /**
      * Gombatest fejlődésekor meghívandó függvény.
      */
     public void mushroomUpgraded();
-
-    
-    /**
-     * Gombatetst megsemmisülésekor meghívandó függvény.
-     */
-    public void mushroomDestroyed();
-
 }
