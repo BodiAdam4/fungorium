@@ -32,21 +32,47 @@ import listeners.ResultListener;
 
 /**
  * A játék ablakát megvalósító osztály, tartalmazza a játék során megjelenő elemeket.
-*/
+ */
 public class MainWindow extends JFrame implements JobListener, ControlListener, ResultListener{
 
     /* - Privát attribútumok*/
 
-    private Map map;                        //A játék térképét megjelenítő JPanel leszármazott osztály példánya.
-    private MainMenu menu;                  //A játék kezdetén megjelenő, a beállításokat tartalmazó panel.
-    private ControlPanel controlPanel;      //A játék irányításához szükséges elemeket tartalmazó panel. //TODO: Később implementálni kell
+    /**
+    * A játék térképét megjelenítő JPanel leszármazott osztály példánya.
+    */
+    private Map map;
 
+    /**
+    * A játék kezdetén megjelenő, a beállításokat tartalmazó panel.
+    */
+    private MainMenu menu;
+
+    /**
+    * A játék irányításához szükséges elemeket tartalmazó panel.
+    */
+    private ControlPanel controlPanel;
+
+    /**
+    * Görgethető panel a felhasználói felületen.
+    */
     private JPanel scrollablePanel;
-    
-    /* - Notification privát elemei */
-    private JPanel notificJPanel;           //Az értesítéseknél felugró panel.
-    private JLabel notificationText;        //Az értesítéseknél megjelenő szöveg.
-    private JLabel notificationLabel;       //Az értesítéseknél megjelenő cím.
+
+    /* Notification privát elemei */
+
+    /**
+    * Az értesítéseknél felugró panel.
+    */
+    private JPanel notificJPanel;
+
+    /**
+    * Az értesítéseknél megjelenő szöveg.
+    */
+    private JLabel notificationText;
+
+    /**
+    * Az értesítéseknél megjelenő cím.
+    */
+    private JLabel notificationLabel;
 
     /* - A dicsőségfal privát elemei */
     private JPanel resultPanel;
@@ -58,6 +84,11 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
     private GraphicController gController;
 
     /* - Konstruktor(ok)*/
+
+    /**
+     * Konstruktor
+     * @param gctrl
+     */
     public MainWindow(GraphicController gctrl){
         this.setTitle("Fungorium_by_oet_kis_malacz");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,6 +115,9 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
 
     /* - Egyéb metódusok*/
 
+    /**
+     * Térkép megjelenítése
+     */
     public void showMap(){
 
         //JPanel az állapotsávnak
@@ -489,6 +523,10 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         this.repaint();
     }
 
+
+    /**
+     * Menü megjelenítése
+     */
     public void showMenu(){
 
         this.menu = new MainMenu(this); //A főmenü inicializálása
@@ -497,13 +535,21 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         menu.repaint(); //A főmenü újrarajzolása
     }
 
+
+    /**
+     * Menü eltávolítása
+     */
     public void removeMenu(){
         this.remove(menu); //A főmenü eltávolítása
         menu.revalidate();
         menu.repaint(); //A főmenü újrarajzolása
     }
 
-    /* - Az eredményhirdetés megjelenítése, paraméterként át kell adni az eredményeket szöveges formában.*/
+    
+    /**
+     * Az eredményhirdetés megjelenítése, paraméterként át kell adni az eredményeket szöveges formában.
+     * @param data az eredmények szöveges formában
+     */
     public void showResults(String data) {
 
         /**
@@ -539,7 +585,10 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
     }
 
 
-    /* - Sikeres műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.*/
+    /**
+     * Sikeres műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.
+     * @param msg az üzenet
+     */
     public void jobSuccessfull(String msg) {
         notificationLabel.setText("Success!"); //A notification címének beállítása
         notificationLabel.setForeground(Color.GREEN); //A notification címének színének beállítása
@@ -573,7 +622,11 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         closeThread.start();
     }
 
-    /* - Sikertelen műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.*/
+
+    /**
+     * Sikertelen műveletvégrehajtás esetén lefutó metódus. Paraméterként átad egy szöveges üzenetet a műveletről.
+     * @param msg az üzenet
+     */
     public void jobFailed(String msg) {
         notificationLabel.setText("Failed!"); //A notification címének beállítása
         notificationLabel.setForeground(Color.RED); //A notification címének színének beállítása
@@ -584,7 +637,14 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         startNotificationHide();
     }
 
-
+    /**
+     * Következő játékos kiválasztásáért felelős függvény
+     * Ha a játékos nem tud játszani, azaz minden rovara és gombateste halott, akkor átugorjuk.
+     * @param player játékos neve
+     * @param isInsect rovarász vagy gombász
+     * @param round kör száma
+     * @param points pontok száma
+     */
     @Override
     public void onNextRound(String player, boolean isInsect, int round, HashMap<String, Integer> points) {
         //Dinamikus elemek felvétele a státusz sávra
@@ -623,8 +683,4 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         }
         scrollablePanel.repaint();
     }
-
-
-
-    
 }

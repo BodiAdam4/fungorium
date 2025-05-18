@@ -35,14 +35,38 @@ import java.awt.Dialog;
 public class MainMenu extends JPanel {
     
     /* - Privát attribútumok*/
-    private List<PlayerPanel> playerPanels;         //A játékosok beállításához szükséges panelek listája. Minden játékoshoz egy panel tartozik.
-    private JSpinner playerSpinner;                 //A játékosszám megadásához szükséges szám bevitelére alkalmas bemeneti mező.
-    private JSpinner turnSpinner;                   //A körök számának megadásához szükséges szám bevitelére alkalmas bemeneti mező.
-    private JPanel configPanel;                     //A játékospaneleket tartalmazó JPanel típusú grafikus panel.
-    private MainWindow mainWindow;                  //A főablak, amelyben a menü található.
+    /**
+    * A játékosok beállításához szükséges panelek listája. Minden játékoshoz egy panel tartozik.
+    */
+    private List<PlayerPanel> playerPanels;
+
+    /**
+    * A játékosszám megadásához szükséges szám bevitelére alkalmas bemeneti mező.
+    */
+    private JSpinner playerSpinner;
+
+    /**
+    * A körök számának megadásához szükséges szám bevitelére alkalmas bemeneti mező.
+    */
+    private JSpinner turnSpinner;
+
+    /**
+    * A játékospaneleket tartalmazó JPanel típusú grafikus panel.
+    */
+    private JPanel configPanel;
+
+    /**
+    * A főablak, amelyben a menü található.
+    */
+    private MainWindow mainWindow;
 
 
     /* - Konstruktor*/
+
+    /**
+     * Konstruktor
+     * @param mainWindow
+     */
     public MainMenu(MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.setLayout(new BorderLayout()); //A főmenü elrendezése
@@ -247,7 +271,6 @@ public class MainMenu extends JPanel {
     /**
      * Segédfüggvény egy egyedi dialógusablak előállításához, melyet akkor veszünk igénybe, ha a játékosok száma
      * nem felel meg az elvárt paramétereknek. Ekkor ezt a módosított figyelmeztetőablakot küldjük el.
-     * 
      * A JDialog dialog egyedi fejlécű ablakot hoz létre üres címsorral, setIconImage(null), pedig kiveszi a dialógusablak ikonját.
      * @param parent - a dialógusablak szülője
      */
