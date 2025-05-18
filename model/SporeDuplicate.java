@@ -14,6 +14,11 @@ public class SporeDuplicate extends Spore{
         super(id, value);
     }
 
+    /**
+     * Spóra megevése után meghívódó függvény.
+     * Felülírja, hogy duplikálja a rovart
+     * @param i A rovar, aki megeszi a spórát.
+     */
     @Override
     public void addEffect(Insect i) {
         Insect insect = new Insect();
