@@ -23,6 +23,8 @@ public class GraphicMain {
     public static void main(String[] args) {
         gController = new GraphicController();
         controller = new Controller();
+
+        //ObjectChangeListener megadása
         controller.addObjectListener(new ObjectChangeListener() {
 
             @Override
@@ -53,6 +55,7 @@ public class GraphicMain {
 
         cmdProcessor = new CommandProcessor(controller);
 
+        //MainWindow beállítása
         MainWindow mainWindow = new MainWindow(gController);
         mainWindow.setVisible(true);
         mainWindow.setDefaultCloseOperation(MainWindow.EXIT_ON_CLOSE);
@@ -65,6 +68,7 @@ public class GraphicMain {
         controller.addControlListener(mainWindow);
         controller.addJobListener(mainWindow);
         
+        //Játék bemenetéért felelős szál
         Thread consoleThread = new Thread(new Runnable() {
 
             @Override
