@@ -222,46 +222,49 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         boolean isSorted = false;
         while (!isSorted) {
             isSorted = true;
-            for (int i = 0; i < tectons.size() - 1; i++) {
-                GTecton t1 = tectons.get(i);
-                for (int k = 0; k<tectons.size(); k++) {
-                    GTecton t2 = tectons.get(k);
-                    if (t1.equals(t2)) {
-                        continue;
-                    }
-
-                    if (CELL_SIZE*2 > getDistance(t1.getLocation(), t2.getLocation())) {
-                        isSorted = false;
-                        Point t1Pos = t1.getLocation();
-                        Point t2Pos = t2.getLocation();
-                        Point dir1 = normalize(t2Pos, t1Pos,2.0);
-                        Point dir2 = normalize(t1Pos, t2Pos,2.0);
-
-                        t1.setLocation(new Point(t1Pos.x + dir1.x, t1Pos.y + dir1.y));
-                        t2.setLocation(new Point(t2Pos.x + dir2.x, t2Pos.y + dir2.y));
-                        
-                    }
-                }
-            }
-            RefreshLines();
-            this.revalidate();
-            this.repaint();
             try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-            }
+                for (int i = 0; i < tectons.size() - 1; i++) {
+                    GTecton t1 = tectons.get(i);
+                    for (int k = 0; k<tectons.size(); k++) {
+                        GTecton t2 = tectons.get(k);
+                        if (t1.equals(t2)) {
+                            continue;
+                        }
 
-            //Rovarok áthelyezése
-            refreshInsects();
+                        if (CELL_SIZE*2 > getDistance(t1.getLocation(), t2.getLocation())) {
+                            isSorted = false;
+                            Point t1Pos = t1.getLocation();
+                            Point t2Pos = t2.getLocation();
+                            Point dir1 = normalize(t2Pos, t1Pos,2.0);
+                            Point dir2 = normalize(t1Pos, t2Pos,2.0);
 
-            //Szomszédok kiszámítása
-            for (GTecton tecton1 : tectons) {
-                tecton1.getMyTecton().clearNeighbors();
-                for (GTecton tecton2 : tectons) {
-                    if (CELL_SIZE*3 > getDistance(tecton1.getLocation(), tecton2.getLocation()) && tecton1 != tecton2) {
-                        tecton1.getMyTecton().setNeighbors(tecton2.getMyTecton());
+                            t1.setLocation(new Point(t1Pos.x + dir1.x, t1Pos.y + dir1.y));
+                            t2.setLocation(new Point(t2Pos.x + dir2.x, t2Pos.y + dir2.y));
+                            
+                        }
                     }
                 }
+                RefreshLines();
+                this.revalidate();
+                this.repaint();
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException e) {
+                }
+
+                //Rovarok áthelyezése
+                refreshInsects();
+
+                //Szomszédok kiszámítása
+                for (GTecton tecton1 : tectons) {
+                    tecton1.getMyTecton().clearNeighbors();
+                    for (GTecton tecton2 : tectons) {
+                        if (CELL_SIZE*3 > getDistance(tecton1.getLocation(), tecton2.getLocation()) && tecton1 != tecton2) {
+                            tecton1.getMyTecton().setNeighbors(tecton2.getMyTecton());
+                        }
+                    }
+                }
+            } catch (Exception e) {
             }
         }
     }
