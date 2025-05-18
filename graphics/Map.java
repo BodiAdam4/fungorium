@@ -56,17 +56,13 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     private List<GMushroom> mushrooms = new ArrayList<>();
 
     final static public int CELL_SIZE = 150;
-    final public int ROW_COUNT = 3;
     final public int FIRST_TECTON_POSITION_X = 10;
     final public int FIRST_TECTON_POSITION_Y = 10;
-    final public int TECTON_DISTANCE = 4;
 
     final public int MAP_SIZE = 5000;
     final public int MAP_START_POSITION = -2000;
 
     private GraphicController gController;
-
-    public static final Object lockObject = new Object();
 
     /* - Konstuktor(ok)*/
 
