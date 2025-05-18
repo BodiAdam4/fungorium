@@ -654,7 +654,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         scrollablePanel.removeAll(); // A játékos panel törlése a régi elemek eltávolításához
         for (String playerpoints : points.keySet()) {
             Integer score = points.get(playerpoints);
-            System.out.println(playerpoints+"\n");
+            //System.out.println(playerpoints+"\n");
 
             // Játékospanel
             JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 15));
