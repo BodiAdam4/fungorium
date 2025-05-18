@@ -17,6 +17,11 @@ public class GInsect extends Image implements InsectListener{
     //publikus metódusok
     
 
+    /**
+     * Konstruktor
+     * @param insect
+     * @param map
+     */
     public GInsect(Insect insect, Map map){
         super("graphics/images/Insect.png");
         this.insect = insect;
@@ -37,12 +42,21 @@ public class GInsect extends Image implements InsectListener{
         this.repaint();
     }
 
+
+    /**
+     * Grafikus rovar eltávolítása a térképről
+     */
     public void destroy() {
         map.removeInsect(insect);
     }
 
     //InsectListenert implementáló metódusok
 
+    /**
+     * Azon metódus, amely akkor hívodik meg ha egy rovar elkezd mozogni.
+     * @param from a kiinduló tekton
+     * @param to a cél tekton
+     */
     public void moveStarted(Tecton from, Tecton to) {
         List<Tecton> tectons = new ArrayList<>();
         tectons.add(from);
@@ -50,12 +64,22 @@ public class GInsect extends Image implements InsectListener{
         map.InsectMoved(this, tectons);
     }
     
+
+    /**
+     * Azon metódus, amely akkor hívódik meg ha egy rovar befejezte a mozgását.
+     * @param to a cél tekton
+     */
     public void moveFinished(Tecton to) {
         List<Tecton> tectons = new ArrayList<>();
         tectons.add(to);
         map.InsectMoved(this, tectons);
     }
 
+
+    /**
+     * Azon metódus, amely akkor hívódik meg ha egy rovar elfogyaszt egy spórát
+     * @param effect az adott effekt
+     */
     public void sporeEaten(String effect) {
 
         //JLabelt mehjelenítjük a felirattal
@@ -65,8 +89,11 @@ public class GInsect extends Image implements InsectListener{
         this.repaint();
     }
 
-    public void effectReseted() {
 
+    /**
+     * Azon metódus, amely akkor hívódik meg ha egy spóra hatása lejár egy rovaron.
+     */
+    public void effectReseted() {
         //JLabelt eltüntetjük
         infoTag.setText(" ");
         infoTag.setVisible(false);
@@ -74,6 +101,10 @@ public class GInsect extends Image implements InsectListener{
         this.repaint();
     }
 
+
+    /**
+     * Azon metódus, amely akkor hívódik meg amikor egy rovar elpusztul.
+     */
     public void insectDestroyed() {
         this.destroy();
     }

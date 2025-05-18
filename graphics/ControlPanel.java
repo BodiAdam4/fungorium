@@ -34,9 +34,16 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
     private JLabel playerTextInsect;
     private JLabel roundTextInsect;
 
-    //A gombok aktiválásához szükséges hashmap
+    /**
+     * A gombok aktiválásához szükséges hashmap
+     */
     private HashMap<JButton, Integer> actionButtons = new HashMap<>();
     
+    /**
+     * Konstruktor
+     * @param gController
+     * @param mainWindow
+     */
     public ControlPanel(GraphicController gController, MainWindow mainWindow) {
         this.mainWindow = mainWindow;
         this.gController = gController;
@@ -54,6 +61,13 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         showPanel(true);
     }
     
+
+    /**
+     * Rovarász parancsainak megjelenítése.
+     * @param player az adott játékos
+     * @param round a kör száma
+     * @return az elkészült JPanel
+     */
     private JPanel createInsectPanel(String player, int round) {
         JPanel panel = new JPanel();
         panel.setBackground(Color.DARK_GRAY);
@@ -181,6 +195,13 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         return panel;
     }
     
+
+    /**
+     * Gombász parancsainak megjelenítése.
+     * @param player az adott játékos
+     * @param round a kör száma
+     * @return az elkészült JPanel
+     */
     private JPanel createMushroomPanel(String player, int round) {
         JPanel panel = new JPanel();
         panel.setBackground(Color.DARK_GRAY);
@@ -297,6 +318,10 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         return panel;
     }
     
+    /**
+     * Panel megjelenításe
+     * @param showInsect rovarász vagy gombász
+     */
     private void showPanel(boolean showInsect) {
         CardLayout cl = (CardLayout) getLayout();
         if (showInsect) {
@@ -306,6 +331,15 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         }
     }
     
+
+    /**
+     * Következő játékos kiválasztásáért felelős függvény
+     * Ha a játékos nem tud játszani, azaz minden rovara és gombateste halott, akkor átugorjuk.
+     * @param player játékos neve
+     * @param isInsect rovarász vagy gombász
+     * @param round kör száma
+     * @param points pontok száma
+     */
     @Override
     public void onNextRound(String player, boolean isInsect, int round, HashMap<String, Integer> points) {
         if(isInsect){
@@ -334,6 +368,10 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         return mushroomPanel;
     }
 
+    /**
+     * Tecton kiválasztásakor meghívandó függvény
+     * @param selectedCount hanyadik kiválasztás száma
+     */
     @Override
     public void OnSelection(int selectedCount) {
         for (JButton button : actionButtons.keySet()) {
