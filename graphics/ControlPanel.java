@@ -363,15 +363,6 @@ public class ControlPanel extends JPanel implements ControlListener, SelectionLi
         this.repaint();
     }
     
-    // Helper methods for testing
-    public JPanel getInsectPanel() {
-        return insectPanel;
-    }
-    
-    public JPanel getMushroomPanel() {
-        return mushroomPanel;
-    }
-
     /**
      * Tecton kiválasztásakor meghívandó függvény
      * @param selectedCount hanyadik kiválasztás száma
