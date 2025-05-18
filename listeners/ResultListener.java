@@ -6,6 +6,9 @@ package listeners;
 */
 public interface ResultListener {
 
-    /* - Az eredmények átadása String formában*/
+    /**
+     * Eredmény megjelenítése
+     * @param data az eredmény szövege
+     */
     public void showResults(String data);
 }
