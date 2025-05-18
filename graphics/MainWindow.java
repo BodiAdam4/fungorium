@@ -123,7 +123,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         //JPanel az állapotsávnak
         JPanel statusBar = new JPanel();            //A státusz sáv inicializálása
         statusBar.setLayout(new BoxLayout(statusBar, BoxLayout.X_AXIS));        //A státusz sáv elrendezése
-        statusBar.setBackground(Color.decode("#38778a"));       //A státusz sáv háttérszínének beállítása
+        statusBar.setBackground(Color.decode("#61838c"));       //A státusz sáv háttérszínének beállítása
         statusBar.setPreferredSize(new Dimension(this.getWidth(), 50));
         //statusBar.setMaximumSize(new Dimension(this.getWidth(), 50));
 
@@ -654,7 +654,7 @@ public class MainWindow extends JFrame implements JobListener, ControlListener, 
         scrollablePanel.removeAll(); // A játékos panel törlése a régi elemek eltávolításához
         for (String playerpoints : points.keySet()) {
             Integer score = points.get(playerpoints);
-            System.out.println(playerpoints+"\n");
+            //System.out.println(playerpoints+"\n");
 
             // Játékospanel
             JPanel playerPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 15));
