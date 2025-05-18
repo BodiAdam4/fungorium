@@ -175,6 +175,8 @@ public class Mushroom{
                 @Override
                 public void onTime() {
 
+                    Tecton my = myTecton;
+
                     if (!to.canAddLine(id)) {
                         for (JobListener listener : jobListeners) {
                             listener.jobFailed("Failed to grow mushroom on tecton");
