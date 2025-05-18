@@ -11,18 +11,39 @@ import model.Tecton;
 public class GTecton extends Image implements TectonListener {
     
     /* - Publikus attribútumok*/
-    public Tecton myTecton;                  //A tektonhoz tartozó kontrollerbeli azonosító
+    /**
+     * A tektonhoz tartozó kontrollerbeli azonosító
+     */
+    public Tecton myTecton;                  
     
 
     /* - Privát attribútumok*/
-    private GMushroom mushroom; //A tektonon lévő gombatestet megjelenítő osztály egy példánya.
+    /**
+     * A tektonon lévő gombatestet megjelenítő osztály egy példánya.
+     */
+    private GMushroom mushroom; 
+
+    /**
+     * Fiatal gombatest képe.
+     */
     private Image youngMushroom;
 
-    private GSporeContainer sporeContainer; //A tektonon lévő spórákat megjelenítő osztály egy példánya.
+    /**
+     * A tektonon lévő spórákat megjelenítő osztály egy példánya.
+     */
+    private GSporeContainer sporeContainer; 
 
-    private Map map; //A térkép ami tartalmazza a grafikus tektont
+    /**
+     * A térkép ami tartalmazza a grafikus tektont
+     */
+    private Map map; 
 
     /* - Konstruktor(ok)*/
+    /**
+     * Konstruktor
+     * @param myTecton
+     * @param map
+     */
     public GTecton(Tecton myTecton, Map map) {
         super("graphics/images/tecton"+myTecton.toString()+".png"); // A Tecton képe
         this.myTecton = myTecton; //A tektonhoz tartozó kontrollerbeli azonosító beállítása
@@ -107,7 +128,5 @@ public class GTecton extends Image implements TectonListener {
     public void tectonBroken(Tecton tecton) {
         
     }
-
-    
 }
 

@@ -12,6 +12,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+/**
+ * Grafikus elemekhez használt alaposztály a képeknek.
+ * JPanel-ként viselkedik, és figyelheti, ha rákattintunk egérrel
+ */
 public class Image extends JPanel implements MouseListener {
 
     
@@ -170,7 +174,9 @@ public class Image extends JPanel implements MouseListener {
         return 1.0 - (distance / maxDistance);
     }
 
-    //TODO: Új függvény
+    /**
+     * Színezés visszaállítása alapérttelmezettre.
+     */
     public void ResetTint(){
         color = null;
         image = baseImage;

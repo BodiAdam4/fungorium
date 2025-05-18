@@ -14,11 +14,27 @@ import model.SporeContainer;
 public class GSporeContainer extends Image implements SporeContainerListener {
     
     /* - Privát attribútumok*/
-    private JLabel sporecountLabel; // A spórák számát megjelenítő JLabel
+    /**
+     * A spórák számát megjelenítő JLabel
+     */
+    private JLabel sporecountLabel; 
+
+    /**
+     * A grafikus spóra tárolóhoz tartozó SporeContainer
+     */
     private SporeContainer mySporeContainer;
+
+    /**
+     * A grafikus spóra tárolóhoz tartozó grafikus tekton
+     */
     private GTecton myGTecton;
 
     /* - Konstruktor(ok)*/
+    /**
+     * Konstruktor
+     * @param mySporeContainer
+     * @param myGTecton
+     */
     public GSporeContainer(SporeContainer mySporeContainer, GTecton myGTecton) {
         super("graphics/images/Spores.png"); // A SporeContainer képe
         this.mySporeContainer = mySporeContainer;
@@ -101,5 +117,4 @@ public class GSporeContainer extends Image implements SporeContainerListener {
             this.repaint();
         }
     }
-
 }

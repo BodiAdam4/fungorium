@@ -10,6 +10,9 @@ import model.Mushroom;
 import model.Tecton;
 import userinterface.CommandProcessor;
 
+/**
+ * Belépési pont grafikus futtatás esetén.
+ */
 public class GraphicMain {
 
     public static Controller controller;
