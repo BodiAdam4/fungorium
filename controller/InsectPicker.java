@@ -119,8 +119,9 @@ public class InsectPicker extends Player {
                 }
                 return false;
             }
-            insectActions.get(insect)[1] = true;
-            score += insect.eatSpores(1);
+            int sp = insect.eatSpores(1);
+            insectActions.get(insect)[1] = sp > 0;
+            score += sp;
         }
         else {
             System.out.println("Insect is not yours!");
