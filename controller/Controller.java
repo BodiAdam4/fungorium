@@ -25,10 +25,10 @@ public class Controller {
     private static HashMap<String, Insect> allInsect;
     private static HashMap<String, Tecton> allTecton;
 
-    public static int mushroomIndex = 10;
-    public static int lineIndex = 10;
-    public static int insectIndex = 10;
-    public static int tectonIndex = 10;
+    public static int mushroomIndex = 100;
+    public static int lineIndex = 100;
+    public static int insectIndex = 100;
+    public static int tectonIndex = 100;
 
     private static PlayerHandler playerHandler;
     private boolean isGameRunning = false;
