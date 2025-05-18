@@ -34,12 +34,26 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     
     /* - Privát attribútumok*/
-    private List<GTecton> tectons = new ArrayList<>();            //A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
-    private java.util.Map<GInsect, JPanel> insects = new HashMap<>();                      //A térképen lévő rovarok grafikus objektumainak listája.
-    private List<GLine> lines = new ArrayList<>();                          //A térképen elhelyezkedő grafikus gombafonalak listája.
-    private List<GMushroom> mushrooms = new ArrayList<>();       //A térképen elhelyezkedő grafikus gombatestek. Kulcsként a gombatest griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
 
-    //private GraphicController graphicController;        //A grafikus vezérlést megvalósító objektum.
+    /**
+     * A térképen elhelyezkedő grafikus tektonok. Kulcsként a tekton griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
+     */
+    private List<GTecton> tectons = new ArrayList<>();      
+    
+    /**
+     * A térképen lévő rovarok grafikus objektumainak listája.
+     */
+    private java.util.Map<GInsect, JPanel> insects = new HashMap<>();  
+    
+    /**
+     * A térképen elhelyezkedő grafikus gombafonalak listája.
+     */
+    private List<GLine> lines = new ArrayList<>();    
+    
+    /**
+     * A térképen elhelyezkedő grafikus gombatestek. Kulcsként a gombatest griden lévő pozícióját kapja, ezzel biztosítva az egyedi pozíciót.
+     */
+    private List<GMushroom> mushrooms = new ArrayList<>();
 
     final static public int CELL_SIZE = 150;
     final public int ROW_COUNT = 3;
@@ -54,9 +68,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     public static final Object lockObject = new Object();
 
-    //Start pos : 50 55
-
     /* - Konstuktor(ok)*/
+
+    /**
+     * Konstruktor
+     * @param gController
+     */
     public Map(GraphicController gController) {
         this.addMouseListener(this); //MouseListener hozzáadása a térképhez, hogy érzékelje a kattintásokat.
         this.addMouseMotionListener(this);
@@ -126,18 +143,36 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     /* - Egyéb metódusok*/
 
+    /**
+     * Cella keresése
+     * @param x x koordináta, ami még nincs beszorozva a cella mérettel
+     * @param y y koordináta, ami még nincs beszorozva a cella mérettel
+     * @return a cella pontja
+     */
     public Point getCell(int x, int y) {
         int col = x * CELL_SIZE;
         int row = y * CELL_SIZE;
         return new Point(col, row);
     }
 
+
+    /**
+     * Cella keresése
+     * @param cell a keresett cella pontja, ami még nincs beszorozva a cella mérettel
+     * @return a cella pontja
+     */
     public Point getCell(Point cell) {
         int col = cell.x * CELL_SIZE;
         int row = cell.y * CELL_SIZE;
         return new Point(col, row);
     }
 
+
+    /**
+     * Megnézi, hogy üres-e az adott cella
+     * @param cell az adott cella
+     * @return üres-e
+     */
     public boolean isCellEmpty(Point cell) {
         Point tPos = getCell(cell);
         for (GTecton t : tectons) {
@@ -148,10 +183,25 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         return true;
     }
 
+
+    /**
+     * Két pont közötti távolság.
+     * @param p1 az első pont
+     * @param p2 a második pont
+     * @return távolság
+     */
     public double getDistance(Point p1, Point p2) {
         return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
     }
 
+
+    /**
+     * Két pont közti irány normalizálása
+     * @param from a kiinduló pont
+     * @param to a végpont
+     * @param sc a skála
+     * @return a normalizált vektor pont osztályban eltárolva
+     */
     public static Point normalize(Point from, Point to, double sc) {
         int dx = to.x - from.x;
         int dy = to.y - from.y;
@@ -166,6 +216,12 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         return new Point(nx, ny);
     }
 
+
+    /**
+     * Tektonok rendezése a térképen.
+     * Minden tekton között egy adott távolságnak kell lennie.
+     * Kezdetben túl kicsi a távolság, így elttolják egymást.
+     */
     public void physicSorting() {
         boolean isSorted = false;
         while (!isSorted) {
@@ -219,7 +275,11 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     int rows = 0;
     double maxDist = 200;
 
-    /* - Tekton hozzáadása a térképhez. Paraméterként át kell adni a hozzáadandó grafikus tecton objektumot.*/
+
+    /**
+     * Tekton hozzáadása a térképhez. Paraméterként át kell adni a hozzáadandó grafikus tecton objektumot.
+     * @param gtecton az adott grafikus tekton
+     */
     public void addTecton(GTecton gtecton) {
 
         Tecton breakTecton = gtecton.getMyTecton().getBreakTecton();
@@ -284,9 +344,15 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
 
     /**
      * Infópanel kirajzolása a tekton felületén elhelyezett objektumok listázásához
-    */
+     */
     public JScrollPane infoScrollPane;
 
+    /**
+     * Információs panel megjelenítése az adott tekton mellett.
+     * Megjeleníti a tektonon lévő játékosokat és a spórák számát.
+     * @param gTecton az adott tekton
+     * @param position a panel pozíciója
+     */
     public void drawInfoPanel(GTecton gTecton, Point position) {
         if (infoScrollPane != null) {
             this.remove(infoScrollPane);
@@ -473,7 +539,10 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     }
 
 
-    /* - Gombatest hozzáadása a térképhez. Paraméterként elvárja a hozzáadandó grafikus gombatest példányt.*/
+    /**
+     * Gombatest hozzáadása a térképhez. Paraméterként elvárja a hozzáadandó grafikus gombatest példányt.
+     * @param gmushroom az adott gombatest
+     */
     public void addMushroom(GMushroom gmushroom) {
         mushrooms.add(gmushroom);
         GTecton parentTecton = getTecton(gmushroom.getMyMushroom().getMyTecton());
@@ -481,13 +550,19 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     }
 
 
-    /* - Gombatest eltávolítása a térképről. Szükséges megadni a gombatest kontrollerbeli azonosítóját.*/
+    /**
+     * Gombatest eltávolítása a térképről. Szükséges megadni a gombatest kontrollerbeli azonosítóját.
+     * @param id a gombatest azonosítója
+     */
     public void removeMushroom(String id) {
 
     }
 
 
-    /* - Rovar hozzáadása a térképhez. Szükséges megadni a rovar grafikus példányát, amit el szeretnénk helyezni.*/
+    /**
+     * Rovar hozzáadása a térképhez. Szükséges megadni a rovar grafikus példányát, amit el szeretnénk helyezni.
+     * @param ginsect az adott rovar
+     */
     public void addInsect(GInsect ginsect) {
         GTecton parentTecton = getTecton(ginsect.getMyInsect().getTecton());
         ginsect.setBounds(parentTecton.getX(), parentTecton.getY(), CELL_SIZE, CELL_SIZE);
@@ -503,6 +578,11 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     }
 
 
+    /**
+     * Rovar mozgatása a térképen.
+     * @param ginsect az adott grafikus rovar
+     * @param moveTectons a két tetkton, ami között mozog a rovar
+     */
     public void InsectMoved(GInsect ginsect, List<Tecton> moveTectons) {
         if (moveTectons.size() == 1) {
             //A rovar sebessége miatt egyből átkerül a másik tektonra
@@ -531,7 +611,10 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     }
 
 
-    /* - Rovar eltávolítása a játéktérképről. Ehhez meg kell adni a rovar kontrollerbeli azonosítóját.*/
+    /**
+     * Rovar eltávolítása a játéktérképről. Ehhez meg kell adni a rovar kontrollerbeli azonosítóját.
+     * @param insect az adott rovar
+     */
     public void removeInsect(Insect insect) {
         GInsect gInsect = getInsect(insect);
         insects.remove(gInsect);
@@ -540,7 +623,10 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         this.repaint();
     }
 
-    /* - Rovarok pozíciójának frissítése */
+
+    /**
+     * Rovarok pozíciójának frissítése
+     */
     public void refreshInsects() {
         for (GInsect insect : insects.keySet()) {
             insect.setLocation(insects.get(insect).getLocation());
@@ -550,7 +636,10 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
     }
 
 
-    /* - Gombafonal hozzáadása a játéktérképhez, amit a grafikus gombafonal példányának megadásával lehet végrehajtani.*/
+    /**
+     * Gombafonal hozzáadása a játéktérképhez, amit a grafikus gombafonal példányának megadásával lehet végrehajtani.
+     * @param line az adott grafikus gombafonal
+     */
     public void addLine(GLine line) {
         Point t1Pos = line.getEnds().get(0).getLocation();
         Point t2Pos = line.getEnds().get(1).getLocation();
@@ -588,6 +677,10 @@ public class Map extends JPanel implements MouseListener, MouseMotionListener {
         addToList(line);
     }
 
+
+    /**
+     * Gombafonalak pozíciójának frissítése
+     */
     public void RefreshLines() {
         synchronized (this) {
             for (GLine line : lines) {

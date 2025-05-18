@@ -25,22 +25,54 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 /**
  * Egy-egy játékos beállítását lehetővé tevő UI elem. Ezen helyezkedik el a név beviteli mezeje, 
  * illetve itt lehet kiválasztani a játékos színét és kasztját is.
-*/
+ */
 public class PlayerPanel extends JPanel {
     
     /* - Privát attribútumok*/
-    private JTextField nameBox;         //A játékos nevének beviteléhez szükséges szövegdoboz.
-    private Color color;                //A játékos színe, mely a későbbiekben segít megkülönböztetni a különböző objektumok tulajdonosait.
-    private JRadioButton insectButton;   //Egy rádiógomb, mellyel eldönthető, hogy a játékos rovarász vagy gombász szeretne lenni.
-    private int playerNumber;          //A játékos sorszáma, mely a fejlécben jelenik meg.
-    private MainMenu parent;            //A szülő panel, mely a PlayerPanel-t tartalmazza. Ezen keresztül lehet eltávolítani a panelt a főmenüből.
 
-    private JLabel headerLabel;         //A fejléc szövege, mely a játékos sorszámát tartalmazza.
+    /**
+     * A játékos nevének beviteléhez szükséges szövegdoboz.
+     */
+    private JTextField nameBox;     
 
-    private Color[] colors = new Color[16]; //A színválasztó négyzetek színeit tároló tömb.
+    /**
+     * A játékos színe, mely a későbbiekben segít megkülönböztetni a különböző objektumok tulajdonosait.
+     */
+    private Color color;  
+
+    /**
+     *  Egy rádiógomb, mellyel eldönthető, hogy a játékos rovarász vagy gombász szeretne lenni.
+     */             
+    private JRadioButton insectButton;   
+
+    /**
+     * A játékos sorszáma, mely a fejlécben jelenik meg.
+     */
+    private int playerNumber;  
+
+    /**
+     * A szülő panel, mely a PlayerPanel-t tartalmazza. Ezen keresztül lehet eltávolítani a panelt a főmenüből.
+     */
+    private MainMenu parent;            
+
+    /**
+     * A fejléc szövege, mely a játékos sorszámát tartalmazza.
+     */
+    private JLabel headerLabel;         
+
+    /**
+     * A színválasztó négyzetek színeit tároló tömb.
+     */
+    private Color[] colors = new Color[16];
 
 
     /* - Konstruktor(ok)*/
+
+    /**
+     * Konstruktor
+     * @param playerNumber
+     * @param parent
+     */
     public PlayerPanel(int playerNumber, MainMenu parent) {
         
         this.playerNumber = playerNumber; //A játékos sorszámának beállítása
@@ -362,7 +394,10 @@ public class PlayerPanel extends JPanel {
 
     /* - Getter/Setter metódusok*/
 
-    /* - Visszaadja a felhasználó által bevitt játékosnevet.*/
+    /**
+     * Visszaadja a felhasználó által bevitt játékosnevet.
+     * @return a játékos neve
+     */
     public String getName() {
         //If the playerName equals "Enter your name here", then add a "Player_[number]" name to the player. The "[]number]" is the player number.
         if (nameBox.getText().equals("Enter your name here") || nameBox.getText().isEmpty()) {
@@ -376,7 +411,10 @@ public class PlayerPanel extends JPanel {
     }
 
 
-    /* - Visszaadja a játékos által kiválasztott színt*/
+    /** 
+     * Visszaadja a játékos által kiválasztott színt.
+     * @return a játékos színe
+     */
     public Color getColor() {
         if (color == null) {
             int index = (int) (Math.random() * colors.length);
@@ -390,13 +428,21 @@ public class PlayerPanel extends JPanel {
     }
 
 
-    /* - Visszaad egy logikai változót, ami megmondja, hogy a játékos rovarász vagy gombász kasztot választotta.*/
+    /**
+     * Visszaad egy logikai változót, ami megmondja, hogy a játékos rovarász vagy gombász kasztot választotta.
+     * @return rovarász, ha igaz
+     */
     public boolean isInsect(){
         return insectButton.isSelected();
     }
 
 
     /* - Egyéb metódusok*/
+
+    /**
+     * Játékos számának frissítése automatikus név megadás esetén
+     * @param newNumber az új szám
+     */
     public void updatePlayerNumber(int newNumber) {
         this.playerNumber = newNumber;
         headerLabel.setText("#" + playerNumber + ". Player");
