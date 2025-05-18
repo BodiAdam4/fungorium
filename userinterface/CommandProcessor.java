@@ -28,6 +28,11 @@ import model.TectonOnlyLine;
 import model.TectonTime;
 import model.Timer;
 
+
+/**
+ * A parancsok feldolgozásáért felelős osztály.
+ * Itt értékelődnek ki a parancsok is.
+ */
 public class CommandProcessor {
     /* - Privát attribútumok*/
     private HashMap<String, Command> commands;

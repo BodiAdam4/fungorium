@@ -18,6 +18,10 @@ import javax.swing.border.LineBorder;
 import listeners.ControlListener;
 import listeners.SelectionListener;
 
+/**
+ * Vezérlő panelt megjelenítő osztály
+ * Tartalmazza az adott játékoshoz tartozó parancsokat és azt, hogy végrehajthatóak-e
+ */
 public class ControlPanel extends JPanel implements ControlListener, SelectionListener {
     
     private final GraphicController gController;

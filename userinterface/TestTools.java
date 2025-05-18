@@ -15,6 +15,9 @@ import model.Line;
 import model.Mushroom;
 import model.Tecton;
 
+/**
+ * Teszteléshez megkönnyíéséhez használt osztály
+ */
 public class TestTools {
     
     public static String GetStatus(Controller controller) {

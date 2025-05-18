@@ -24,7 +24,11 @@ import model.Line;
 public class GLine extends JPanel implements LineListener
 {
     /* - Publikus attribútumok*/
-    public String id;                   //A gombatesthez tartozó azonosító, amely alapján meg lehet találni a kontrollerben.
+
+    /**
+     * A gombatesthez tartozó azonosító, amely alapján meg lehet találni a kontrollerben.
+     */
+    public String id;                   
     
     public BufferedImage lineMiddle;
     public BufferedImage endCapStart;
@@ -45,6 +49,13 @@ public class GLine extends JPanel implements LineListener
 
     /* - Konstruktor(ok)*/
     
+    /**
+     * Konstruktor
+     * @param start
+     * @param end
+     * @param line
+     * @param map
+     */
     public GLine(GTecton start, GTecton end, Line line, Map map) {
         ends = new ArrayList<>();
         ends.add(start);

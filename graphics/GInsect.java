@@ -7,6 +7,10 @@ import listeners.InsectListener;
 import model.Insect;
 import model.Tecton;
 
+/**
+ * Az osztály a modellbeli rovar megjelenítéséért felelős. 
+ * A játék során az osztály példányait a Map példánya fogja tartalmazni.
+ */
 public class GInsect extends Image implements InsectListener{
 
     //attribútumok

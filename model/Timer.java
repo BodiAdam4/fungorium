@@ -2,6 +2,10 @@ package model;
 
 import java.util.HashMap;
 
+
+/**
+ * Időzíttésért felelős osztály
+ */
 public class Timer {
     /* - Privát attribútumok*/
     private static HashMap<Schedule, Integer> oneTimeSchedules = new HashMap<>();
