@@ -63,7 +63,31 @@ public class PlayerPanel extends JPanel {
     /**
      * A színválasztó négyzetek színeit tároló tömb.
      */
-    private Color[] colors = new Color[16];
+    public static final Color[] COLORS = {
+        // Kék tartomány (neon árnyalatok)
+        Color.decode("#70faff"), // Neon Cyan
+        Color.decode("#33ccff"), // Neon Sky Blue
+        Color.decode("#1f51ff"), // Neon Azure
+        Color.decode("#1d008f"), // Neon Electric Blue
+
+        // Zöld tartomány (neon árnyalatok)
+        Color.decode("#39ff14"), // Neon Green
+        Color.decode("#02fa9f"), // Neon Mint
+        Color.decode("#98de00"), // Neon Spring
+        Color.decode("#02bf02"), // Neon Lime
+
+        // Piros/Narancs tartomány (neon árnyalatok)
+        Color.decode("#ff073a"), // Neon Red
+        Color.decode("#ff5e00"), // Neon Orange
+        Color.decode("#ff1493"), // Neon Pink
+        Color.decode("#ff87d5"), // Neon Scarlet
+
+        // Lila/Sárga tartomány (neon árnyalatok)
+        Color.decode("#cc00ff"), // Neon Purple
+        Color.decode("#ff00ff"), // Neon Magenta
+        Color.decode("#ffff00"), // Neon Yellow
+        Color.decode("#ffb700")  // Neon Amber
+    };
 
 
     /* - Konstruktor(ok)*/
@@ -206,35 +230,8 @@ public class PlayerPanel extends JPanel {
         //colorsPanel.setOpaque(false);
         colorsPanel.setBackground(Color.BLACK);
 
-        //Színek tömbje
-        colors = new Color[]{
-            // Kék tartomány (neon árnyalatok)
-            Color.decode("#70faff"), // Neon Cyan
-            Color.decode("#33ccff"), // Neon Sky Blue
-            Color.decode("#1f51ff"), // Neon Azure
-            Color.decode("#1d008f"), // Neon Electric Blue
-
-            // Zöld tartomány (neon árnyalatok)
-            Color.decode("#39ff14"), // Neon Green
-            Color.decode("#87ffca"), // Neon Mint
-            Color.decode("#a2ff00"), // Neon Spring
-            Color.decode("#018a01"), // Neon Lime
-
-            // Piros/Narancs tartomány (neon árnyalatok)
-            Color.decode("#ff073a"), // Neon Red
-            Color.decode("#ff5e00"), // Neon Orange
-            Color.decode("#ff1493"), // Neon Pink
-            Color.decode("#ff87d5"), // Neon Scarlet
-
-            // Lila/Sárga tartomány (neon árnyalatok)
-            Color.decode("#cc00ff"), // Neon Purple
-            Color.decode("#ff00ff"), // Neon Magenta
-            Color.decode("#ffff00"), // Neon Yellow
-            Color.decode("#ffb700")  // Neon Amber
-        };
-
         //Színek négyzetek létrehozása
-        for (Color color : colors) {
+        for (Color color : COLORS) {
             JPanel colorSquare = new JPanel();
             colorSquare.setPreferredSize(new Dimension(24, 24));
             colorSquare.setBackground(color);
@@ -416,10 +413,6 @@ public class PlayerPanel extends JPanel {
      * @return a játékos színe
      */
     public Color getColor() {
-        if (color == null) {
-            int index = (int) (Math.random() * colors.length);
-            color = colors[index];
-        }
         return color;
     }
 

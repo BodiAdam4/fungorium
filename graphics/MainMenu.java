@@ -7,7 +7,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.swing.BorderFactory;
@@ -226,6 +229,40 @@ public class MainMenu extends JPanel {
                 System.out.println("Player color: " + playerPanel.getColor() + " player name: " + playerPanel.getName() + " is insectPicker? " + playerPanel.isInsect());
             });
             //System.out.println("Enter the game button clicked!");
+
+            //################################[Ne lehessen azonos színt választani]############################################
+            //1. Gyűjtsük ki az összes kiválasztott színt
+            Set<Color> usedColors = new HashSet<>();
+            for (PlayerPanel pPanel : playerPanels) {
+                Color selected = pPanel.getColor();
+                if (selected != null) {
+                    usedColors.add(selected);
+                }
+            }
+
+            //2. Maradék színek meghatározása
+            List<Color> availableColors = new ArrayList<>();
+            for (Color color : PlayerPanel.COLORS) {
+                if (!usedColors.contains(color)) {
+                    availableColors.add(color);
+                }
+            }
+            Collections.shuffle(availableColors); // randomizálás
+
+            //3. Színek kiosztása azoknak, akiknek nincs beállítva
+            for (PlayerPanel pPanel : playerPanels) {
+                if (pPanel.getColor() == null) {
+                    if (!availableColors.isEmpty()) {
+                        Color randomColor = availableColors.remove(0);
+                        pPanel.setColor(randomColor);
+                    } else {
+                        // Ha elfogytak a színek, beállíthatunk egy default színt vagy hibaüzenetet
+                        showCustomErrorDialog(this, "There aren't enough colors for all the players!");
+                        return;
+                    }
+                }
+            }
+            //############################################################################
 
             //Amennyiben nincs legalább 2 gombász és 2 rovarász, akkor hibaüzenetet adunk
             long insectPlayerCount = playerPanels.stream().filter(PlayerPanel::isInsect).count();
