@@ -27,7 +27,7 @@ public class Controller {
 
     private ObjectChangeListener objectChangeListener;
     private List<ObjectChangeListener> objectListeners = new ArrayList<>();
-    private List<JobListener> jobListeners = new ArrayList<>();
+    private static List<JobListener> jobListeners = new ArrayList<>();
     private List<ControlListener> controlListeners = new ArrayList<>();
     private List<ResultListener> resultListeners = new ArrayList<>();
 
@@ -454,6 +454,9 @@ public class Controller {
                         return "/move " + getInsectId(insect) + " " + toId;
                     }
                 }
+                for(JobListener jobListener : jobListeners){
+                    jobListener.jobFailed("There is no insect on the selected tecton!");
+                }
                 return "Hiba";
             case "/eat-spore":
                 //Megkeressük a kivalasztott tektonban az aktuális játékos rovarját
@@ -461,6 +464,9 @@ public class Controller {
                     if(insect.getInsectId() == player.getPlayerId()){
                         return "/eat-spore " + getInsectId(insect);
                     }
+                }
+                for(JobListener jobListener : jobListeners){
+                    jobListener.jobFailed("There is no insect on the selected tecton!");
                 }
                 return "Hiba";
             case "/cut-line":
@@ -470,12 +476,18 @@ public class Controller {
                     }
                 }
                 if(insectId == null){
+                    for(JobListener jobListener : jobListeners){
+                        jobListener.jobFailed("There is no insect on the selected tecton!");
+                    }
                     return "Hiba";
                 }
                 for(Line line : from.getConnections()){
                     if((line.getEnds()[0] == from && line.getEnds()[1] == to) || (line.getEnds()[0] == to && line.getEnds()[1] == from)){
                         return "/cut-line " + insectId + " " + getLineId(line);
                     }
+                }
+                for(JobListener jobListener : jobListeners){
+                    jobListener.jobFailed("There is no line on the selected tecton!");
                 }     
                 return "Hiba";
             case "/grow-line":
@@ -484,6 +496,9 @@ public class Controller {
                 return "/build-mushroom " + fromId;
             case "/throw-spore":
                 if(from.getMyMushroom() == null){
+                    for(JobListener jobListener : jobListeners){
+                        jobListener.jobFailed("There is no mushroom on the selected tecton!");
+                    }
                     return "Hiba";
                 }
                 return "/throw-spore " + getMushroomId(from.getMyMushroom())+ " " + toId;    
@@ -494,6 +509,9 @@ public class Controller {
                     }
                 }
                 if(insectId == null){
+                    for(JobListener jobListener : jobListeners){
+                        jobListener.jobFailed("There is no insect on the selected tecton!");
+                    }
                     return "Hiba";
                 }
                 for(Line line : from.getConnections()){
@@ -502,6 +520,9 @@ public class Controller {
                     }
                 }
                 if(lineId == null){
+                    for(JobListener jobListener : jobListeners){
+                        jobListener.jobFailed("There is no line on the selected tecton!");
+                    }
                     return "Hiba";
                 }
                 return "/eat-insect " + insectId + " " + lineId;    
