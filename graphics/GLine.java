@@ -7,12 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.geom.QuadCurve2D;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import listeners.LineListener;
 import model.Line;
@@ -29,10 +25,6 @@ public class GLine extends JPanel implements LineListener
      * A gombatesthez tartozó azonosító, amely alapján meg lehet találni a kontrollerben.
      */
     public String id;                   
-    
-    public BufferedImage lineMiddle;
-    public BufferedImage endCapStart;
-    public BufferedImage endCapEnd;
 
     public Point startPoint;
     public Point endPoint;
@@ -66,13 +58,6 @@ public class GLine extends JPanel implements LineListener
         setBackground(new Color(0, 0, 0, 0));
         setOpaque(false);
         setBackground(Color.WHITE);
-        try {
-            lineMiddle = ImageIO.read(new File("graphics\\images\\LineMiddle.png"));
-            endCapStart = ImageIO.read(new File("graphics\\images\\LineLeft.png"));
-            endCapEnd = ImageIO.read(new File("graphics\\images\\LineRight.png"));
-        } catch (IOException e) {
-            System.err.println("Line image not found");
-        }
     }
 
 
