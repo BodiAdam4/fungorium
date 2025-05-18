@@ -168,7 +168,19 @@ public class InsectPicker extends Player {
     }
 
     public boolean canPlay(){
-        return getInsect().size() > 0;
+        List<Insect> insectList = getInsect();
+
+        if (insectList.size() == 0)
+            return  false;
+
+        boolean move = false;
+        for (Insect i : insectList) {
+            if (i.getTecton().getConnections().size() > 0) {
+                move = true;
+            }
+        }
+
+        return move;
     }
 
 }
