@@ -175,7 +175,7 @@ public class InsectPicker extends Player {
 
         boolean move = false;
         for (Insect i : insectList) {
-            if (i.getTecton().getConnections().size() > 0) {
+            if (i.getTecton().getConnections().size() > 0 || i.getTecton().getSporeContainer().getSporeCount() > 0) {
                 move = true;
             }
         }
