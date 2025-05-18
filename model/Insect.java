@@ -269,6 +269,9 @@ public class Insect {
         }
 
         if(count > currentTecton.getSporeContainer().getSporeCount()){
+            for (JobListener listener : jobListeners) {
+                listener.jobFailed("No spores on the selected tecton!");
+            }
             return 0;
         }
         Spore[] selected = currentTecton.getSporeContainer().popSpores(count);
