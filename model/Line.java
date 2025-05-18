@@ -112,7 +112,7 @@ public class Line
 
 
     /**
-     * Értesíti a fonalakat a gombatest hiányáról.
+     * Értesíti a fonalakat a gombatest hiányáról vagy meglétéről.
      * Ez a függvény a vezérlővel lesz erősebb kapcsolatban
      * @param alive üzenet
      * @param checkList az eddig megvizsgált fonalak listája

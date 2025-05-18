@@ -40,6 +40,8 @@ public class TectonKeepAlive extends Tecton {
 
     /**
      * A tekton két tektonra törése
+     * A kiinduló tektonról elttűnnek a gombafonalak.
+     * Az újonnan létrejöttt tekton típusa megegyezik a kiinduló tekton tíőusával.
      */
     public void breakTecton(){
         List<Tecton> ng = getNeighbors();

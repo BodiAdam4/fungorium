@@ -65,7 +65,6 @@ public class Insect {
 
     /**
      * Lekéri a rovar azaonosítóját.
-     *
      * @return rovarazonosító.
      */
     public int getInsectId() {
@@ -82,7 +81,6 @@ public class Insect {
 
     /**
      * Beállítja a rovar sebességét.
-     *
      * @param speed az új sebesség értéke
      */
     public void setSpeed(int speed) {
@@ -91,7 +89,6 @@ public class Insect {
 
     /**
      * Lekéri a rovar jelenlegi Tectonját.
-     *
      * @return a jelenlegi Tecton
      */
     public Tecton getTecton() {
@@ -100,7 +97,6 @@ public class Insect {
 
     /**
      * Beállítja a rovar Tectonját.
-     *
      * @param t az új Tecton
      */
     public void setTecton(Tecton t) {
@@ -109,7 +105,6 @@ public class Insect {
 
     /**
      * Lekéri a rovar sebességét.
-     *
      * @return a jelenlegi sebesség értéke
      */
     public int getSpeed() {
@@ -118,7 +113,6 @@ public class Insect {
 
     /**
      * Beállítja, hogy a rovar tud-e vágni.
-     *
      * @param canCut igaz, ha a rovar tud vágni, egyébként hamis
      */
     public void setCanCut(boolean canCut) {
@@ -127,7 +121,6 @@ public class Insect {
 
     /**
      * Ellenőrzi, hogy a rovar tud-e vágni.
-     *
      * @return igaz, ha a rovar tud vágni, egyébként hamis
      */
     public boolean getCanCut() {
@@ -136,7 +129,6 @@ public class Insect {
 
     /**
      * Beállítja, hogy a rovar tud-e mozogni.
-     *
      * @param canMove igaz, ha a rovar tud mozogni, egyébként hamis
      */
     public void setCanMove(boolean canMove) {
@@ -145,7 +137,6 @@ public class Insect {
 
     /**
      * Ellenőrzi, hogy a rovar tud-e mozogni.
-     *
      * @return igaz, ha a rovar tud mozogni, egyébként hamis
      */
     public boolean getCanMove() {
@@ -347,6 +338,9 @@ public class Insect {
     }
     
 
+    /**
+     * Rovar megsemmisítése.
+     */
     public void destroy(){
         currentTecton.removeInsect(this);
         changeListener.insectChanged(ObjectChangeEvent.OBJECT_REMOVED, this);

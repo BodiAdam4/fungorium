@@ -3,6 +3,9 @@ package userinterface;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Véletlen szám generálásáért felelős osztály
+ */
 public class RandTools {
     private static int fixRandom;
     private static boolean active;

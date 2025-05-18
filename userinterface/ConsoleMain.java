@@ -4,6 +4,9 @@ import controller.Controller;
 import java.io.BufferedInputStream;
 import java.util.Scanner;
 
+/**
+ * Belépési pont konzolos futtatás esetén.
+ */
 public class ConsoleMain {
 
     /* - Belépési pont (main)*/
