@@ -8,20 +8,26 @@ import model.Line;
 import model.Mushroom;
 import model.Tecton;
 
+/**
+ * Gombászokat megvalósító osztály
+ */
 public class MushroomPicker extends Player {
     /* - Privát attribútumok*/
     private int score = 0;
 
-    
-    // A gombász által végrehajtható akciók figyelésére szolgáló lista, ha egy akció már megtörtént, akkor nem hajtható végre újra az új körig
-    // 0: growLine, 1: growBody, 2: throwSpores
+    /**
+     * A gombász által végrehajtható akciók figyelésére szolgáló lista, ha egy akció már megtörtént, akkor nem hajtható végre újra az új körig
+     * 0: growLine, 1: growBody, 2: throwSpores
+     */
     private Boolean[] actions = new Boolean[]{false, false, false, false}; 
 
 
     /* - Publikus attribútumok*/
     /* - Konstruktorok*/
 
-    //Konstruktor
+    /**
+     * Konstruktor
+     */ 
     public MushroomPicker(String displayName, Controller controller) {
         super(displayName, controller);
     }
@@ -75,7 +81,13 @@ public class MushroomPicker extends Player {
         actions[3] = false;
     }
 
-    //GrowLine metódus a gombafonal növesztésére
+    
+    /**
+     * GrowLine metódus a gombafonal növesztésére
+     * @param from a kiinduló tekton
+     * @param to a cél tekton
+     * @return a művelet sikeressége
+     */
     public boolean growLine(Tecton from, Tecton to){
         if (actions[0]) {
             System.out.println("Mushroom has already grown a line this turn!");
@@ -109,7 +121,6 @@ public class MushroomPicker extends Player {
 
     /**
      * Megpróbáljuk kinöveszteni a gombatestet a megadott tektonon.
-     *
      * @param tecton a Tecton, ahol a gombatestet növeszteni szeretnénk
      * @return igaz, ha a növesztés sikeres volt, különben hamis      
      * */
@@ -190,7 +201,6 @@ public class MushroomPicker extends Player {
 
     /**
      * Megpróbálunk elfogyasztani egy fagyasztott állapotban lévő rovart.
-     *
      * @param insect az Insect, amelyet el szeretnénk fogyasztani
      * @return igaz, ha a rovar sikeresen elfogyasztva, különben hamis
      */
@@ -232,6 +242,10 @@ public class MushroomPicker extends Player {
         return false;
     }
 
+    /**
+     * Játszhat-e a gombász ebben a körben
+     * @return ha nem tud semmilyen pararncsot kiadni, akkor hamis
+     */
     public boolean canPlay(){
         int lineCount = getLines().size();
         int mushroomCount = getMushrooms().size();

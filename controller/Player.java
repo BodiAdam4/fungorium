@@ -3,6 +3,10 @@ package controller;
 import java.util.List;
 import listeners.JobListener;
 
+
+/**
+ * Játékosok ősosztálya
+ */
 public class Player {
     /* - Privát attribútumok*/
     private int playerId;

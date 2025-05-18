@@ -7,17 +7,28 @@ import model.Insect;
 import model.Line;
 import model.Tecton;
 
+
+/**
+ * Rovarászokat megvalósító osztály
+ */
 public class InsectPicker extends Player {
     /* - Privát attribútumok*/
-    
-    // A rovarokhoz tartozó akciók figyelésére szolgáló lista, ha egy akció már megtörtént, akkor nem hajtható végre újra az új körig
-    // 0: move, 1: cutLine, 2: eatSpore, 3: alreadyCut
+
+    /**
+     * A rovarokhoz tartozó akciók figyelésére szolgáló lista, ha egy akció már megtörtént, akkor nem hajtható végre újra az új körig
+     * 0: move, 1: cutLine, 2: eatSpore, 3: alreadyCut
+     */
     private HashMap<Insect, Boolean[]> insectActions = new HashMap<>();
 
     /* - Publikus attribútumok*/
     /* - Konstruktorok*/
 
     //Konstruktor
+    /**
+     * Konstruktor
+     * @param displayName
+     * @param controller
+     */
     public InsectPicker(String displayName, Controller controller) {
         super(displayName, controller);
     }
@@ -69,7 +80,6 @@ public class InsectPicker extends Player {
     /**
      * Megpróbálja elvágni a megadott fonalat egy adott rovarral.
      * Csak akkor történik meg a vágás, ha a rovar a rovarászhoz tartozik.
-     *
      * @param toCut Az elvágandó fonál
      * @param insect A rovar
      * @return igaz, ha a vágás sikeres volt, különben hamis
@@ -102,7 +112,6 @@ public class InsectPicker extends Player {
     /**
      * Egy rovar megpróbál megenni egy spórát.
      * Csak akkor hajtódik végre, ha az adott insect a rovarászhoz tartozik.
-     *
      * @param insect az a rovar, amely megpróbál spórát enni
      * @return igaz, ha sikerült egy spórát megenni, különben hamis
     */
@@ -167,6 +176,11 @@ public class InsectPicker extends Player {
         return false;
     }
 
+
+    /**
+     * Játszhat-e a rovarász ebben a körben
+     * @return ha nem tud semmilyen pararncsot kiadni, akkor hamis
+     */
     public boolean canPlay(){
         List<Insect> insectList = getInsect();
 

@@ -14,6 +14,10 @@ import model.Tecton;
 import model.Timer;
 import userinterface.RandTools;
 
+
+/**
+ * A parancsok kiértékeléséért felelős osztály.
+ */
 public class Controller {
     /* - Privát attribútumok*/
     private static HashMap<String, Mushroom> allMushroom;
@@ -35,7 +39,9 @@ public class Controller {
 
     /* - Konstruktorok*/
 
-    //Konstruktor
+    /**
+     * Konstruktor
+     */
     public Controller(){
         this.allMushroom = new HashMap<>();
         this.allLine = new HashMap<>();
@@ -85,6 +91,10 @@ public class Controller {
         setTiming();
     }
 
+
+    /**
+     * Időzítő beállítása
+     */
     public void setTiming() {
         
         Timer.addRepeatSchedule(new Schedule() {
@@ -127,10 +137,23 @@ public class Controller {
         }, 1);
     }
 
+    /**
+     * Játék elkezdése
+     * @param mushroomPickerCount gombászok száma
+     * @param insectPickerCount rovarászok száma
+     * @param askName kell-e neveket lekérdezni
+     */
     public void StartGame(int mushroomPickerCount, int insectPickerCount, boolean askName) {
         playerHandler = new PlayerHandler(mushroomPickerCount, insectPickerCount, this, askName);
     }
 
+
+    /**
+     * Játék elkezdése
+     * @param mushroomPickerCount gombászok száma
+     * @param insectPickerCount rovarászok száma
+     * @param playerNames Játékosok nevei
+     */
     public void StartGame(int mushroomPickerCount, int insectPickerCount, List<String> playerNames) {
         playerHandler = new PlayerHandler(mushroomPickerCount, insectPickerCount, this, playerNames);
     }
@@ -176,6 +199,11 @@ public class Controller {
     }
 
 
+    /**
+     * Gombatest hozzáadása a játékhoz
+     * @param id gombatetst azonosítója
+     * @param mushroom az adott gomba
+     */
     public void addMushroom(String id, Mushroom mushroom) {
         if (allMushroom.containsKey(id)) {
             System.out.println("Mushroom with this ID already exists.");
@@ -221,6 +249,11 @@ public class Controller {
     }
 
 
+    /**
+     * Gombafonal hozzáadása a játékhoz
+     * @param id gombafonal azonosítója
+     * @param mushroom az adott gomba
+     */
     public void addLine(String id, Line line) {
         if (allLine.containsKey(id)) {
             System.out.println("Line with this ID already exists.");
@@ -250,10 +283,19 @@ public class Controller {
         return allLine.get(id);
     }
 
+
+    /**
+     * Körök számának beállítása
+     * @param maxRound körök száma
+     */
     public void setMaxRound(int maxRound) {
         this.maxRound = maxRound;
     }
 
+
+    /**
+     * Áttérés a következő körre
+     */
     public void nextRound() {
         round++;
         Timer.forwardTime();
@@ -263,6 +305,10 @@ public class Controller {
         }
     }
 
+
+    /**
+     * Játék végeés a pontszámok kiértékelése
+     */
     public void endGame() {
         System.out.println("Game ended!");
         System.out.println(playerHandler.getWinner());
@@ -318,6 +364,11 @@ public class Controller {
     }
 
 
+    /**
+     * Rovar hozzáadása a játékhoz
+     * @param id rovar azonosítója
+     * @param mushroom az adott gomba
+     */
     public void addInsect(String id, Insect insect) {
         if (allInsect.containsKey(id)) {
             System.out.println("Insect with this ID already exists.");
@@ -363,6 +414,11 @@ public class Controller {
     }
 
 
+    /**
+     * Tekton hozzáadása a játékhoz
+     * @param id tekton azonosítója
+     * @param mushroom az adott gomba
+     */
     public void addTecton(String id, Tecton tecton) {
         if (allTecton.containsKey(id)) {
             System.out.println("Tecton with this ID already exists.");
@@ -405,6 +461,11 @@ public class Controller {
         return playerHandler;
     }
 
+
+    /**
+     * A játék resetelése.
+     * Törlődik minden játékelem.
+     */
     public void HardReset() {
         allMushroom.clear();
         allLine.clear();
@@ -419,9 +480,13 @@ public class Controller {
         RandTools.resetFix();
     }
 
+
     /**
      * Parancsok lefordítása a CommandProcessor számára.
      * A GrapicController által használt "gombnyomásokat" és kijelölt tektonokar a CommandProcessor számára érthető formátumra alakítja.
+     * @param cmd a parancs
+     * @param tectons a tektonok, amikből a paraméterreket kapjuk
+     * @return a parancs teljes szövege
      */
     public static String translateCommand(String cmd, Tecton[] tectons){
         //A kivalasztott tektonok

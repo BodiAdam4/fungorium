@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Scanner;
 import listeners.ControlListener;
 
+/**
+ * Játékosokatt kezelő osztály
+ */
 public class PlayerHandler {
     /* - Privát attribútumok*/
     private List<MushroomPicker> mushroomPickers;
@@ -15,7 +18,6 @@ public class PlayerHandler {
     private int actualPlayerIdx = 0;
     private int round = 1;
     
-
     private String askName(String msg){
         System.out.print(msg);
         
@@ -23,6 +25,14 @@ public class PlayerHandler {
         return scanner.nextLine();
     }
 
+
+    /**
+     * Konstruktor
+     * @param mushroomPickerCount
+     * @param insectPickerCount
+     * @param ctrl
+     * @param askName
+     */
     public PlayerHandler(int mushroomPickerCount, int insectPickerCount, Controller ctrl, boolean askName) {
         this.mushroomPickers = new ArrayList<>();
         this.insectPickers = new ArrayList<>();
@@ -54,6 +64,13 @@ public class PlayerHandler {
         controller.setGameRunning(true);
     }
 
+    /**
+     * Konstruktor
+     * @param mushroomPickerCount
+     * @param insectPickerCount
+     * @param ctrl
+     * @param playerNames
+     */
     public PlayerHandler(int mushroomPickerCount, int insectPickerCount, Controller ctrl, List<String> playerNames) {
         this.mushroomPickers = new ArrayList<>();
         this.insectPickers = new ArrayList<>();
@@ -128,8 +145,8 @@ public class PlayerHandler {
     }
 
     /**
-     * Ha a visszatérési érték true, akkor a játékos gombász, ha false, akkor rovarász.
-     * @return
+     * Megnézi, hogy milyen típusú az aktuális játékos
+     * @return Ha a visszatérési érték true, akkor a játékos gombász, ha false, akkor rovarász.
      */
     public boolean actualPlayerIsMushroomPicker() {
         return actualPlayerIdx < mushroomPickers.size();
